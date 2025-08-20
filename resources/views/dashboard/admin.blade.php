@@ -69,7 +69,7 @@
                     <option>2025</option>
                 </select>
             </div>
-            <canvas id="salesChart" height="150"></canvas>
+            <canvas id="salesChart" height="200"></canvas>
         </div>
 
         <!-- Student Progress -->
