@@ -9,7 +9,7 @@
                     👨‍🏫
                 </div>
                 <div>
-                    <p class="text-sm text-gray-500">Total Personal Packages</p>
+                    <p class="text-sm text-gray-500">Total Available Classes</p>
                     <h3 class="text-2xl font-bold text-gray-800">8</h3>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     👩‍🏫
                 </div>
                 <div>
-                    <p class="text-sm text-gray-500">Total Tutors</p>
+                    <p class="text-sm text-gray-500">Total Full Classes</p>
                     <h3 class="text-2xl font-bold text-gray-800">5</h3>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     📘
                 </div>
                 <div>
-                    <p class="text-sm text-gray-500">Total Group Packages</p>
+                    <p class="text-sm text-gray-500">Total Classes</p>
                     <h3 class="text-2xl font-bold text-gray-800">2</h3>
                 </div>
             </div>
@@ -37,7 +37,7 @@
         <!-- Right Stats -->
         <div class="lg:col-span-2 bg-white rounded-2xl shadow p-4 flex flex-col">
             <!-- Title -->
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Number of Class</h2>
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Number of Classes</h2>
 
             <!-- Content: legend kiri, chart kanan -->
             <div class="flex items-center justify-between ml-12 mx-5">
@@ -51,7 +51,7 @@
 
                     <!-- Center text -->
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                        <p class="text-sm text-gray-500">Total Class</p>
+                        <p class="text-sm text-gray-500">Total Classes</p>
                         <p class="text-2xl font-bold">24</p>
                     </div>
                 </div>
@@ -121,17 +121,17 @@
     </script>
 
 
-    <!-- Packages List -->
+    <!-- Classes List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Packages</h2>
-                <p class="text-sm text-gray-500">Manage your packages: add new, search, filter, edit, or delete.</p>
+                <h2 class="text-lg font-semibold">List of Classes</h2>
+                <p class="text-sm text-gray-500">Manage your classes: add new, search, filter, edit, or delete.</p>
             </div>
-            <button data-modal-target="addPackageModal" data-modal-toggle="addPackageModal"
+            <button data-modal-target="addClassModal" data-modal-toggle="addClassModal"
                 class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                + Add New Package
+                + Add New Class
             </button>
 
         </div>
@@ -150,9 +150,9 @@
             </div>
             <!-- Filter -->
             <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Type</option>
-                <option value="active">Personal</option>
-                <option value="inactive">Group</option>
+                <option value="">Status</option>
+                <option value="full">Full</option>
+                <option value="available">Available</option>
             </select>
         </div>
 
@@ -161,25 +161,29 @@
             <table class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">Package ID</th>
-                        <th class="px-4 py-3">Package Name</th>
-                        <th class="px-4 py-3">Package Type</th>
-                        <th class="px-4 py-3">Package Rate</th>
-                        <th class="px-4 py-3">Unit</th>
-                        <th class="px-4 py-3">No. of Student</th>
-                        <th class="px-4 py-3">Class Duration</th>
+                        <th class="px-4 py-3">No</th>
+                        <th class="px-4 py-3">Class Name</th>
+                        <th class="px-4 py-3">Room</th>
+                        <th class="px-4 py-3">Day</th>
+                        <th class="px-4 py-3">Start Time</th>
+                        <th class="px-4 py-3">End Time</th>
+                        <th class="px-4 py-3">Tutor Name</th>
+                        <th class="px-4 py-3">Status</th>
                         <th class="px-4 py-3 text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="border-b">
-                        <td class="px-4 py-3">PC001</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">An-Nur Lite</td>
-                        <td class="px-4 py-3">Personal</td>
-                        <td class="px-4 py-3">RM25.00</td>
-                        <td class="px-4 py-3">Per Session</td>
-                        <td class="px-4 py-3">29</td>
-                        <td class="px-4 py-3">30 minutes</td>
+                        <td class="px-4 py-3">1</td>
+                        <td class="px-4 py-3 font-medium text-gray-900">Mon-20-K1</td>
+                        <td class="px-4 py-3">Kelas 1</td>
+                        <td class="px-4 py-3">Monday</td>
+                        <td class="px-4 py-3">20:00:00</td>
+                        <td class="px-4 py-3">21:00:00</td>
+                        <td class="px-4 py-3">Ustaz Aamir</td>
+                        <td class="px-4 py-3">
+                            <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Available</span>
+                        </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
                             <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
@@ -188,13 +192,16 @@
                     </tr>
 
                     <tr class="border-b">
-                        <td class="px-4 py-3">PC002</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">An-Nur Plus</td>
-                        <td class="px-4 py-3">Group</td>
-                        <td class="px-4 py-3">RM100.00</td>
-                        <td class="px-4 py-3">Per month</td>
-                        <td class="px-4 py-3">30</td>
-                        <td class="px-4 py-3">1 hour</td>
+                        <td class="px-4 py-3">2</td>
+                        <td class="px-4 py-3 font-medium text-gray-900">Tue-21-K4</td>
+                        <td class="px-4 py-3">Kelas 4</td>
+                        <td class="px-4 py-3">Tuesday</td>
+                        <td class="px-4 py-3">21:00:00</td>
+                        <td class="px-4 py-3">22:00:00</td>
+                        <td class="px-4 py-3">Ustazah Husniah</td>
+                        <td class="px-4 py-3">
+                            <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Full</span>
+                        </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
                             <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
@@ -227,7 +234,7 @@
     </div>
 
     <!-- Add New Package Modal -->
-    <div id="addPackageModal" tabindex="-1" aria-hidden="true"
+    <div id="addClassModal" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
         <div class="relative bg-white rounded-lg shadow w-full max-w-lg">
 
@@ -236,7 +243,7 @@
                 <h3 class="text-lg font-semibold text-gray-900">
                     Add New Package
                 </h3>
-                <button type="button" data-modal-hide="addPackageModal"
+                <button type="button" data-modal-hide="addClassModal"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
                     ✕
                 </button>
@@ -246,21 +253,21 @@
             <form class="p-6 space-y-4">
                 <!-- Full Name -->
                 <div>
-                    <label for="packageName" class="block mb-1 text-sm font-medium text-gray-700">Package Name</label>
-                    <input type="text" id="packageName" name="packageName"
+                    <label for="className" class="block mb-1 text-sm font-medium text-gray-700">Package Name</label>
+                    <input type="text" id="className" name="className"
                         class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400"
                         placeholder="Enter full name" required />
                 </div>
 
                 <!-- Modal footer -->
                 <div class="flex items-center justify-end gap-3 pt-4 border-t">
-                    <button type="button" data-modal-hide="addPackageModal"
+                    <button type="button" data-modal-hide="addClassModal"
                         class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100">
                         Cancel
                     </button>
                     <button type="submit"
                         class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                        Save Package
+                        Save Class
                     </button>
                 </div>
             </form>
