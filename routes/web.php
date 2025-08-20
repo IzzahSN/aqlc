@@ -36,7 +36,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/notification', fn() => view('admin.notification.index'))->name('notification');
 
-    Route::get('/setting', fn() => view('admin.settings'))->name('setting');
+    Route::get('/profile', fn() => view('admin.profile'))->name('profile');
 });
 
 // =======================
