@@ -73,7 +73,7 @@
         </div>
 
         <!-- Student Progress -->
-        <div class="bg-white p-4 rounded-xl shadow">
+        <div class="bg-white p-4 rounded-xl shadow flex flex-col">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="font-semibold">Student Progress</h3>
                 <select class="text-sm border rounded-lg px-3 py-1">
@@ -82,7 +82,17 @@
                     <option>2025</option>
                 </select>
             </div>
-            <canvas id="progressChart" height="150"></canvas>
+
+            <!-- Chart & Legend -->
+            <div class="flex items-center justify-between">
+                <!-- Pie Chart -->
+                <div class="relative w-64 h-64">
+                    <canvas id="progressChart"></canvas>
+                </div>
+
+                <!-- Custom Legend -->
+                <div id="progressLegend" class="ml-6 space-y-2"></div>
+            </div>
         </div>
     </div>
 
@@ -106,7 +116,8 @@
         });
 
         // Student Progress Chart
-        new Chart(document.getElementById('progressChart'), {
+        const progressCtx = document.getElementById('progressChart');
+        const progressChart = new Chart(progressCtx, {
             type: 'pie',
             data: {
                 labels: ['Iqra’ 1', 'Iqra’ 2', 'Iqra’ 3', 'Iqra’ 4', 'Iqra’ 5', 'Iqra’ 6', 'Quran'],
@@ -117,7 +128,31 @@
                         '#ef4444', '#f97316', '#22c55e', '#eab308'
                     ]
                 }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    } // hide default legend
+                }
             }
+        });
+
+        // Generate Custom Legend
+        const progressLegend = document.getElementById('progressLegend');
+        progressChart.data.labels.forEach((label, index) => {
+            const color = progressChart.data.datasets[0].backgroundColor[index];
+            const value = progressChart.data.datasets[0].data[index];
+
+            const item = document.createElement('div');
+            item.classList.add('flex', 'items-center', 'space-x-2', 'text-sm');
+
+            item.innerHTML = `
+            <span class="w-4 h-4 rounded-full" style="background-color:${color}"></span>
+            <span class="font-medium text-gray-700">${label}</span>
+            <span class="text-gray-500">(${value})</span>
+        `;
+            progressLegend.appendChild(item);
         });
     </script>
 
