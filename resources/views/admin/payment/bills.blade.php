@@ -33,7 +33,7 @@
                     <option>2025</option>
                 </select>
             </div>
-            <canvas id="salesChart" height="200"></canvas>
+            <canvas id="salesChart" height="180"></canvas>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>

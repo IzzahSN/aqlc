@@ -22,6 +22,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', fn() => view('dashboard.admin'))->name('dashboard');
 
     Route::get('/student', fn() => view('admin.record.student'))->name('student');
+    Route::get('/student/report', fn() => view('admin.record.student_report'))->name('student.report');
+
     Route::get('/guardian', fn() => view('admin.record.guardian'))->name('guardian');
     Route::get('/tutor', fn() => view('admin.record.tutor'))->name('tutor');
 
