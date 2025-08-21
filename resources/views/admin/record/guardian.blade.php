@@ -84,7 +84,7 @@
                             <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editGuardianModal" data-modal-toggle="editGuardianModal">Edit</button>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
                     </tr>
@@ -99,7 +99,7 @@
                             <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Inactive</span>
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editGuardianModal" data-modal-toggle="editGuardianModal">Edit</button>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
                     </tr>
@@ -128,42 +128,229 @@
         </div>
     </div>
 
-    <!-- Add New Guardian Modal -->
-    <div id="addGuardianModal" tabindex="-1" aria-hidden="true"
-        class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative bg-white rounded-lg shadow w-full max-w-lg">
-
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Add New Guardian
-                </h3>
-                <button type="button" data-modal-hide="addGuardianModal"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
-                    ✕
-                </button>
+    <!-- Add Guardian Modal -->
+    <div id="addGuardianModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Guardian</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addGuardianModal">✕</button>
             </div>
 
-            <!-- Modal body -->
-            <form class="p-6 space-y-4">
-                <!-- Full Name -->
-                <div>
-                    <label for="guardianName" class="block mb-1 text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" id="guardianName" name="guardianName"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400"
-                        placeholder="Enter full name" required />
+            <!-- Modal Body -->
+            <form id="guardianForm">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- First Name -->
+                        <div>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div>
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                            <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- IC Number -->
+                        <div>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                            <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Age -->
+                        <div>
+                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Birth Date -->
+                        <div>
+                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Gender -->
+                        <div>
+                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                            <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <!-- Role -->
+                        <div>
+                            <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                            <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Role</option>
+                                <option value="father">Father</option>
+                                <option value="mother">Mother</option>
+                            </select>
+                        </div>
+                        <!-- Status -->
+                        <div>
+                            <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                            <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <!-- Children -->
+                        <div>
+                            <label for="child" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
+                            <select id="child" name="child[]" multiple
+                                class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
+                                <option value="1">Muhammad Azhar</option>
+                                <option value="2">Nurul Jannah</option>
+                                <option value="3">Ahmad Salleh</option>
+                            </select>
+                        </div>
+
+                        <script>
+                            new TomSelect("#child", {
+                                plugins: ['remove_button'], // ada button x untuk buang tag
+                                create: false, // kalau true, user boleh tambah value baru
+                                persist: false,
+                            });
+                        </script>
+                    </div>
+
+                    <!-- Address (full width) -->
+                    <div class="mt-6">
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                    </div>
                 </div>
 
-                <!-- Modal footer -->
-                <div class="flex items-center justify-end gap-3 pt-4 border-t">
-                    <button type="button" data-modal-hide="addGuardianModal"
-                        class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                        class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                        Save Guardian
-                    </button>
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addGuardianModal">Cancel</button>
+
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Guardian Modal -->
+    <div id="editGuardianModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Guardian</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editGuardianModal">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <form id="guardianFormEdit">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- First Name -->
+                        <div>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div>
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                            <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- IC Number -->
+                        <div>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                            <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Age -->
+                        <div>
+                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Birth Date -->
+                        <div>
+                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Gender -->
+                        <div>
+                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                            <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <!-- Role -->
+                        <div>
+                            <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                            <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Role</option>
+                                <option value="father">Father</option>
+                                <option value="mother">Mother</option>
+                            </select>
+                        </div>
+                        <!-- Status -->
+                        <div>
+                            <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                            <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <!-- Children -->
+                        <div>
+                            <label for="child_edit" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
+                            <select id="child_edit" name="child_edit[]" multiple
+                                class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
+                                <option value="1">Muhammad Azhar</option>
+                                <option value="2">Nurul Jannah</option>
+                                <option value="3">Ahmad Salleh</option>
+                            </select>
+                        </div>
+
+                        <script>
+                            new TomSelect("#child_edit", {
+                                plugins: ['remove_button'], // ada button x untuk buang tag
+                                create: false, // kalau true, user boleh tambah value baru
+                                persist: false,
+                            });
+                        </script>
+                    </div>
+
+                    <!-- Address (full width) -->
+                    <div class="mt-6">
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editGuardianModal">Cancel</button>
+
+                    <button type="submit" id="submitFormEdit" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
                 </div>
             </form>
         </div>

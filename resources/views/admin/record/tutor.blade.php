@@ -130,14 +130,14 @@
         </div>
     </div>
 
-    <!-- Multi-step Add Student Modal -->
-    <div id="addTutorModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-black bg-opacity-50">
+    <!-- Multi-step Add Tutor Modal -->
+    <div id="addTutorModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
         <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
                 <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Tutor</h3>
-                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addStudentModal">✕</button>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addTutorModal">✕</button>
             </div>
 
             <!-- Progress Indicator -->
@@ -182,6 +182,12 @@
                                 <input type="text" id="username" name="username" placeholder="Ustaz Jazmy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                                <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
                             <!-- IC Number -->
                             <div>
                                 <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
@@ -209,7 +215,15 @@
                                     <option value="female">Female</option>
                                 </select>
                             </div>
-
+                            <!-- Role -->
+                            <div>
+                                <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                                <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="tutor">Tutor</option>
+                                </select>
+                            </div>
                             <!-- Status -->
                             <div>
                                 <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
@@ -258,7 +272,7 @@
                 </div>
 
                 <!-- Modal Footer -->
-                <div class="flex justify-between px-6 py-4 bg-gray-50 rounded-b-lg">
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
                     <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addTutorModal">Cancel</button>
 
                     <div class="flex gap-2">
@@ -306,7 +320,7 @@
     </script>
 
     <!-- Multi-step Edit Tutor Modal -->
-    <div id="editTutorModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-black bg-opacity-50">
+    <div id="editTutorModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
         <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
@@ -339,6 +353,12 @@
                                 <input type="text" id="username_edit" name="username_edit" placeholder="Ustaz Jazmy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
+                            <!-- Email -->
+                            <div>
+                                <label for="email_edit" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                                <input type="email_edit" id="email_edit" name="email_edit" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
                             <!-- IC Number -->
                             <div>
                                 <label for="ic_number_edit" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
@@ -366,6 +386,16 @@
                                     <option value="female">Female</option>
                                 </select>
                             </div>
+                            <!-- Role -->
+                            <div>
+                                <label for="role_edit" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                                <select id="role_edit" name="role_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="tutor">Tutor</option>
+                                </select>
+                            </div>
+
                             <!-- Status -->
                             <div>
                                 <label for="status_edit" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
@@ -412,7 +442,7 @@
                 </div>
 
                 <!-- Modal Footer -->
-                <div class="flex justify-between px-6 py-4 bg-gray-50 rounded-b-lg">
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
                     <button type="button"
                         class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300"
                         data-modal-hide="editTutorModal">Cancel</button>

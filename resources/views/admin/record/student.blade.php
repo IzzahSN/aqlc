@@ -134,7 +134,7 @@
     </div>
 
     <!-- Multi-step Add Student Modal -->
-    <div id="addStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-black bg-opacity-50">
+    <div id="addStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
         <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
@@ -208,6 +208,15 @@
                                     <option value="">Select Gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <!-- Status -->
+                            <div>
+                                <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                                <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
                                 </select>
                             </div>
                         </div>
@@ -340,7 +349,7 @@
                 </div>
 
                 <!-- Modal Footer -->
-                <div class="flex justify-between px-6 py-4 bg-gray-50 rounded-b-lg">
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
                     <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addStudentModal">Cancel</button>
 
                     <div class="flex gap-2">
@@ -388,7 +397,7 @@
     </script>
 
     <!-- Edit Student Modal -->
-    <div id="editStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-black bg-opacity-50">
+    <div id="editStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
         <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
@@ -458,6 +467,15 @@
                                     <option value="">Select Gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <!-- Status -->
+                            <div>
+                                <label for="status_edit" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                                <select id="status_edit" name="status_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
                                 </select>
                             </div>
                         </div>
@@ -563,7 +581,7 @@
                 </div>
 
                 <!-- Modal Footer -->
-                <div class="flex justify-between px-6 py-4 bg-gray-50 rounded-b-lg">
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
                     <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editStudentModal">Cancel</button>
 
                     <div class="flex gap-2">
