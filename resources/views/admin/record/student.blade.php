@@ -87,7 +87,7 @@
                             <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editStudentModal" data-modal-toggle="editStudentModal">Edit</button>
                             <a href="{{ route('admin.student.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
@@ -102,7 +102,8 @@
                             <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Inactive</span>
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
+                            <!-- Edit Button -->
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editStudentModal" data-modal-toggle="editStudentModal">Edit</button>
                             <a href="{{ route('admin.student.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
@@ -133,12 +134,11 @@
     </div>
 
     <!-- Multi-step Add Student Modal -->
-    <div id="addStudentModal" tabindex="-1" aria-hidden="true"
-        class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-black bg-opacity-50">
+    <div id="addStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-black bg-opacity-50">
         <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
-                <div class="w-6"></div> <!-- placeholder supaya tajuk betul² center -->
+                <div class="w-6"></div>
                 <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Student</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addStudentModal">✕</button>
             </div>
@@ -248,8 +248,30 @@
                             </div>
                             <div>
                                 <label for="join" class="block mb-2 text-sm font-medium text-gray-900">Class Joined</label>
-                                <input type="text" id="join" name="join" placeholder="Mon-2100-K1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <select id="join" name="join[]" multiple
+                                    class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
+                                    <option value="Mon-2100-K1">Mon-2100-K1</option>
+                                    <option value="Tue-2000-K2">Tue-2000-K2</option>
+                                    <option value="Wed-1930-K3">Wed-1930-K3</option>
+                                </select>
                             </div>
+
+                            <script>
+                                new TomSelect("#join", {
+                                    plugins: ['remove_button'],
+                                    maxItems: 2,
+                                    create: false,
+                                    persist: false,
+                                    render: {
+                                        item: function(data, escape) {
+                                            return `<div class="bg-green-100 text-green-800 text-xs font-medium mr-1 mb-1 px-2.5 py-1 rounded-md flex items-center">${escape(data.text)}</div>`;
+                                        },
+                                        option: function(data, escape) {
+                                            return `<div class="px-3 py-2 text-sm text-gray-900 hover:bg-green-50 cursor-pointer">${escape(data.text)}</div>`;
+                                        }
+                                    }
+                                });
+                            </script>
                         </div>
 
                         <!-- Available Classes Table -->
@@ -259,7 +281,7 @@
                                 <table class="w-full text-sm text-left text-gray-700">
                                     <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-semibold">
                                         <tr>
-                                            <th class="px-4 py-3"><input type="checkbox"></th>
+                                            <th class="px-4 py-3">No</th>
                                             <th class="px-4 py-3">Class Name</th>
                                             <th class="px-4 py-3">Room</th>
                                             <th class="px-4 py-3">Day</th>
@@ -271,7 +293,7 @@
                                     </thead>
                                     <tbody class="divide-y divide-gray-200">
                                         <tr>
-                                            <td class="px-4 py-3"><input type="checkbox"></td>
+                                            <td class="px-4 py-3">1</td>
                                             <td class="px-4 py-3">Kelas 1</td>
                                             <td class="px-4 py-3">PC003</td>
                                             <td class="px-4 py-3">Monday</td>
@@ -364,4 +386,227 @@
 
         updateSteps();
     </script>
+
+    <!-- Edit Student Modal -->
+    <div id="editStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-black bg-opacity-50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Student</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editStudentModal">✕</button>
+            </div>
+
+            <!-- Progress Indicator -->
+            <ol class="flex items-center w-full p-3 space-x-2 text-sm font-medium text-center text-gray-500 bg-white sm:text-base sm:p-4 sm:space-x-4 rtl:space-x-reverse">
+                <li class="flex items-center flex-1 justify-center step-indicator-edit active" data-step="1">
+                    <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">1</span>
+                    <span class="hidden sm:inline-flex sm:ms-1">Student Info</span>
+                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
+                    </svg>
+                </li>
+                <li class="flex items-center flex-1 justify-center step-indicator-edit" data-step="2">
+                    <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">2</span>
+                    <span class="hidden sm:inline-flex sm:ms-1">Package and Class</span>
+                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
+                    </svg>
+                </li>
+            </ol>
+
+            <!-- Modal Body -->
+            <form id="editStudentForm">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <!-- Step 1 -->
+                    <div class="step-content-edit" data-step="1">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                            <!-- First Name -->
+                            <div>
+                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                                <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div>
+                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- IC Number -->
+                            <div>
+                                <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                                <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Age -->
+                            <div>
+                                <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                                <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Birth Date -->
+                            <div>
+                                <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                                <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Gender -->
+                            <div>
+                                <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                                <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Address (full width) -->
+                        <div class="mt-6">
+                            <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                            <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-content-edit hidden" data-step="2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                            <div>
+                                <label for="id" class="block mb-2 text-sm font-medium text-gray-900">Package Name</label>
+                                <select id="id" name="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Package</option>
+                                    <option value="1">An-Nur Lite</option>
+                                    <option value="2">An-Nur Plus</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
+                                <input type="text" id="type" name="type" placeholder="group" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+                            <div>
+                                <label for="rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
+                                <input type="number" id="rate" name="rate" placeholder="100" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+                            <div>
+                                <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Unit</label>
+                                <input type="text" id="unit" name="unit" placeholder="Per month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+                            <div>
+                                <label for="duration" class="block mb-2 text-sm font-medium text-gray-900">Duration Per Session</label>
+                                <input type="text" id="duration" name="duration" placeholder="1 hour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+                            <div>
+                                <label for="join-edit" class="block mb-2 text-sm font-medium text-gray-900">Class Joined</label>
+                                <select id="join-edit" name="join-edit[]" multiple
+                                    class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
+                                    <option value="Mon-2100-K1">Mon-2100-K1</option>
+                                    <option value="Tue-2000-K2">Tue-2000-K2</option>
+                                    <option value="Wed-1930-K3">Wed-1930-K3</option>
+                                </select>
+                            </div>
+
+                            <script>
+                                new TomSelect("#join-edit", {
+                                    plugins: ['remove_button'],
+                                    maxItems: 2,
+                                    create: false,
+                                    persist: false,
+                                    render: {
+                                        item: function(data, escape) {
+                                            return `<div class="bg-green-100 text-green-800 text-xs font-medium mr-1 mb-1 px-2.5 py-1 rounded-md flex items-center">${escape(data.text)}</div>`;
+                                        },
+                                        option: function(data, escape) {
+                                            return `<div class="px-3 py-2 text-sm text-gray-900 hover:bg-green-50 cursor-pointer">${escape(data.text)}</div>`;
+                                        }
+                                    }
+                                });
+                            </script>
+                        </div>
+
+                        <!-- Available Classes Table -->
+                        <div class="mt-4">
+                            <h5 class="font-semibold text-gray-800 mb-3">List of Available Classes</h5>
+                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                                <table class="w-full text-sm text-left text-gray-700">
+                                    <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-semibold">
+                                        <tr>
+                                            <th class="px-4 py-3">No</th>
+                                            <th class="px-4 py-3">Class Name</th>
+                                            <th class="px-4 py-3">Room</th>
+                                            <th class="px-4 py-3">Day</th>
+                                            <th class="px-4 py-3">Start</th>
+                                            <th class="px-4 py-3">End</th>
+                                            <th class="px-4 py-3">Capacity Left</th>
+                                            <th class="px-4 py-3">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-4 py-3">1</td>
+                                            <td class="px-4 py-3">Kelas 1</td>
+                                            <td class="px-4 py-3">PC003</td>
+                                            <td class="px-4 py-3">Monday</td>
+                                            <td class="px-4 py-3">20:00</td>
+                                            <td class="px-4 py-3">21:00</td>
+                                            <td class="px-4 py-3">7</td>
+                                            <td class="px-4 py-3">
+                                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">Available</span>
+                                            </td>
+                                        </tr>
+                                        <!-- Repeat rows here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 bg-gray-50 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editStudentModal">Cancel</button>
+
+                    <div class="flex gap-2">
+                        <button type="button" id="prevStepEdit" class="hidden px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300">Previous</button>
+                        <button type="button" id="nextStepEdit" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Next</button>
+                        <button type="submit" id="submitFormEdit" class="hidden text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Script for Step Navigation -->
+    <script>
+        let currentStepEdit = 1;
+        const totalStepsEdit = 2;
+
+        const updateStepsEdit = () => {
+            document.querySelectorAll('.step-content-edit').forEach(el => {
+                el.classList.add('hidden');
+                if (parseInt(el.dataset.step) === currentStepEdit) el.classList.remove('hidden');
+            });
+
+            document.querySelectorAll('.step-indicator-edit').forEach(el => {
+                el.classList.remove('text-green-700', 'font-semibold');
+                if (parseInt(el.dataset.step) === currentStepEdit) el.classList.add('text-green-700', 'font-semibold');
+            });
+
+            document.getElementById('prevStepEdit').classList.toggle('hidden', currentStepEdit === 1);
+            document.getElementById('nextStepEdit').classList.toggle('hidden', currentStepEdit === totalStepsEdit);
+            document.getElementById('submitFormEdit').classList.toggle('hidden', currentStepEdit !== totalStepsEdit);
+        };
+
+        document.getElementById('nextStepEdit').addEventListener('click', () => {
+            if (currentStepEdit < totalStepsEdit) currentStepEdit++;
+            updateStepsEdit();
+        });
+
+        document.getElementById('prevStepEdit').addEventListener('click', () => {
+            if (currentStepEdit > 1) currecurrentStepEditntStep--;
+            updateStepsEdit();
+        });
+
+        updateStepsEdit();
+    </script>
+
 </x-admin-layout>
