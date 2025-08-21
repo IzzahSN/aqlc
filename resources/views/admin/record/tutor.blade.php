@@ -84,7 +84,7 @@
                             <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editTutorModal" data-modal-toggle="editTutorModal">Edit</button>
                             <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
@@ -100,7 +100,7 @@
                             <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Inactive</span>
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editTutorModal" data-modal-toggle="editTutorModal">Edit</button>
                             <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
@@ -130,84 +130,314 @@
         </div>
     </div>
 
-    <!-- Add New Tutor Modal -->
-    <div id="addTutorModal" tabindex="-1" aria-hidden="true"
-        class="hidden fixed inset-0 z-50 flex items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative bg-white rounded-lg shadow w-full max-w-lg">
-
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Add New Tutor
-                </h3>
-                <button type="button" data-modal-hide="addTutorModal"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
-                    ✕
-                </button>
+    <!-- Multi-step Add Student Modal -->
+    <div id="addTutorModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-black bg-opacity-50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Tutor</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addStudentModal">✕</button>
             </div>
 
-            <!-- Modal body -->
-            <form class="p-6 space-y-4">
-                <!-- Full Name -->
-                <div>
-                    <label for="tutorName" class="block mb-1 text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" id="tutorName" name="tutorName"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400"
-                        placeholder="Enter full name" required />
+            <!-- Progress Indicator -->
+            <ol class="flex items-center w-full p-3 space-x-2 text-sm font-medium text-center text-gray-500 bg-white sm:text-base sm:p-4 sm:space-x-4 rtl:space-x-reverse">
+                <li class="flex items-center flex-1 justify-center step-indicator active" data-step="1">
+                    <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">1</span>
+                    <span class="hidden sm:inline-flex sm:ms-1">Tutor Info</span>
+                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
+                    </svg>
+                </li>
+                <li class="flex items-center flex-1 justify-center step-indicator" data-step="2">
+                    <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">2</span>
+                    <span class="hidden sm:inline-flex sm:ms-1">Education Background</span>
+                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
+                    </svg>
+                </li>
+            </ol>
+
+            <!-- Modal Body -->
+            <form id="tutorForm">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <!-- Step 1 -->
+                    <div class="step-content" data-step="1">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                            <!-- First Name -->
+                            <div>
+                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                                <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div>
+                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Username -->
+                            <div>
+                                <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
+                                <input type="text" id="username" name="username" placeholder="Ustaz Jazmy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- IC Number -->
+                            <div>
+                                <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                                <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Age -->
+                            <div>
+                                <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                                <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Birth Date -->
+                            <div>
+                                <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                                <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Gender -->
+                            <div>
+                                <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                                <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Address (full width) -->
+                        <div class="mt-6">
+                            <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                            <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        </div>
+                    </div>
+
+
+                    <!-- Step 2 -->
+                    <div class="step-content hidden" data-step="2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="university" class="block mb-2 text-sm font-medium text-gray-900">University</label>
+                                <select id="university" name="university" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select University</option>
+                                    <option value="Universiti Malaya">Universiti Malaya</option>
+                                    <option value="Universiti Kebangsaan Malaysia">Universiti Kebangsaan Malaysia</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="programme" class="block mb-2 text-sm font-medium text-gray-900">Programme</label>
+                                <input type="text" id="programme" name="programme" placeholder="Bachelor of Quran Sunnah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+                            <div>
+                                <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
+                                <input type="email" id="grade" name="grade" placeholder="4.0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+                            <div>
+                                <label for="resume" class="block mb-2 text-sm font-medium text-gray-900">Upload Resume (PDF)</label>
+                                <input type="file" id="resume" name="resume" accept="application/pdf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Phone -->
-                <div>
-                    <label for="tutorPhone" class="block mb-1 text-sm font-medium text-gray-700">Phone Number</label>
-                    <input type="text" id="tutorPhone" name="tutorPhone"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400"
-                        placeholder="e.g. 0123456789" required />
-                </div>
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 bg-gray-50 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addTutorModal">Cancel</button>
 
-                <!-- Email -->
-                <div>
-                    <label for="tutorEmail" class="block mb-1 text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="tutorEmail" name="tutorEmail"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400"
-                        placeholder="e.g. tutor@example.com" required />
-                </div>
-
-                <!-- Assigned Classes -->
-                <div>
-                    <label for="assignedClasses" class="block mb-1 text-sm font-medium text-gray-700">Assigned Classes</label>
-                    <select id="assignedClasses" name="assignedClasses"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400">
-                        <option value="">Select number of classes</option>
-                        <option>1 Class</option>
-                        <option>2 Classes</option>
-                        <option>3 Classes</option>
-                        <option>4 Classes</option>
-                        <option>5 Classes</option>
-                    </select>
-                </div>
-
-                <!-- Status -->
-                <div>
-                    <label for="tutorStatus" class="block mb-1 text-sm font-medium text-gray-700">Status</label>
-                    <select id="tutorStatus" name="tutorStatus"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400">
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="flex items-center justify-end gap-3 pt-4 border-t">
-                    <button type="button" data-modal-hide="addTutorModal"
-                        class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                        class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                        Save Tutor
-                    </button>
+                    <div class="flex gap-2">
+                        <button type="button" id="prevStep" class="hidden px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300">Previous</button>
+                        <button type="button" id="nextStep" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Next</button>
+                        <button type="submit" id="submitForm" class="hidden text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- Script for Step Navigation -->
+    <script>
+        let currentStep = 1;
+        const totalSteps = 2;
+
+        const updateSteps = () => {
+            document.querySelectorAll('.step-content').forEach(el => {
+                el.classList.add('hidden');
+                if (parseInt(el.dataset.step) === currentStep) el.classList.remove('hidden');
+            });
+
+            document.querySelectorAll('.step-indicator').forEach(el => {
+                el.classList.remove('text-green-700', 'font-semibold');
+                if (parseInt(el.dataset.step) === currentStep) el.classList.add('text-green-700', 'font-semibold');
+            });
+
+            document.getElementById('prevStep').classList.toggle('hidden', currentStep === 1);
+            document.getElementById('nextStep').classList.toggle('hidden', currentStep === totalSteps);
+            document.getElementById('submitForm').classList.toggle('hidden', currentStep !== totalSteps);
+        };
+
+        document.getElementById('nextStep').addEventListener('click', () => {
+            if (currentStep < totalSteps) currentStep++;
+            updateSteps();
+        });
+
+        document.getElementById('prevStep').addEventListener('click', () => {
+            if (currentStep > 1) currentStep--;
+            updateSteps();
+        });
+
+        updateSteps();
+    </script>
+
+    <!-- Multi-step Edit Tutor Modal -->
+    <div id="editTutorModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-black bg-opacity-50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Tutor</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editTutorModal">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <form id="tutorFormEdit">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <!-- Step 1 -->
+                    <div class="step-content-edit" data-step="1">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                            <!-- First Name -->
+                            <div>
+                                <label for="first_name_edit" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                                <input type="text" id="first_name_edit" name="first_name_edit" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div>
+                                <label for="last_name_edit" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                                <input type="text" id="last_name_edit" name="last_name_edit" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Username -->
+                            <div>
+                                <label for="username_edit" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
+                                <input type="text" id="username_edit" name="username_edit" placeholder="Ustaz Jazmy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- IC Number -->
+                            <div>
+                                <label for="ic_number_edit" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                                <input type="text" id="ic_number_edit" name="ic_number_edit" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Age -->
+                            <div>
+                                <label for="age_edit" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                                <input type="number" id="age_edit" name="age_edit" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Birth Date -->
+                            <div>
+                                <label for="birth_date_edit" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                                <input type="date" id="birth_date_edit" name="birth_date_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Gender -->
+                            <div>
+                                <label for="gender_edit" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                                <select id="gender_edit" name="gender_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mt-6">
+                            <label for="address_edit" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                            <textarea id="address_edit" name="address_edit" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-content-edit hidden" data-step="2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="university_edit" class="block mb-2 text-sm font-medium text-gray-900">University</label>
+                                <select id="university_edit" name="university_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select University</option>
+                                    <option value="Universiti Malaya">Universiti Malaya</option>
+                                    <option value="Universiti Kebangsaan Malaysia">Universiti Kebangsaan Malaysia</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="programme_edit" class="block mb-2 text-sm font-medium text-gray-900">Programme</label>
+                                <input type="text" id="programme_edit" name="programme_edit" placeholder="Bachelor of Quran Sunnah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+                            <div>
+                                <label for="grade_edit" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
+                                <input type="text" id="grade_edit" name="grade_edit" placeholder="4.0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+                            <div>
+                                <label for="resume_edit" class="block mb-2 text-sm font-medium text-gray-900">Upload Resume (PDF)</label>
+                                <input type="file" id="resume_edit" name="resume_edit" accept="application/pdf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 bg-gray-50 rounded-b-lg">
+                    <button type="button"
+                        class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300"
+                        data-modal-hide="editTutorModal">Cancel</button>
+
+                    <div class="flex gap-2">
+                        <button type="button" id="prevStepEdit"
+                            class="hidden px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300">Previous</button>
+                        <button type="button" id="nextStepEdit"
+                            class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Next</button>
+                        <button type="submit" id="submitFormEdit"
+                            class="hidden text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script for Step Navigation (Edit Modal) -->
+    <script>
+        let currentStepEdit = 1;
+        const totalStepsEdit = 2;
+
+        const updateStepsEdit = () => {
+            document.querySelectorAll('.step-content-edit').forEach(el => {
+                el.classList.add('hidden');
+                if (parseInt(el.dataset.step) === currentStepEdit) el.classList.remove('hidden');
+            });
+
+            document.getElementById('prevStepEdit').classList.toggle('hidden', currentStepEdit === 1);
+            document.getElementById('nextStepEdit').classList.toggle('hidden', currentStepEdit === totalStepsEdit);
+            document.getElementById('submitFormEdit').classList.toggle('hidden', currentStepEdit !== totalStepsEdit);
+        };
+
+        document.getElementById('nextStepEdit').addEventListener('click', () => {
+            if (currentStepEdit < totalStepsEdit) currentStepEdit++;
+            updateStepsEdit();
+        });
+
+        document.getElementById('prevStepEdit').addEventListener('click', () => {
+            if (currentStepEdit > 1) currentStepEdit--;
+            updateStepsEdit();
+        });
+
+        updateStepsEdit();
+    </script>
+
 </x-admin-layout>
