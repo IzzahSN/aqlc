@@ -209,6 +209,16 @@
                                     <option value="female">Female</option>
                                 </select>
                             </div>
+
+                            <!-- Status -->
+                            <div>
+                                <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                                <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
                         </div>
 
                         <!-- Address (full width) -->
@@ -354,6 +364,15 @@
                                     <option value="">Select Gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <!-- Status -->
+                            <div>
+                                <label for="status_edit" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                                <select id="status_edit" name="status_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Select Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
                                 </select>
                             </div>
                         </div>
