@@ -26,6 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/guardian', fn() => view('admin.record.guardian'))->name('guardian');
     Route::get('/tutor', fn() => view('admin.record.tutor'))->name('tutor');
+    Route::get('/tutor/report', fn() => view('admin.record.tutor_report'))->name('tutor.report');
 
     Route::get('/class', fn() => view('admin.class.class'))->name('class');
     Route::get('/package', fn() => view('admin.class.package'))->name('package');

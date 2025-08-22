@@ -113,7 +113,7 @@
         <div class="flex items-center justify-between mb-4">
             <div>
                 <h2 class="text-lg font-semibold">List of Report</h2>
-                <p class="text-sm text-gray-500">Manage your report: search, filter and udpate.</p>
+                <p class="text-sm text-gray-500">Manage your report: search, filter and update.</p>
             </div>
         </div>
 
