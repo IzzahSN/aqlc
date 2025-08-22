@@ -84,8 +84,8 @@
                         <td class="px-4 py-3">29</td>
                         <td class="px-4 py-3">30 minutes</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
-                            <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editPackageModal" data-modal-toggle="editPackageModal">Edit</button>
+                            <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</button>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
                     </tr>
@@ -99,8 +99,8 @@
                         <td class="px-4 py-3">30</td>
                         <td class="px-4 py-3">1 hour</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
-                            <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editPackageModal" data-modal-toggle="editPackageModal">Edit</button>
+                            <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</button>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
                     </tr>
@@ -129,42 +129,173 @@
         </div>
     </div>
 
-    <!-- Add New Package Modal -->
-    <div id="addPackageModal" tabindex="-1" aria-hidden="true"
-        class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative bg-white rounded-lg shadow w-full max-w-lg">
-
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Add New Package
-                </h3>
-                <button type="button" data-modal-hide="addPackageModal"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
-                    ✕
-                </button>
+    <!-- Add Package Modal -->
+    <div id="addPackageModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Package</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addPackageModal">✕</button>
             </div>
 
-            <!-- Modal body -->
-            <form class="p-6 space-y-4">
-                <!-- Full Name -->
-                <div>
-                    <label for="packageName" class="block mb-1 text-sm font-medium text-gray-700">Package Name</label>
-                    <input type="text" id="packageName" name="packageName"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400"
-                        placeholder="Enter full name" required />
+            <!-- Modal Body -->
+            <form id="packageForm">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- Package Name -->
+                        <div>
+                            <label for="package_name" class="block mb-2 text-sm font-medium text-gray-900">Package Name</label>
+                            <input type="text" id="package_name" name="package_name" placeholder="An-Nur Lite" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Package Type -->
+                        <div>
+                            <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
+                            <select id="type" name="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Type</option>
+                                <option value="personal">Personal</option>
+                                <option value="group">Group</option>
+                            </select>
+                        </div>
+
+                        <!-- Rate -->
+                        <div>
+                            <label for="rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
+                            <input type="number" id="rate" name="rate" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Unit -->
+                        <div>
+                            <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Select Unit</label>
+                            <select id="unit" name="unit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select unit</option>
+                                <option value="per_month">Per Month</option>
+                                <option value="per_session">Per Session</option>
+                            </select>
+                        </div>
+
+                        <!-- Class Duration -->
+                        <div>
+                            <label for="duration" class="block mb-2 text-sm font-medium text-gray-900">Class Duration</label>
+                            <select id="duration" name="duration" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select unit</option>
+                                <option value="30_minutes">30 Minutes</option>
+                                <option value="1_hour">1 Hour</option>
+                            </select>
+                        </div>
+
+                        <!-- Class limit per week -->
+                        <div>
+                            <label for="limit" class="block mb-2 text-sm font-medium text-gray-900">Class Limit per Week</label>
+                            <input type="number" id="limit" name="limit" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Status -->
+                        <div>
+                            <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                            <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <!-- Modal footer -->
-                <div class="flex items-center justify-end gap-3 pt-4 border-t">
-                    <button type="button" data-modal-hide="addPackageModal"
-                        class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                        class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                        Save Package
-                    </button>
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addPackageModal">Cancel</button>
+
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Package Modal -->
+    <div id="editPackageModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Package</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editPackageModal">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <form id="packageFormEdit">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- Package Name -->
+                        <div>
+                            <label for="package_name" class="block mb-2 text-sm font-medium text-gray-900">Package Name</label>
+                            <input type="text" id="package_name" name="package_name" placeholder="An-Nur Lite" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Package Type -->
+                        <div>
+                            <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
+                            <select id="type" name="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Type</option>
+                                <option value="personal">Personal</option>
+                                <option value="group">Group</option>
+                            </select>
+                        </div>
+
+                        <!-- Rate -->
+                        <div>
+                            <label for="rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
+                            <input type="number" id="rate" name="rate" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Unit -->
+                        <div>
+                            <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Select Unit</label>
+                            <select id="unit" name="unit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select unit</option>
+                                <option value="per_month">Per Month</option>
+                                <option value="per_session">Per Session</option>
+                            </select>
+                        </div>
+
+                        <!-- Class Duration -->
+                        <div>
+                            <label for="duration" class="block mb-2 text-sm font-medium text-gray-900">Class Duration</label>
+                            <select id="duration" name="duration" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select unit</option>
+                                <option value="30_minutes">30 Minutes</option>
+                                <option value="1_hour">1 Hour</option>
+                            </select>
+                        </div>
+
+                        <!-- Class limit per week -->
+                        <div>
+                            <label for="limit" class="block mb-2 text-sm font-medium text-gray-900">Class Limit per Week</label>
+                            <input type="number" id="limit" name="limit" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Status -->
+                        <div>
+                            <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                            <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editPackageModal">Cancel</button>
+
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
                 </div>
             </form>
         </div>

@@ -12,7 +12,7 @@ Route::get('/', fn() => view('welcome'))->name('welcome');
 // =======================
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('/login', fn() => view('auth.login'))->name('login');
-    Route::get('/register/guardian', fn() => view('auth.register-guardian'))->name('register.guardian');
+    Route::get('/register', fn() => view('auth.register'))->name('register');
 });
 
 // =======================
