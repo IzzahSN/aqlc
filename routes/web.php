@@ -19,26 +19,41 @@ Route::prefix('auth')->name('auth.')->group(function () {
 // Admin Routes
 // =======================
 Route::prefix('admin')->name('admin.')->group(function () {
+    // DASHBOARD
     Route::get('/', fn() => view('dashboard.admin'))->name('dashboard');
 
+    // RECORD
     Route::get('/student', fn() => view('admin.record.student'))->name('student');
     Route::get('/student/report', fn() => view('admin.record.student_report'))->name('student.report');
 
     Route::get('/guardian', fn() => view('admin.record.guardian'))->name('guardian');
+
     Route::get('/tutor', fn() => view('admin.record.tutor'))->name('tutor');
     Route::get('/tutor/report', fn() => view('admin.record.tutor_report'))->name('tutor.report');
 
+    // CLASS
     Route::get('/class', fn() => view('admin.class.class'))->name('class');
+    Route::get('/class/report', fn() => view('admin.class.class_report'))->name('class.report');
+
     Route::get('/package', fn() => view('admin.class.package'))->name('package');
+    Route::get('/package/report', fn() => view('admin.class.package_report'))->name('package.report');
+
     Route::get('/schedule', fn() => view('admin.class.schedule'))->name('schedule');
+    Route::get('/schedule/attendance', fn() => view('admin.class.attendance'))->name('schedule.attendance');
 
+    // REPORT
     Route::get('/report', fn() => view('admin.report.index'))->name('report');
+    Route::get('/report/grade', fn() => view('admin.report.grade'))->name('report.grade');
+    Route::get('/report/lesson-plan', fn() => view('admin.report.lesson_plan'))->name('report.lesson-plan');
 
+    // PAYMENT
     Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill');
     Route::get('/salary', fn() => view('admin.payment.salary'))->name('salary');
 
+    // NOTIFICATOIN
     Route::get('/notification', fn() => view('admin.notification.index'))->name('notification');
 
+    // PROFILE
     Route::get('/profile', fn() => view('admin.profile'))->name('profile');
 });
 
