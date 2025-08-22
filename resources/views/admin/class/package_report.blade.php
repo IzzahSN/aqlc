@@ -1,139 +1,27 @@
 <x-admin-layout :title="'Class'">
+    <!-- Header with Title (left) and Breadcrumb (right) -->
+    <div class="flex items-center justify-between mb-4">
+        <!-- Left: Page Title -->
+        <h2 class="text-xl font-medium text-gray-800">Package Report</h2>
 
-    <!-- Stats + Chart -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <!-- Left Stats -->
-        <div class="lg:col-span-1 space-y-4">
-            <div class="bg-white p-5 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
-                <div class="p-4 rounded-full bg-blue-100 text-blue-600 text-xl">
-                    👨‍🏫
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">Total Available Classes</p>
-                    <h3 class="text-2xl font-bold text-gray-800">8</h3>
-                </div>
-            </div>
-
-            <div class="bg-white p-5 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
-                <div class="p-4 rounded-full bg-green-100 text-green-600 text-xl">
-                    👩‍🏫
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">Total Full Classes</p>
-                    <h3 class="text-2xl font-bold text-gray-800">5</h3>
-                </div>
-            </div>
-
-            <div class="bg-white p-5 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
-                <div class="p-4 rounded-full bg-purple-100 text-purple-600 text-xl">
-                    📘
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">Total Classes</p>
-                    <h3 class="text-2xl font-bold text-gray-800">2</h3>
-                </div>
-            </div>
-        </div>
-        <!-- Right Stats -->
-        <div class="lg:col-span-2 bg-white rounded-2xl shadow p-4 flex flex-col">
-            <!-- Title -->
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Number of Classes</h2>
-
-            <!-- Content: legend kiri, chart kanan -->
-            <div class="flex items-center justify-between ml-12 mx-5">
-
-                <!-- Custom Legend -->
-                <div id="chartLegend" class="space-y-2"></div>
-
-                <!-- Donut Chart -->
-                <div class="relative w-64 h-64 flex items-center justify-center">
-                    <canvas id="classDonutChart"></canvas>
-
-                    <!-- Center text -->
-                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                        <p class="text-sm text-gray-500">Total Classes</p>
-                        <p class="text-2xl font-bold">24</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Right: Breadcrumb -->
+        <nav class="text-sm text-gray-500">
+            <ol class="flex space-x-2">
+                <li><a href="{{ route('admin.package') }}" class="hover:text-green-600">Package</a></li>
+                <li>/</li>
+                <li>Report</li>
+            </ol>
+        </nav>
     </div>
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('classDonutChart').getContext('2d');
-        const classDonutChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-                datasets: [{
-                    data: [6, 4, 3, 2, 5, 2, 2],
-                    backgroundColor: [
-                        '#3B82F6', // Monday
-                        '#14B8A6', // Tuesday
-                        '#8B5CF6', // Wednesday
-                        '#6366F1', // Thursday
-                        '#EF4444', // Friday
-                        '#FACC15', // Saturday
-                        '#FB923C' // Sunday
-                    ],
-                    borderWidth: 0,
-                }]
-            },
-            options: {
-                cutout: '70%',
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        enabled: true,
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.label || '';
-                                let value = context.raw || 0; // <-- guna context.raw untuk ambil value
-                                let total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                let percentage = ((value / total) * 100).toFixed(1);
-                                return `${label}: ${value} (${percentage}%)`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        // Custom Legend
-        const legendContainer = document.getElementById('chartLegend');
-        legendContainer.innerHTML = ''; // clear dulu kalau ada legend lama
-
-        classDonutChart.data.labels.forEach((label, i) => {
-            const color = classDonutChart.data.datasets[0].backgroundColor[i];
-            const value = classDonutChart.data.datasets[0].data[i];
-            const item = document.createElement('div');
-            item.className = "flex items-center space-x-2 text-gray-700";
-            item.innerHTML = `
-            <span class="w-4 h-4 rounded-full inline-block" style="background-color:${color}"></span>
-            <span class="text-sm">${label} - ${value}</span>
-        `;
-            legendContainer.appendChild(item);
-        });
-    </script>
-
-
-    <!-- Classes List -->
+    <!-- Package Report List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Classes</h2>
-                <p class="text-sm text-gray-500">Manage your classes: add new, search, filter, edit, or delete.</p>
+                <h2 class="text-lg font-semibold">List of Report</h2>
+                <p class="text-sm text-gray-500">Manage your report: search, filter and udpate.</p>
             </div>
-            <button data-modal-target="addClassModal" data-modal-toggle="addClassModal"
-                class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                + Add New Class
-            </button>
-
         </div>
 
         <!-- Search + Filter -->
@@ -150,9 +38,9 @@
             </div>
             <!-- Filter -->
             <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Status</option>
-                <option value="full">Full</option>
-                <option value="available">Available</option>
+                <option value="">Year</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
             </select>
         </div>
 
@@ -162,51 +50,24 @@
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Class Name</th>
-                        <th class="px-4 py-3">Room</th>
-                        <th class="px-4 py-3">Day</th>
-                        <th class="px-4 py-3">Start Time</th>
-                        <th class="px-4 py-3">End Time</th>
-                        <th class="px-4 py-3">Tutor Name</th>
-                        <th class="px-4 py-3">Status</th>
-                        <th class="px-4 py-3 text-center">Action</th>
+                        <th class="px-4 py-3">Student Name</th>
+                        <th class="px-4 py-3">Current Recitation</th>
+                        <th class="px-4 py-3">Admission Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="border-b">
                         <td class="px-4 py-3">1</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Mon-20-K1</td>
-                        <td class="px-4 py-3">Kelas 1</td>
-                        <td class="px-4 py-3">Monday</td>
-                        <td class="px-4 py-3">20:00:00</td>
-                        <td class="px-4 py-3">21:00:00</td>
-                        <td class="px-4 py-3">Ustaz Aamir</td>
-                        <td class="px-4 py-3">
-                            <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Available</span>
-                        </td>
-                        <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
-                            <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                        </td>
+                        <td class="px-4 py-3 font-medium text-gray-900">Muhammad Ikhwan Bin Idris</td>
+                        <td class="px-4 py-3">Iqra 6</td>
+                        <td class="px-4 py-3">12/09/2025</td>
                     </tr>
 
                     <tr class="border-b">
                         <td class="px-4 py-3">2</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Tue-21-K4</td>
-                        <td class="px-4 py-3">Kelas 4</td>
-                        <td class="px-4 py-3">Tuesday</td>
-                        <td class="px-4 py-3">21:00:00</td>
-                        <td class="px-4 py-3">22:00:00</td>
-                        <td class="px-4 py-3">Ustazah Husniah</td>
-                        <td class="px-4 py-3">
-                            <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Full</span>
-                        </td>
-                        <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
-                            <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                        </td>
+                        <td class="px-4 py-3 font-medium text-gray-900">Nur Hanna Binti Eijaz</td>
+                        <td class="px-4 py-3">Quran Juz 3</td>
+                        <td class="px-4 py-3">10/08/2025</td>
                     </tr>
                 </tbody>
             </table>
@@ -230,47 +91,6 @@
                 <button class="px-3 py-1 border rounded text-sm">3</button>
                 <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Add New Package Modal -->
-    <div id="addClassModal" tabindex="-1" aria-hidden="true"
-        class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative bg-white rounded-lg shadow w-full max-w-lg">
-
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Add New Package
-                </h3>
-                <button type="button" data-modal-hide="addClassModal"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
-                    ✕
-                </button>
-            </div>
-
-            <!-- Modal body -->
-            <form class="p-6 space-y-4">
-                <!-- Full Name -->
-                <div>
-                    <label for="className" class="block mb-1 text-sm font-medium text-gray-700">Package Name</label>
-                    <input type="text" id="className" name="className"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400"
-                        placeholder="Enter full name" required />
-                </div>
-
-                <!-- Modal footer -->
-                <div class="flex items-center justify-end gap-3 pt-4 border-t">
-                    <button type="button" data-modal-hide="addClassModal"
-                        class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                        class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                        Save Class
-                    </button>
-                </div>
-            </form>
         </div>
     </div>
 
