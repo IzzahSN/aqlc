@@ -113,9 +113,6 @@
             <div class="bg-white rounded-xl shadow p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-gray-800">Juz 30</h3>
-                    <button class="px-4 py-2 text-sm bg-gray-100 border rounded-lg hover:bg-gray-200 flex items-center gap-2">
-                        <i class="fas fa-download"></i> Export
-                    </button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-600">
