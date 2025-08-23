@@ -48,6 +48,7 @@
                         <th class="px-4 py-3">Student Name</th>
                         <th class="px-4 py-3">Recitation</th>
                         <th class="px-4 py-3">Page</th>
+                        <th class="px-4 py-3">Grade</th>
                         <th class="px-4 py-3">Remark</th>
                         <th class="px-4 py-3">Action</th>
                     </tr>
@@ -67,9 +68,18 @@
                                         <option value="Juz {{ $j }}">Juz {{ $j }}</option>
                                         @endfor
                             </select>
-
                         <td class="px-4 py-3 text-center">
                             <input type="number" placeholder="Page" class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
+                        </td>
+                        <td>
+                            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                                <option value="">Select Grade</option>
+                                <option value="Mumtaz">Mumtaz</option>
+                                <option value="Jayyid Jiddan">Jayyid Jiddan</option>
+                                <option value="Jayyid">Jayyid</option>
+                                <option value="Maqbul">Maqbul</option>
+                                <option value="Rasib">Rasib</option>
+                            </select>
                         </td>
                         <td class="px-4 py-3">
                             <input type="text" placeholder="Remark..." class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
@@ -92,10 +102,19 @@
                                         <option value="Juz {{ $j }}">Juz {{ $j }}</option>
                                         @endfor
                             </select>
-
                         </td>
                         <td class="px-4 py-3 text-center">
                             <input type="number" placeholder="Page" class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
+                        </td>
+                        <td>
+                            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                                <option value="">Select Grade</option>
+                                <option value="Mumtaz">Mumtaz</option>
+                                <option value="Jayyid Jiddan">Jayyid Jiddan</option>
+                                <option value="Jayyid">Jayyid</option>
+                                <option value="Maqbul">Maqbul</option>
+                                <option value="Rasib">Rasib</option>
+                            </select>
                         </td>
                         <td class="px-4 py-3">
                             <input type="text" placeholder="Remark..." class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
@@ -131,6 +150,16 @@
                 </td>
                 <td class="px-4 py-3 text-center">
                     <input type="number" placeholder="Page" class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
+                </td>
+                 <td>
+                    <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                        <option value="">Select Grade</option>
+                        <option value="Mumtaz">Mumtaz</option>
+                        <option value="Jayyid Jiddan">Jayyid Jiddan</option>
+                        <option value="Jayyid">Jayyid</option>
+                        <option value="Maqbul">Maqbul</option>
+                        <option value="Rasib">Rasib</option>
+                    </select>
                 </td>
                 <td class="px-4 py-3">
                     <input type="text" placeholder="Remark..." class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
