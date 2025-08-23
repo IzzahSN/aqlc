@@ -172,8 +172,8 @@
                         <td class="px-4 py-3">Ustaz Hafiz</td>
                         <td class="px-4 py-3">12/09/2025</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</button>
-                            <button class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</button>
+                            <a href="{{ route('admin.report.grade') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>
+                            <a href="{{ route('admin.report.lesson-plan') }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>
                         </td>
                     </tr>
 
@@ -184,8 +184,8 @@
                         <td class="px-4 py-3">Ustazah Nuha</td>
                         <td class="px-4 py-3">10/08/2025</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</button>
-                            <button class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</button>
+                            <a href="{{ route('admin.report.grade') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>
+                            <a href="{{ route('admin.report.lesson-plan') }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>
                         </td>
                     </tr>
                 </tbody>
