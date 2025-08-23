@@ -1,4 +1,5 @@
 <x-admin-layout :title="'Bill'">
+    <!-- Insight -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <div class="lg:col-span-1 space-y-4">
             <div class="bg-white p-6 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
@@ -171,45 +172,5 @@
         </div>
     </div>
 
-    <!-- Add New Bill Modal -->
-    <div id="addBillModal" tabindex="-1" aria-hidden="true"
-        class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative bg-white rounded-lg shadow w-full max-w-lg">
-
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Add New Bill
-                </h3>
-                <button type="button" data-modal-hide="addBillModal"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
-                    ✕
-                </button>
-            </div>
-
-            <!-- Modal body -->
-            <form class="p-6 space-y-4">
-                <!-- Full Name -->
-                <div>
-                    <label for="billName" class="block mb-1 text-sm font-medium text-gray-700">Bill Name</label>
-                    <input type="text" id="billName" name="billName"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400"
-                        placeholder="Enter full name" required />
-                </div>
-
-                <!-- Modal footer -->
-                <div class="flex items-center justify-end gap-3 pt-4 border-t">
-                    <button type="button" data-modal-hide="addBillModal"
-                        class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                        class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                        Save Bill
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 
 </x-admin-layout>

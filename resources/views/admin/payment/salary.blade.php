@@ -1,4 +1,5 @@
 <x-admin-layout :title="'Salary'">
+    <!-- Insight -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <div class="lg:col-span-1 space-y-4">
             <div class="bg-white p-6 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
@@ -128,7 +129,7 @@
                         <td class="px-4 py-3">2025</td>
                         <td class="px-4 py-3">31/01/2025</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editSalaryModal" data-modal-toggle="editSalaryModal">Edit</button>
                             <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
@@ -141,7 +142,7 @@
                         <td class="px-4 py-3">2025</td>
                         <td class="px-4 py-3">28/02/2025</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Edit</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editSalaryModal" data-modal-toggle="editSalaryModal">Edit</button>
                             <button class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">View</button>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
@@ -171,42 +172,127 @@
         </div>
     </div>
 
-    <!-- Add New Salary Modal -->
-    <div id="addSalaryModal" tabindex="-1" aria-hidden="true"
-        class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative bg-white rounded-lg shadow w-full max-w-lg">
-
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 border-b rounded-t">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Add New Salary
-                </h3>
-                <button type="button" data-modal-hide="addSalaryModal"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
-                    ✕
-                </button>
+    <!-- Add Salary Modal -->
+    <div id="addSalaryModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Salary Report</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addSalaryModal">✕</button>
             </div>
 
-            <!-- Modal body -->
-            <form class="p-6 space-y-4">
-                <!-- Full Name -->
-                <div>
-                    <label for="salaryName" class="block mb-1 text-sm font-medium text-gray-700">Salary Name</label>
-                    <input type="text" id="salaryName" name="salaryName"
-                        class="w-full border rounded-lg px-3 py-2 text-sm focus:ring focus:ring-green-200 focus:border-green-400"
-                        placeholder="Enter full name" required />
+            <!-- Modal Body -->
+            <form id="salaryForm">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- Salary Name -->
+                        <div>
+                            <label for="salary_name" class="block mb-2 text-sm font-medium text-gray-900">Salary Name</label>
+                            <input type="text" id="salary_name" name="salary_name" placeholder="Sal-Jan-2026" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Month -->
+                        <div>
+                            <label for="month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
+                            <select id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Month</option>
+                                <option value="january">January</option>
+                                <option value="february">February</option>
+                                <option value="march">March</option>
+                                <option value="april">April</option>
+                                <option value="may">May</option>
+                                <option value="june">June</option>
+                                <option value="july">July</option>
+                                <option value="august">August</option>
+                                <option value="september">September</option>
+                                <option value="october">October</option>
+                                <option value="november">November</option>
+                                <option value="december">December</option>
+                            </select>
+                        </div>
+
+                        <!-- Year -->
+                        <div>
+                            <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
+                            <select id="year" name="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Year</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Modal footer -->
-                <div class="flex items-center justify-end gap-3 pt-4 border-t">
-                    <button type="button" data-modal-hide="addSalaryModal"
-                        class="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                        class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                        Save Salary
-                    </button>
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addSalaryModal">Cancel</button>
+
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Salary Modal -->
+    <div id="editSalaryModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Salary Report</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editSalaryModal">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <form id="salaryForm">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- Salary Name -->
+                        <div>
+                            <label for="salary_name" class="block mb-2 text-sm font-medium text-gray-900">Salary Name</label>
+                            <input type="text" id="salary_name" name="salary_name" placeholder="Sal-Jan-2026" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Month -->
+                        <div>
+                            <label for="month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
+                            <select id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Month</option>
+                                <option value="january">January</option>
+                                <option value="february">February</option>
+                                <option value="march">March</option>
+                                <option value="april">April</option>
+                                <option value="may">May</option>
+                                <option value="june">June</option>
+                                <option value="july">July</option>
+                                <option value="august">August</option>
+                                <option value="september">September</option>
+                                <option value="october">October</option>
+                                <option value="november">November</option>
+                                <option value="december">December</option>
+                            </select>
+                        </div>
+
+                        <!-- Year -->
+                        <div>
+                            <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
+                            <select id="year" name="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Year</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editSalaryModal">Cancel</button>
+
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
                 </div>
             </form>
         </div>
