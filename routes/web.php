@@ -48,7 +48,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // PAYMENT
     Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill');
+    Route::get('/bill/report', fn() => view('admin.payment.bills_report'))->name('bill.report');
+
     Route::get('/salary', fn() => view('admin.payment.salary'))->name('salary');
+    Route::get('/salary/report', fn() => view('admin.payment.salary_report'))->name('salary.report');
 
     // NOTIFICATOIN
     Route::get('/notification', fn() => view('admin.notification.index'))->name('notification');
