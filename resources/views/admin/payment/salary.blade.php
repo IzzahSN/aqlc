@@ -14,15 +14,28 @@
             </div>
 
             <div class="bg-white p-6 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
+                <!-- Icon -->
                 <div class="p-4 rounded-full bg-green-100 text-green-600 text-xl">
                     👩‍🏫
                 </div>
-                <div>
-                    <p class="text-sm text-gray-500">Highest Paid Tutor</p>
-                    <h3 class="text-2xl font-bold text-gray-800">RM 3,200</h3>
-                    <p class="text-xs text-gray-500">Ustazah Aisyah</p>
+
+                <!-- Content -->
+                <div class="flex flex-col gap-1">
+                    <p class="text-sm text-gray-500">Rate per Hour (RM)</p>
+                    <div class="flex items-center gap-2">
+                        <!-- Editable Rate -->
+                        <input type="number"
+                            value="7.50"
+                            class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 focus:border-green-500 focus:outline-none transition w-28" />
+                        <!-- Save Button -->
+                        <button class="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition" title="Save">
+                            💾
+                        </button>
+                    </div>
                 </div>
             </div>
+
+
         </div>
         <!-- Sales Report -->
         <div class="lg:col-span-2 bg-white rounded-2xl shadow p-4 flex flex-col">
