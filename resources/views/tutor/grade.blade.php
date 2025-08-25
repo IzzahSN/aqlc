@@ -1,4 +1,4 @@
-<x-admin-layout :title="'Schedule'">
+<x-tutor-layout :title="'Report'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
@@ -7,7 +7,7 @@
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('admin.report') }}" class="hover:text-green-600">Report</a></li>
+                <li><a href="{{ route('tutor.report') }}" class="hover:text-green-600">Report</a></li>
                 <li>/</li>
                 <li>Grade</li>
             </ol>
@@ -281,4 +281,4 @@
             </div>
         </div>
     </div>
-</x-admin-layout>
+</x-tutor-layout>

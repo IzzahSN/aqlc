@@ -68,8 +68,13 @@ Route::prefix('tutor')->name('tutor.')->group(function () {
     Route::get('/', fn() => view('dashboard.tutor'))->name('dashboard');
     // Schedule
     Route::get('/schedule', fn() => view('tutor.schedule'))->name('schedule');
+    Route::get('/schedule/attendance', fn() => view('tutor.attendance'))->name('schedule.attendance');
+
     // Report
     Route::get('/report', fn() => view('tutor.report'))->name('report');
+    Route::get('/report/grade', fn() => view('tutor.grade'))->name('report.grade');
+    Route::get('/report/lesson-plan', fn() => view('tutor.lesson_plan'))->name('report.lesson-plan');
+
     // Salary
     Route::get('/salary', fn() => view('tutor.salary'))->name('salary');
     // Profile
