@@ -26,7 +26,7 @@
                     <span class="ms-3">Dashboard</span>
                 </a>
             </li>
-            <!-- Record Management -->
+            <!-- Schedule Management -->
             <li>
                 <a href="{{ route('tutor.schedule') }}" class="flex items-center p-2 rounded-lg group {{ request()->routeIs('tutor.schedule') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 dark:text-white hover:bg-green-100 dark:hover:bg-green-700' }}">
                     <svg class="w-5 h-5 transition duration-75 {{ request()->routeIs('tutor.schedule') ? 'text-green-900 dark:text-green-300' : 'text-gray-500 dark:text-gray-400 group-hover:text-green-900 dark:group-hover:text-green' }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -39,7 +39,7 @@
                         <path d="M8 11h4" />
                         <path d="M8 15h3" />
                     </svg>
-                    <span class="ms-3">Schedule & Attendance</span>
+                    <span class="ms-3">Schedule Management</span>
                 </a>
             </li>
             <!-- Report Management -->
@@ -50,7 +50,7 @@
                         <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
                         <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
                     </svg>
-                    <span class="ms-3">Grade & Lesson Plan</span>
+                    <span class="ms-3">Report Management</span>
                 </a>
             </li>
             <!-- Payment Management -->
