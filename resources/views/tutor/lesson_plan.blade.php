@@ -13,4 +13,79 @@
             </ol>
         </nav>
     </div>
+
+    <!-- Lesson Plan Form -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <form enctype="multipart/form-data" class="space-y-6">
+            @csrf
+            <!-- Title -->
+            <div>
+                <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Title</label>
+                <input type="text" id="title" name="title" placeholder="Hukum Mad Silah Qasirah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+            </div>
+
+            <!-- Upload Materials -->
+            <div>
+                <label for="materials" class="block mb-2 text-sm font-medium text-gray-900">Upload Learning Materials</label>
+                <input type="file" id="materials" name="materials[]" multiple accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+
+                <p class="mt-1 text-xs text-gray-500">You can upload more than one file (image only).</p>
+
+                <!-- Preview -->
+                <div id="preview" class="mt-3 flex flex-wrap gap-3"></div>
+            </div>
+
+            <!-- Description -->
+            <div>
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
+                <textarea id="description" name="description" rows="3" placeholder="Write a brief description about the lesson plan..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end">
+                <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Save Lesson Plan</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const input = document.getElementById('materials');
+        const preview = document.getElementById('preview');
+        let filesArray = [];
+
+        input.addEventListener('change', () => {
+            preview.innerHTML = "";
+            filesArray = Array.from(input.files);
+
+            filesArray.forEach((file, index) => {
+                if (!file.type.startsWith("image/")) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement("div");
+                    div.classList.add("relative", "w-24", "h-24");
+
+                    div.innerHTML = `
+                    <img src="${e.target.result}" class="w-full h-full object-cover rounded-lg border border-gray-50">
+                    <button type="button" data-index="${index}" class="absolute top-0 right-0 bg-red-600 text-white rounded-full px-2 py-0.5 text-xs">✕</button>
+                `;
+                    preview.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Remove file from list
+        preview.addEventListener("click", (e) => {
+            if (e.target.tagName === "BUTTON") {
+                const index = e.target.dataset.index;
+                filesArray.splice(index, 1);
+
+                const dataTransfer = new DataTransfer();
+                filesArray.forEach(f => dataTransfer.items.add(f));
+                input.files = dataTransfer.files;
+
+                input.dispatchEvent(new Event('change')); // refresh preview
+            }
+        });
+    </script>
 </x-tutor-layout>
