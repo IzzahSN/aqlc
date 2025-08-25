@@ -7,7 +7,7 @@
 
 <aside id="sidebar-multi-level-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-        <a href="{{ route('admin.dashboard') }}" class=" flex items-center ps-2.5 mb-5">
+        <a href="{{ route('tutor.dashboard') }}" class=" flex items-center ps-2.5 mb-5">
             <img src="/logo.svg" class="h-10 w-10 rounded-full shadow me-3" alt=" AQLC Logo" />
             <h2 class="self-center text-sm font-semibold dark:text-white">Pusat Pengajian Quran<br>As-Siraaj</h2>
         </a>
