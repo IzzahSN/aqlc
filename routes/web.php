@@ -64,13 +64,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // Tutor Routes
 // =======================
 Route::prefix('tutor')->name('tutor.')->group(function () {
-    Route::get('/', fn() => view('dashboard.tutor.index'))->name('dashboard');
-
-    Route::get('/schedule', fn() => view('dashboard.tutor.schedule'))->name('schedule');
-    Route::get('/lesson-plans', fn() => view('dashboard.tutor.lesson-plans'))->name('lesson-plans');
-    Route::get('/student-progress', fn() => view('dashboard.tutor.student-progress'))->name('student-progress');
-    Route::get('/reports', fn() => view('dashboard.tutor.reports'))->name('reports');
-    Route::get('/settings', fn() => view('dashboard.tutor.settings'))->name('settings');
+    // Dashboard
+    Route::get('/', fn() => view('dashboard.tutor'))->name('dashboard');
+    // Schedule
+    Route::get('/schedule', fn() => view('tutor.schedule'))->name('schedule');
+    // Report
+    Route::get('/report', fn() => view('tutor.report'))->name('report');
+    // Salary
+    Route::get('/salary', fn() => view('tutor.salary'))->name('salary');
+    // Profile
+    Route::get('/profile', fn() => view('tutor.profile'))->name('profile');
 });
 
 // =======================
