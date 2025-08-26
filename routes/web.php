@@ -10,10 +10,8 @@ Route::get('/', fn() => view('welcome'))->name('welcome');
 // =======================
 // Auth Routes
 // =======================
-Route::prefix('auth')->name('auth.')->group(function () {
-    Route::get('/login', fn() => view('auth.login'))->name('login');
-    Route::get('/register', fn() => view('auth.register'))->name('register');
-});
+Route::get('/login', fn() => view('auth.login'))->name('login');
+Route::get('/register', fn() => view('auth.register'))->name('register');
 
 // =======================
 // Admin Routes
