@@ -6,52 +6,68 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div class="bg-white p-4 rounded-xl shadow">
             <div class="flex items-center gap-3">
-                <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
-                    🎓
-                </div>
                 <div>
                     <p class="text-sm text-gray-500">Total Students</p>
                     <h3 class="text-2xl font-bold">46</h3>
-                    <p class="text-xs text-gray-500">3 new students this month</p>
+                    <div class="flex items-center gap-1 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trending-up w-4 h-4 text-green-500">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 17l6 -6l4 4l8 -8" />
+                            <path d="M14 7l7 0l0 7" />
+                        </svg>
+                        <p class="text-xs text-green-500">3 new students this month</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="bg-white p-4 rounded-xl shadow">
             <div class="flex items-center gap-3">
-                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
-                    👨‍🏫
-                </div>
                 <div>
                     <p class="text-sm text-gray-500">Total Teachers</p>
                     <h3 class="text-2xl font-bold">6</h3>
-                    <p class="text-xs text-gray-500">0 new teachers this month</p>
+                    <div class="flex items-center gap-1 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trending-up w-4 h-4 text-yellow-500">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 17l6 -6l4 4l8 -8" />
+                            <path d="M14 7l7 0l0 7" />
+                        </svg>
+                        <p class="text-xs text-yellow-500">0 new teachers this month</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="bg-white p-4 rounded-xl shadow">
             <div class="flex items-center gap-3">
-                <div class="p-3 rounded-full bg-purple-100 text-purple-600">
-                    🏷️
-                </div>
                 <div>
                     <p class="text-sm text-gray-500">Unpaid Fees</p>
                     <h3 class="text-2xl font-bold">RM739</h3>
-                    <p class="text-xs text-gray-500">15% Decrease from last month</p>
+                    <div class="flex items-center gap-1 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trending-down w-4 h-4 text-red-500">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 7l6 6l4 -4l8 8" />
+                            <path d="M21 10l0 7l-7 0" />
+                        </svg>
+                        <p class="text-xs text-red-500">15% Decrease from last month</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="bg-white p-4 rounded-xl shadow">
             <div class="flex items-center gap-3">
-                <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">
-                    📊
-                </div>
                 <div>
                     <p class="text-sm text-gray-500">Total Revenues</p>
                     <h3 class="text-2xl font-bold">RM11,902</h3>
-                    <p class="text-xs text-gray-500">28% Increase from last month</p>
+                    <div class="flex items-center gap-1 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trending-up w-4 h-4 text-green-500">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 17l6 -6l4 4l8 -8" />
+                            <path d="M14 7l7 0l0 7" />
+                        </svg>
+                        <p class="text-xs text-green-500">28% Increase from last month</p>
+                    </div>
                 </div>
             </div>
         </div>

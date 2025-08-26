@@ -20,7 +20,7 @@
 
     <!-- Report -->
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <!-- Student Portfolio -->
+        <!-- Left Portfolio -->
         <div class="col-span-1 bg-green-900 text-white rounded-xl shadow p-6 space-y-6">
             <div class="flex flex-col items-center text-center">
                 <img src="https://randomuser.me/api/portraits/men/32.jpg"
@@ -51,12 +51,11 @@
 
         <!-- Right Section -->
         <div class="col-span-3 space-y-6">
-
             <!-- Report Progress -->
             <div class="bg-white rounded-xl shadow p-6">
+                <!-- Progress Circles -->
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Report Progress</h3>
                 <div class="flex items-center space-x-6 overflow-x-auto">
-                    <!-- Progress Circles -->
                     <div class="flex flex-col items-center">
                         <div class="relative w-20 h-20">
                             <svg class="w-full h-full">

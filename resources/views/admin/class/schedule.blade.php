@@ -1,7 +1,10 @@
 <x-admin-layout :title="'Schedule'">
     <div class="p-6 bg-white rounded-xl shadow mb-6">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-semibold">Class Timetable</h2>
+            <div>
+                <h2 class="text-lg font-semibold">Class Timetable</h2>
+                <p class="text-sm text-gray-500">Manage your timetable: filter</p>
+            </div>
 
             <!-- Filter Dropdown -->
             <div class="flex justify-end relative">
