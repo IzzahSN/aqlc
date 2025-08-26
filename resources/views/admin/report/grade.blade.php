@@ -76,7 +76,7 @@
                             <input type="number" placeholder="Page" class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
                         </td>
                         <td>
-                            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                            <select class="border rounded-lg px-3 py-1 text-sm w-full sm:w-auto">
                                 <option value="">Select Grade</option>
                                 <option value="Mumtaz">Mumtaz</option>
                                 <option value="Jayyid Jiddan">Jayyid Jiddan</option>
@@ -114,7 +114,7 @@
                             <input type="number" placeholder="Page" class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
                         </td>
                         <td>
-                            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                            <select class="border rounded-lg px-3 py-1 text-sm w-full sm:w-auto">
                                 <option value="">Select Grade</option>
                                 <option value="Mumtaz">Mumtaz</option>
                                 <option value="Jayyid Jiddan">Jayyid Jiddan</option>
@@ -160,7 +160,7 @@
                     <input type="number" placeholder="Page" class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
                 </td>
                  <td>
-                    <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                    <select class="border rounded-lg px-3 py-1 text-sm w-full sm:w-auto">
                         <option value="">Select Grade</option>
                         <option value="Mumtaz">Mumtaz</option>
                         <option value="Jayyid Jiddan">Jayyid Jiddan</option>

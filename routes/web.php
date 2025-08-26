@@ -85,13 +85,12 @@ Route::prefix('tutor')->name('tutor.')->group(function () {
 // Guardian Routes
 // =======================
 Route::prefix('guardian')->name('guardian.')->group(function () {
-    Route::get('/', fn() => view('dashboard.guardian.index'))->name('dashboard');
-
-    Route::get('/students', fn() => view('dashboard.guardian.students'))->name('students');
-    Route::get('/progress', fn() => view('dashboard.guardian.progress'))->name('progress');
-    Route::get('/payments', fn() => view('dashboard.guardian.payments'))->name('payments');
-    Route::get('/payment-history', fn() => view('dashboard.guardian.payment-history'))->name('payment-history');
-    Route::get('/notifications', fn() => view('dashboard.guardian.notifications'))->name('notifications');
-    Route::get('/reports', fn() => view('dashboard.guardian.reports'))->name('reports');
-    Route::get('/settings', fn() => view('dashboard.guardian.settings'))->name('settings');
+    // Dashboard
+    Route::get('/', fn() => view('dashboard.guardian'))->name('dashboard');
+    // report
+    Route::get('/report', fn() => view('guardian.report'))->name('report');
+    // bill
+    Route::get('/student-bill', fn() => view('guardian.bill'))->name('bill');
+    // profile
+    Route::get('/profile', fn() => view('guardian.profile'))->name('profile');
 });

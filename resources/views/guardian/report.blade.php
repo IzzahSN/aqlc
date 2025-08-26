@@ -1,19 +1,24 @@
-<x-admin-layout :title="'Student'">
+<x-guardian-layout :title="'Report'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Student Report Card</h2>
+        <div class="flex items-center gap-3">
+            <h2 class="text-xl font-medium text-gray-800">Grade Report: </h2>
+            <select
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm shadow-sm transition w-full sm:w-auto">
+                <option value="Muhammad Najmi Bin Kamal">Muhammad Najmi Bin Kamal</option>
+                <option value="Muhammad Naim Bin Kamal">Muhammad Naim Bin Kamal</option>
+            </select>
+        </div>
 
         <!-- Right: Breadcrumb -->
-        <nav class="text-sm text-gray-500">
-            <ol class="flex space-x-2">
-                <li><a href="{{ route('admin.student') }}" class="hover:text-green-600">Student</a></li>
-                <li>/</li>
-                <li>Report</li>
-            </ol>
-        </nav>
+        <button data-modal-target="editStudentModal" data-modal-toggle="editStudentModal"
+            class="px-4 py-2 text-sm rounded-lg bg-yellow-500 text-white hover:bg-yellow-600">
+            Edit Student
+        </button>
     </div>
 
+    <!-- Report -->
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <!-- Student Portfolio -->
         <div class="col-span-1 bg-green-900 text-white rounded-xl shadow p-6 space-y-6">
@@ -168,7 +173,7 @@
                                 <td class="px-4 py-2">582</td>
                                 <td class="px-4 py-2">Mumtaz</td>
                                 <td class="px-4 py-2">Mon-20-K1</td>
-                                <td class="px-4 py-2">Ustaz Fahmi</td>
+                                <td class="px-4 py-2">Ustaz Farhan</td>
                                 <td class="px-4 py-2">18/09/2016</td>
                                 <td class="px-4 py-2">
                                     <button class="px-3 py-1 bg-yellow-500 text-white text-xs rounded-lg hover:bg-yellow-600">Notes</button>
@@ -212,4 +217,85 @@
             </div>
         </div>
     </div>
-</x-admin-layout>
+
+    <!-- Edit Student Modal -->
+    <div id="editStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Student</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editStudentModal">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <form id="editStudentForm">
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- First Name -->
+                        <div>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div>
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- IC Number -->
+                        <div>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                            <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Age -->
+                        <div>
+                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Birth Date -->
+                        <div>
+                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Gender -->
+                        <div>
+                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                            <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <!-- Status -->
+                        <div>
+                            <label for="status_edit" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                            <select id="status_edit" name="status_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Address (full width) -->
+                    <div class="mt-6">
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editStudentModal">Cancel</button>
+
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</x-guardian-layout>
