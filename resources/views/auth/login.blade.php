@@ -16,16 +16,38 @@
 
             <!-- Login Form -->
             <form class="space-y-4">
+                <!-- User Role Selection -->
+                <div class="grid sm:grid-cols-2 gap-3">
+                    <!-- Guardian -->
+                    <label class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer border border-gray-200 transition hover:border-green-500 has-[:checked]:border-green-500 has-[:checked]:bg-green-50">
+                        <input type="radio" name="role" value="guardian" checked
+                            class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300">
+                        <span class="text-sm font-medium text-gray-700 group-has-[:checked]:text-green-700">
+                            Guardian
+                        </span>
+                    </label>
+
+                    <!-- Tutor -->
+                    <label class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer border border-gray-200 transition hover:border-green-500 has-[:checked]:border-green-500 has-[:checked]:bg-green-50">
+                        <input type="radio" name="role" value="tutor"
+                            class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300">
+                        <span class="text-sm font-medium text-gray-700 group-has-[:checked]:text-green-700">
+                            Tutor
+                        </span>
+                    </label>
+                </div>
+
+
                 <div>
                     <label for="email" class="text-sm font-medium text-gray-700">Email*</label>
                     <input type="email" id="email" name="email" placeholder="info@gmail.com"
-                        class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg">
                 </div>
 
                 <div>
-                    <label for="password" class="text-sm font-medium text-gray-700">Password*</label>
+                    <label for=" password" class="text-sm font-medium text-gray-700">Password*</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password"
-                        class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg">
                 </div>
 
                 <button type="submit"
