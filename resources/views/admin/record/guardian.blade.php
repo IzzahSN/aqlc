@@ -160,6 +160,12 @@
                             <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
+                        <!-- Phone Number -->
+                        <div>
+                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                            <input type="text" id="phone" name="phone" placeholder="0122039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
                         <!-- IC Number -->
                         <div>
                             <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
@@ -205,26 +211,25 @@
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
-                        <!-- Children -->
-                        <div>
-                            <label for="child" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
-                            <select id="child" name="child[]" multiple
-                                class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
-                                <option value="1">Muhammad Azhar</option>
-                                <option value="2">Nurul Jannah</option>
-                                <option value="3">Ahmad Salleh</option>
-                            </select>
-                        </div>
-
-                        <script>
-                            new TomSelect("#child", {
-                                plugins: ['remove_button'], // ada button x untuk buang tag
-                                create: false, // kalau true, user boleh tambah value baru
-                                persist: false,
-                            });
-                        </script>
+                    </div>
+                    <!-- Children -->
+                    <div class="mt-6">
+                        <label for="child_edit" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
+                        <select id="child_edit" name="child_edit[]" multiple
+                            class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
+                            <option value="1">Muhammad Azhar</option>
+                            <option value="2">Nurul Jannah</option>
+                            <option value="3">Ahmad Salleh</option>
+                        </select>
                     </div>
 
+                    <script>
+                        new TomSelect("#child_edit", {
+                            plugins: ['remove_button'], // ada button x untuk buang tag
+                            create: false, // kalau true, user boleh tambah value baru
+                            persist: false,
+                        });
+                    </script>
                     <!-- Address (full width) -->
                     <div class="mt-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
@@ -274,6 +279,12 @@
                             <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
+                        <!-- Phone Number -->
+                        <div>
+                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                            <input type="text" id="phone" name="phone" placeholder="0122039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
                         <!-- IC Number -->
                         <div>
                             <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
@@ -319,26 +330,25 @@
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
-                        <!-- Children -->
-                        <div>
-                            <label for="child_edit" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
-                            <select id="child_edit" name="child_edit[]" multiple
-                                class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
-                                <option value="1">Muhammad Azhar</option>
-                                <option value="2">Nurul Jannah</option>
-                                <option value="3">Ahmad Salleh</option>
-                            </select>
-                        </div>
-
-                        <script>
-                            new TomSelect("#child_edit", {
-                                plugins: ['remove_button'], // ada button x untuk buang tag
-                                create: false, // kalau true, user boleh tambah value baru
-                                persist: false,
-                            });
-                        </script>
+                    </div>
+                    <!-- Children -->
+                    <div class="mt-6">
+                        <label for="child_edit" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
+                        <select id="child_edit" name="child_edit[]" multiple
+                            class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
+                            <option value="1">Muhammad Azhar</option>
+                            <option value="2">Nurul Jannah</option>
+                            <option value="3">Ahmad Salleh</option>
+                        </select>
                     </div>
 
+                    <script>
+                        new TomSelect("#child_edit", {
+                            plugins: ['remove_button'], // ada button x untuk buang tag
+                            create: false, // kalau true, user boleh tambah value baru
+                            persist: false,
+                        });
+                    </script>
                     <!-- Address (full width) -->
                     <div class="mt-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
