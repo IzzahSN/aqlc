@@ -330,5 +330,39 @@
         </div>
     </section>
 
+    <!-- Encouragement Section -->
+    <section class="relative bg-gray-50 pt-20 pb-5 px-6">
+        <div class="max-w-4xl mx-auto">
+            <!-- Banner -->
+            <div class="relative bg-gradient-to-bl from-amber-400 via-amber-500 to-amber-600 rounded-2xl px-8 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-center overflow-visible shadow-2xl">
+
+                <!-- Left Content -->
+                <div class="space-y-6">
+                    <h2 class="text-4xl font-extrabold text-emerald-900 leading-tight">
+                        Enroll Your <br> <span class="text-gray-100">Child</span> Today
+                    </h2>
+                </div>
+
+                <!-- Center Image -->
+                <div class="flex justify-center relative">
+                    <img src="/images/ustaz.png"
+                        alt="Quran Learning"
+                        class="w-64 md:w-80 object-contain -mt-16 relative z-10" />
+                </div>
+
+                <!-- Right Content -->
+                <div class="space-y-6">
+                    <p class="text-white/90 text-base max-w-md">
+                        Help your child learn the Quran with guidance from caring, experienced teachers.
+                    </p>
+                    <a href="#"
+                        class="text-sm font-semibold inline-block bg-emerald-900 text-white px-4 py-2 rounded-full shadow-lg hover:bg-emerald-800 transition">
+                        Join Us Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
 </x-app-layout>
