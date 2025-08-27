@@ -19,11 +19,13 @@
     {{-- Navbar --}}
     @if (!in_array(Route::currentRouteName(), ['login', 'register']))
     @include('components.navbar-guest')
+    <div class="pt-16"></div>
     @endif
 
-    <div>
+
+    <main>
         {{ $slot }}
-    </div>
+    </main>
 
     {{-- Footer --}}
     @if (!in_array(Route::currentRouteName(), ['login', 'register']))

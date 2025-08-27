@@ -1,4 +1,4 @@
-<header class="w-full bg-gray-50 border-b border-gray-200 shadow-sm dark:bg-neutral-900 dark:border-neutral-800">
+<header class="fixed top-0 left-0 w-full bg-gray-50 border-b border-gray-200 shadow-sm z-50 dark:bg-neutral-900 dark:border-neutral-800">
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
         <!-- Logo & Brand -->
         <a href="{{ route('home') }}" class=" flex items-center">
