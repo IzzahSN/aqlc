@@ -1,154 +1,151 @@
 <x-app-layout :title="'Home'">
-    <!-- Stats -->
-    <div class="bg-neutral-900">
-        <div class="max-w-5xl px-4 xl:px-0 py-10 mx-auto">
-            <div class="border border-neutral-800 rounded-xl">
-                <div class="p-4 lg:p-8 bg-linear-to-bl from-neutral-800 via-neutral-900 to-neutral-950 rounded-xl">
-                    <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-y-20 gap-x-12">
-                        <!-- Stats -->
-                        <div class="relative text-center first:before:hidden before:absolute before:-top-full sm:before:top-1/2 before:start-1/2 sm:before:-start-6 before:w-px before:h-20 before:bg-neutral-800 before:rotate-[60deg] sm:before:rotate-12 before:transform sm:before:-translate-y-1/2 before:-translate-x-1/2 sm:before:-translate-x-0 before:mt-3.5 sm:before:mt-0">
-                            <svg class="shrink-0 size-6 sm:size-8 text-[#ff0] mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m11 17 2 2a1 1 0 1 0 3-3" />
-                                <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" />
-                                <path d="m21 3 1 11h-2" />
-                                <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" />
-                                <path d="M3 4h8" />
-                            </svg>
-                            <div class="mt-3 sm:mt-5">
-                                <h3 class="text-lg sm:text-3xl font-semibold text-white">2,000+</h3>
-                                <p class="mt-1 text-sm sm:text-base text-neutral-400">Preline partners</p>
-                            </div>
-                        </div>
-                        <!-- End Stats -->
 
-                        <!-- Stats -->
-                        <div class="relative text-center first:before:hidden before:absolute before:-top-full sm:before:top-1/2 before:start-1/2 sm:before:-start-6 before:w-px before:h-20 before:bg-neutral-800 before:rotate-[60deg] sm:before:rotate-12 before:transform sm:before:-translate-y-1/2 before:-translate-x-1/2 sm:before:-translate-x-0 before:mt-3.5 sm:before:mt-0">
-                            <div class="flex justify-center items-center -space-x-5">
-                                <img class="relative z-2 shrink-0 size-8 rounded-full border-3 border-neutral-800" src="https://images.unsplash.com/photo-1601935111741-ae98b2b230b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
-                                <img class="relative z-1 shrink-0 size-8 rounded-full border-3 border-neutral-800 -mt-7" src="https://images.unsplash.com/photo-1570654639102-bdd95efeca7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
-                                <img class="relative shrink-0 size-8 rounded-full border-3 border-neutral-800" src="https://images.unsplash.com/photo-1679412330254-90cb240038c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2.5&w=320&h=320&q=80" alt="Avatar">
-                            </div>
-                            <div class="mt-3 sm:mt-5">
-                                <h3 class="text-lg sm:text-3xl font-semibold text-white">85%</h3>
-                                <p class="mt-1 text-sm sm:text-base text-neutral-400">Happy customers</p>
-                            </div>
-                        </div>
-                        <!-- End Stats -->
+    <!-- Statistic section -->
+    <section class="relative bg-gray-50 dark:bg-neutral-950 py-16 px-20">
+        <div class="p-6 bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 rounded-2xl">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-y-12 gap-x-10 text-center">
+                <!-- Stats 1-->
+                <div class="relative text-center flex flex-col items-center">
+                    <!-- Icon -->
+                    <div class="flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-15 h-15 text-yellow-500 "
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l2 2l4 -4" />
+                        </svg>
+                    </div>
+                    <!-- Text -->
+                    <div class="mt-3">
+                        <h3 class="text-xl sm:text-3xl font-bold text-white">10+</h3>
+                        <p class="mt-1 text-sm sm:text-base text-green-100">Qualified Tutors</p>
+                    </div>
+                </div>
 
-                        <!-- Stats -->
-                        <div class="relative text-center first:before:hidden before:absolute before:-top-full sm:before:top-1/2 before:start-1/2 sm:before:-start-6 before:w-px before:h-20 before:bg-neutral-800 before:rotate-[60deg] sm:before:rotate-12 before:transform sm:before:-translate-y-1/2 before:-translate-x-1/2 sm:before:-translate-x-0 before:mt-3.5 sm:before:mt-0">
-                            <svg class="shrink-0 size-6 sm:size-8 text-[#ff0] mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" />
-                                <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" />
-                                <path d="m2 16 6 6" />
-                                <circle cx="16" cy="9" r="2.9" />
-                                <circle cx="6" cy="5" r="3" />
-                            </svg>
-                            <div class="mt-3 sm:mt-5">
-                                <h3 class="text-lg sm:text-3xl font-semibold text-white">$55M+</h3>
-                                <p class="mt-1 text-sm sm:text-base text-neutral-400">Ads managed yearly</p>
-                            </div>
-                        </div>
-                        <!-- End Stats -->
+                <!-- Stats 2-->
+                <div class="relative text-center flex flex-col items-center">
+                    <div class="flex justify-center items-center -space-x-9">
+                        <img class="w-15 h-15 relative z-2 shrink-0 size-8 rounded-full shadow border-5 border-emerald-900" src="https://images.unsplash.com/photo-1601935111741-ae98b2b230b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
+                        <img class="w-15 h-15 relative z-1 shrink-0 size-8 rounded-full shadow -mt-7 border-5 border-emerald-900" src="https://images.unsplash.com/photo-1570654639102-bdd95efeca7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
+                        <img class="w-15 h-15 relative shrink-0 size-8 rounded-full shadow border-5 border-emerald-900" src="https://images.unsplash.com/photo-1679412330254-90cb240038c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2.5&w=320&h=320&q=80" alt="Avatar">
+                    </div>
+                    <!-- Text -->
+                    <div class="mt-3">
+                        <h3 class="text-xl sm:text-3xl font-bold text-white">50+</h3>
+                        <p class="mt-1 text-sm sm:text-base text-green-100">Students Enrolled</p>
+                    </div>
+                </div>
+
+                <!-- Stats 3-->
+                <div class="relative text-center flex flex-col items-center">
+                    <div class="flex justify-center items-center -space-x-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-15 h-15 icon icon-tabler icons-tabler-outline icon-tabler-calendar-clock text-yellow-500">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10.5 21h-4.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3" />
+                            <path d="M16 3v4" />
+                            <path d="M8 3v4" />
+                            <path d="M4 11h10" />
+                            <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                            <path d="M18 16.5v1.5l.5 .5" />
+                        </svg>
+                    </div>
+                    <div class="mt-3">
+                        <h3 class="text-xl sm:text-3xl font-bold text-white">300+</h3>
+                        <p class="mt-1 text-sm sm:text-base text-green-100">Classes Conducted</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End Stats -->
+    </section>
 
-    <!-- Features -->
-    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-        <!-- Grid -->
-        <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
-            <div class="lg:col-span-7">
-                <!-- Grid -->
-                <div class="grid grid-cols-12 gap-2 sm:gap-6 items-center lg:-translate-x-10">
-                    <div class="col-span-4">
-                        <img class="rounded-xl" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=920&q=80" alt="Features Image">
-                    </div>
-                    <!-- End Col -->
+    <!-- Why Choose Us Section -->
+    <section class="relative bg-gray-50 dark:bg-neutral-950 py-16 px-6">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
 
-                    <div class="col-span-3">
-                        <img class="rounded-xl" src="https://images.unsplash.com/photo-1605629921711-2f6b00c6bbf4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=920&q=80" alt="Features Image">
+                <!-- Left Image Grid -->
+                <div class="lg:col-span-7">
+                    <div class="grid grid-cols-12 gap-4 sm:gap-6 items-center">
+                        <div class="col-span-4">
+                            <img class="rounded-2xl shadow-lg" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=920&q=80" alt="Teaching">
+                        </div>
+                        <div class="col-span-3">
+                            <img class="rounded-2xl shadow-lg" src="https://images.unsplash.com/photo-1605629921711-2f6b00c6bbf4?ixlib=rb-4.0.3&auto=format&fit=crop&w=920&q=80" alt="Learning">
+                        </div>
+                        <div class="col-span-5">
+                            <img class="rounded-2xl shadow-lg" src="https://images.unsplash.com/photo-1600194992440-50b26e0a0309?ixlib=rb-4.0.3&auto=format&fit=crop&w=920&q=80" alt="Environment">
+                        </div>
                     </div>
-                    <!-- End Col -->
-
-                    <div class="col-span-5">
-                        <img class="rounded-xl" src="https://images.unsplash.com/photo-1600194992440-50b26e0a0309?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=920&q=80" alt="Features Image">
-                    </div>
-                    <!-- End Col -->
                 </div>
-                <!-- End Grid -->
-            </div>
-            <!-- End Col -->
+                <!-- End Left -->
 
-            <div class="mt-5 sm:mt-10 lg:mt-0 lg:col-span-5">
-                <div class="space-y-6 sm:space-y-8">
-                    <!-- Title -->
-                    <div class="space-y-2 md:space-y-4">
-                        <h2 class="font-bold text-3xl lg:text-4xl text-gray-800 dark:text-neutral-200">
-                            Collaborative tools to design user experience
-                        </h2>
-                        <p class="text-gray-500 dark:text-neutral-500">
-                            Use our tools to explore your ideas and make your vision come true. Then share your work easily.
-                        </p>
+                <!-- Right Content -->
+                <div class="mt-10 lg:mt-0 lg:col-span-5">
+                    <div class="space-y-6">
+                        <!-- Title -->
+                        <div class="space-y-4">
+                            <h2 class="font-bold text-3xl lg:text-4xl text-gray-900 dark:text-white">
+                                Why Choose Us?
+                            </h2>
+                            <p class="text-gray-600 dark:text-neutral-400">
+                                We are committed to providing the best Quran learning experience, tailored for individuals and families.
+                            </p>
+                        </div>
+                        <!-- End Title -->
+
+                        <!-- List -->
+                        <ul class="space-y-4">
+                            <li class="flex gap-x-3">
+                                <span class="mt-1 w-6 h-6 flex justify-center items-center rounded-full bg-green-100 text-green-600">
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                </span>
+                                <span class="text-gray-700 dark:text-neutral-300 text-base">Flexible Schedule</span>
+                            </li>
+
+                            <li class="flex gap-x-3">
+                                <span class="mt-1 w-6 h-6 flex justify-center items-center rounded-full bg-green-100 text-green-600">
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                </span>
+                                <span class="text-gray-700 dark:text-neutral-300 text-base">Experienced Tutors</span>
+                            </li>
+
+                            <li class="flex gap-x-3">
+                                <span class="mt-1 w-6 h-6 flex justify-center items-center rounded-full bg-green-100 text-green-600">
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                </span>
+                                <span class="text-gray-700 dark:text-neutral-300 text-base">Conducive Learning Environment</span>
+                            </li>
+
+                            <li class="flex gap-x-3">
+                                <span class="mt-1 w-6 h-6 flex justify-center items-center rounded-full bg-green-100 text-green-600">
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                </span>
+                                <span class="text-gray-700 dark:text-neutral-300 text-base">Personalized Learning Plans</span>
+                            </li>
+                        </ul>
+                        <!-- End List -->
                     </div>
-                    <!-- End Title -->
-
-                    <!-- List -->
-                    <ul class="space-y-2 sm:space-y-4">
-                        <li class="flex gap-x-3">
-                            <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-800/30 dark:text-blue-500">
-                                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </span>
-                            <div class="grow">
-                                <span class="text-sm sm:text-base text-gray-500 dark:text-neutral-500">
-                                    <span class="font-bold">Less routine</span> – more creativity
-                                </span>
-                            </div>
-                        </li>
-
-                        <li class="flex gap-x-3">
-                            <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-800/30 dark:text-blue-500">
-                                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </span>
-                            <div class="grow">
-                                <span class="text-sm sm:text-base text-gray-500 dark:text-neutral-500">
-                                    Hundreds of thousands saved
-                                </span>
-                            </div>
-                        </li>
-
-                        <li class="flex gap-x-3">
-                            <span class="mt-0.5 size-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-800/30 dark:text-blue-500">
-                                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </span>
-                            <div class="grow">
-                                <span class="text-sm sm:text-base text-gray-500 dark:text-neutral-500">
-                                    Scale budgets <span class="font-bold">efficiently</span>
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- End List -->
                 </div>
+                <!-- End Right -->
             </div>
-            <!-- End Col -->
         </div>
-        <!-- End Grid -->
-    </div>
-    <!-- End Features -->
+    </section>
 
     <!-- Packages Section -->
-    <section class="bg-gray-50 py-16 px-8">
-        <div class="max-w-6xl mx-auto px-6">
+    <section class="relative bg-gray-50 py-16 px-6">
+        <div class="max-w-4xl mx-auto px-6">
             <!-- Title -->
             <div class="text-center mb-14">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
@@ -237,7 +234,7 @@
     </section>
 
     <!-- Feedback Section-->
-    <section class="relative bg-cover bg-center py-12 px-8"
+    <section class="relative bg-cover bg-center py-12 px-6"
         style="background-image: url('/green-bg.jpg');">
         <div class="absolute inset-0 bg-green-900/60"></div> <!-- Overlay hijau gelap -->
 
