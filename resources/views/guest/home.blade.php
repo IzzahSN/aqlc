@@ -1,7 +1,42 @@
 <x-app-layout :title="'Home'">
+    <!-- Hero Section -->
+    <div class="max-w-7xl pl-20 pr-20 pt-4 bg-gray-50">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <!-- Text Section -->
+            <div class="">
+                <h1 class=" text-5xl font-bold text-gray-900 leading-tight">
+                    Begin Your <span class="text-green-600">Quranic Journey</span> Today
+                </h1>
+                <p class="mt-4 text-base text-gray-600">
+                    Guided by experienced teachers, our centre provides personalized and group Quran learning programs designed to nurture knowledge, character, and love for the Quran.
+                </p>
+
+                <!-- Buttons -->
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a href="#daftar"
+                        class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                        Register Now
+                        <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Image -->
+            <div class="relative flex justify-center">
+                <!-- Boy Image -->
+                <img class="relative z-10 w-100 h-100" src="/images/boy-read-quran-2.png" alt="Pelajar mengaji Al-Quran">
+
+                <!-- Decorative Circle -->
+                <div class="absolute -bottom-10 right-10 w-100 h-100 bg-green-100 rounded-full z-0"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Statistic section -->
-    <section class="relative bg-gray-50 dark:bg-neutral-950 py-16 px-20">
+    <section class="relative bg-gray-50 dark:bg-neutral-950 px-20">
         <div class="p-6 bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 rounded-2xl">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-y-12 gap-x-10 text-center">
                 <!-- Stats 1-->
@@ -235,7 +270,7 @@
 
     <!-- Feedback Section-->
     <section class="relative bg-cover bg-center py-12 px-6"
-        style="background-image: url('/green-bg.jpg');">
+        style="background-image: url('/images/green-bg.jpg');">
         <div class="absolute inset-0 bg-green-900/60"></div> <!-- Overlay hijau gelap -->
 
         <div class="relative max-w-6xl mx-auto px-6 text-white">

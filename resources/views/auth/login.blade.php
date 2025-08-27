@@ -63,7 +63,7 @@
 
         <!-- Right side (Company info + Illustration) -->
         <div class="hidden lg:flex w-1/2 flex-col items-center justify-center bg-gray-100 text-white relative p-12">
-            <img src="/logo-2.png" alt="logo" class="w-1/4">
+            <img src="/images/logo-2.png" alt="logo" class="w-1/4">
 
             <!-- Optional text -->
             <h3 class="text-xl font-bold text-emerald-800">Pusat Pengajian Quran As-Siraaj</h3>
@@ -71,7 +71,7 @@
                 ⭐ Menyinari hidupmu di dunia dan di sana ⭐
             </p>
             <!-- Illustration -->
-            <img src="/boy-read-quran.png" alt="Illustration" class="w-3/4 max-w-md">
+            <img src="/images/boy-read-quran.png" alt="Illustration" class="w-3/4 max-w-md">
         </div>
     </div>
 </x-app-layout>
