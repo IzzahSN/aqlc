@@ -16,6 +16,9 @@
 </head>
 
 <body class="bg-gray-100">
+    {{-- Sidebar --}}
+    @include('components.navbar-guest')
+
     {{ $slot }}
 </body>
 

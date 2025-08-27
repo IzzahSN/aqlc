@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 // =======================
 // Public Routes
 // =======================
-Route::get('/', fn() => view('welcome'))->name('welcome');
+Route::get('/', fn() => view('components.home'))->name('home');
 
 // =======================
 // Auth Routes

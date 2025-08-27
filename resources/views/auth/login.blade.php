@@ -4,7 +4,7 @@
         <div class="w-full lg:w-1/2 flex flex-col justify-center px-8 lg:px-20 bg-white">
 
             <!-- Back to Dashboard -->
-            <a href="{{ route('welcome') }}" class="flex items-center text-sm text-gray-500 hover:text-gray-700 mb-6">
+            <a href="{{ route('home') }}" class="flex items-center text-sm text-gray-500 hover:text-gray-700 mb-6">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
