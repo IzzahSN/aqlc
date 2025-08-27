@@ -146,7 +146,7 @@
     </div>
     <!-- End Features -->
 
-    <!-- Features -->
+    <!-- Package -->
     <div class="overflow-hidden">
         <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
             <!-- Title -->
@@ -396,111 +396,158 @@
             </div>
         </div>
     </div>
-    <!-- End Features -->
-
-    <!-- Testimonials -->
-    <div class="overflow-hidden bg-gray-800 dark:bg-neutral-950">
-        <div class="relative max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <!-- Packages Section -->
+    <section class="bg-gray-50 py-16">
+        <div class="max-w-6xl mx-auto px-6">
             <!-- Title -->
-            <div class="max-w-2xl w-3/4 lg:w-1/2 mb-6 sm:mb-10 md:mb-16">
-                <h2 class="text-2xl sm:text-3xl lg:text-4xl text-white font-semibold">
-                    Loved by business and individuals across the globe
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
+                    Choose Your Learning Package
                 </h2>
+                <p class="mt-3 text-gray-500">Flexible options designed for every student</p>
             </div>
-            <!-- End Title -->
 
             <!-- Grid -->
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card -->
-                <div class="flex h-auto">
-                    <div class="flex flex-col bg-white rounded-xl dark:bg-neutral-900">
-                        <div class="flex-auto p-4 md:p-6">
-                            <p class="text-base italic md:text-lg text-gray-800 dark:text-neutral-200">
-                                " With Preline, we're able to easily track our performance in full detail. It's become an essential tool for us to grow and engage with our audience. "
-                            </p>
-                        </div>
+            <div class="grid gap-8 md:grid-cols-2">
 
-                        <div class="p-4 bg-gray-100 rounded-b-xl md:px-7 dark:bg-neutral-800">
-                            <div class="flex items-center gap-x-3">
-                                <div class="shrink-0">
-                                    <img class="size-8 sm:size-11.5 rounded-full" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
-                                </div>
+                <!-- Annur Lite -->
+                <div class="relative bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition p-8">
+                    <h3 class="text-xl font-bold text-green-700">Annur Lite</h3>
+                    <p class="text-sm text-gray-500">Group Class</p>
 
-                                <div class="grow">
-                                    <p class="text-sm sm:text-base font-semibold text-gray-800 dark:text-neutral-200">
-                                        Josh Tyson
-                                    </p>
-                                    <p class="text-xs text-gray-500 dark:text-neutral-400">
-                                        Product Manager | Capsule
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="mt-6">
+                        <span class="text-4xl font-bold text-gray-800">RM100</span>
+                        <span class="text-gray-500">/ month</span>
+                    </div>
+
+                    <ul class="mt-6 space-y-3 text-gray-700">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> 3 classes per week
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> 1 hour per session
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> Recitation (Iqra & Quran)
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> Tajweed lessons
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> Lesson materials provided
+                        </li>
+                    </ul>
+
+                    <div class="mt-8">
+                        <button class="w-full py-3 px-5 rounded-xl bg-green-600 text-white font-medium hover:bg-green-700 transition">
+                            Get Started
+                        </button>
                     </div>
                 </div>
-                <!-- End Card -->
 
-                <!-- Card -->
-                <div class="flex h-auto">
-                    <div class="flex flex-col bg-white rounded-xl dark:bg-neutral-900">
-                        <div class="flex-auto p-4 md:p-6">
-                            <p class="text-base italic md:text-lg text-gray-800 dark:text-neutral-200">
-                                " In September, I will be using this theme for 2 years. I went through multiple updates and changes and I'm very glad to see the consistency and effort made by the team. "
-                            </p>
-                        </div>
+                <!-- Annur Plus -->
+                <div class="relative bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition p-8">
+                    <span class="absolute top-0 right-0 bg-yellow-500 text-white text-sm font-medium py-2 px-4 rounded-bl-xl rounded-tr-xl">
+                        Most popular
+                    </span>
+                    <h3 class="text-xl font-bold text-green-700">Annur Plus</h3>
+                    <p class="text-sm text-gray-500">Personal Class</p>
 
-                        <div class="p-4 bg-gray-100 rounded-b-xl md:px-7 dark:bg-neutral-800">
-                            <div class="flex items-center gap-x-3">
-                                <div class="shrink-0">
-                                    <img class="size-8 sm:size-11.5 rounded-full" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
-                                </div>
+                    <div class="mt-6">
+                        <span class="text-4xl font-bold text-gray-800">RM25.00</span>
+                        <span class="text-gray-500">/ session</span>
+                    </div>
 
-                                <div class="grow">
-                                    <p class="text-sm sm:text-base font-semibold text-gray-800 dark:text-neutral-200">
-                                        Luisa
-                                    </p>
-                                    <p class="text-xs text-gray-500 dark:text-neutral-400">
-                                        Senior Director of Operations | Fitbit
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    <ul class="mt-6 space-y-3 text-gray-700">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> 30 minutes per session
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> Flexible class session
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> Recitation (Iqra & Quran)
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> Tajweed lessons
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-600">✔</span> Lesson materials provided
+                        </li>
+                    </ul>
+
+                    <div class="mt-8">
+                        <button class="w-full py-3 px-5 rounded-xl bg-green-600 text-white font-medium hover:bg-green-700 transition">
+                            Get Started
+                        </button>
                     </div>
                 </div>
-                <!-- End Card -->
-
-                <!-- Card -->
-                <div class="flex h-auto">
-                    <div class="flex flex-col bg-white rounded-xl dark:bg-neutral-900">
-                        <div class="flex-auto p-4 md:p-6">
-                            <p class="text-base italic md:text-lg text-gray-800 dark:text-neutral-200">
-                                " Refreshing and Thought provoking design and it changes my view about how I design the websites. Great typography, modern clean white design, nice tones of the color. "
-                            </p>
-                        </div>
-
-                        <div class="p-4 bg-gray-100 rounded-b-xl md:px-7 dark:bg-neutral-800">
-                            <div class="flex items-center gap-x-3">
-                                <div class="shrink-0">
-                                    <img class="size-8 sm:size-11.5 rounded-full" src="https://images.unsplash.com/photo-1579017331263-ef82f0bbc748?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=900&h=900&q=80" alt="Avatar">
-                                </div>
-
-                                <div class="grow">
-                                    <p class="text-sm sm:text-base font-semibold text-gray-800 dark:text-neutral-200">
-                                        Alisa Williams
-                                    </p>
-                                    <p class="text-xs text-gray-500 dark:text-neutral-400">
-                                        Entrepreneur | Happy customer
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Card -->
             </div>
-            <!-- End Grid -->
-
         </div>
-    </div>
-    <!-- End Testimonials -->
+    </section>
+
+
+    <!-- Feedback Section-->
+    <section class="relative bg-cover bg-center py-12"
+        style="background-image: url('/green-bg.jpg');">
+        <div class="absolute inset-0 bg-green-900/60"></div> <!-- Overlay hijau gelap -->
+
+        <div class="relative max-w-6xl mx-auto px-6 text-white">
+            <h2 class="text-3xl font-bold text-center mb-10">
+                What Our Users Say
+            </h2>
+
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Card 1 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-md p-6 hover:shadow-lg transition text-gray-800">
+                    <p class="italic mb-4">
+                        "This platform really helped me organize my learning progress. The
+                        reports are super clear and easy to understand!"
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/50" alt="user"
+                            class="w-12 h-12 rounded-full shadow" />
+                        <div>
+                            <h4 class="font-semibold">Sarah Johnson</h4>
+                            <span class="text-sm text-gray-600">Student</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-md p-6 hover:shadow-lg transition text-gray-800">
+                    <p class="italic mb-4">
+                        "I love how simple and intuitive the design is. Even for tutors, it
+                        makes tracking lessons much easier."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/51" alt="user"
+                            class="w-12 h-12 rounded-full shadow" />
+                        <div>
+                            <h4 class="font-semibold">Michael Lee</h4>
+                            <span class="text-sm text-gray-600">Tutor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-md p-6 hover:shadow-lg transition text-gray-800">
+                    <p class="italic mb-4">
+                        "The SMS notifications are a game changer! I never miss any updates
+                        about my child's progress anymore."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/52" alt="user"
+                            class="w-12 h-12 rounded-full shadow" />
+                        <div>
+                            <h4 class="font-semibold">Amina Yusuf</h4>
+                            <span class="text-sm text-gray-600">Parent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 </x-app-layout>
