@@ -16,10 +16,20 @@
 </head>
 
 <body class="bg-gray-100">
-    {{-- Sidebar --}}
+    {{-- Navbar --}}
+    @if (!in_array(Route::currentRouteName(), ['login', 'register']))
     @include('components.navbar-guest')
+    @endif
 
-    {{ $slot }}
+    <div>
+        {{ $slot }}
+    </div>
+
+    {{-- Footer --}}
+    @if (!in_array(Route::currentRouteName(), ['login', 'register']))
+    @include('components.footer')
+    @endif
 </body>
+
 
 </html>

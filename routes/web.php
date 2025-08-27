@@ -5,7 +5,10 @@ use Illuminate\Support\Facades\Route;
 // =======================
 // Public Routes
 // =======================
-Route::get('/', fn() => view('components.home'))->name('home');
+Route::get('/', fn() => view('guest.home'))->name('home');
+Route::get('/profile', fn() => view('guest.profile'))->name('profile');
+Route::get('/contact', fn() => view('guest.contact'))->name('contact');
+
 
 // =======================
 // Auth Routes
