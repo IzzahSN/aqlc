@@ -1,43 +1,90 @@
-<footer class="w-full bg-gray-50 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+<footer class="bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 text-gray-200">
+    <div class="mx-auto w-full max-w-screen-xl px-16 py-10">
+        <div class="md:flex md:justify-between">
+            <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-5 w-full">
 
-        <!-- Brand -->
-        <div class="flex justify-center items-center gap-2">
-            <h3 class="text-xl font-bold text-emerald-900">Pusat Pengajian Quran As-Siraaj</h3>
+                <!-- Brand (besar sikit: span 2 kolum) -->
+                <div class="md:col-span-2">
+                    <a href="#" class="flex items-center mb-3">
+                        <img src="/images/logo-round.svg" class="h-10 mr-3" alt="Logo" />
+                        <span class="self-center text-base font-semibold leading-tight">
+                            Pusat Pengajian Quran <br> As-Siraaj
+                        </span>
+                    </a>
+                    <p class="text-xs text-emerald-100 font-medium mb-4">
+                        ⭐ Menyinari hidupmu di dunia dan di sana ⭐
+                    </p>
+
+                    <!-- Social Links -->
+                    <div class="flex space-x-3">
+                        <a href="#" class="p-2 rounded-full bg-emerald-600 hover:bg-emerald-500 transition">
+                            <!-- facebook -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+                            </svg>
+                        </a>
+                        <a href="#" class="p-2 rounded-full bg-emerald-600 hover:bg-emerald-500 transition">
+                            <!-- insta -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 8a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" />
+                                <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                                <path d="M16.5 7.5v.01" />
+                            </svg>
+                        </a>
+                        <a href="#" class="p-2 rounded-full bg-emerald-600 hover:bg-emerald-500 transition">
+                            <!-- youtube -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8z" />
+                                <path d="M10 9l5 3l-5 3z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h2 class="mb-4 text-sm font-bold uppercase tracking-wide text-white">Company</h2>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-white">Home</a></li>
+                        <li><a href="#" class="hover:text-white">Profile</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h2 class="mb-4 text-sm font-bold uppercase tracking-wide text-white">Contact</h2>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="tel:0123456789" class="hover:text-white">012-3456789</a></li>
+                        <li><a href="mailto:as-siraaj@gmail.com" class="hover:text-white">as-siraaj@gmail.com</a></li>
+                        <li>
+                            <p class="text-emerald-100">
+                                6-1, Jalan Villa Tropika 1,<br>
+                                Jln Kampung Sg Tangkas,<br>
+                                43000 Kajang, Selangor
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Map -->
+                <div>
+                    <h2 class="mb-4 text-sm font-bold uppercase tracking-wide text-white">Find Us</h2>
+                    <div class="rounded-lg overflow-hidden shadow">
+                        <iframe src="https://maps.google.com/maps?q=Kajang%20Selangor&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            class="w-full h-32 border-0"></iframe>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Description -->
-        <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
-            <p class="mb-1">
-                Membina generasi Qurani dengan pendidikan Al-Quran yang berkualiti.
-            </p>
-            <p>© {{ date('Y') }} Pusat Pengajian Quran As-Siraaj. All rights reserved.</p>
-        </div>
 
-        <!-- Social Links -->
-        <div class="mt-5 flex justify-center gap-3">
-            <!-- Facebook -->
-            <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-800 hover:bg-green-200 transition dark:bg-green-900 dark:text-green-400 dark:hover:bg-green-800">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.5l-.4 3h-2.1v7A10 10 0 0 0 22 12" />
-                </svg>
-            </a>
+        <!-- Divider -->
+        <hr class="my-8 border-emerald-600/50" />
 
-            <!-- Twitter -->
-            <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-800 hover:bg-green-200 transition dark:bg-green-900 dark:text-green-400 dark:hover:bg-green-800">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19.6 7.5c.01.2.01.4.01.61 0 6.2-4.7 13.3-13.3 13.3-2.6 0-5-.76-7-2.07.37.04.75.06 1.14.06a9.4 9.4 0 0 0 5.8-2A4.7 4.7 0 0 1 2 14.4c.3.05.6.08.9.08.4 0 .9-.05 1.2-.14a4.7 4.7 0 0 1-3.7-4.6v-.06c.6.34 1.3.55 2 .58a4.7 4.7 0 0 1-1.4-6.3A13.4 13.4 0 0 0 11.7 9a5.3 5.3 0 0 1-.1-1.1 4.7 4.7 0 0 1 8.1-3.2 9.3 9.3 0 0 0 3-1.1 4.7 4.7 0 0 1-2.1 2.6 9.4 9.4 0 0 0 2.7-.74 9.9 9.9 0 0 1-2.3 2.5z" />
-                </svg>
-            </a>
-
-            <!-- Youtube -->
-            <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-800 hover:bg-green-200 transition dark:bg-green-900 dark:text-green-400 dark:hover:bg-green-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-brand-youtube">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M18 3a5 5 0 0 1 5 5v8a5 5 0 0 1 -5 5h-12a5 5 0 0 1 -5 -5v-8a5 5 0 0 1 5 -5zm-9 6v6a1 1 0 0 0 1.514 .857l5 -3a1 1 0 0 0 0 -1.714l-5 -3a1 1 0 0 0 -1.514 .857z" />
-                </svg>
-            </a>
-
+        <!-- Bottom -->
+        <div class="text-center">
+            <span class="text-sm text-emerald-100">© {{ date('Y') }} Pusat Pengajian Quran As-Siraaj. All rights reserved.</span>
         </div>
     </div>
 </footer>
