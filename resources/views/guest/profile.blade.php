@@ -94,7 +94,7 @@
             <!-- Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Card 1-->
-                <div class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-4xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
                     <div class="flex items-center gap-x-4">
                         <img class="rounded-full size-20 shadow"
                             src="https://i.pravatar.cc/55"
@@ -121,7 +121,7 @@
                 </div>
 
                 <!-- Card 1 -->
-                <div class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-4xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
                     <div class="flex items-center gap-x-4">
                         <img class="rounded-full size-20 shadow"
                             src="https://i.pravatar.cc/56"
@@ -148,7 +148,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-4xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
                     <div class="flex items-center gap-x-4">
                         <img class="rounded-full size-20 shadow"
                             src="https://i.pravatar.cc/57"
@@ -175,7 +175,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-4xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
                     <div class="flex items-center gap-x-4">
                         <img class="rounded-full size-20 shadow"
                             src="https://i.pravatar.cc/58"
@@ -202,7 +202,7 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-4xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
                     <div class="flex items-center gap-x-4">
                         <img class="rounded-full size-20 shadow"
                             src="https://i.pravatar.cc/59"
@@ -229,7 +229,7 @@
                 </div>
 
                 <!-- Card 5 -->
-                <div class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-4xl p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
                     <div class="flex items-center gap-x-4">
                         <img class="rounded-full size-20 shadow"
                             src="https://i.pravatar.cc/60"
