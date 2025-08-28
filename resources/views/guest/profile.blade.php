@@ -1,4 +1,85 @@
 <x-app-layout :title="'Profile'">
+    <!-- About Us Section -->
+    <section class="relative bg-gray-50 py-20 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-6">
+            <!-- Left: Images -->
+            <div class="relative flex flex-col items-center">
+
+                <!-- Image -->
+                <img class="relative z-10 w-auto h-auto"
+                    src="/images/mengaji-1.png"
+                    alt="Pelajar mengaji Al-Quran">
+
+                <!-- Circle (ground for image) -->
+                <div class="absolute bottom-0 flex justify-center">
+                    <div class="w-72 h-72 md:w-96 md:h-96 
+                  bg-gradient-to-bl from-amber-400 via-amber-300 to-amber-200 
+                  rounded-full z-0 shadow-lg"></div>
+                </div>
+
+            </div>
+
+            <!-- Right: Content -->
+            <div>
+                <span class="text-emerald-600 font-semibold uppercase tracking-wide">About Us</span>
+                <h2 class="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900 leading-snug">
+                    Guiding Hearts <br> Through the Quran
+                </h2>
+                <p class="mt-4 text-gray-600 leading-relaxed">
+                    At our Quran Learning Centre, we provide a nurturing space for children and adults
+                    to strengthen their connection with the Quran. With dedicated teachers, we focus
+                    on proper recitation, understanding, and instilling love for the Book of Allah.
+                </p>
+
+                <!-- Mission & Vision -->
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Mission -->
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c.379 0 .725.214.895.553l1.276 2.552 
+                       2.829.412a1 1 0 01.554 1.705l-2.048 1.996.483 
+                       2.815a1 1 0 01-1.451 1.054L12 18.347l-2.518 
+                       1.32a1 1 0 01-1.451-1.054l.483-2.815-2.048-1.996
+                       a1 1 0 01.554-1.705l2.829-.412 
+                       1.276-2.552A1 1 0 0112 8z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900">Our Mission</h3>
+                            <p class="mt-1 text-sm text-gray-600">
+                                To inspire a love for the Quran by teaching accurate recitation,
+                                strong understanding, and Islamic values in a supportive environment.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Vision -->
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 
+                       0 8.268 2.943 9.542 7-1.274 4.057-5.065 
+                       7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900">Our Vision</h3>
+                            <p class="mt-1 text-sm text-gray-600">
+                                To nurture future generations with strong Quranic foundations,
+                                guiding them to live with faith, character, and excellence.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Team -->
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Title -->
@@ -247,5 +328,5 @@
         </div>
         <!-- End Grid -->
     </div>
-    <!-- End Team -->
+
 </x-app-layout>
