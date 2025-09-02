@@ -35,4 +35,14 @@ class ClassModel extends Model
     {
         return $this->belongsTo(Package::class, 'package_id', 'package_id');
     }
+
+    public function joinClasses()
+    {
+        return $this->hasMany(JoinClass::class, 'class_id', 'class_id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'join_classes', 'class_id', 'student_id');
+    }
 }

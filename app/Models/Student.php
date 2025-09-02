@@ -44,4 +44,14 @@ class Student extends Model
     {
         return $this->hasMany(BillHistory::class, 'student_id', 'student_id');
     }
+
+    public function joinClasses()
+    {
+        return $this->hasMany(JoinClass::class, 'student_id', 'student_id');
+    }
+
+    public function classes()
+    {
+        return $this->belongsToMany(ClassModel::class, 'join_classes', 'student_id', 'class_id');
+    }
 }

@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('join_classes', function (Blueprint $table) {
-            $table->id();
+            $table->id('join_class_id');
+            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('student_id');
+            $table->softDeletes();
             $table->timestamps();
+
+            // Foreign Keys
+            $table->foreign('class_id')->references('class_id')->on('classes')->onDelete('cascade');
+            $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade');
         });
     }
 
