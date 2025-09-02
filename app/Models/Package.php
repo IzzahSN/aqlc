@@ -22,4 +22,9 @@ class Package extends Model
         'details',
         'session_per_week',
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'package_id', 'package_id');
+    }
 }
