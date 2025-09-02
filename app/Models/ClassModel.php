@@ -50,4 +50,19 @@ class ClassModel extends Model
     {
         return $this->hasMany(Schedule::class, 'class_id', 'class_id');
     }
+
+    public function attendances()
+    {
+        return $this->hasManyThrough(Attendance::class, Schedule::class, 'class_id', 'schedule_id', 'class_id', 'schedule_id');
+    }
+
+    public function lessonPlans()
+    {
+        return $this->hasManyThrough(LessonPlan::class, Schedule::class, 'class_id', 'schedule_id', 'class_id', 'schedule_id');
+    }
+
+    public function studentProgresses()
+    {
+        return $this->hasManyThrough(StudentProgress::class, Schedule::class, 'class_id', 'schedule_id', 'class_id', 'schedule_id');
+    }
 }

@@ -30,4 +30,9 @@ class LessonPlan extends Model
     {
         return $this->belongsTo(Tutor::class, 'tutor_id', 'tutor_id');
     }
+
+    public function class()
+    {
+        return $this->belongsTo(ClassModel::class, 'class_id', 'class_id');
+    }
 }

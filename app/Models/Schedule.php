@@ -40,4 +40,9 @@ class Schedule extends Model
     {
         return $this->hasMany(LessonPlan::class, 'schedule_id', 'schedule_id');
     }
+
+    public function studentProgresses()
+    {
+        return $this->hasMany(StudentProgress::class, 'schedule_id', 'schedule_id');
+    }
 }

@@ -20,10 +20,12 @@ return new class extends Migration
             $table->unsignedBigInteger('schedule_id');
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('tutor_id');
+            $table->unsignedBigInteger('class_id');
 
             $table->foreign('schedule_id')->references('schedule_id')->on('schedules')->onDelete('cascade');
             $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade');
             $table->foreign('tutor_id')->references('tutor_id')->on('tutors')->onDelete('cascade');
+            $table->foreign('class_id')->references('class_id')->on('class_models')->onDelete('cascade');
 
             $table->softDeletes();
             $table->timestamps();

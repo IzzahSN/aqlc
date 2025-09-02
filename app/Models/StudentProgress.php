@@ -6,20 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Attendance extends Model
+class StudentProgress extends Model
 {
-    /** @use HasFactory<\Database\Factories\AttendanceFactory> */
+    /** @use HasFactory<\Database\Factories\StudentProgressFactory> */
     use HasFactory;
     use SoftDeletes;
 
-    protected $primaryKey = 'attendance_id';
+    protected $primaryKey = 'student_progress_id';
 
     protected $fillable = [
-        'status',
+        'recitation',
+        'page_number',
+        'grade',
         'remark',
         'schedule_id',
         'student_id',
-        'tutor_id',
+        'class_id',
     ];
 
     // Relationships
@@ -31,11 +33,6 @@ class Attendance extends Model
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id', 'student_id');
-    }
-
-    public function tutor()
-    {
-        return $this->belongsTo(Tutor::class, 'tutor_id', 'tutor_id');
     }
 
     public function class()

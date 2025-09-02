@@ -11,20 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lesson_plans', function (Blueprint $table) {
-            $table->id('lesson_plan_id');
-            $table->string('title');
-            $table->string('learning_materials'); // simpan nama file PDF
-            $table->text('description')->nullable();
+        Schema::create('student_progress', function (Blueprint $table) {
+            $table->id('student_progress_id');
+            $table->string('recitation'); // contoh: Iqra 1, Juz 4
+            $table->integer('page_number')->nullable();
+            $table->enum('grade', ['Mumtaz', 'Jayyid Jiddan', 'Jayyid', 'Maqbul', 'Rasib'])->nullable();
+            $table->text('remark')->nullable();
             $table->unsignedBigInteger('schedule_id');
-            $table->unsignedBigInteger('tutor_id');
+            $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('class_id');
             $table->softDeletes();
             $table->timestamps();
 
             // Foreign keys
             $table->foreign('schedule_id')->references('schedule_id')->on('schedules')->onDelete('cascade');
-            $table->foreign('tutor_id')->references('tutor_id')->on('tutors')->onDelete('cascade');
+            $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade');
             $table->foreign('class_id')->references('class_id')->on('class_models')->onDelete('cascade');
         });
     }
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lesson_plans');
+        Schema::dropIfExists('student_progress');
     }
 };
