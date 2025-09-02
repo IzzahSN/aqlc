@@ -20,4 +20,9 @@ class SalaryRecord extends Model
         'salary_year',
         'salary_date',
     ];
+
+    public function billHistories()
+    {
+        return $this->hasMany(BillHistory::class, 'salary_id', 'salary_id');
+    }
 }

@@ -38,4 +38,9 @@ class Guardian extends Model
             ->withPivot('relationship_type')
             ->withTimestamps();
     }
+
+    public function billHistories()
+    {
+        return $this->hasMany(BillHistory::class, 'guardian_id', 'guardian_id');
+    }
 }

@@ -32,4 +32,9 @@ class Package extends Model
     {
         return $this->hasMany(ClassModel::class, 'package_id', 'package_id');
     }
+
+    public function billHistories()
+    {
+        return $this->hasMany(BillHistory::class, 'package_id', 'package_id');
+    }
 }

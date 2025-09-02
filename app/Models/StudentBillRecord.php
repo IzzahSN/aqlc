@@ -20,4 +20,9 @@ class StudentBillRecord extends Model
         'student_bill_year',
         'student_bill_date',
     ];
+
+    public function billHistories()
+    {
+        return $this->hasMany(BillHistory::class, 'student_bill_id', 'student_bill_id');
+    }
 }

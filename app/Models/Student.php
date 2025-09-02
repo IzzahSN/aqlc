@@ -39,4 +39,9 @@ class Student extends Model
             ->withPivot('relationship_type')
             ->withTimestamps();
     }
+
+    public function billHistories()
+    {
+        return $this->hasMany(BillHistory::class, 'student_id', 'student_id');
+    }
 }
