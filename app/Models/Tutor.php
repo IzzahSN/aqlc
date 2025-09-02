@@ -62,4 +62,9 @@ class Tutor extends Model
     {
         return $this->hasMany(Attendance::class, 'tutor_id', 'tutor_id');
     }
+
+    public function lessonPlans()
+    {
+        return $this->hasMany(LessonPlan::class, 'tutor_id', 'tutor_id');
+    }
 }
