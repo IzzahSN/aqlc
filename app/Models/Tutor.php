@@ -47,4 +47,14 @@ class Tutor extends Model
     {
         return $this->hasMany(BillHistory::class, 'tutor_id', 'tutor_id');
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class, 'tutor_id', 'tutor_id');
+    }
+
+    public function reliefSchedules()
+    {
+        return $this->hasMany(Schedule::class, 'relief', 'tutor_id');
+    }
 }

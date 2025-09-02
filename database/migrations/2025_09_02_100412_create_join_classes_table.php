@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign Keys
-            $table->foreign('class_id')->references('class_id')->on('classes')->onDelete('cascade');
+            $table->foreign('class_id')->references('class_id')->on('class_models')->onDelete('cascade');
             $table->foreign('student_id')->references('student_id')->on('students')->onDelete('cascade');
         });
     }
