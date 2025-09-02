@@ -32,4 +32,11 @@ class Student extends Model
     {
         return $this->belongsTo(Package::class, 'package_id', 'package_id');
     }
+
+    public function guardians()
+    {
+        return $this->belongsToMany(Guardian::class, 'student_guardians', 'student_id', 'guardian_id')
+            ->withPivot('relationship_type')
+            ->withTimestamps();
+    }
 }
