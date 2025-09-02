@@ -27,4 +27,9 @@ class Package extends Model
     {
         return $this->hasMany(Student::class, 'package_id', 'package_id');
     }
+
+    public function class_models()
+    {
+        return $this->hasMany(ClassModel::class, 'package_id', 'package_id');
+    }
 }

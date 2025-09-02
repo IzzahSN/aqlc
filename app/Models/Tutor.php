@@ -37,4 +37,9 @@ class Tutor extends Model
     ];
 
     protected $hidden = ['password'];
+
+    public function class_models()
+    {
+        return $this->hasMany(ClassModel::class, 'tutor_id', 'tutor_id');
+    }
 }
