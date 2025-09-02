@@ -30,4 +30,9 @@ class Schedule extends Model
     {
         return $this->belongsTo(Tutor::class, 'relief', 'tutor_id');
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'schedule_id', 'schedule_id');
+    }
 }

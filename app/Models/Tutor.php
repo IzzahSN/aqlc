@@ -57,4 +57,9 @@ class Tutor extends Model
     {
         return $this->hasMany(Schedule::class, 'relief', 'tutor_id');
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'tutor_id', 'tutor_id');
+    }
 }
