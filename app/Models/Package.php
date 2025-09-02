@@ -28,7 +28,7 @@ class Package extends Model
         return $this->hasMany(Student::class, 'package_id', 'package_id');
     }
 
-    public function class_models()
+    public function classes()
     {
         return $this->hasMany(ClassModel::class, 'package_id', 'package_id');
     }
