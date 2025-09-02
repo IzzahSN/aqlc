@@ -34,7 +34,7 @@ return new class extends Migration
             $table->foreign('package_id')->references('package_id')->on('packages')->onDelete('set null');
             $table->foreign('student_id')->references('student_id')->on('students')->onDelete('set null');
             $table->foreign('salary_id')->references('salary_id')->on('salary_records')->onDelete('set null');
-            $table->foreign('student_bill_id')->references('student_bill_id')->on('student_bills')->onDelete('set null');
+            $table->foreign('student_bill_id')->references('student_bill_id')->on('student_bill_records')->onDelete('set null');
 
             $table->timestamps();
             $table->softDeletes();
