@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li car>
-                            <a href="{{ route('home') }}"
+                            <a href="{{ route('logout') }}"
                                 class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-100 transition">
                                 <!-- Icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

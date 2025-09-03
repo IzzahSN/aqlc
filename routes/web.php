@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 // =======================
@@ -14,6 +15,14 @@ Route::get('/contact', fn() => view('guest.contact'))->name('contact');
 // Auth Routes
 // =======================
 Route::get('/login', fn() => view('auth.login'))->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', function () {
+    session()->flush(); // clear semua session
+    return redirect()->route('login');
+})->name('logout');
+
+
+
 Route::get('/register', fn() => view('auth.register'))->name('register');
 
 // =======================
