@@ -43,19 +43,12 @@
                     <label for="email" class="text-sm font-medium text-gray-700">Email</label>
                     <input type="email" id="email" name="email" placeholder="info@gmail.com"
                         class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg" required>
-                        @error('email')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-
                 </div>
 
                 <div>
                     <label for="password" class="text-sm font-medium text-gray-700">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter your password"
                         class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg" required>
-                         @error('password')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
                 </div>
 
                 <button type="submit"
@@ -63,17 +56,6 @@
                     Sign In
                 </button>
             </form>
-
-            {{-- Error message --}}
-            @if ($errors->any())
-                <div style="color:red;">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
             <p class="mt-6 text-sm text-gray-500">
                 Don’t have an account? <a href="{{ route('register') }}" class="text-green-600 hover:underline">Sign Up</a>
@@ -93,4 +75,25 @@
             <img src="/images/boy-read-quran.png" alt="Illustration" class="w-3/4 max-w-md">
         </div>
     </div>
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            })
+        </script>
+    @endif
+    @if($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: '{!! implode("<br>", $errors->all()) !!}',
+                confirmButtonColor: '#d33'
+            })
+        </script>
+    @endif
 </x-app-layout>

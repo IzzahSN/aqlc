@@ -30,7 +30,11 @@ class AuthController extends Controller
                 'name' => $user->first_name . ' ' . $user->last_name,
             ]);
 
-            return redirect()->route('guardian.dashboard');
+            // Hantar ke view khas
+            return view('auth.login_success', [
+                'redirect' => route('guardian.dashboard'),
+                'name' => $user->first_name,
+            ]);
         }
 
         if ($request->role === 'tutor') {
@@ -45,11 +49,17 @@ class AuthController extends Controller
                 'name' => $user->first_name . ' ' . $user->last_name,
             ]);
 
+            // Tentukan redirect ikut role
             if ($user->role === 'Admin') {
-                return redirect()->route('admin.dashboard');
+                $redirect = route('admin.dashboard');
             } else {
-                return redirect()->route('tutor.dashboard');
+                $redirect = route('tutor.dashboard');
             }
+
+            return view('auth.login_success', [
+                'redirect' => $redirect,
+                'name' => $user->first_name,
+            ]);
         }
 
         return back()->withErrors(['role' => 'Invalid role selected']);
@@ -57,7 +67,26 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        // Handle registration logic here
-        return response()->json(['message' => 'Registration successful']);
+        $request->validate([
+            'first_name'   => 'required|string|max:100',
+            'last_name'    => 'required|string|max:100',
+            'email'        => 'required|email|unique:guardians,email',
+            'phone_number' => 'required|string|max:15',
+            'ic_number'    => 'required|string|size:12|unique:guardians,ic_number',
+        ]);
+
+        // Auto hash password dari IC number
+        $hashedPassword = Hash::make($request->ic_number);
+
+        Guardian::create([
+            'first_name'   => $request->first_name,
+            'last_name'    => $request->last_name,
+            'email'        => $request->email,
+            'phone_number' => $request->phone_number,
+            'ic_number'    => $request->ic_number,
+            'password'     => $hashedPassword,
+            'status'       => 'active',
+        ]);
+        return redirect()->route('login')->with('success', 'Registration successful. Please login.');
     }
 }
