@@ -63,7 +63,6 @@
                                 <span>Sign Out</span>
                             </a>
                         </li>
-
                         <script>
                             function handleLogout() {
                                 fetch("{{ route('logout') }}", {

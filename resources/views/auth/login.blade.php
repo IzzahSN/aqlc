@@ -97,48 +97,48 @@
         </script>
     @endif
     <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-        e.preventDefault();
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
 
-        let formData = new FormData(this);
+            let formData = new FormData(this);
 
-        fetch("{{ route('login') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                "Accept": "application/json"
-            },
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login Successful',
-                    text: data.message,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    showConfirmButton: false,
-                    willClose: () => {
-                        window.location.href = data.redirect_url;
-                    }
-                });
-            } else {
+            fetch("{{ route('login') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Accept": "application/json"
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Successful',
+                        text: data.message,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        willClose: () => {
+                            window.location.href = data.redirect_url;
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login Failed',
+                        text: data.message
+                    });
+                }
+            })
+            .catch(() => {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Login Failed',
-                    text: data.message
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
                 });
-            }
-        })
-        .catch(() => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!'
             });
         });
-    });
     </script>
 </x-app-layout>
