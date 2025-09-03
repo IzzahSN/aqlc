@@ -15,7 +15,7 @@
             <p class="text-gray-500 mb-6">Enter your email and password to sign in!</p>
 
             <!-- Login Form -->
-            <form action="{{ route('login') }}" method="POST" class="space-y-4">
+            <form id="loginForm" class="space-y-4">
                 @csrf
                 <!-- User Role Selection -->
                 <div class="grid sm:grid-cols-2 gap-3">
@@ -96,4 +96,49 @@
             })
         </script>
     @endif
+    <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch("{{ route('login') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Accept": "application/json"
+            },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful',
+                    text: data.message,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    willClose: () => {
+                        window.location.href = data.redirect_url;
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: data.message
+                });
+            }
+        })
+        .catch(() => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!'
+            });
+        });
+    });
+    </script>
 </x-app-layout>

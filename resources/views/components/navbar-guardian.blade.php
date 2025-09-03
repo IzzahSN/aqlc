@@ -53,16 +53,44 @@
                                 <span>Edit Profile</span>
                             </a>
                         </li>
-                        <li car>
-                            <a href="{{ route('logout') }}"
-                                class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-100 transition">
-                                <!-- Icon -->
+                       <li>
+                            <a href="#"
+                            onclick="event.preventDefault(); handleLogout();"
+                            class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-100 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
                                 </svg>
                                 <span>Sign Out</span>
                             </a>
                         </li>
+
+                        <script>
+                            function handleLogout() {
+                                fetch("{{ route('logout') }}", {
+                                    method: "POST",
+                                    headers: {
+                                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                        "Accept": "application/json"
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Logged Out',
+                                            text: data.message,
+                                            timer: 2000,
+                                            timerProgressBar: true,
+                                            showConfirmButton: false,
+                                            willClose: () => {
+                                                window.location.href = data.redirect_url;
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        </script>
                     </ul>
                 </div>
 

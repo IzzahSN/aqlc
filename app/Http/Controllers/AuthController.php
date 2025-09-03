@@ -21,7 +21,7 @@ class AuthController extends Controller
         if ($request->role === 'guardian') {
             $user = Guardian::where('email', $request->email)->first();
             if (!$user || !Hash::check($request->password, $user->password)) {
-                return back()->withErrors(['email' => 'Invalid guardian credentials']);
+                return response()->json(['success' => false, 'message' => 'Invalid guardian credentials']);
             }
 
             session([
@@ -30,17 +30,17 @@ class AuthController extends Controller
                 'name' => $user->first_name . ' ' . $user->last_name,
             ]);
 
-            // Hantar ke view khas
-            return view('auth.login_success', [
-                'redirect' => route('guardian.dashboard'),
-                'name' => $user->first_name,
+            return response()->json([
+                'success' => true,
+                'redirect_url' => route('guardian.dashboard'),
+                'message' => 'Welcome back, Guardian!'
             ]);
         }
 
         if ($request->role === 'tutor') {
             $user = Tutor::where('email', $request->email)->first();
             if (!$user || !Hash::check($request->password, $user->password)) {
-                return back()->withErrors(['email' => 'Invalid tutor credentials']);
+                return response()->json(['success' => false, 'message' => 'Invalid tutor credentials']);
             }
 
             session([
@@ -49,20 +49,18 @@ class AuthController extends Controller
                 'name' => $user->first_name . ' ' . $user->last_name,
             ]);
 
-            // Tentukan redirect ikut role
-            if ($user->role === 'Admin') {
-                $redirect = route('admin.dashboard');
-            } else {
-                $redirect = route('tutor.dashboard');
-            }
+            $redirectUrl = $user->role === 'Admin'
+                ? route('admin.dashboard')
+                : route('tutor.dashboard');
 
-            return view('auth.login_success', [
-                'redirect' => $redirect,
-                'name' => $user->first_name,
+            return response()->json([
+                'success' => true,
+                'redirect_url' => $redirectUrl,
+                'message' => 'Login successful!'
             ]);
         }
 
-        return back()->withErrors(['role' => 'Invalid role selected']);
+        return response()->json(['success' => false, 'message' => 'Invalid role selected']);
     }
 
     public function register(Request $request)
@@ -88,5 +86,16 @@ class AuthController extends Controller
             'status'       => 'active',
         ]);
         return redirect()->route('login')->with('success', 'Registration successful. Please login.');
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+
+        return response()->json([
+            'success' => true,
+            'redirect_url' => route('home'),
+            'message' => 'You have been successfully logged out.'
+        ]);
     }
 }
