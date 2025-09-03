@@ -41,7 +41,7 @@ class AuthController extends Controller
 
             session([
                 'user_id' => $user->tutor_id,
-                'role' => $user->role, // simpan admin/tutor
+                'role'    => strtolower($user->role), // simpan admin/tutor
                 'name' => $user->first_name . ' ' . $user->last_name,
             ]);
 
