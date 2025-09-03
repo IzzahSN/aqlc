@@ -28,7 +28,7 @@ Route::get('/register', fn() => view('auth.register'))->name('register');
 // =======================
 // Admin Routes
 // =======================
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
     // DASHBOARD
     Route::get('/', fn() => view('dashboard.admin'))->name('dashboard');
 
@@ -73,7 +73,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // =======================
 // Tutor Routes
 // =======================
-Route::prefix('tutor')->name('tutor.')->group(function () {
+Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function () {
     // Dashboard
     Route::get('/', fn() => view('dashboard.tutor'))->name('dashboard');
     // Schedule
@@ -94,7 +94,7 @@ Route::prefix('tutor')->name('tutor.')->group(function () {
 // =======================
 // Guardian Routes
 // =======================
-Route::prefix('guardian')->name('guardian.')->group(function () {
+Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group(function () {
     // Dashboard
     Route::get('/', fn() => view('dashboard.guardian'))->name('dashboard');
     // report
