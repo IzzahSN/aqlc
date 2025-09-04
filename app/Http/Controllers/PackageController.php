@@ -12,8 +12,17 @@ class PackageController extends Controller
      */
     public function index()
     {
-        $packages = Package::withCount('joinPackages')->paginate(3);
+        $packages = Package::withCount('joinPackages')->paginate(5);
         return view('admin.class.package', compact('packages'));
+    }
+
+    /**
+     * Display the package report.
+     */
+    public function report()
+    {
+        $packages = Package::withCount('joinPackages')->get();
+        return view('admin.class.package_report', compact('packages'));
     }
 
     /**
