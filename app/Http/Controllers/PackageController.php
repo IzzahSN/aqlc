@@ -33,7 +33,7 @@ class PackageController extends Controller
         $request->validate([
             'package_name'         => 'required|string|max:255',
             'package_type'         => 'required|in:personal,group',
-            'package_rate'         => 'required|numeric|min:0',
+            'package_rate'         => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0'],
             'unit'                 => 'required|in:per month,per session',
             'duration_per_sessions' => 'required|in:30 minutes,1 hour',
             'session_per_week'     => 'required|integer|min:1',
@@ -74,7 +74,7 @@ class PackageController extends Controller
         $request->validate([
             'package_name'         => 'required|string|max:255',
             'package_type'         => 'required|in:personal,group',
-            'package_rate'         => 'required|numeric|min:0',
+            'package_rate'         => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0'],
             'unit'                 => 'required|in:per month,per session',
             'duration_per_sessions' => 'required|in:30 minutes,1 hour',
             'session_per_week'     => 'required|integer|min:1',

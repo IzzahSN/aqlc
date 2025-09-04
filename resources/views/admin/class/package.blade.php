@@ -146,7 +146,7 @@
                         <!-- Rate -->
                         <div>
                             <label for="package_rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
-                            <input type="number" id="package_rate" name="package_rate" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="number" id="package_rate" name="package_rate" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" step="0.01" min="0" required>
                         </div>
 
                         <!-- Unit -->
@@ -239,7 +239,7 @@
                         <!-- Rate -->
                         <div>
                             <label for="package_rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
-                            <input type="number" id="package_rate" name="package_rate" placeholder="15" value="{{ old('package_rate', $package->package_rate) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="number" id="package_rate" name="package_rate" placeholder="15" value="{{ old('package_rate', $package->package_rate) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" step="0.01" min="0" required>
                         </div>
 
                         <!-- Unit -->
