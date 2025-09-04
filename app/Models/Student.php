@@ -27,12 +27,7 @@ class Student extends Model
         'package_id',
     ];
 
-    // Relationship ke Package
-    public function package()
-    {
-        return $this->belongsTo(Package::class, 'package_id', 'package_id');
-    }
-
+    // Relationships
     public function guardians()
     {
         return $this->belongsToMany(Guardian::class, 'student_guardians', 'student_id', 'guardian_id')
@@ -63,5 +58,13 @@ class Student extends Model
     public function studentProgresses()
     {
         return $this->hasMany(StudentProgress::class, 'student_id', 'student_id');
+    }
+    public function joinPackages()
+    {
+        return $this->hasMany(JoinPackage::class, 'student_id', 'student_id');
+    }
+    public function packages()
+    {
+        return $this->belongsToMany(Package::class, 'join_packages', 'student_id', 'package_id');
     }
 }

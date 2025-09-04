@@ -13,6 +13,7 @@ class Package extends Model
     use SoftDeletes;
 
     protected $primaryKey = 'package_id';
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'package_name',
@@ -23,11 +24,7 @@ class Package extends Model
         'session_per_week',
     ];
 
-    public function students()
-    {
-        return $this->hasMany(Student::class, 'package_id', 'package_id');
-    }
-
+    // Relationships
     public function classes()
     {
         return $this->hasMany(ClassModel::class, 'package_id', 'package_id');
@@ -36,5 +33,13 @@ class Package extends Model
     public function billHistories()
     {
         return $this->hasMany(BillHistory::class, 'package_id', 'package_id');
+    }
+    public function joinPackages()
+    {
+        return $this->hasMany(JoinPackage::class, 'package_id', 'package_id');
+    }
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'join_packages', 'package_id', 'student_id');
     }
 }

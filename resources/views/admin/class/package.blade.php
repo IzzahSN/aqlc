@@ -64,7 +64,7 @@
             <table class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">Package ID</th>
+                        <th class="px-4 py-3">No</th>
                         <th class="px-4 py-3">Package Name</th>
                         <th class="px-4 py-3">Package Type</th>
                         <th class="px-4 py-3">Package Rate</th>
@@ -75,57 +75,40 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($packages as $package)
                     <tr class="border-b">
-                        <td class="px-4 py-3">PC001</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">An-Nur Lite</td>
-                        <td class="px-4 py-3">Personal</td>
-                        <td class="px-4 py-3">RM25.00</td>
-                        <td class="px-4 py-3">Per Session</td>
-                        <td class="px-4 py-3">29</td>
-                        <td class="px-4 py-3">30 minutes</td>
+                        <td class="px-4 py-3">{{ $loop->iteration + ($packages->currentPage() - 1) * $packages->perPage() }}</td>
+                        <td class="px-4 py-3 font-medium text-gray-900">{{ $package->package_name }}</td>
+                        <td class="px-4 py-3">{{ ucfirst($package->package_type) }}</td>
+                        <td class="px-4 py-3">RM{{ number_format($package->package_rate, 2) }}</td>
+                        <td class="px-4 py-3">{{ ucwords(str_replace('_', ' ', $package->unit)) }}</td>
+                        <td class="px-4 py-3">{{ $package->join_packages_count   }}</td>
+                        <td class="px-4 py-3">{{ $package->duration_per_sessions }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editPackageModal" data-modal-toggle="editPackageModal">Edit</button>
+                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button" data-id="{{ $package->package_id }}" data-modal-target="editPackageModal" data-modal-toggle="editPackageModal">Edit</button>
                             <a href="{{ route('admin.package.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                            <form id="delete-form-{{ $package->package_id }}" 
+                                action="{{ route('admin.package.destroy', $package->package_id) }}" 
+                                method="POST" 
+                                class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" 
+                                        class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
+                                        data-id="{{ $package->package_id }}">
+                                    Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
-
-                    <tr class="border-b">
-                        <td class="px-4 py-3">PC002</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">An-Nur Plus</td>
-                        <td class="px-4 py-3">Group</td>
-                        <td class="px-4 py-3">RM100.00</td>
-                        <td class="px-4 py-3">Per month</td>
-                        <td class="px-4 py-3">30</td>
-                        <td class="px-4 py-3">1 hour</td>
-                        <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editPackageModal" data-modal-toggle="editPackageModal">Edit</button>
-                            <a href="{{ route('admin.package.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
 
         <!-- Pagination -->
-        <div class="flex items-center justify-between mt-4">
-            <div class="flex items-center gap-2">
-                <span class="text-sm text-gray-500">Result per page</span>
-                <select class="border rounded px-2 py-1 text-sm">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                </select>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                <button class="px-3 py-1 border rounded text-sm">2</button>
-                <button class="px-3 py-1 border rounded text-sm">3</button>
-                <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-            </div>
+        <div class="mt-4">
+            {{$packages->links()}}
         </div>
     </div>
 
@@ -140,7 +123,8 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="packageForm">
+            <form id="addPackageForm" action="{{ route('admin.package.store') }}" method="POST">
+                @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- Package Name -->
@@ -151,8 +135,8 @@
 
                         <!-- Package Type -->
                         <div>
-                            <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
-                            <select id="type" name="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="package_type" class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
+                            <select id="package_type" name="package_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select Type</option>
                                 <option value="personal">Personal</option>
                                 <option value="group">Group</option>
@@ -161,8 +145,8 @@
 
                         <!-- Rate -->
                         <div>
-                            <label for="rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
-                            <input type="number" id="rate" name="rate" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="package_rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
+                            <input type="number" id="package_rate" name="package_rate" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Unit -->
@@ -170,25 +154,25 @@
                             <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Select Unit</label>
                             <select id="unit" name="unit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select unit</option>
-                                <option value="per_month">Per Month</option>
-                                <option value="per_session">Per Session</option>
+                                <option value="per month">Per Month</option>
+                                <option value="per session">Per Session</option>
                             </select>
                         </div>
 
                         <!-- Class Duration -->
                         <div>
-                            <label for="duration" class="block mb-2 text-sm font-medium text-gray-900">Class Duration</label>
-                            <select id="duration" name="duration" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="duration_per_sessions" class="block mb-2 text-sm font-medium text-gray-900">Class Duration</label>
+                            <select id="duration_per_sessions" name="duration_per_sessions" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select unit</option>
-                                <option value="30_minutes">30 Minutes</option>
-                                <option value="1_hour">1 Hour</option>
+                                <option value="30 minutes">30 Minutes</option>
+                                <option value="1 hour">1 Hour</option>
                             </select>
                         </div>
 
-                        <!-- Class limit per week -->
+                        <!-- Session per week -->
                         <div>
-                            <label for="limit" class="block mb-2 text-sm font-medium text-gray-900">Class Limit per Week</label>
-                            <input type="number" id="limit" name="limit" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="session_per_week" class="block mb-2 text-sm font-medium text-gray-900">Class Limit per Week</label>
+                            <input type="number" id="session_per_week" name="session_per_week" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Status -->
@@ -206,7 +190,6 @@
                             <label for="details" class="block mb-2 text-sm font-medium text-gray-900">Details</label>
                             <textarea id="details" name="details" rows="3" placeholder="Additional information about the package..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                         </div>
-
 
                     </div>
 
@@ -233,71 +216,69 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="packageFormEdit">
+            <form id="editPackageForm" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- Package Name -->
                         <div>
                             <label for="package_name" class="block mb-2 text-sm font-medium text-gray-900">Package Name</label>
-                            <input type="text" id="package_name" name="package_name" placeholder="An-Nur Lite" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="text" id="package_name" name="package_name" placeholder="An-Nur Lite" value="{{ old('package_name', $package->package_name) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Package Type -->
                         <div>
-                            <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
-                            <select id="type" name="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Type</option>
-                                <option value="personal">Personal</option>
-                                <option value="group">Group</option>
+                            <label for="package_type" class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
+                            <select id="package_type" name="package_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="personal" {{old('package_type', $package->package_type) == 'personal' ? 'selected' : '' }}>Personal</option>
+                                <option value="group" {{old('package_type', $package->package_type) == 'group' ? 'selected' : '' }}>Group</option>
                             </select>
                         </div>
 
                         <!-- Rate -->
                         <div>
-                            <label for="rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
-                            <input type="number" id="rate" name="rate" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="package_rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
+                            <input type="number" id="package_rate" name="package_rate" placeholder="15" value="{{ old('package_rate', $package->package_rate) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Unit -->
                         <div>
                             <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Select Unit</label>
                             <select id="unit" name="unit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select unit</option>
-                                <option value="per_month">Per Month</option>
-                                <option value="per_session">Per Session</option>
+                                <option value="per month" {{old('unit', $package->unit) == 'per month' ? 'selected' : '' }}>Per Month</option>
+                                <option value="per session" {{old('unit', $package->unit) == 'per session' ? 'selected' : '' }}>Per Session</option>
                             </select>
                         </div>
 
                         <!-- Class Duration -->
                         <div>
-                            <label for="duration" class="block mb-2 text-sm font-medium text-gray-900">Class Duration</label>
-                            <select id="duration" name="duration" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select unit</option>
-                                <option value="30_minutes">30 Minutes</option>
-                                <option value="1_hour">1 Hour</option>
+                            <label for="duration_per_sessions" class="block mb-2 text-sm font-medium text-gray-900">Class Duration</label>
+                            <select id="duration_per_sessions" name="duration_per_sessions" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="30 minutes" {{old('duration_per_sessions', $package->duration_per_sessions) == '30 minutes' ? 'selected' : '' }}>30 Minutes</option>
+                                <option value="1 hour" {{old('duration_per_sessions', $package->duration_per_sessions) == '1 hour' ? 'selected' : '' }}>1 Hour</option>
                             </select>
                         </div>
 
-                        <!-- Class limit per week -->
+                        <!-- Session per week -->
                         <div>
-                            <label for="limit" class="block mb-2 text-sm font-medium text-gray-900">Class Limit per Week</label>
-                            <input type="number" id="limit" name="limit" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="session_per_week" class="block mb-2 text-sm font-medium text-gray-900">Class Limit per Week</label>
+                            <input type="number" id="session_per_week" name="session_per_week" placeholder="15" value="{{ old('session_per_week', $package->session_per_week) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Status -->
                         <div>
                             <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
                             <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="active" {{old('status', $package->status) == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{old('status', $package->status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
                         
                          <!-- Details -->
                         <div>
                             <label for="details" class="block mb-2 text-sm font-medium text-gray-900">Details</label>
-                            <textarea id="details" name="details" rows="3" placeholder="Additional information about the package..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
+                            <textarea id="details" name="details" rows="3" placeholder="Additional information about the package..." value="{{ old('details', $package->details) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                         </div>
 
                     </div>
@@ -313,4 +294,88 @@
             </form>
         </div>
     </div>
+    
+     @if(session('closeModalAdd'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="addPackageModal"
+            const closeBtn = document.querySelector('[data-modal-hide="addPackageModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
+    @if(session('closeModalEdit'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="editPackageModal"
+            const closeBtn = document.querySelector('[data-modal-hide="editPackageModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
+    {{-- Edit form --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll('.edit-button');
+            const editForm = document.getElementById('editPackageForm');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const packageId = this.getAttribute('data-id');
+                    fetch(`/admin/package/${packageId}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Set action URL for the form
+                            editForm.action = `/admin/package/${packageId}`;
+
+                            // Populate form fields with fetched data
+                            editForm.package_name.value = data.package_name;
+                            editForm.package_type.value = data.package_type;
+                            editForm.package_rate.value = data.package_rate;
+                            editForm.unit.value = data.unit;
+                            editForm.duration_per_sessions.value = data.duration_per_sessions;
+                            editForm.session_per_week.value = data.session_per_week;
+                            editForm.status.value = data.status;
+                            editForm.details.value = data.details || '';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching package data:', error);
+                        });
+                });
+            });
+        });
+    </script>
+
+    {{-- Delete Confirmation --}}
+   <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    let id = this.getAttribute("data-id");
+                    let form = document.getElementById("delete-form-" + id);
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This package will be deleted!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
 </x-admin-layout>

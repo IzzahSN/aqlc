@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PackageController;
 use Illuminate\Support\Facades\Route;
 
 // =======================
@@ -42,8 +43,12 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/class', fn() => view('admin.class.class'))->name('class');
     Route::get('/class/report', fn() => view('admin.class.class_report'))->name('class.report');
 
-    Route::get('/package', fn() => view('admin.class.package'))->name('package');
-    Route::get('/package/report', fn() => view('admin.class.package_report'))->name('package.report');
+    Route::get('/package', [PackageController::class, 'index'])->name('package.index');
+    Route::post('/package', [PackageController::class, 'store'])->name('package.store');
+    Route::get('/package/{id}/edit', [PackageController::class, 'edit'])->name('package.edit');
+    Route::put('/package/{id}', [PackageController::class, 'update'])->name('package.update');
+    Route::delete('/package/{id}', [PackageController::class, 'destroy'])->name('package.destroy');
+    Route::get('/package/report', [PackageController::class, 'report'])->name('package.report');
 
     Route::get('/schedule', fn() => view('admin.class.schedule'))->name('schedule');
     Route::get('/schedule/attendance', fn() => view('admin.class.attendance'))->name('schedule.attendance');
