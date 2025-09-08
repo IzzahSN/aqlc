@@ -12,7 +12,7 @@ class PackageController extends Controller
      */
     public function index()
     {
-        $packages = Package::withCount('joinPackages')->paginate(5);
+        $packages = Package::withCount('joinPackages')->get();
         return view('admin.class.package', compact('packages'));
     }
 
