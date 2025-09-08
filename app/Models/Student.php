@@ -59,6 +59,12 @@ class Student extends Model
     {
         return $this->hasMany(StudentProgress::class, 'student_id', 'student_id');
     }
+
+    public function latestProgreess()
+    {
+        return $this->hasOne(StudentProgress::class, 'student_id', 'student_id')->latestOfMany();
+    }
+
     public function joinPackages()
     {
         return $this->hasMany(JoinPackage::class, 'student_id', 'student_id');

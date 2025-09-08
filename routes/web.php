@@ -48,7 +48,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/package/{id}/edit', [PackageController::class, 'edit'])->name('package.edit');
     Route::put('/package/{id}', [PackageController::class, 'update'])->name('package.update');
     Route::delete('/package/{id}', [PackageController::class, 'destroy'])->name('package.destroy');
-    Route::get('/package/report', [PackageController::class, 'report'])->name('package.report');
+    Route::get('/package/{id}/report', [PackageController::class, 'report'])->name('package.report');
 
     Route::get('/schedule', fn() => view('admin.class.schedule'))->name('schedule');
     Route::get('/schedule/attendance', fn() => view('admin.class.attendance'))->name('schedule.attendance');

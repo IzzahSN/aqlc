@@ -90,8 +90,10 @@
                                 data-id="{{ $package->package_id }}" 
                                 data-modal-target="editPackageModal"
                                 data-modal-toggle="editPackageModal">Edit</button>
-                            <a href="{{ route('admin.package.report') }}"
-                                class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
+                            <a href="{{ route('admin.package.report', $package->package_id) }}" 
+                                class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">
+                                Report
+                                </a>
                             <form id="delete-form-{{ $package->package_id }}" 
                                 action="{{ route('admin.package.destroy', $package->package_id) }}" 
                                 method="POST" class="delete-form">
@@ -108,7 +110,6 @@
                     @endforeach
                 </tbody>
             </table>
-
             <!-- No Record Message -->
             <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
         </div>

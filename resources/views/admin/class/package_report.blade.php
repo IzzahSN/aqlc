@@ -18,17 +18,15 @@
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
-            <div>
-                <h2 class="text-lg font-semibold">List of Report</h2>
-                <p class="text-sm text-gray-500">Manage your report: search, filter and udpate.</p>
-            </div>
+            <h2 class="text-lg font-semibold">Report for Package: {{ $package->package_name }}</h2>
+            <p class="text-sm text-gray-500">Total Students: {{ $students->count() }}</p>
         </div>
 
-        <!-- Search + Filter -->
+      <!-- Search + Filter -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <!-- Search -->
             <div class="relative w-full sm:w-full">
-                <input type="text" placeholder="Search by name or ID"
+                <input id="searchInput" type="text" placeholder="Search by name or recitation"
                     class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                 <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -36,15 +34,16 @@
                         d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
                 </svg>
             </div>
-            <!-- Filter -->
-            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Year</option>
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
+            <!-- Filter Tahun -->
+            <select id="yearFilter" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                <option value="">All Years</option>
+                @foreach($students->pluck('year')->unique() as $year)
+                    <option value="{{ $year }}">{{ $year }}</option>
+                @endforeach
             </select>
         </div>
 
-        <!-- Table -->
+       <!-- Table -->
         <div class="overflow-x-auto">
             <table class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
@@ -55,43 +54,126 @@
                         <th class="px-4 py-3">Admission Date</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="border-b">
-                        <td class="px-4 py-3">1</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Muhammad Ikhwan Bin Idris</td>
-                        <td class="px-4 py-3">Iqra 6</td>
-                        <td class="px-4 py-3">12/09/2025</td>
-                    </tr>
-
-                    <tr class="border-b">
-                        <td class="px-4 py-3">2</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Nur Hanna Binti Eijaz</td>
-                        <td class="px-4 py-3">Quran Juz 3</td>
-                        <td class="px-4 py-3">10/08/2025</td>
-                    </tr>
+                <tbody id="studentBody">
+                    @foreach($students as $i => $student)
+                        <tr class="border-b">
+                            <td class="px-4 py-3 row-index">{{ $i + 1 }}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900">{{ $student['name'] }}</td>
+                            <td class="px-4 py-3">{{ $student['current_recitation'] }}</td>
+                            <td class="px-4 py-3">{{ $student['admission_date'] }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
 
+        <!-- No record row -->
+        <p id="noRecord" class="text-center text-gray-500 py-3 hidden">No records found</p>
+
         <!-- Pagination -->
         <div class="flex items-center justify-between mt-4">
-            <div class="flex items-center gap-2">
-                <span class="text-sm text-gray-500">Result per page</span>
-                <select class="border rounded px-2 py-1 text-sm">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                </select>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                <button class="px-3 py-1 border rounded text-sm">2</button>
-                <button class="px-3 py-1 border rounded text-sm">3</button>
-                <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-            </div>
+            <div class="text-sm text-gray-500" id="showingEntries"></div>
+            <div class="flex items-center gap-2" id="paginationControls"></div>
         </div>
     </div>
+    
+   <script>
+        const searchInput = document.getElementById("searchInput");
+        const yearFilter = document.getElementById("yearFilter");
+        const tbody = document.getElementById("studentBody");
+        const rows = Array.from(tbody.getElementsByTagName("tr"));
+        const noRecord = document.getElementById("noRecord");
+        const pagination = document.getElementById("pagination");
+        const entriesInfo = document.getElementById("entriesInfo");
+
+        let currentPage = 1;
+        const rowsPerPage = 5;
+
+        function renderTable() {
+            const searchValue = searchInput.value.toLowerCase();
+            const filterYear = yearFilter.value;
+
+            let filteredRows = rows.filter(row => {
+                const name = row.cells[1].textContent.toLowerCase();
+                const recitation = row.cells[2].textContent.toLowerCase();
+                const admissionDate = row.cells[3].textContent;
+                const year = admissionDate.split("/")[2]; // ambil tahun dari dd/mm/yyyy
+
+                const matchSearch = name.includes(searchValue) || recitation.includes(searchValue);
+                const matchFilter = filterYear === "" || year === filterYear;
+                return matchSearch && matchFilter;
+            });
+
+            const totalRows = filteredRows.length;
+            const totalPages = Math.ceil(totalRows / rowsPerPage);
+            if (currentPage > totalPages) currentPage = totalPages || 1;
+
+            // hide semua rows
+            rows.forEach(r => r.style.display = "none");
+
+            // show hanya current page rows
+            let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+            pageRows.forEach((r, i) => {
+                r.style.display = "";
+                r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
+            });
+
+            // no records
+            noRecord.classList.toggle("hidden", totalRows > 0);
+
+            // entries info
+            const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+            const end = Math.min(currentPage * rowsPerPage, totalRows);
+            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+
+            // pagination
+            pagination.innerHTML = "";
+
+            // prev button
+            const prevBtn = document.createElement("button");
+            prevBtn.textContent = "‹";
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+            prevBtn.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+            pagination.appendChild(prevBtn);
+
+            // page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+                btn.addEventListener("click", () => {
+                    currentPage = i;
+                    renderTable();
+                });
+                pagination.appendChild(btn);
+            }
+
+            // next button
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "›";
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+            nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+            nextBtn.addEventListener("click", () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+            pagination.appendChild(nextBtn);
+        }
+
+        searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+        yearFilter.addEventListener("change", () => { currentPage = 1; renderTable(); });
+
+        renderTable();
+    </script>
+
 
 </x-admin-layout>

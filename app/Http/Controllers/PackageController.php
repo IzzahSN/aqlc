@@ -19,10 +19,23 @@ class PackageController extends Controller
     /**
      * Display the package report.
      */
-    public function report()
+    public function report($id)
     {
-        $packages = Package::withCount('joinPackages')->get();
-        return view('admin.class.package_report', compact('packages'));
+        $package = Package::with(['joinPackages.student.latestProgress'])->findOrFail($id);
+
+        // Ambil semua student (tak paginate dari DB, nanti paginate guna JS)
+        $students = $package->joinPackages->map(function ($join) {
+            $student = $join->student;
+
+            return [
+                'name' => $student->name,
+                'current_recitation' => $student->latestProgress->recitation ?? '-',
+                'admission_date' => $student->created_at->format('d/m/Y'),
+                'year' => $student->created_at->format('Y'), // utk filter tahun
+            ];
+        });
+
+        return view('admin.class.package_report', compact('package', 'students'));
     }
 
     /**
