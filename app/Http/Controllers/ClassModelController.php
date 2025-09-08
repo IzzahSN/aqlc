@@ -40,6 +40,35 @@ class ClassModelController extends Controller
             'package_id' => 'required|exists:packages,package_id',
         ]);
 
+        // ======================
+        // Check class conflicts
+        // ======================
+        $conflict = ClassModel::where('day', $request->day)
+            ->where(function ($q) use ($request) {
+                // Conflict in same room
+                $q->where(function ($query) use ($request) {
+                    $query->where('room', $request->room)
+                        ->where(function ($q2) use ($request) {
+                            $q2->where('start_time', '<', $request->end_time)
+                                ->where('end_time', '>', $request->start_time);
+                        });
+                })
+                    // OR conflict in tutor schedule
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('tutor_id', $request->tutor_id)
+                            ->where(function ($q2) use ($request) {
+                                $q2->where('start_time', '<', $request->end_time)
+                                    ->where('end_time', '>', $request->start_time);
+                            });
+                    });
+            })
+            ->exists();
+
+        if ($conflict) {
+            return redirect()->back()->withErrors(['conflict' => 'Class conflict detected: Room or Tutor already assigned at this time.'])->withInput();
+        }
+
+        // If no conflict, create class
         ClassModel::create([
             'class_name' => $request->class_name,
             'capacity' => $request->capacity,
@@ -54,6 +83,7 @@ class ClassModelController extends Controller
 
         return redirect()->back()->with('success', 'Class created successfully!')->with('closeModal', true);
     }
+
 
     /**
      * Show the form for editing the specified resource.
