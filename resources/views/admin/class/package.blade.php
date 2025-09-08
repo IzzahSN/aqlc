@@ -60,165 +60,165 @@
         </div>
 
        <!-- Table -->
-       <!-- Table -->
-<div class="overflow-x-auto">
-    <table id="packageTable" class="min-w-full text-sm text-left text-gray-600">
-        <thead class="bg-gray-100 text-xs uppercase text-gray-500">
-            <tr>
-                <th class="px-4 py-3">No</th>
-                <th class="px-4 py-3">Package Name</th>
-                <th class="px-4 py-3">Package Type</th>
-                <th class="px-4 py-3">Package Rate</th>
-                <th class="px-4 py-3">Unit</th>
-                <th class="px-4 py-3">No. of Student</th>
-                <th class="px-4 py-3">Class Duration</th>
-                <th class="px-4 py-3 text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody id="packageBody">
-            @foreach ($packages as $package)
-            <tr class="border-b">
-                <td class="px-4 py-3 row-index"></td>
-                <td class="px-4 py-3 font-medium text-gray-900">{{ $package->package_name }}</td>
-                <td class="px-4 py-3">{{ ucfirst($package->package_type) }}</td>
-                <td class="px-4 py-3">RM{{ number_format($package->package_rate, 2) }}</td>
-                <td class="px-4 py-3">{{ ucwords(str_replace('_', ' ', $package->unit)) }}</td>
-                <td class="px-4 py-3">{{ $package->join_packages_count }}</td>
-                <td class="px-4 py-3">{{ $package->duration_per_sessions }}</td>
-                <td class="px-4 py-3 flex gap-2 justify-center">
-                    <button type="button"
-                        class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
-                        data-id="{{ $package->package_id }}" 
-                        data-modal-target="editPackageModal"
-                        data-modal-toggle="editPackageModal">Edit</button>
-                    <a href="{{ route('admin.package.report') }}"
-                        class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
-                    <form id="delete-form-{{ $package->package_id }}" 
-                        action="{{ route('admin.package.destroy', $package->package_id) }}" 
-                        method="POST" class="delete-form">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" 
-                            class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
-                            data-id="{{ $package->package_id }}">
-                            Delete
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+        <div class="overflow-x-auto">
+            <table id="packageTable" class="min-w-full text-sm text-left text-gray-600">
+                <thead class="bg-gray-100 text-xs uppercase text-gray-500">
+                    <tr>
+                        <th class="px-4 py-3">No</th>
+                        <th class="px-4 py-3">Package Name</th>
+                        <th class="px-4 py-3">Package Type</th>
+                        <th class="px-4 py-3">Package Rate</th>
+                        <th class="px-4 py-3">Unit</th>
+                        <th class="px-4 py-3">No. of Student</th>
+                        <th class="px-4 py-3">Class Duration</th>
+                        <th class="px-4 py-3 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="packageBody">
+                    @foreach ($packages as $package)
+                    <tr class="border-b">
+                        <td class="px-4 py-3 row-index"></td>
+                        <td class="px-4 py-3 font-medium text-gray-900">{{ $package->package_name }}</td>
+                        <td class="px-4 py-3">{{ ucfirst($package->package_type) }}</td>
+                        <td class="px-4 py-3">RM{{ number_format($package->package_rate, 2) }}</td>
+                        <td class="px-4 py-3">{{ ucwords(str_replace('_', ' ', $package->unit)) }}</td>
+                        <td class="px-4 py-3">{{ $package->join_packages_count }}</td>
+                        <td class="px-4 py-3">{{ $package->duration_per_sessions }}</td>
+                        <td class="px-4 py-3 flex gap-2 justify-center">
+                            <button type="button"
+                                class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
+                                data-id="{{ $package->package_id }}" 
+                                data-modal-target="editPackageModal"
+                                data-modal-toggle="editPackageModal">Edit</button>
+                            <a href="{{ route('admin.package.report') }}"
+                                class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
+                            <form id="delete-form-{{ $package->package_id }}" 
+                                action="{{ route('admin.package.destroy', $package->package_id) }}" 
+                                method="POST" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" 
+                                    class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
+                                    data-id="{{ $package->package_id }}">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
-    <!-- No Record Message -->
-    <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
-</div>
+            <!-- No Record Message -->
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+        </div>
 
-    <!-- Pagination (manual JS) -->
-    <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">
-        <!-- Showing entries -->
-        <div id="entriesInfo" class="mb-2 sm:mb-0"></div>
-        <!-- Pagination buttons -->
-        <div class="flex items-center gap-2" id="pagination"></div>
-    </div>
+        <!-- Pagination (manual JS) -->
+        <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">
+            <!-- Showing entries -->
+            <div id="entriesInfo" class="mb-2 sm:mb-0"></div>
+            <!-- Pagination buttons -->
+            <div class="flex items-center gap-2" id="pagination"></div>
+        </div>
 
-    <!-- Pagination Script -->
-    <script>
-        const searchInput = document.getElementById("searchInput");
-        const filterType = document.getElementById("filterType");
-        const tbody = document.getElementById("packageBody");
-        const rows = Array.from(tbody.getElementsByTagName("tr"));
-        const noRecord = document.getElementById("noRecord");
-        const pagination = document.getElementById("pagination");
-        const entriesInfo = document.getElementById("entriesInfo");
+        <!-- Pagination Script -->
+        <script>
+            const searchInput = document.getElementById("searchInput");
+            const filterType = document.getElementById("filterType");
+            const tbody = document.getElementById("packageBody");
+            const rows = Array.from(tbody.getElementsByTagName("tr"));
+            const noRecord = document.getElementById("noRecord");
+            const pagination = document.getElementById("pagination");
+            const entriesInfo = document.getElementById("entriesInfo");
 
-        let currentPage = 1;
-        const rowsPerPage = 5;
+            let currentPage = 1;
+            const rowsPerPage = 5;
 
-        function renderTable() {
-            const searchValue = searchInput.value.toLowerCase();
-            const filterValue = filterType.value.toLowerCase();
+            function renderTable() {
+                const searchValue = searchInput.value.toLowerCase();
+                const filterValue = filterType.value.toLowerCase();
 
-            let filteredRows = rows.filter(row => {
-                const name = row.cells[1].textContent.toLowerCase();
-                const type = row.cells[2].textContent.toLowerCase();
-                const id = row.cells[0].textContent.toLowerCase();
+                let filteredRows = rows.filter(row => {
+                    const name = row.cells[1].textContent.toLowerCase();
+                    const type = row.cells[2].textContent.toLowerCase();
+                    const id = row.cells[0].textContent.toLowerCase();
 
-                const matchSearch = name.includes(searchValue) || id.includes(searchValue);
-                const matchFilter = filterValue === "" || type === filterValue;
-                return matchSearch && matchFilter;
-            });
-
-            const totalRows = filteredRows.length;
-            const totalPages = Math.ceil(totalRows / rowsPerPage);
-            if (currentPage > totalPages) currentPage = totalPages || 1;
-
-           // show only current page rows
-            rows.forEach(r => r.style.display = "none");
-
-            let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
-
-            pageRows.forEach((r, i) => {
-                r.style.display = "";
-                // update numbering semula
-                r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
-            });
-
-            // show/hide "no records"
-            noRecord.classList.toggle("hidden", totalRows > 0);
-
-            // entries info
-            const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
-            const end = Math.min(currentPage * rowsPerPage, totalRows);
-            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
-
-            // build pagination buttons
-            pagination.innerHTML = "";
-
-            // prev button
-            const prevBtn = document.createElement("button");
-            prevBtn.textContent = "‹";
-            prevBtn.disabled = currentPage === 1;
-            prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
-            prevBtn.addEventListener("click", () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderTable();
-                }
-            });
-            pagination.appendChild(prevBtn);
-
-            // page numbers
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement("button");
-                btn.textContent = i;
-                btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
-                btn.addEventListener("click", () => {
-                    currentPage = i;
-                    renderTable();
+                    const matchSearch = name.includes(searchValue) || id.includes(searchValue);
+                    const matchFilter = filterValue === "" || type === filterValue;
+                    return matchSearch && matchFilter;
                 });
-                pagination.appendChild(btn);
+
+                const totalRows = filteredRows.length;
+                const totalPages = Math.ceil(totalRows / rowsPerPage);
+                if (currentPage > totalPages) currentPage = totalPages || 1;
+
+            // show only current page rows
+                rows.forEach(r => r.style.display = "none");
+
+                let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+                pageRows.forEach((r, i) => {
+                    r.style.display = "";
+                    // update numbering semula
+                    r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
+                });
+
+                // show/hide "no records"
+                noRecord.classList.toggle("hidden", totalRows > 0);
+
+                // entries info
+                const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+                const end = Math.min(currentPage * rowsPerPage, totalRows);
+                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+
+                // build pagination buttons
+                pagination.innerHTML = "";
+
+                // prev button
+                const prevBtn = document.createElement("button");
+                prevBtn.textContent = "‹";
+                prevBtn.disabled = currentPage === 1;
+                prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                prevBtn.addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(prevBtn);
+
+                // page numbers
+                for (let i = 1; i <= totalPages; i++) {
+                    const btn = document.createElement("button");
+                    btn.textContent = i;
+                    btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+                    btn.addEventListener("click", () => {
+                        currentPage = i;
+                        renderTable();
+                    });
+                    pagination.appendChild(btn);
+                }
+
+                // next button
+                const nextBtn = document.createElement("button");
+                nextBtn.textContent = "›";
+                nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+                nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                nextBtn.addEventListener("click", () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(nextBtn);
             }
 
-            // next button
-            const nextBtn = document.createElement("button");
-            nextBtn.textContent = "›";
-            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
-            nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
-            nextBtn.addEventListener("click", () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderTable();
-                }
-            });
-            pagination.appendChild(nextBtn);
-        }
+            searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+            filterType.addEventListener("change", () => { currentPage = 1; renderTable(); });
 
-        searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
-        filterType.addEventListener("change", () => { currentPage = 1; renderTable(); });
-
-        renderTable();
-    </script>
+            renderTable();
+        </script>
+    </div>
 
     <!-- Add Package Modal -->
     <div id="addPackageModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
