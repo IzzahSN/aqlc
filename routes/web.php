@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassModelController;
 use App\Http\Controllers\PackageController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,9 +41,14 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/tutor/report', fn() => view('admin.record.tutor_report'))->name('tutor.report');
 
     // CLASS
-    Route::get('/class', fn() => view('admin.class.class'))->name('class');
+    Route::get('/class', [ClassModelController::class, 'index'])->name('class.index');
+    Route::post('/class', [ClassModelController::class, 'store'])->name('class.store');
+    Route::get('/class/{id}/edit', [ClassModelController::class, 'edit'])->name('class.edit');
+    Route::put('/class/{id}', [ClassModelController::class, 'update'])->name('class.update');
+    Route::delete('/class/{id}', [ClassModelController::class, 'destroy'])->name('class.destroy');
     Route::get('/class/report', fn() => view('admin.class.class_report'))->name('class.report');
 
+    // PACKAGE
     Route::get('/package', [PackageController::class, 'index'])->name('package.index');
     Route::post('/package', [PackageController::class, 'store'])->name('package.store');
     Route::get('/package/{id}/edit', [PackageController::class, 'edit'])->name('package.edit');

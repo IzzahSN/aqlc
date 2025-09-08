@@ -244,9 +244,41 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="classForm">
+            <form id="addClassForm" action="{{ route('admin.class.store') }}" method="POST">
+                @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- Package name -->
+                        <div>
+                            <label for="package_id" class="block mb-2 text-sm font-medium text-gray-900">Select Package</label>
+                            <select id="package_id" name="package_id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Package</option>
+                                @foreach($packages as $package)
+                                    <option value="{{ $package->package_id }}" data-duration="{{ $package->duration_per_sessions }}">
+                                        {{ $package->package_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Package duration -->
+                        <div>
+                            <label for="duration_per_sessions" class="block mb-2 text-sm font-medium text-gray-900">Duration Per Session</label>
+                            <input type="text" id="duration_per_sessions" name="duration_per_sessions"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
+                        </div>
+
+                        <script>
+                            document.getElementById('package_id').addEventListener('change', function() {
+                                let selected = this.options[this.selectedIndex];
+                                let duration = selected.getAttribute('data-duration') || '';
+                                document.getElementById('duration_per_sessions').value = duration;
+                            });
+                        </script>
+
                         <!-- Class Name -->
                         <div>
                             <label for="class_name" class="block mb-2 text-sm font-medium text-gray-900">Class Name</label>
@@ -258,40 +290,87 @@
                             <label for="day" class="block mb-2 text-sm font-medium text-gray-900">Select Day</label>
                             <select id="day" name="day" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Day</option>
-                                <option value="monday">Monday</option>
-                                <option value="tuesday">Tuesday</option>
-                                <option value="wednesday">Wednesday</option>
-                                <option value="thursday">Thursday</option>
-                                <option value="friday">Friday</option>
-                                <option value="saturday">Saturday</option>
-                                <option value="sunday">Sunday</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
                             </select>
                         </div>
 
-                        <!-- Start Time -->
+                       <!-- Start Time -->
                         <div>
                             <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900">Start Time</label>
-                            <input type="time" id="start_time" name="start_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="time" id="start_time" name="start_time"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- End Time -->
                         <div>
                             <label for="end_time" class="block mb-2 text-sm font-medium text-gray-900">End Time</label>
-                            <input type="time" id="end_time" name="end_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="time" id="end_time" name="end_time"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required readonly>
                         </div>
 
+                        <script>
+                            const packageSelect = document.getElementById('package_id');
+                            const durationInput = document.getElementById('duration_per_sessions');
+                            const startInput = document.getElementById('start_time');
+                            const endInput = document.getElementById('end_time');
+
+                            // bila pilih package → auto isi duration
+                            packageSelect.addEventListener('change', function() {
+                                let selected = this.options[this.selectedIndex];
+                                let duration = selected.getAttribute('data-duration') || '';
+                                durationInput.value = duration;
+
+                                // reset end time kalau ada start time
+                                if (startInput.value) {
+                                    calculateEndTime();
+                                }
+                            });
+
+                            // bila isi start time → auto calculate end time
+                            startInput.addEventListener('change', calculateEndTime);
+
+                            function calculateEndTime() {
+                                let duration = durationInput.value;
+                                if (!duration || !startInput.value) return;
+
+                                let [h, m] = startInput.value.split(':').map(Number);
+
+                                if (duration.includes('30')) {
+                                    m += 30;
+                                } else if (duration.includes('1')) {
+                                    h += 1;
+                                }
+
+                                if (m >= 60) {
+                                    h += Math.floor(m / 60);
+                                    m = m % 60;
+                                }
+
+                                // format jadi HH:MM
+                                let end = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+                                endInput.value = end;
+                            }
+                        </script>
 
                         <!-- Room -->
                         <div>
                             <label for="room" class="block mb-2 text-sm font-medium text-gray-900">Select Room</label>
                             <select id="room" name="room" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Room</option>
-                                <option value="1">Kelas 1</option>
-                                <option value="2">Kelas 2</option>
-                                <option value="3">Kelas 3</option>
-                                <option value="4">Kelas 4</option>
-                                <option value="5">Kelas 5</option>
-                                <option value="6">Kelas 6</option>
+                                <option value="Kelas 1">Kelas 1</option>
+                                <option value="Kelas 2">Kelas 2</option>
+                                <option value="Kelas 3">Kelas 3</option>
+                                <option value="Kelas 4">Kelas 4</option>
+                                <option value="Bilik 1">Bilik 1</option>
+                                <option value="Bilik 2">Bilik 2</option>
                             </select>
                         </div>
 
@@ -306,22 +385,25 @@
                             <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
                             <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="Available">Available</option>
+                                <option value="Full">Full</option>
                             </select>
                         </div>
 
                         <!-- Tutor Assign -->
-                        <div>
-                            <label for="tutor" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
-                            <select id="tutor" name="tutor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                       <div>
+                            <label for="tutor_id" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
+                            <select id="tutor_id" name="tutor_id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select Tutor</option>
-                                <option value="1">Ustaz Hakeem</option>
-                                <option value="2">Ustazah Aira</option>
+                                @foreach($tutors as $tutor)
+                                    <option value="{{ $tutor->tutor_id }}">{{ $tutor->username }}</option>
+                                @endforeach
                             </select>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
 
                 <!-- Modal Footer -->
@@ -434,5 +516,16 @@
         </div>
     </div>
 
+     @if(session('closeModalAdd'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="addPackageModal"
+            const closeBtn = document.querySelector('[data-modal-hide="addClassModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
 
 </x-admin-layout>
