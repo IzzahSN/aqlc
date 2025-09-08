@@ -104,8 +104,12 @@ class ClassModelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ClassModel $classModel)
+    public function destroy($id)
     {
-        //
+        $class = ClassModel::find($id);
+        $class->delete();
+
+        return redirect()->route('admin.class.index')
+            ->with('success', 'Class deleted successfully.');
     }
 }
