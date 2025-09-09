@@ -39,11 +39,11 @@
 
         </div>
 
-        <!-- Search + Filter -->
+         <!-- Search + Filter -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <!-- Search -->
             <div class="relative w-full sm:w-full">
-                <input type="text" placeholder="Search by name or ID"
+                <input type="text" id="searchInput" placeholder="Search by name or ID"
                     class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                 <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -52,20 +52,20 @@
                 </svg>
             </div>
             <!-- Filter -->
-            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Status</option>
+            <select id="filterStatus" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                <option value="">All Status</option>
                 <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+                <option value="inactive">Iinactive</option>
             </select>
         </div>
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table class="min-w-full text-sm text-left text-gray-600">
+            <table id="tutorTable" class="min-w-max text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">Teacher ID</th>
-                        <th class="px-4 py-3">First Name</th>
+                        <th class="px-4 py-3">No</th>
+                        <th class="px-4 py-3">Username</th>
                         <th class="px-4 py-3">Phone Number</th>
                         <th class="px-4 py-3">Email</th>
                         <th class="px-4 py-3">Assigned Classes</th>
@@ -73,31 +73,20 @@
                         <th class="px-4 py-3 text-center">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tutorBody">
+                    @foreach ($tutors as $tutor)
                     <tr class="border-b">
-                        <td class="px-4 py-3">TC001</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Wade Warren</td>
-                        <td class="px-4 py-3">0123456789</td>
-                        <td class="px-4 py-3">abc123@gmail.com</td>
-                        <td class="px-4 py-3">5 Classes</td>
+                        <td class="px-4 py-3"></td>
+                        <td class="px-4 py-3 font-medium text-gray-900">{{ $tutor->username }}</td>
+                        <td class="px-4 py-3">{{ $tutor->phone_number }}</td>
+                        <td class="px-4 py-3">{{ $tutor->email }}</td>
+                        <td class="px-4 py-3">{{ $tutor->classes_count }}</td>
                         <td class="px-4 py-3">
-                            <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
-                        </td>
-                        <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editTutorModal" data-modal-toggle="editTutorModal">Edit</button>
-                            <a href="{{ route('admin.tutor.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                        </td>
-                    </tr>
-
-                    <tr class="border-b">
-                        <td class="px-4 py-3">TC002</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Esther Howard</td>
-                        <td class="px-4 py-3">0123456789</td>
-                        <td class="px-4 py-3">abc123@gmail.com</td>
-                        <td class="px-4 py-3">5 Classes</td>
-                        <td class="px-4 py-3">
-                            <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Inactive</span>
+                             @if($tutor->status == 'active')
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
+                           @else
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Inactive</span>
+                            @endif 
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editTutorModal" data-modal-toggle="editTutorModal">Edit</button>
@@ -106,6 +95,7 @@
                         </td>
                     </tr>
                 </tbody>
+                @endforeach
             </table>
         </div>
 

@@ -12,7 +12,7 @@ class TutorController extends Controller
      */
     public function index()
     {
-        $tutors = Tutor::all();
+        $tutors = Tutor::withCount('classes')->get();
         return view('admin.record.tutor', compact('tutors'));
     }
 
