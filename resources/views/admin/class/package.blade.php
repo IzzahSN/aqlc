@@ -1,25 +1,22 @@
 <x-admin-layout :title="'Package'">
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <div class="bg-white p-4 rounded-xl shadow flex items-center gap-3">
-            <div class="p-3 rounded-full bg-blue-100 text-blue-600">👨‍🏫</div>
+        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-lime-600 border-l-6">
             <div>
-                <p class="text-sm text-gray-500">Total Personal Packages</p>
-                <h3 class="text-2xl font-bold">8</h3>
+                <p class="text-sm font-semibold text-lime-600 uppercase">Total Personal Packages</p>
+                <h3 class="text-2xl font-bold text-gray-500">8</h3>
             </div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow flex items-center gap-3">
-            <div class="p-3 rounded-full bg-purple-100 text-purple-600">📘</div>
+        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-amber-400 border-l-6">
             <div>
-                <p class="text-sm text-gray-500">Total Group Packages</p>
-                <h3 class="text-2xl font-bold">2</h3>
+                <p class="text-sm font-semibold text-amber-600 uppercase">Total Group Packages</p>
+                <h3 class="text-2xl font-bold text-gray-500">2</h3>
             </div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow flex items-center gap-3">
-            <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">📊</div>
+        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-cyan-600 border-l-6">
             <div>
-                <p class="text-sm text-gray-500">Total Available Packages</p>
-                <h3 class="text-2xl font-bold">10</h3>
+                <p class="text-sm font-semibold text-cyan-600 uppercase">Total Available Packages</p>
+                <h3 class="text-2xl font-bold text-gray-500">10</h3>
             </div>
         </div>
     </div>
