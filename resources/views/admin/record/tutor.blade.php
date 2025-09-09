@@ -2,22 +2,19 @@
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <div class="bg-white p-4 rounded-xl shadow flex items-center gap-3">
-            <div class="p-3 rounded-full bg-blue-100 text-blue-600">👨‍🏫</div>
-            <div>
+            <div class="pl-3">
                 <p class="text-sm text-gray-500">Total Active Teachers</p>
                 <h3 class="text-2xl font-bold">8</h3>
             </div>
         </div>
         <div class="bg-white p-4 rounded-xl shadow flex items-center gap-3">
-            <div class="p-3 rounded-full bg-purple-100 text-purple-600">📘</div>
-            <div>
+            <div class="pl-3">
                 <p class="text-sm text-gray-500">Total Inactive Teachers</p>
                 <h3 class="text-2xl font-bold">2</h3>
             </div>
         </div>
         <div class="bg-white p-4 rounded-xl shadow flex items-center gap-3">
-            <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">📊</div>
-            <div>
+            <div class="pl-3">
                 <p class="text-sm text-gray-500">Total Teachers</p>
                 <h3 class="text-2xl font-bold">10</h3>
             </div>
