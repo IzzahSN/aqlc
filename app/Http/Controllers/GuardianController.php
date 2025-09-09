@@ -12,7 +12,8 @@ class GuardianController extends Controller
      */
     public function index()
     {
-        //
+        $guardians = Guardian::all();
+        return view('admin.record.guardian', compact('guardians'));
     }
 
     /**

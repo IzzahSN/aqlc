@@ -43,15 +43,15 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-record" class="{{ request()->routeIs('admin.tutor','admin.student','admin.guardian') ? '' : 'hidden' }} py-2 space-y-2">
+                <ul id="dropdown-record" class="{{ request()->routeIs('admin.tutor.index','admin.student.index','admin.guardian.index') ? '' : 'hidden' }} py-2 space-y-2">
                     <li>
-                        <a href="{{ route('admin.tutor') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.tutor') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Tutor</a>
+                        <a href="{{ route('admin.tutor.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.tutor.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Tutor</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.student') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.student') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Student</a>
+                        <a href="{{ route('admin.student.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.student.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Student</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.guardian') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.guardian') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Guardian</a>
+                        <a href="{{ route('admin.guardian.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.guardian.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Guardian</a>
                     </li>
                 </ul>
             </li>

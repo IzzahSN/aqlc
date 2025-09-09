@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassModelController;
+use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TutorController;
 use Illuminate\Support\Facades\Route;
 
 // =======================
@@ -31,13 +34,31 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     // DASHBOARD
     Route::get('/', fn() => view('dashboard.admin'))->name('dashboard');
 
-    // RECORD
-    Route::get('/student', fn() => view('admin.record.student'))->name('student');
+    ////////////
+    // RECORD //
+    ////////////
+
+    // STUDENT
+    Route::get('/student', [StudentController::class, 'index'])->name('student.index');
+    Route::post('/student', [StudentController::class, 'store'])->name('student.store');
+    Route::get('/student/{id}/edit', [StudentController::class, 'edit'])->name('student.edit');
+    Route::put('/student/{id}', [StudentController::class, 'update'])->name('student.update');
+    Route::delete('/student/{id}', [StudentController::class, 'destroy'])->name('student.destroy');
     Route::get('/student/report', fn() => view('admin.record.student_report'))->name('student.report');
 
-    Route::get('/guardian', fn() => view('admin.record.guardian'))->name('guardian');
+    // GUARDIAN
+    Route::get('/guardian', [GuardianController::class, 'index'])->name('guardian.index');
+    Route::post('/guardian', [GuardianController::class, 'store'])->name('guardian.store');
+    Route::get('/guardian/{id}/edit', [GuardianController::class, 'edit'])->name('guardian.edit');
+    Route::put('/guardian/{id}', [GuardianController::class, 'update'])->name('guardian.update');
+    Route::delete('/guardian/{id}', [GuardianController::class, 'destroy'])->name('guardian.destroy');
 
-    Route::get('/tutor', fn() => view('admin.record.tutor'))->name('tutor');
+    // TUTOR
+    Route::get('/tutor', [TutorController::class, 'index'])->name('tutor.index');
+    Route::post('/tutor', [TutorController::class, 'store'])->name('tutor.store');
+    Route::get('/tutor/{id}/edit', [TutorController::class, 'edit'])->name('tutor.edit');
+    Route::put('/tutor/{id}', [TutorController::class, 'update'])->name('tutor.update');
+    Route::delete('/tutor/{id}', [TutorController::class, 'destroy'])->name('tutor.destroy');
     Route::get('/tutor/report', fn() => view('admin.record.tutor_report'))->name('tutor.report');
 
     // CLASS

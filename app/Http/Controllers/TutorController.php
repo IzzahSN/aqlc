@@ -12,7 +12,8 @@ class TutorController extends Controller
      */
     public function index()
     {
-        //
+        $tutors = Tutor::all();
+        return view('admin.record.tutor', compact('tutors'));
     }
 
     /**
