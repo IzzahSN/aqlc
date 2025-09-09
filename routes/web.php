@@ -61,6 +61,9 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::delete('/tutor/{id}', [TutorController::class, 'destroy'])->name('tutor.destroy');
     Route::get('/tutor/report', fn() => view('admin.record.tutor_report'))->name('tutor.report');
 
+    //////////////////////
+    // CLASS MANAGEMENT //
+    //////////////////////
     // CLASS
     Route::get('/class', [ClassModelController::class, 'index'])->name('class.index');
     Route::post('/class', [ClassModelController::class, 'store'])->name('class.store');
