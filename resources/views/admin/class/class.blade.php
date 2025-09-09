@@ -191,7 +191,7 @@
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                                 <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-class-button" data-id="{{ $class->class_id }}" data-modal-target="editClassModal" data-modal-toggle="editClassModal">Edit</button>                            
-                                <a href="{{ route('admin.class.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
+                                <a href="{{ route('admin.class.report', $class->class_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>                                
                                 <form id="delete-form-{{ $class->class_id }}" action="{{ route('admin.class.destroy', $class->class_id) }}" method="POST" class="delete-form">
                                     @csrf
                                     @method('DELETE')

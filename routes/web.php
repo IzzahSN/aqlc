@@ -46,7 +46,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/class/{id}/edit', [ClassModelController::class, 'edit'])->name('class.edit');
     Route::put('/class/{id}', [ClassModelController::class, 'update'])->name('class.update');
     Route::delete('/class/{id}', [ClassModelController::class, 'destroy'])->name('class.destroy');
-    Route::get('/class/report', fn() => view('admin.class.class_report'))->name('class.report');
+    Route::get('/class/{id}/report', [ClassModelController::class, 'report'])->name('class.report');
 
     // PACKAGE
     Route::get('/package', [PackageController::class, 'index'])->name('package.index');

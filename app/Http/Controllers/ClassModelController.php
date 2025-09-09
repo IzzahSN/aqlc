@@ -25,6 +25,27 @@ class ClassModelController extends Controller
     }
 
     /**
+     * Display the class report.
+     */
+    public function report($id)
+    {
+        $class = ClassModel::with(['tutor', 'package', 'schedules.attendances.student.latestProgress'])->findOrFail($id);
+        // Ambil semua student (tak paginate dari DB, nanti paginate guna JS)
+        $students = $class->schedules->flatMap(function ($schedule) {
+            return $schedule->attendances->map(function ($attendance) {
+                $student = $attendance->student;
+                return [
+                    'name' => $student->name,
+                    'current_recitation' => $student->latestProgress->recitation ?? '-',
+                    'admission_date' => $student->created_at->format('d/m/Y'),
+                    'year' => $student->created_at->format('Y'), // utk filter tahun
+                ];
+            });
+        })->unique('name')->values(); // unique by name to avoid duplicates if student attends multiple schedules
+        return view('admin.class.class_report', compact('class', 'students'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
