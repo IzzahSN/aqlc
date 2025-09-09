@@ -34,9 +34,9 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     // DASHBOARD
     Route::get('/', fn() => view('dashboard.admin'))->name('dashboard');
 
-    ////////////
-    // RECORD //
-    ////////////
+    //////////////////////
+    // RECORD MANAGEMENT//
+    //////////////////////
 
     // STUDENT
     Route::get('/student', [StudentController::class, 'index'])->name('student.index');
