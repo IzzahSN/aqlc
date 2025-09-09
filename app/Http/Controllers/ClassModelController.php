@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClassModel;
 use App\Models\Package;
 use App\Models\Tutor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ClassModelController extends Controller
@@ -90,7 +91,11 @@ class ClassModelController extends Controller
      */
     public function edit($id)
     {
-        $class = ClassModel::findOrFail($id);
+        $class = ClassModel::with('package')->findOrFail($id);
+
+        // pastikan kita return start/end dalam format H:i (tanpa second)
+        $class->start_time = Carbon::parse($class->start_time)->format('H:i');
+        $class->end_time   = Carbon::parse($class->end_time)->format('H:i');
         return response()->json($class);
     }
     /**
@@ -112,39 +117,53 @@ class ClassModelController extends Controller
             'package_id' => 'required|exists:packages,package_id',
         ]);
 
+        // parse times (Carbon::parse accepts H:i or H:i:s)
+        $start = Carbon::parse($request->start_time);
+        $end   = Carbon::parse($request->end_time);
+
         // ======================
         // Check class conflicts
         // ======================
         $conflict = ClassModel::where('day', $request->day)
-            ->where('class_id', '!=', $id) // Exclude current class
-            ->where(function ($q) use ($request) {
+            ->where('class_id', '!=', $class->class_id) // exclude current class
+            ->where(function ($q) use ($request, $start, $end) {
                 // Conflict in same room
-                $q->where(function ($query) use ($request) {
+                $q->where(function ($query) use ($request, $start, $end) {
                     $query->where('room', $request->room)
-                        ->where(function ($q2) use ($request) {
-                            $q2->where('start_time', '<', $request->end_time)
-                                ->where('end_time', '>', $request->start_time);
+                        ->where(function ($q2) use ($start, $end) {
+                            $q2->where('start_time', '<', $end->format('H:i:s'))
+                                ->where('end_time', '>', $start->format('H:i:s'));
                         });
                 })
                     // OR conflict in tutor schedule
-                    ->orWhere(function ($query) use ($request) {
+                    ->orWhere(function ($query) use ($request, $start, $end) {
                         $query->where('tutor_id', $request->tutor_id)
-                            ->where(function ($q2) use ($request) {
-                                $q2->where('start_time', '<', $request->end_time)
-                                    ->where('end_time', '>', $request->start_time);
+                            ->where(function ($q2) use ($start, $end) {
+                                $q2->where('start_time', '<', $end->format('H:i:s'))
+                                    ->where('end_time', '>', $start->format('H:i:s'));
                             });
                     });
             })
             ->exists();
-
         if ($conflict) {
             return redirect()->back()->withErrors(['conflict' => 'Class conflict detected: Room or Tutor already assigned at this time.'])->withInput();
         }
-
         // If no conflict, update class
-        $class->update($request->all());
+        $class->update([
+            'class_name' => $request->class_name,
+            'capacity' => $request->capacity,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'room' => $request->room,
+            'day' => $request->day,
+            'status' => $request->status,
+            'tutor_id' => $request->tutor_id,
+            'package_id' => $request->package_id,
+        ]);
 
-        return redirect()->back()->with('success', 'Class updated successfully!')->with('closeModalEdit', true);
+        return redirect()->back()
+            ->with('success', 'Class updated successfully!')
+            ->with('closeModalEdit', true);
     }
 
     /**

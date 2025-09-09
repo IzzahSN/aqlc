@@ -190,8 +190,8 @@
                             @endif
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editClassModal" data-modal-toggle="editClassModal">Edit</button>
-                            <a href="{{ route('admin.class.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
+                                <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-class-button" data-id="{{ $class->class_id }}" data-modal-target="editClassModal" data-modal-toggle="editClassModal">Edit</button>                            
+                                <a href="{{ route('admin.class.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
                                 <form id="delete-form-{{ $class->class_id }}" action="{{ route('admin.class.destroy', $class->class_id) }}" method="POST" class="delete-form">
                                     @csrf
                                     @method('DELETE')
@@ -355,7 +355,8 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                     focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
-
+                        
+                        {{-- Package script --}}
                         <script>
                             document.getElementById('package_id').addEventListener('change', function() {
                                 let selected = this.options[this.selectedIndex];
@@ -512,56 +513,93 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="classForm">
+            <form id="editClassForm" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                         <!-- Package name -->
+                        <div>
+                            <label for="package_id" class="block mb-2 text-sm font-medium text-gray-900">Select Package</label>
+                            <select id="package_id" name="package_id" disabled
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                @foreach($packages as $package)
+                                    <option value="{{ $package->package_id }}" data-duration="{{ $package->duration_per_sessions }}">
+                                        {{ $package->package_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                             <!-- supaya value tetap dihantar dalam form -->
+                            <input type="hidden" name="package_id" value="{{ $class->package_id }}">
+                        </div>
+
+                        <!-- Package duration -->
+                        <div>
+                            <label for="duration_per_sessions" class="block mb-2 text-sm font-medium text-gray-900">Duration Per Session</label>
+                            <input type="text" id="duration_per_sessions" name="duration_per_sessions"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
+                        </div>
+
+                        <script>
+                            document.getElementById('package_id').addEventListener('change', function() {
+                                let selected = this.options[this.selectedIndex];
+                                let duration = selected.getAttribute('data-duration') || '';
+                                document.getElementById('duration_per_sessions').value = duration;
+                            });
+                        </script>
+
                         <!-- Class Name -->
                         <div>
                             <label for="class_name" class="block mb-2 text-sm font-medium text-gray-900">Class Name</label>
                             <input type="text" id="class_name" name="class_name" placeholder="Mon-2000-K1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
-                        <!-- Day -->
+                         <!-- Day -->
                         <div>
                             <label for="day" class="block mb-2 text-sm font-medium text-gray-900">Select Day</label>
                             <select id="day" name="day" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Day</option>
-                                <option value="monday">Monday</option>
-                                <option value="tuesday">Tuesday</option>
-                                <option value="wednesday">Wednesday</option>
-                                <option value="thursday">Thursday</option>
-                                <option value="friday">Friday</option>
-                                <option value="saturday">Saturday</option>
-                                <option value="sunday">Sunday</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
                             </select>
                         </div>
 
-                        <!-- Start Time -->
+                      <!-- Start Time -->
                         <div>
                             <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900">Start Time</label>
-                            <input type="time" id="start_time" name="start_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="time" id="start_time" name="start_time"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required readonly>
                         </div>
 
                         <!-- End Time -->
                         <div>
                             <label for="end_time" class="block mb-2 text-sm font-medium text-gray-900">End Time</label>
-                            <input type="time" id="end_time" name="end_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="time" id="end_time" name="end_time"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required readonly>
                         </div>
 
-
-                        <!-- Room -->
+                         <!-- Room -->
                         <div>
                             <label for="room" class="block mb-2 text-sm font-medium text-gray-900">Select Room</label>
                             <select id="room" name="room" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Room</option>
-                                <option value="1">Kelas 1</option>
-                                <option value="2">Kelas 2</option>
-                                <option value="3">Kelas 3</option>
-                                <option value="4">Kelas 4</option>
-                                <option value="5">Kelas 5</option>
-                                <option value="6">Kelas 6</option>
+                                <option value="Kelas 1">Kelas 1</option>
+                                <option value="Kelas 2">Kelas 2</option>
+                                <option value="Kelas 3">Kelas 3</option>
+                                <option value="Kelas 4">Kelas 4</option>
+                                <option value="Bilik 1">Bilik 1</option>
+                                <option value="Bilik 2">Bilik 2</option>
                             </select>
                         </div>
+
 
                         <!-- Capacity -->
                         <div>
@@ -573,19 +611,21 @@
                         <div>
                             <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
                             <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="Available">Available</option>
+                                <option value="Full">Full</option>
                             </select>
                         </div>
 
-                        <!-- Tutor Assign -->
-                        <div>
-                            <label for="tutor" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
-                            <select id="tutor" name="tutor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                         <!-- Tutor Assign -->
+                       <div>
+                            <label for="tutor_id" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
+                            <select id="tutor_id" name="tutor_id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select Tutor</option>
-                                <option value="1">Ustaz Hakeem</option>
-                                <option value="2">Ustazah Aira</option>
+                                @foreach($tutors as $tutor)
+                                    <option value="{{ $tutor->tutor_id }}">{{ $tutor->username }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -612,6 +652,62 @@
         });
     </script>
     @endif
+
+    @if(session('closeModalEdit'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="editPackageModal"
+            const closeBtn = document.querySelector('[data-modal-hide="editClassModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
+    {{-- Edit Class Form --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const editButtons = document.querySelectorAll('.edit-class-button'); // button utk buka modal
+        const editForm = document.getElementById('editClassForm');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const classId = this.getAttribute('data-id');
+                fetch(`/admin/class/${classId}/edit`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Set action URL
+                        editForm.action = `/admin/class/${classId}`;
+
+                        // Populate form fields
+                        editForm.package_id.value = data.package_id;
+                        editForm.duration_per_sessions.value = data.package.duration_per_sessions;
+                        editForm.class_name.value = data.class_name;
+                        editForm.day.value = data.day;
+                        editForm.start_time.value = data.start_time;
+                        editForm.end_time.value = data.end_time;
+                        editForm.room.value = data.room;
+                        editForm.capacity.value = data.capacity;
+                        editForm.status.value = data.status;
+                        editForm.tutor_id.value = data.tutor_id;
+
+                        // kalau package bertukar → auto update duration
+                        const packageSelect = editForm.package_id;
+                        const selected = packageSelect.querySelector(`option[value="${data.package_id}"]`);
+                        if (selected) {
+                            const duration = selected.getAttribute('data-duration') || '';
+                            editForm.duration_per_sessions.value = duration;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching class data:', error);
+                    });
+            });
+        });
+    });
+</script>
+
 
     {{-- Delete Confirmation --}}
    <script>
