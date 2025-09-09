@@ -242,7 +242,6 @@
                         </div>
                     </div>
 
-
                     <!-- Step 2 -->
                     <div class="step-content hidden" data-step="2">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -285,40 +284,6 @@
         </div>
     </div>
 
-    <!-- Script for Step Navigation -->
-    <script>
-        let currentStep = 1;
-        const totalSteps = 2;
-
-        const updateSteps = () => {
-            document.querySelectorAll('.step-content').forEach(el => {
-                el.classList.add('hidden');
-                if (parseInt(el.dataset.step) === currentStep) el.classList.remove('hidden');
-            });
-
-            document.querySelectorAll('.step-indicator').forEach(el => {
-                el.classList.remove('text-green-700', 'font-semibold');
-                if (parseInt(el.dataset.step) === currentStep) el.classList.add('text-green-700', 'font-semibold');
-            });
-
-            document.getElementById('prevStep').classList.toggle('hidden', currentStep === 1);
-            document.getElementById('nextStep').classList.toggle('hidden', currentStep === totalSteps);
-            document.getElementById('submitForm').classList.toggle('hidden', currentStep !== totalSteps);
-        };
-
-        document.getElementById('nextStep').addEventListener('click', () => {
-            if (currentStep < totalSteps) currentStep++;
-            updateSteps();
-        });
-
-        document.getElementById('prevStep').addEventListener('click', () => {
-            if (currentStep > 1) currentStep--;
-            updateSteps();
-        });
-
-        updateSteps();
-    </script>
-
     <!-- Multi-step Edit Tutor Modal -->
     <div id="editTutorModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
         <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
@@ -329,11 +294,29 @@
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editTutorModal">✕</button>
             </div>
 
+            <!-- Progress Indicator -->
+            <ol class="flex items-center w-full p-3 space-x-2 text-sm font-medium text-center text-gray-500 bg-white sm:text-base sm:p-4 sm:space-x-4 rtl:space-x-reverse">
+                <li class="flex items-center flex-1 justify-center step-indicator active" data-step="3">
+                    <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">1</span>
+                    <span class="hidden sm:inline-flex sm:ms-1">Tutor Info</span>
+                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
+                    </svg>
+                </li>
+                <li class="flex items-center flex-1 justify-center step-indicator" data-step="4">
+                    <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">2</span>
+                    <span class="hidden sm:inline-flex sm:ms-1">Education Background</span>
+                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
+                    </svg>
+                </li>
+            </ol>
+
             <!-- Modal Body -->
             <form id="tutorFormEdit">
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <!-- Step 1 -->
-                    <div class="step-content-edit" data-step="1">
+                    <div class="step-content-edit" data-step="3">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                             <!-- First Name -->
                             <div>
@@ -415,7 +398,7 @@
                     </div>
 
                     <!-- Step 2 -->
-                    <div class="step-content-edit hidden" data-step="2">
+                    <div class="step-content-edit hidden" data-step="4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="university_edit" class="block mb-2 text-sm font-medium text-gray-900">University</label>
@@ -460,33 +443,139 @@
         </div>
     </div>
 
-    <!-- Script for Step Navigation (Edit Modal) -->
-    <script>
-        let currentStepEdit = 1;
-        const totalStepsEdit = 2;
+    <!-- Script for Step Navigation -->
+   <script>
+        (function(){
+        const modal = document.getElementById('addTutorModal');
+        if (!modal) return;
 
-        const updateStepsEdit = () => {
-            document.querySelectorAll('.step-content-edit').forEach(el => {
-                el.classList.add('hidden');
-                if (parseInt(el.dataset.step) === currentStepEdit) el.classList.remove('hidden');
+        const stepContents = Array.from(modal.querySelectorAll('.step-content'));
+        const stepNums = stepContents.map(s => parseInt(s.dataset.step, 10)).sort((a,b)=>a-b);
+        let currentIndex = 0; // index dalam stepNums array
+
+        const prevBtn = modal.querySelector('#prevStep');
+        const nextBtn = modal.querySelector('#nextStep');
+        const submitBtn = modal.querySelector('#submitForm');
+        const indicators = Array.from(modal.querySelectorAll('.step-indicator'));
+
+        const update = () => {
+            const currentStep = stepNums[currentIndex];
+
+            // show/hide step contents (scoped)
+            stepContents.forEach(el => {
+            el.classList.toggle('hidden', parseInt(el.dataset.step, 10) !== currentStep);
             });
 
-            document.getElementById('prevStepEdit').classList.toggle('hidden', currentStepEdit === 1);
-            document.getElementById('nextStepEdit').classList.toggle('hidden', currentStepEdit === totalStepsEdit);
-            document.getElementById('submitFormEdit').classList.toggle('hidden', currentStepEdit !== totalStepsEdit);
+            // update indicators (scoped)
+            indicators.forEach(ind => {
+            const circle = ind.querySelector('.step-circle');
+            if (parseInt(ind.dataset.step, 10) === currentStep) {
+                ind.classList.add('text-green-600', 'font-bold');
+                circle.classList.add('bg-green-600', 'text-white', 'border-green-600');
+            } else {
+                ind.classList.remove('text-green-600', 'font-bold');
+                circle.classList.remove('bg-green-600', 'text-white', 'border-green-600');
+            }
+            });
+
+            // buttons
+            prevBtn.classList.toggle('hidden', currentIndex === 0);
+            nextBtn.classList.toggle('hidden', currentIndex === stepNums.length - 1);
+            submitBtn.classList.toggle('hidden', currentIndex !== stepNums.length - 1);
         };
 
-        document.getElementById('nextStepEdit').addEventListener('click', () => {
-            if (currentStepEdit < totalStepsEdit) currentStepEdit++;
-            updateStepsEdit();
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < stepNums.length - 1) currentIndex++;
+            update();
         });
 
-        document.getElementById('prevStepEdit').addEventListener('click', () => {
-            if (currentStepEdit > 1) currentStepEdit--;
-            updateStepsEdit();
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) currentIndex--;
+            update();
         });
 
-        updateStepsEdit();
+        // init once
+        update();
+
+        // Reset to first step each time modal is opened (detect class change 'hidden')
+        const mo = new MutationObserver(muts => {
+            muts.forEach(m => {
+            if (m.attributeName === 'class' && !modal.classList.contains('hidden')) {
+                currentIndex = 0;
+                update();
+            }
+            });
+        });
+        mo.observe(modal, { attributes: true });
+        })();
     </script>
+
+    <!-- Script for Step Navigation (Edit Modal) -->
+   <script>
+        (function(){
+        const modal = document.getElementById('editTutorModal');
+        if (!modal) return;
+
+        const stepContents = Array.from(modal.querySelectorAll('.step-content-edit'));
+        const stepNums = stepContents.map(s => parseInt(s.dataset.step, 10)).sort((a,b)=>a-b);
+        let currentIndex = 0; // index dalam stepNums array (automatically picks smallest dataset-step)
+
+        const prevBtn = modal.querySelector('#prevStepEdit');
+        const nextBtn = modal.querySelector('#nextStepEdit');
+        const submitBtn = modal.querySelector('#submitFormEdit');
+        const indicators = Array.from(modal.querySelectorAll('.step-indicator'));
+
+        const update = () => {
+            const currentStep = stepNums[currentIndex];
+
+            // show/hide step contents (scoped)
+            stepContents.forEach(el => {
+            el.classList.toggle('hidden', parseInt(el.dataset.step, 10) !== currentStep);
+            });
+
+            // update indicators (scoped to this modal only)
+            indicators.forEach(ind => {
+            const circle = ind.querySelector('.step-circle');
+            if (parseInt(ind.dataset.step, 10) === currentStep) {
+                ind.classList.add('text-green-600', 'font-bold');
+                circle.classList.add('bg-green-600', 'text-white', 'border-green-600');
+            } else {
+                ind.classList.remove('text-green-600', 'font-bold');
+                circle.classList.remove('bg-green-600', 'text-white', 'border-green-600');
+            }
+            });
+
+            // buttons
+            prevBtn.classList.toggle('hidden', currentIndex === 0);
+            nextBtn.classList.toggle('hidden', currentIndex === stepNums.length - 1);
+            submitBtn.classList.toggle('hidden', currentIndex !== stepNums.length - 1);
+        };
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < stepNums.length - 1) currentIndex++;
+            update();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) currentIndex--;
+            update();
+        });
+
+        // init
+        update();
+
+        // reset when edit modal is opened
+        const mo = new MutationObserver(muts => {
+            muts.forEach(m => {
+            if (m.attributeName === 'class' && !modal.classList.contains('hidden')) {
+                currentIndex = 0;
+                update();
+            }
+            });
+        });
+        mo.observe(modal, { attributes: true });
+        })();
+    </script>
+
 
 </x-admin-layout>
