@@ -214,8 +214,8 @@
                     </div>
                     <!-- Children -->
                     <div class="mt-6">
-                        <label for="child_edit" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
-                        <select id="child_edit" name="child_edit[]" multiple
+                        <label for="child" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
+                        <select id="child" name="child[]" multiple
                             class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
                             <option value="1">Muhammad Azhar</option>
                             <option value="2">Nurul Jannah</option>
@@ -224,7 +224,7 @@
                     </div>
 
                     <script>
-                        new TomSelect("#child_edit", {
+                        new TomSelect("#child", {
                             plugins: ['remove_button'], // ada button x untuk buang tag
                             create: false, // kalau true, user boleh tambah value baru
                             persist: false,
@@ -331,7 +331,7 @@
                             </select>
                         </div>
                     </div>
-                    <!-- Children -->
+                     <!-- Children -->
                     <div class="mt-6">
                         <label for="child_edit" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
                         <select id="child_edit" name="child_edit[]" multiple
