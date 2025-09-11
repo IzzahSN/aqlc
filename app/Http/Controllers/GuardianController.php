@@ -13,7 +13,10 @@ class GuardianController extends Controller
     public function index()
     {
         $guardians = Guardian::all();
-        return view('admin.record.guardian', compact('guardians'));
+        $activeGuardians = Guardian::where('status', 'active')->count();
+        $inactiveGuardians = Guardian::where('status', 'inactive')->count();
+        $totalGuardians = Guardian::count();
+        return view('admin.record.guardian', compact('guardians', 'totalGuardians', 'activeGuardians', 'inactiveGuardians'));
     }
 
     /**
