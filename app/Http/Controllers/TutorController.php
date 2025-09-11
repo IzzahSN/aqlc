@@ -122,9 +122,16 @@ class TutorController extends Controller
     public function destroy($id)
     {
         $tutor = Tutor::findOrFail($id);
+
+        // Check kalau tutor ada class
+        if ($tutor->classes()->exists()) {
+            return redirect()->route('admin.tutor.index')
+                ->with('error', 'Cannot delete tutor. This tutor is already assigned to a class.');
+        }
+
         $tutor->delete();
 
         return redirect()->route('admin.tutor.index')
-            ->with('success', 'Package deleted successfully.');
+            ->with('success', 'Tutor deleted successfully.');
     }
 }
