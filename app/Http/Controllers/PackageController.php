@@ -13,7 +13,10 @@ class PackageController extends Controller
     public function index()
     {
         $packages = Package::withCount('joinPackages')->get();
-        return view('admin.class.package', compact('packages'));
+        $totalPackages = Package::count();
+        $personalPackages = Package::where('package_type', 'personal')->count();
+        $groupPackages = Package::where('package_type', 'group')->count();
+        return view('admin.class.package', compact('packages', 'totalPackages', 'personalPackages', 'groupPackages'));
     }
 
     /**
