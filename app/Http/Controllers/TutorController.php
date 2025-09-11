@@ -45,7 +45,7 @@ class TutorController extends Controller
             'university' => 'required|string|max:255',
             'programme' => 'required|string|max:255',
             'grade' => 'required|numeric|between:0,4.00',
-            'resume' => 'mimes:pdf|max:2048', // max 2MB
+            'resume' => 'nullable|mimes:pdf|max:2048', // max 2MB
             'bg_description' => 'nullable|string',
             'status' => 'required|in:active,inactive',
             'role' => 'required|in:Tutor,Admin',
