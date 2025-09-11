@@ -13,7 +13,10 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
-        return view('admin.record.student', compact('students'));
+        $totalStudents = Student::count();
+        $activeStudents = Student::where('status', 'active')->count();
+        $inactiveStudents = Student::where('status', 'inactive')->count();
+        return view('admin.record.student', compact('students', 'totalStudents', 'activeStudents', 'inactiveStudents'));
     }
 
     /**
