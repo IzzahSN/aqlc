@@ -242,7 +242,8 @@
             </ol>
 
             <!-- Modal Body -->
-            <form id="tutorForm">
+            <form id="addTutorForm" action="{{ route('admin.tutor.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <!-- Step 1 -->
                     <div class="step-content" data-step="1">
@@ -269,6 +270,12 @@
                             <div>
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                                 <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
+                            <!-- Phone Number -->
+                            <div>
+                                <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                                <input type="text" id="phone_number" name="phone_number" placeholder="012-3456789" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
                             <!-- IC Number -->
@@ -303,8 +310,8 @@
                                 <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
                                 <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                     <option value="">Select Role</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="tutor">Tutor</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Tutor">Tutor</option>
                                 </select>
                             </div>
                             <!-- Status -->
@@ -321,32 +328,37 @@
                         <!-- Address (full width) -->
                         <div class="mt-6">
                             <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                            <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                            <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                         </div>
                     </div>
 
                     <!-- Step 2 -->
                     <div class="step-content hidden" data-step="2">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {{-- university --}}
                             <div>
                                 <label for="university" class="block mb-2 text-sm font-medium text-gray-900">University</label>
-                                <select id="university" name="university" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                    <option value="">Select University</option>
-                                    <option value="Universiti Malaya">Universiti Malaya</option>
-                                    <option value="Universiti Kebangsaan Malaysia">Universiti Kebangsaan Malaysia</option>
-                                </select>
+                                <input type="text" id="university" name="university" placeholder="International Islamic University Malaysia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
+                            {{-- programme --}}
                             <div>
                                 <label for="programme" class="block mb-2 text-sm font-medium text-gray-900">Programme</label>
                                 <input type="text" id="programme" name="programme" placeholder="Bachelor of Quran Sunnah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
+                            {{-- grade --}}
                             <div>
                                 <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
-                                <input type="email" id="grade" name="grade" placeholder="4.0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <input type="text" id="grade" name="grade" placeholder="CGPA 3.75" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" min="0.00" max="4.00" step="0.01" required>
                             </div>
+                            {{-- resume --}}
                             <div>
                                 <label for="resume" class="block mb-2 text-sm font-medium text-gray-900">Upload Resume (PDF)</label>
-                                <input type="file" id="resume" name="resume" accept="application/pdf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <input type="file" id="resume" name="resume" accept="application/pdf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                            </div>
+                            {{-- background description --}}
+                            <div>
+                                <label for="bg_description" class="block mb-2 text-sm font-medium text-gray-900">Background Description</label>
+                                <textarea id="bg_description" name="bg_description" rows="4" placeholder="Briefly describe your educational background" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                             </div>
 
                         </div>
@@ -526,6 +538,18 @@
         </div>
     </div>
 
+    @if(session('closeModalAdd'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="addTutorModal"
+            const closeBtn = document.querySelector('[data-modal-hide="addTutorModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
     <!-- Script for Step Navigation -->
    <script>
         (function(){
@@ -567,10 +591,45 @@
             submitBtn.classList.toggle('hidden', currentIndex !== stepNums.length - 1);
         };
 
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < stepNums.length - 1) currentIndex++;
-            update();
+      nextBtn.addEventListener('click', () => {
+            if (currentIndex < stepNums.length - 1) {
+                // validate step 1 sebelum move ke step 2
+                if (currentIndex === 0) {
+                    const step1 = stepContents.find(s => s.dataset.step === "1");
+                    const inputs = step1.querySelectorAll("input[required], select[required], textarea[required]");
+                    let valid = true;
+
+                    inputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            input.classList.add("border-red-500"); // highlight merah
+                            valid = false;
+                        } else {
+                            input.classList.remove("border-red-500");
+                        }
+                    });
+
+                if (!valid) {
+                    const firstInvalid = step1.querySelector(".border-red-500");
+                    if (firstInvalid) {
+                        firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Form Incomplete",
+                        text: "Please fill in all required fields in Step 1.",
+                        confirmButtonColor: "#16a34a",
+                        confirmButtonText: "Got it"
+                    });
+                    return;
+                }
+
+                }
+
+                currentIndex++;
+                update();
+            }
         });
+
 
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) currentIndex--;
