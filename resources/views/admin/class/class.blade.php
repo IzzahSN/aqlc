@@ -4,49 +4,47 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <!-- Left Stats -->
         <div class="lg:col-span-1 space-y-4">
-            <div class="bg-white p-5 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
-                <div class="p-4 rounded-full bg-blue-100 text-blue-600 text-xl">
-                    👨‍🏫
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">Total Available Classes</p>
-                    <h3 class="text-2xl font-bold text-gray-800">8</h3>
-                </div>
-            </div>
+        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-lime-600 border-l-6 justify-between">
+            <div>
+                <p class="text-sm font-semibold text-lime-600 uppercase">Total Available Classes</p>
+                <h3 class="text-2xl font-bold text-gray-500">{{ $availableClasses  }}</h3>
+            </div>            
+            <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-check w-8 h-8 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2c-.218 0 -.432 .002 -.642 .005l-.616 .017l-.299 .013l-.579 .034l-.553 .046c-4.785 .464 -6.732 2.411 -7.196 7.196l-.046 .553l-.034 .579c-.005 .098 -.01 .198 -.013 .299l-.017 .616l-.004 .318l-.001 .324c0 .218 .002 .432 .005 .642l.017 .616l.013 .299l.034 .579l.046 .553c.464 4.785 2.411 6.732 7.196 7.196l.553 .046l.579 .034c.098 .005 .198 .01 .299 .013l.616 .017l.642 .005l.642 -.005l.616 -.017l.299 -.013l.579 -.034l.553 -.046c4.785 -.464 6.732 -2.411 7.196 -7.196l.046 -.553l.034 -.579c.005 -.098 .01 -.198 .013 -.299l.017 -.616l.005 -.642l-.005 -.642l-.017 -.616l-.013 -.299l-.034 -.579l-.046 -.553c-.464 -4.785 -2.411 -6.732 -7.196 -7.196l-.553 -.046l-.579 -.034a28.058 28.058 0 0 0 -.299 -.013l-.616 -.017l-.318 -.004l-.324 -.001zm2.293 7.293a1 1 0 0 1 1.497 1.32l-.083 .094l-4 4a1 1 0 0 1 -1.32 .083l-.094 -.083l-2 -2a1 1 0 0 1 1.32 -1.497l.094 .083l1.293 1.292l3.293 -3.292z" fill="currentColor" stroke-width="0" /></svg>
+        </div>
 
-            <div class="bg-white p-5 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
-                <div class="p-4 rounded-full bg-green-100 text-green-600 text-xl">
-                    👩‍🏫
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">Total Full Classes</p>
-                    <h3 class="text-2xl font-bold text-gray-800">5</h3>
-                </div>
+        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-amber-400 border-l-6 justify-between">
+            <div>
+                <p class="text-sm font-semibold text-amber-600 uppercase">Total Full Classes</p>
+                <h3 class="text-2xl font-bold text-gray-500">{{ $fullClasses  }}</h3>
             </div>
+            <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-x w-8 h-8 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" fill="currentColor" stroke-width="0" /></svg>   
+        </div>
 
-            <div class="bg-white p-5 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
-                <div class="p-4 rounded-full bg-purple-100 text-purple-600 text-xl">
-                    📘
-                </div>
-                <div>
-                    <p class="text-sm text-gray-500">Total Classes</p>
-                    <h3 class="text-2xl font-bold text-gray-800">2</h3>
-                </div>
+        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-cyan-600 border-l-6 justify-between">
+            <div>
+                <p class="text-sm font-semibold text-cyan-600 uppercase">Total Classes</p>
+                <h3 class="text-2xl font-bold text-gray-500">{{ $totalClasses  }}</h3>                
+            </div>
+             <svg class="w-10 h-10 text-gray-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 4.92857C3 3.90506 3.80497 3 4.88889 3H19.1111C20.195 3 21 3.90506 21 4.92857V13h-3v-2c0-.5523-.4477-1-1-1h-4c-.5523 0-1 .4477-1 1v2H3V4.92857ZM3 15v1.0714C3 17.0949 3.80497 18 4.88889 18h3.47608L7.2318 19.3598c-.35356.4243-.29624 1.0548.12804 1.4084.42428.3536 1.05484.2962 1.40841-.128L10.9684 18h2.0632l2.2002 2.6402c.3535.4242.9841.4816 1.4084.128.4242-.3536.4816-.9841.128-1.4084L15.635 18h3.4761C20.195 18 21 17.0949 21 16.0714V15H3Z"/>
+                <path d="M16 12v1h-2v-1h2Z"/>
+            </svg>
             </div>
         </div>
+
         <!-- Right Stats -->
-        <div class="lg:col-span-2 bg-white rounded-2xl shadow p-4 flex flex-col">
+        <div class="lg:col-span-2 bg-white rounded-sm shadow p-4 flex flex-col border-l-rose-600 border-l-6">
             <!-- Title -->
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Number of Classes</h2>
+            <h2 class="text-base font-semibold text-rose-600 uppercase mb-4">Number of Classes</h2>
 
             <!-- Content: legend kiri, chart kanan -->
-            <div class="flex items-center justify-between ml-12 mx-5">
+            <div class="flex items-center justify-between ml-12 mx-12">
 
                 <!-- Custom Legend -->
                 <div id="chartLegend" class="space-y-2"></div>
 
                 <!-- Donut Chart -->
-                <div class="relative w-64 h-64 flex items-center justify-center">
+                <div class="relative w-50 h-50 flex items-center justify-center">
                     <canvas id="classDonutChart"></canvas>
 
                     <!-- Center text -->
@@ -66,9 +64,9 @@
         const classDonutChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                labels: @json($days), // <-- ambil label dari controller
                 datasets: [{
-                    data: [6, 4, 3, 2, 5, 2, 2],
+                    data: @json($dayCounts), // <-- ambil count dari controller
                     backgroundColor: [
                         '#3B82F6', // Monday
                         '#14B8A6', // Tuesday
@@ -76,7 +74,7 @@
                         '#6366F1', // Thursday
                         '#EF4444', // Friday
                         '#FACC15', // Saturday
-                        '#FB923C' // Sunday
+                        '#FB923C'  // Sunday
                     ],
                     borderWidth: 0,
                 }]
@@ -84,15 +82,13 @@
             options: {
                 cutout: '70%',
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     tooltip: {
                         enabled: true,
                         callbacks: {
                             label: function(context) {
                                 let label = context.label || '';
-                                let value = context.raw || 0; // <-- guna context.raw untuk ambil value
+                                let value = context.raw || 0;
                                 let total = context.dataset.data.reduce((a, b) => a + b, 0);
                                 let percentage = ((value / total) * 100).toFixed(1);
                                 return `${label}: ${value} (${percentage}%)`;
@@ -105,20 +101,20 @@
 
         // Custom Legend
         const legendContainer = document.getElementById('chartLegend');
-        legendContainer.innerHTML = ''; // clear dulu kalau ada legend lama
-
+        legendContainer.innerHTML = '';
         classDonutChart.data.labels.forEach((label, i) => {
             const color = classDonutChart.data.datasets[0].backgroundColor[i];
             const value = classDonutChart.data.datasets[0].data[i];
             const item = document.createElement('div');
             item.className = "flex items-center space-x-2 text-gray-700";
             item.innerHTML = `
-            <span class="w-4 h-4 rounded-full inline-block" style="background-color:${color}"></span>
-            <span class="text-sm">${label} - ${value}</span>
-        `;
+                <span class="w-4 h-4 rounded-full inline-block" style="background-color:${color}"></span>
+                <span class="text-sm text-gray-500">${label} - ${value}</span>
+            `;
             legendContainer.appendChild(item);
         });
     </script>
+
 
 
     <!-- Classes List -->

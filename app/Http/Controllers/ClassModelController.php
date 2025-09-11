@@ -16,12 +16,20 @@ class ClassModelController extends Controller
     public function index()
     {
         $classes = ClassModel::all();
+        $totalClasses = ClassModel::count();
+        $availableClasses = ClassModel::where('status', 'Available')->count();
+        $fullClasses = ClassModel::where('status', 'Full')->count();
         // hanya ambil tutor yang active
         $tutors = Tutor::where('status', 'active')->get();
-
         // select semua package
         $packages = Package::all();
-        return view('admin.class.class', compact('classes', 'tutors', 'packages'));
+        // kira bilangan class ikut hari
+        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        $dayCounts = [];
+        foreach ($days as $day) {
+            $dayCounts[] = ClassModel::where('day', $day)->count();
+        }
+        return view('admin.class.class', compact('classes', 'tutors', 'packages', 'totalClasses', 'availableClasses', 'fullClasses', 'days', 'dayCounts'));
     }
 
     /**
