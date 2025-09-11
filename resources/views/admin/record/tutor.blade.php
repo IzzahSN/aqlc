@@ -86,9 +86,9 @@
                         <td class="px-4 py-3">{{ $tutor->email }}</td>
                         <td class="px-4 py-3">{{ $tutor->classes_count }}</td>
                         <td class="px-4 py-3">
-                             @if($tutor->status == 'active')
+                            @if($tutor->status == 'active')
                                 <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
-                           @else
+                            @else
                                 <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Inactive</span>
                             @endif 
                         </td>
@@ -137,7 +137,7 @@
                     const status = row.cells[5].textContent.toLowerCase(); // 👈 ambil status
 
                     const matchSearch = name.includes(searchValue) || id.includes(searchValue);
-                    const matchFilter = filterValue === "" || status.includes(filterValue); // 👈 filter ikut active/inactive
+                    const matchFilter = filterValue === "" || status.trim() === filterValue;
                     return matchSearch && matchFilter;
                 });
 
