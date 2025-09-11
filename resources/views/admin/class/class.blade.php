@@ -50,7 +50,7 @@
                     <!-- Center text -->
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <p class="text-sm text-gray-500">Total Classes</p>
-                        <p class="text-2xl font-bold">24</p>
+                        <p class="text-2xl font-bold">{{ $totalClasses  }}</p>
                     </div>
                 </div>
             </div>
