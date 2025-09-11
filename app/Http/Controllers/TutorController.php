@@ -119,8 +119,12 @@ class TutorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tutor $tutor)
+    public function destroy($id)
     {
-        //
+        $tutor = Tutor::findOrFail($id);
+        $tutor->delete();
+
+        return redirect()->route('admin.tutor.index')
+            ->with('success', 'Package deleted successfully.');
     }
 }

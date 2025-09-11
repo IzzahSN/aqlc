@@ -95,7 +95,17 @@
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editTutorModal" data-modal-toggle="editTutorModal">Edit</button>
                             <a href="{{ route('admin.tutor.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                             <form id="delete-form-{{ $tutor->tutor_id }}" 
+                                action="{{ route('admin.tutor.destroy', $tutor->tutor_id) }}" 
+                                method="POST" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" 
+                                    class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
+                                    data-id="{{ $tutor->tutor_id }}">
+                                    Delete
+                                </button>
+                            </form>                        
                         </td>
                     </tr>
                     @endforeach
@@ -549,6 +559,32 @@
         });
     </script>
     @endif
+
+    {{-- Delete Confirmation --}}
+   <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    let id = this.getAttribute("data-id");
+                    let form = document.getElementById("delete-form-" + id);
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This tutor will be deleted!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
     <!-- Script for Step Navigation -->
    <script>
