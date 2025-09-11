@@ -15,7 +15,11 @@ class TutorController extends Controller
     public function index()
     {
         $tutors = Tutor::withCount('classes')->get();
-        return view('admin.record.tutor', compact('tutors'));
+        $totalTutors = Tutor::count();
+        $activeTutors = Tutor::where('status', 'active')->count();
+        $inactiveTutors = Tutor::where('status', 'inactive')->count();
+
+        return view('admin.record.tutor', compact('tutors', 'totalTutors', 'activeTutors', 'inactiveTutors'));
     }
 
     /**
