@@ -27,7 +27,9 @@ class AuthController extends Controller
             session([
                 'user_id' => $user->guardian_id,
                 'role' => 'guardian',
-                'name' => $user->first_name . ' ' . $user->last_name,
+                'fullname' => $user->first_name . ' ' . $user->last_name,
+                'email' => $user->email,
+                'username' => $user->first_name,
             ]);
 
             return response()->json([
@@ -46,7 +48,9 @@ class AuthController extends Controller
             session([
                 'user_id' => $user->tutor_id,
                 'role'    => strtolower($user->role), // simpan admin/tutor
-                'name' => $user->first_name . ' ' . $user->last_name,
+                'fullname' => $user->first_name . ' ' . $user->last_name,
+                'email' => $user->email,
+                'username' => $user->username,
             ]);
 
             $redirectUrl = $user->role === 'Admin'

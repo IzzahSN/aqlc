@@ -104,6 +104,7 @@
 
             fetch("{{ route('login') }}", {
                 method: "POST",
+                credentials: "same-origin", // 🔑 penting untuk Laravel session
                 headers: {
                     "X-CSRF-TOKEN": "{{ csrf_token() }}",
                     "Accept": "application/json"

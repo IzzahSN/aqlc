@@ -1,6 +1,6 @@
 <x-tutor-layout :title="'Dashboard'">
     <!-- Welcome -->
-    <h2 class="text-xl font-bold mb-6">Welcome back, {{ session('name') }}!</h2>
+    <h2 class="text-xl font-bold mb-6">Welcome back, {{ session('username') }}!</h2>
 
     <!-- Tutor Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">

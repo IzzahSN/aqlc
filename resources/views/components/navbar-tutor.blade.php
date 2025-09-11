@@ -22,7 +22,8 @@
                     <img src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
                         class="w-10 h-10 rounded-full border-2 border-gray-200" alt="User" />
                     <div class="hidden sm:block text-left">
-                        <h4 class="text-sm font-medium">Ustaz Jazmy</h4>
+                        <h4 class="text-sm font-medium">{{ session('username') }}</h4>
+                        <p class="text-xs text-gray-500">{{ ucfirst(session('role')) }}</p>
                     </div>
                     <svg class="w-4 h-4 text-gray-500 ml-1" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -37,8 +38,8 @@
 
                     <!-- Header -->
                     <div class="px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-                        <p class="text-sm font-semibold text-gray-900">Jazmy Juma Mohd Noor</p>
-                        <p class="text-xs text-gray-500">jazmyjuma@example.com</p>
+                        <p class="text-sm font-semibold text-gray-900">{{ session('fullname') }}</p>
+                        <p class="text-xs text-gray-500">{{ session('email') }}</p>
                     </div>
 
                     <!-- Menu Items -->

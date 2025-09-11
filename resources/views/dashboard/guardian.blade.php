@@ -2,7 +2,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between mb-6">
         <!-- Welcome -->
-        <h2 class="text-xl font-bold text-gray-800">Welcome back, {{ session('name') }}!</h2>
+        <h2 class="text-xl font-bold text-gray-800">Welcome back, {{ session('username') }}!</h2>
 
         <!-- Link Child Button -->
         <button data-modal-target="linkChildModal" data-modal-toggle="linkChildModal"
