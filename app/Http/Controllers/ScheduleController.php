@@ -12,15 +12,9 @@ class ScheduleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $tutorId = $request->get('tutor_id');
-
         $query = ClassModel::with('tutor');
-
-        if ($tutorId) {
-            $query->where('tutor_id', $tutorId);
-        }
 
         $classes = $query->get()->flatMap(function ($c) {
             $slots = [];
@@ -40,7 +34,6 @@ class ScheduleController extends Controller
 
             return $slots;
         });
-
 
         // Susun ikut hari & slot masa
         $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -69,9 +62,7 @@ class ScheduleController extends Controller
             }
         }
 
-
-        $tutors = Tutor::all();
-        return view('admin.class.schedule', compact('timetable', 'days', 'timeSlots', 'tutors'));
+        return view('admin.class.schedule', compact('timetable', 'days', 'timeSlots'));
     }
 
 
