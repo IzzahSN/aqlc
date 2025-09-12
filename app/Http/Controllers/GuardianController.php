@@ -20,25 +20,9 @@ class GuardianController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Guardian $guardian)
     {
         //
     }
@@ -62,8 +46,10 @@ class GuardianController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Guardian $guardian)
+    public function destroy($id)
     {
-        //
+        $guardian = Guardian::find($id);
+        $guardian->delete();
+        return redirect()->route('admin.guardian.index')->with('success', 'Guardian deleted successfully.');
     }
 }

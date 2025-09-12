@@ -92,7 +92,17 @@
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editGuardianModal" data-modal-toggle="editGuardianModal">Edit</button>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                            <form id="delete-form-{{ $guardian->guardian_id }}" 
+                                action="{{ route('admin.guardian.destroy', $guardian->guardian_id) }}" 
+                                method="POST" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" 
+                                    class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
+                                    data-id="{{ $guardian->guardian_id }}">
+                                    Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -459,4 +469,30 @@
             </form>
         </div>
     </div>
+
+    {{-- Delete Confirmation --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    let id = this.getAttribute("data-id");
+                    let form = document.getElementById("delete-form-" + id);
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This guardian will be deleted!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </x-admin-layout>
