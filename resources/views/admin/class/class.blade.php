@@ -386,9 +386,28 @@
                         <div>
                             <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900">Start Time</label>
                             <input type="time" id="start_time" name="start_time"
+                                step="1800"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                     focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
+
+                        <script>
+                        document.getElementById("start_time").addEventListener("change", function () {
+                            let value = this.value; // contoh: "10:17"
+                            if (!value) return;
+
+                            let [hours, minutes] = value.split(":").map(Number);
+                            // kalau < 15 minit → lock ke 00, kalau >= 15 → lock ke 30
+                            minutes = minutes < 15 ? 0 : (minutes < 45 ? 30 : 0);
+
+                            // kalau minit jadi 0 tapi asalnya lebih 45 → tambah sejam
+                            if (value.split(":")[1] >= 45) {
+                                hours = (hours + 1) % 24;
+                            }
+                               this.value = String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0");
+                            });
+                        </script>
+
 
                         <!-- End Time -->
                         <div>
