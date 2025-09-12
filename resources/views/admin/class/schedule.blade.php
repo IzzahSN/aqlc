@@ -1,55 +1,51 @@
 <x-admin-layout :title="'Schedule'">
-    <div class="p-6 bg-white rounded-xl shadow mb-6">
-        <div class="flex items-center justify-between mb-4">
-            <div>
-                <h2 class="text-lg font-semibold">Class Timetable</h2>
-                <p class="text-sm text-gray-500">Manage your timetable: filter</p>
-            </div>
+    {{-- <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-lime-600 border-l-6 justify-between"> --}}
 
-            <!-- Filter Dropdown -->
-            <div class="flex justify-end relative">
-                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">
-                    <span id="dropdownSelected">All Tutors</span>
-                    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
+    <div class="bg-white p-4 rounded-sm shadow mb-6 border-l-lime-600 border-l-6">
+        <div class="mb-4">        
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="text-lg font-semibold">Class Timetable</h2>
+                    <p class="text-sm text-gray-500">Overview of class schedules for the week.</p>
+                </div>
 
-                <div id="dropdown" class="absolute right-0 mt-2 z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44">
-                    <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
-                        <li><button class="dropdown-option w-full text-left block px-4 py-2 hover:bg-gray-100">All Tutors</button></li>
-                        <li><button class="dropdown-option w-full text-left block px-4 py-2 hover:bg-gray-100">Ustaz Hafiz</button></li>
-                        <li><button class="dropdown-option w-full text-left block px-4 py-2 hover:bg-gray-100">Ustaz Jazmy</button></li>
-                        <li><button class="dropdown-option w-full text-left block px-4 py-2 hover:bg-gray-100">Ustazah Nuha</button></li>
-                        <li><button class="dropdown-option w-full text-left block px-4 py-2 hover:bg-gray-100">Ustazah Iman</button></li>
-                    </ul>
+                <!-- Filter Dropdown -->
+                <div class="flex justify-end relative">
+                    <!-- Filter -->
+                    <select id="filterTutor" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                        <option value="">All Tutors</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
                 </div>
             </div>
-
-            <script>
-                const dropdownButton = document.getElementById("dropdownDefaultButton");
-                const dropdownMenu = document.getElementById("dropdown");
-                const dropdownSelected = document.getElementById("dropdownSelected");
-                const dropdownOptions = document.querySelectorAll(".dropdown-option");
-
-                dropdownButton.addEventListener("click", () => {
-                    dropdownMenu.classList.toggle("hidden");
-                });
-
-                dropdownOptions.forEach(option => {
-                    option.addEventListener("click", (e) => {
-                        dropdownSelected.textContent = e.target.textContent; // update button text
-                        dropdownMenu.classList.add("hidden"); // auto close menu
-                    });
-                });
-
-                document.addEventListener("click", (e) => {
-                    if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                        dropdownMenu.classList.add("hidden");
-                    }
-                });
-            </script>
-
+            <!-- Legend -->
+                <div class="flex gap-4 mt-4 justify-center flex-wrap">
+                    <div class="flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-green-800"></span>
+                        <span class="text-sm text-gray-700">Kelas 1</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-orange-500"></span>
+                        <span class="text-sm text-gray-700">Kelas 2</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                        <span class="text-sm text-gray-700">Kelas 3</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                        <span class="text-sm text-gray-700">Kelas 4</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                        <span class="text-sm text-gray-700">Bilik 1</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-pink-500"></span>
+                        <span class="text-sm text-gray-700">Bilik 2</span>
+                    </div>
+                </div>
         </div>
 
         <!-- Class timetable -->
@@ -58,19 +54,19 @@
                 <!-- Table Head -->
                 <thead class="bg-gray-50 sticky top-0 z-10">
                     <tr class="text-gray-600">
-                        <th class="border border-gray-200 p-3 text-left min-w-[80px]">Day</th>
-                        <th class="border border-gray-200 p-3 text-center">09:00 - 09:30</th>
-                        <th class="border border-gray-200 p-3 text-center">09:30 - 10:00</th>
-                        <th class="border border-gray-200 p-3 text-center">10:00 - 10:30</th>
-                        <th class="border border-gray-200 p-3 text-center">10:30 - 11:00</th>
-                        <th class="border border-gray-200 p-3 text-center">13:00 - 13:30</th>
-                        <th class="border border-gray-200 p-3 text-center">13:30 - 14:00</th>
-                        <th class="border border-gray-200 p-3 text-center">19:00 - 19:30</th>
-                        <th class="border border-gray-200 p-3 text-center">19:30 - 20:00</th>
-                        <th class="border border-gray-200 p-3 text-center">20:00 - 20:30</th>
-                        <th class="border border-gray-200 p-3 text-center">20:30 - 21:00</th>
-                        <th class="border border-gray-200 p-3 text-center">21:00 - 21:30</th>
-                        <th class="border border-gray-200 p-3 text-center">21:30 - 22:00</th>
+                        <th class="border border-gray-200 p-2 text-left min-w-[80px]">Day</th>
+                        <th class="border border-gray-200 p-2 text-center">09:00 - 09:30</th>
+                        <th class="border border-gray-200 p-2 text-center">09:30 - 10:00</th>
+                        <th class="border border-gray-200 p-2 text-center">10:00 - 10:30</th>
+                        <th class="border border-gray-200 p-2 text-center">10:30 - 11:00</th>
+                        <th class="border border-gray-200 p-2 text-center">13:00 - 13:30</th>
+                        <th class="border border-gray-200 p-2 text-center">13:30 - 14:00</th>
+                        <th class="border border-gray-200 p-2 text-center">19:00 - 19:30</th>
+                        <th class="border border-gray-200 p-2 text-center">19:30 - 20:00</th>
+                        <th class="border border-gray-200 p-2 text-center">20:00 - 20:30</th>
+                        <th class="border border-gray-200 p-2 text-center">20:30 - 21:00</th>
+                        <th class="border border-gray-200 p-2 text-center">21:00 - 21:30</th>
+                        <th class="border border-gray-200 p-2 text-center">21:30 - 22:00</th>
                     </tr>
                 </thead>
 
@@ -78,33 +74,33 @@
                 <tbody class="divide-y divide-gray-100 border border-gray-200">
                     <!-- Monday -->
                     <tr class="hover:bg-gray-50 border border-gray-200">
-                        <td class="p-3 font-medium text-gray-700 border border-gray-200">Monday</td>
+                        <td class="p-2 font-medium text-gray-700 border border-gray-200">Monday</td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-green-100 text-green-800 font-medium">Ustaz Hafiz</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustaz Hafiz</span>
                         </td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-green-100 text-green-800 font-medium">Ustaz Hafiz</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustaz Hafiz</span>
                         </td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-orange-100 text-orange-800 font-medium">Ustaz Mustaqim</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-orange-100 text-orange-800 font-medium">Ustaz Mustaqim</span>
                         </td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-orange-100 text-orange-800 font-medium">Ustaz Mustaqim</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-orange-100 text-orange-800 font-medium">Ustaz Mustaqim</span>
                         </td>
                         <td></td>
                         <td></td>
                         <td class="text-center space-y-1 py-1">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-red-100 text-red-800 font-medium">Ustazah Iman</span>
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 font-medium">Ustazah Nuha</span>
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-purple-100 text-purple-800 font-medium">Ustaz Hilmi</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-red-100 text-red-800 font-medium">Ustazah Iman</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-blue-100 text-blue-800 font-medium">Ustazah Nuha</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-purple-100 text-purple-800 font-medium">Ustaz Hilmi</span>
                         </td>
                         <td class="text-center space-y-1 py-1">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-red-100 text-red-800 font-medium">Ustazah Iman</span>
-                            <span class="block m-1px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 font-medium">Ustazah Nuha</span>
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-purple-100 text-purple-800 font-medium">Ustaz Hilmi</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-red-100 text-red-800 font-medium">Ustazah Iman</span>
+                            <span class="block m-1px-3 py-1 text-xs rounded-sm bg-blue-100 text-blue-800 font-medium">Ustazah Nuha</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-purple-100 text-purple-800 font-medium">Ustaz Hilmi</span>
                         </td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-green-100 text-green-800 font-medium">Ustazah Nuha</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustazah Nuha</span>
                         </td>
                         <td></td>
                     </tr>
@@ -114,7 +110,7 @@
                         <td class="p-3 font-medium text-gray-700 border border-gray-200">Tuesday</td>
                         <td></td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-red-100 text-red-800 font-medium">Ustaz Jazmy</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-red-100 text-red-800 font-medium">Ustaz Jazmy</span>
                         </td>
                         <td></td>
                         <td></td>
@@ -125,11 +121,11 @@
                     <tr class="hover:bg-gray-50 border border-gray-200">
                         <td class="p-3 font-medium text-gray-700 border border-gray-200">Wednesday</td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-green-100 text-green-800 font-medium">Ustazah Aira</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustazah Aira</span>
                         </td>
                         <td></td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-pink-100 text-pink-800 font-medium">Ustazah Iman</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-pink-100 text-pink-800 font-medium">Ustazah Iman</span>
                         </td>
                         <td></td>
                         <td colspan="8"></td>
@@ -146,7 +142,7 @@
                         <td class="p-3 font-medium text-gray-700 border border-gray-200">Friday</td>
                         <td colspan="5"></td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-green-100 text-green-800 font-medium">Ustazah Nuha</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustazah Nuha</span>
                         </td>
                         <td colspan="6"></td>
                     </tr>
@@ -156,10 +152,10 @@
                         <td class="p-3 font-medium text-gray-700 border border-gray-200">Saturday</td>
                         <td></td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-red-100 text-red-800 font-medium">Ustaz Hafiz</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-red-100 text-red-800 font-medium">Ustaz Hafiz</span>
                         </td>
                         <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-full bg-purple-100 text-purple-800 font-medium">Ustaz Jazmy</span>
+                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-purple-100 text-purple-800 font-medium">Ustaz Jazmy</span>
                         </td>
                         <td colspan="8"></td>
                     </tr>
@@ -173,33 +169,7 @@
             </table>
         </div>
 
-        <!-- Legend -->
-        <div class="flex flex-wrap gap-4 justify-center ">
-            <div class="flex items-center gap-1">
-                <span class="w-3 h-3 rounded-full bg-green-800"></span>
-                <span class="text-sm text-gray-700">Kelas 1</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <span class="w-3 h-3 rounded-full bg-orange-500"></span>
-                <span class="text-sm text-gray-700">Kelas 2</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <span class="w-3 h-3 rounded-full bg-red-500"></span>
-                <span class="text-sm text-gray-700">Kelas 3</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <span class="w-3 h-3 rounded-full bg-blue-500"></span>
-                <span class="text-sm text-gray-700">Kelas 4</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <span class="w-3 h-3 rounded-full bg-purple-500"></span>
-                <span class="text-sm text-gray-700">Bilik 1</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <span class="w-3 h-3 rounded-full bg-pink-500"></span>
-                <span class="text-sm text-gray-700">Bilik 2</span>
-            </div>
-        </div>
+        
     </div>
 
     <!-- Schedules List -->
