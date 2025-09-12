@@ -1,7 +1,7 @@
 <x-admin-layout :title="'Schedule'">
-    {{-- <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-lime-600 border-l-6 justify-between"> --}}
-
+    <!-- Class Timetable -->
     <div class="bg-white p-4 rounded-sm shadow mb-6 border-l-lime-600 border-l-6">
+        <!-- Header -->
         <div class="mb-4">        
             <div class="flex items-center justify-between mb-4">
                 <div>
@@ -14,8 +14,9 @@
                     <!-- Filter -->
                     <select id="filterTutor" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                         <option value="">All Tutors</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
+                        @foreach($tutors as $tutor)
+                            <option value="{{ $tutor->tutor_id }}">{{ $tutor->username }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -168,8 +169,6 @@
                 </tbody>
             </table>
         </div>
-
-        
     </div>
 
     <!-- Schedules List -->

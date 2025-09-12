@@ -12,15 +12,16 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $tutors = Schedule::with('classModel.tutor')->get();
+        return view('admin.class.schedule', compact('tutors'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function attendance()
     {
-        //
+        return view('admin.class.attendance');
     }
 
     /**

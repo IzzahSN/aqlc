@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassModelController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TutorController;
 use Illuminate\Support\Facades\Route;
@@ -80,8 +81,13 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::delete('/package/{id}', [PackageController::class, 'destroy'])->name('package.destroy');
     Route::get('/package/{id}/report', [PackageController::class, 'report'])->name('package.report');
 
-    Route::get('/schedule', fn() => view('admin.class.schedule'))->name('schedule');
-    Route::get('/schedule/attendance', fn() => view('admin.class.attendance'))->name('schedule.attendance');
+    // SCHEDULE
+    Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+    Route::post('/schedule', [ScheduleController::class, 'store'])->name('schedule.store');
+    Route::get('/schedule/{id}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
+    Route::put('/schedule/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
+    Route::delete('/schedule/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
+    Route::get('/schedule/attendance', [ScheduleController::class, 'attendance'])->name('schedule.attendance');
 
     // REPORT
     Route::get('/report', fn() => view('admin.report.index'))->name('report');

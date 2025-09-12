@@ -662,48 +662,47 @@
     @endif
 
     {{-- Edit Class Form --}}
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const editButtons = document.querySelectorAll('.edit-class-button'); // button utk buka modal
-        const editForm = document.getElementById('editClassForm');
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll('.edit-class-button'); // button utk buka modal
+            const editForm = document.getElementById('editClassForm');
 
-        editButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const classId = this.getAttribute('data-id');
-                fetch(`/admin/class/${classId}/edit`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Set action URL
-                        editForm.action = `/admin/class/${classId}`;
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const classId = this.getAttribute('data-id');
+                    fetch(`/admin/class/${classId}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Set action URL
+                            editForm.action = `/admin/class/${classId}`;
 
-                        // Populate form fields
-                        editForm.package_id.value = data.package_id;
-                        editForm.duration_per_sessions.value = data.package.duration_per_sessions;
-                        editForm.class_name.value = data.class_name;
-                        editForm.day.value = data.day;
-                        editForm.start_time.value = data.start_time;
-                        editForm.end_time.value = data.end_time;
-                        editForm.room.value = data.room;
-                        editForm.capacity.value = data.capacity;
-                        editForm.status.value = data.status;
-                        editForm.tutor_id.value = data.tutor_id;
+                            // Populate form fields
+                            editForm.package_id.value = data.package_id;
+                            editForm.duration_per_sessions.value = data.package.duration_per_sessions;
+                            editForm.class_name.value = data.class_name;
+                            editForm.day.value = data.day;
+                            editForm.start_time.value = data.start_time;
+                            editForm.end_time.value = data.end_time;
+                            editForm.room.value = data.room;
+                            editForm.capacity.value = data.capacity;
+                            editForm.status.value = data.status;
+                            editForm.tutor_id.value = data.tutor_id;
 
-                        // kalau package bertukar → auto update duration
-                        const packageSelect = editForm.package_id;
-                        const selected = packageSelect.querySelector(`option[value="${data.package_id}"]`);
-                        if (selected) {
-                            const duration = selected.getAttribute('data-duration') || '';
-                            editForm.duration_per_sessions.value = duration;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching class data:', error);
-                    });
+                            // kalau package bertukar → auto update duration
+                            const packageSelect = editForm.package_id;
+                            const selected = packageSelect.querySelector(`option[value="${data.package_id}"]`);
+                            if (selected) {
+                                const duration = selected.getAttribute('data-duration') || '';
+                                editForm.duration_per_sessions.value = duration;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching class data:', error);
+                        });
+                });
             });
         });
-    });
-</script>
-
+    </script>
 
     {{-- Delete Confirmation --}}
    <script>
