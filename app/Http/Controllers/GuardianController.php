@@ -12,7 +12,7 @@ class GuardianController extends Controller
      */
     public function index()
     {
-        $guardians = Guardian::all();
+        $guardians = Guardian::withCount('studentGuardians')->get();
         $activeGuardians = Guardian::where('status', 'active')->count();
         $inactiveGuardians = Guardian::where('status', 'inactive')->count();
         $totalGuardians = Guardian::count();

@@ -82,7 +82,7 @@
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $guardian->first_name }} {{ $guardian->last_name }}</td>
                         <td class="px-4 py-3">{{ $guardian->phone_number }}</td>
                         <td class="px-4 py-3">{{ $guardian->email }}</td>
-                        <td class="px-4 py-3">1</td>
+                        <td class="px-4 py-3">{{ $guardian->student_guardians_count }}</td>
                         <td class="px-4 py-3">
                             @if($guardian->status == 'active')
                                 <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>

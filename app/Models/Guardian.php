@@ -32,11 +32,9 @@ class Guardian extends Model
     protected $hidden = ['password']; // supaya password tak keluar bila return JSON
 
     // Relationships
-    public function students()
+    public function studentGuardians()
     {
-        return $this->belongsToMany(Student::class, 'student_guardians', 'guardian_id', 'student_id')
-            ->withPivot('relationship_type')
-            ->withTimestamps();
+        return $this->hasMany(StudentGuardian::class, 'guardian_id', 'guardian_id');
     }
 
     public function billHistories()

@@ -28,11 +28,9 @@ class Student extends Model
     ];
 
     // Relationships
-    public function guardians()
+    public function studentGuardians()
     {
-        return $this->belongsToMany(Guardian::class, 'student_guardians', 'student_id', 'guardian_id')
-            ->withPivot('relationship_type')
-            ->withTimestamps();
+        return $this->hasMany(StudentGuardian::class, 'student_id', 'student_id');
     }
 
     public function billHistories()
