@@ -42,21 +42,12 @@
         <div class="overflow-x-auto mb-6">
             <table class="w-max min-w-full border-collapse text-xs">
                 <!-- Table Head -->
-                <thead class="bg-gray-50 sticky top-0 z-10">
+               <thead class="bg-gray-50 sticky top-0 z-10">
                     <tr class="text-gray-600">
                         <th class="border border-gray-200 p-2 text-left min-w-[80px]">Day</th>
-                        <th class="border border-gray-200 p-2 text-center">09:00 - 09:30</th>
-                        <th class="border border-gray-200 p-2 text-center">09:30 - 10:00</th>
-                        <th class="border border-gray-200 p-2 text-center">10:00 - 10:30</th>
-                        <th class="border border-gray-200 p-2 text-center">10:30 - 11:00</th>
-                        <th class="border border-gray-200 p-2 text-center">13:00 - 13:30</th>
-                        <th class="border border-gray-200 p-2 text-center">13:30 - 14:00</th>
-                        <th class="border border-gray-200 p-2 text-center">19:00 - 19:30</th>
-                        <th class="border border-gray-200 p-2 text-center">19:30 - 20:00</th>
-                        <th class="border border-gray-200 p-2 text-center">20:00 - 20:30</th>
-                        <th class="border border-gray-200 p-2 text-center">20:30 - 21:00</th>
-                        <th class="border border-gray-200 p-2 text-center">21:00 - 21:30</th>
-                        <th class="border border-gray-200 p-2 text-center">21:30 - 22:00</th>
+                        @foreach($timeSlots as $slot)
+                            <th class="border border-gray-200 p-2 text-center">{{ $slot }}</th>
+                        @endforeach
                     </tr>
                 </thead>
 

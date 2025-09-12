@@ -16,6 +16,7 @@ class ScheduleController extends Controller
     {
         $query = ClassModel::with('tutor');
 
+        // Expand setiap kelas jadi slot 30 minit
         $classes = $query->get()->flatMap(function ($c) {
             $slots = [];
 
@@ -35,24 +36,25 @@ class ScheduleController extends Controller
             return $slots;
         });
 
+        // Ambil min & max masa ikut semua kelas
+        $minStart = $classes->min(function ($c) {
+            return \Carbon\Carbon::createFromFormat('H:i', explode('-', $c->slot)[0]);
+        });
+        $maxEnd = $classes->max(function ($c) {
+            return \Carbon\Carbon::createFromFormat('H:i', explode('-', $c->slot)[1]);
+        });
+
+        // Generate slot dari min → max
+        $timeSlots = [];
+        $current = $minStart->copy();
+        while ($current < $maxEnd) {
+            $next = $current->copy()->addMinutes(30);
+            $timeSlots[] = $current->format('H:i') . '-' . $next->format('H:i');
+            $current = $next;
+        }
+
         // Susun ikut hari & slot masa
         $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        $timeSlots = [
-            '09:00-09:30',
-            '09:30-10:00',
-            '10:00-10:30',
-            '10:30-11:00',
-            '13:00-13:30',
-            '13:30-14:00',
-            '19:00-19:30',
-            '19:30-20:00',
-            '20:00-20:30',
-            '20:30-21:00',
-            '21:00-21:30',
-            '21:30-22:00'
-        ];
-
-        // Array untuk isi timetable
         $timetable = [];
         foreach ($days as $day) {
             foreach ($timeSlots as $slot) {
@@ -64,6 +66,7 @@ class ScheduleController extends Controller
 
         return view('admin.class.schedule', compact('timetable', 'days', 'timeSlots'));
     }
+
 
 
     /**
