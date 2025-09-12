@@ -243,7 +243,8 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="guardianForm">
+            <form id="addGuardianForm" action="{{ route('admin.guardian.store') }}" method="POST">
+                @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- First Name -->
@@ -266,26 +267,26 @@
 
                         <!-- Phone Number -->
                         <div>
-                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
-                            <input type="text" id="phone" name="phone" placeholder="0122039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                            <input type="text" id="phone_number" name="phone_number" placeholder="012-2039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- IC Number -->
                         <div>
                             <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
-                            <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="text" id="ic_number" name="ic_number" placeholder="990101145678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Age -->
                         <div>
                             <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
-                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Birth Date -->
                         <div>
                             <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
-                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Gender -->
@@ -295,15 +296,6 @@
                                 <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
-                            </select>
-                        </div>
-                        <!-- Role -->
-                        <div>
-                            <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                            <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Role</option>
-                                <option value="father">Father</option>
-                                <option value="mother">Mother</option>
                             </select>
                         </div>
                         <!-- Status -->
@@ -316,28 +308,10 @@
                             </select>
                         </div>
                     </div>
-                    <!-- Children -->
-                    <div class="mt-6">
-                        <label for="child" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
-                        <select id="child" name="child[]" multiple
-                            class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
-                            <option value="1">Muhammad Azhar</option>
-                            <option value="2">Nurul Jannah</option>
-                            <option value="3">Ahmad Salleh</option>
-                        </select>
-                    </div>
-
-                    <script>
-                        new TomSelect("#child", {
-                            plugins: ['remove_button'], // ada button x untuk buang tag
-                            create: false, // kalau true, user boleh tambah value baru
-                            persist: false,
-                        });
-                    </script>
                     <!-- Address (full width) -->
                     <div class="mt-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
                 </div>
 
@@ -469,6 +443,18 @@
             </form>
         </div>
     </div>
+
+    @if(session('closeModalAdd'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="addTutorModal"
+            const closeBtn = document.querySelector('[data-modal-hide="addGuardianModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
 
     {{-- Delete Confirmation --}}
     <script>

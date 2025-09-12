@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guardian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class GuardianController extends Controller
 {
@@ -24,7 +25,39 @@ class GuardianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'ic_number' => 'required|string|max:12|unique:guardians,ic_number',
+            'birth_date' => 'nullable|date',
+            'age' => 'nullable|integer|min:18',
+            'gender' => 'required|in:male,female',
+            'phone_number' => 'required|string|max:15',
+            'email' => 'required|email|unique:guardians,email',
+            'address' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
+        ]);
+        // default password hash from ic_number
+        $password = Hash::make($request->ic_number);
+        // profile picture default null
+        $profile = null;
+
+        Guardian::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'ic_number' => $request->ic_number,
+            'birth_date' => $request->birth_date,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'address' => $request->address,
+            'password' => $password,
+            'profile' => $profile,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with('success', 'Guardian added successfully!')->with('closeModalAdd', true);
     }
 
     /**
