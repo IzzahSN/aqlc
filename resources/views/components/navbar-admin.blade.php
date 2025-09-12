@@ -19,8 +19,10 @@
                 <!-- Trigger -->
                 <button id="profileDropdownButton" data-dropdown-toggle="profileDropdown"
                     class="flex items-center gap-2 focus:outline-none">
-                    <img src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                        class="w-10 h-10 rounded-full border-2 border-gray-200" alt="User" />
+                   <img src="{{ session('profile') 
+                        ? asset('storage/'.session('profile')) 
+                        : 'https://ui-avatars.com/api/?name='.urlencode(session('username')).'&background=06B6D4&color=fff' }}" 
+                        class="w-10 h-10 rounded-full" alt="Avatar">
                     <div class="hidden sm:block text-left">
                         <h4 class="text-sm font-medium">{{ session('username') }}</h4>
                         <p class="text-xs text-gray-500">{{ ucfirst(session('role')) }}</p>

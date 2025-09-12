@@ -30,6 +30,7 @@ class AuthController extends Controller
                 'fullname' => $user->first_name . ' ' . $user->last_name,
                 'email' => $user->email,
                 'username' => $user->first_name,
+                'profile' => $user->profile,
             ]);
 
             return response()->json([
@@ -51,6 +52,7 @@ class AuthController extends Controller
                 'fullname' => $user->first_name . ' ' . $user->last_name,
                 'email' => $user->email,
                 'username' => $user->username,
+                'profile' => $user->profile,
             ]);
 
             $redirectUrl = $user->role === 'Admin'
