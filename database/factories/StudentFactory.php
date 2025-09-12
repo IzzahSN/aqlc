@@ -16,8 +16,17 @@ class StudentFactory extends Factory
      */
     public function definition(): array
     {
+        $ic = $this->faker->numerify('############');
         return [
-            //
+            'first_name'   => $this->faker->firstName,
+            'last_name'    => $this->faker->lastName,
+            'ic_number'    => $ic,
+            'birth_date'   => $this->faker->date(),
+            'age'          => $this->faker->numberBetween(3, 17),
+            'gender'       => $this->faker->randomElement(['Male', 'Female']),
+            'address'      => $this->faker->address,
+            'admission_date' => $this->faker->date(),
+            'status'       => 'active',
         ];
     }
 }
