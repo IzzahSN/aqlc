@@ -72,7 +72,7 @@
             <table class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">Student ID</th>
+                        <th class="px-4 py-3">No</th>
                         <th class="px-4 py-3">First Name</th>
                         <th class="px-4 py-3">Package Name</th>
                         <th class="px-4 py-3">Admission Date</th>
