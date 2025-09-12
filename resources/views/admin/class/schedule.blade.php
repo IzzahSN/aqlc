@@ -12,10 +12,14 @@
                 <!-- Filter Dropdown -->
                 <div class="flex justify-end relative">
                     <!-- Filter -->
-                    <select id="filterTutor" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                    <select id="filterTutor"
+                            class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                         <option value="">All Tutors</option>
                         @foreach($tutors as $tutor)
-                            <option value="{{ $tutor->tutor_id }}">{{ $tutor->username }}</option>
+                            <option value="{{ $tutor->tutor_id }}"
+                                {{ request('tutor_id') == $tutor->tutor_id ? 'selected' : '' }}>
+                                {{ $tutor->username }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -72,100 +76,31 @@
                 </thead>
 
                 <!-- Table Body -->
-                <tbody class="divide-y divide-gray-100 border border-gray-200">
-                    <!-- Monday -->
+               <tbody class="divide-y divide-gray-100 border border-gray-200">
+                @foreach($days as $day)
                     <tr class="hover:bg-gray-50 border border-gray-200">
-                        <td class="p-2 font-medium text-gray-700 border border-gray-200">Monday</td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustaz Hafiz</span>
-                        </td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustaz Hafiz</span>
-                        </td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-orange-100 text-orange-800 font-medium">Ustaz Mustaqim</span>
-                        </td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-orange-100 text-orange-800 font-medium">Ustaz Mustaqim</span>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-center space-y-1 py-1">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-red-100 text-red-800 font-medium">Ustazah Iman</span>
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-blue-100 text-blue-800 font-medium">Ustazah Nuha</span>
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-purple-100 text-purple-800 font-medium">Ustaz Hilmi</span>
-                        </td>
-                        <td class="text-center space-y-1 py-1">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-red-100 text-red-800 font-medium">Ustazah Iman</span>
-                            <span class="block m-1px-3 py-1 text-xs rounded-sm bg-blue-100 text-blue-800 font-medium">Ustazah Nuha</span>
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-purple-100 text-purple-800 font-medium">Ustaz Hilmi</span>
-                        </td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustazah Nuha</span>
-                        </td>
-                        <td></td>
+                        <td class="p-2 font-medium text-gray-700 border border-gray-200">{{ $day }}</td>
+                        @foreach($timeSlots as $slot)
+                            <td class="text-center space-y-1 py-1">
+                                @forelse($timetable[$day][$slot] as $class)
+                                    <span class="block m-1 px-3 py-1 text-xs rounded-sm 
+                                        {{ $class->room == 'Kelas 1' ? 'bg-green-100 text-green-800' : '' }}
+                                        {{ $class->room == 'Kelas 2' ? 'bg-orange-100 text-orange-800' : '' }}
+                                        {{ $class->room == 'Kelas 3' ? 'bg-red-100 text-red-800' : '' }}
+                                        {{ $class->room == 'Kelas 4' ? 'bg-blue-100 text-blue-800' : '' }}
+                                        {{ $class->room == 'Bilik 1' ? 'bg-purple-100 text-purple-800' : '' }}
+                                        {{ $class->room == 'Bilik 2' ? 'bg-pink-100 text-pink-800' : '' }}
+                                        font-medium">
+                                        {{ $class->tutor->username }}
+                                    </span>
+                                @empty
+                                    {{-- row dan column yang kosong letak dash --}}
+                                    <span class="text-gray-300">-</span>
+                                @endforelse
+                            </td>
+                        @endforeach
                     </tr>
-
-                    <!-- Tuesday -->
-                    <tr class="hover:bg-gray-50 border border-gray-200">
-                        <td class="p-3 font-medium text-gray-700 border border-gray-200">Tuesday</td>
-                        <td></td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-red-100 text-red-800 font-medium">Ustaz Jazmy</span>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td colspan="8"></td>
-                    </tr>
-
-                    <!-- Wednesday -->
-                    <tr class="hover:bg-gray-50 border border-gray-200">
-                        <td class="p-3 font-medium text-gray-700 border border-gray-200">Wednesday</td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustazah Aira</span>
-                        </td>
-                        <td></td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-pink-100 text-pink-800 font-medium">Ustazah Iman</span>
-                        </td>
-                        <td></td>
-                        <td colspan="8"></td>
-                    </tr>
-
-                    <!-- Thursday -->
-                    <tr class="hover:bg-gray-50 border border-gray-200">
-                        <td class="p-3 font-medium text-gray-700 border border-gray-200">Thursday</td>
-                        <td colspan="12" class="text-center text-gray-400 italic">No classes</td>
-                    </tr>
-
-                    <!-- Friday -->
-                    <tr class="hover:bg-gray-50 border border-gray-200">
-                        <td class="p-3 font-medium text-gray-700 border border-gray-200">Friday</td>
-                        <td colspan="5"></td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-green-100 text-green-800 font-medium">Ustazah Nuha</span>
-                        </td>
-                        <td colspan="6"></td>
-                    </tr>
-
-                    <!-- Saturday -->
-                    <tr class="hover:bg-gray-50 border border-gray-200">
-                        <td class="p-3 font-medium text-gray-700 border border-gray-200">Saturday</td>
-                        <td></td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-red-100 text-red-800 font-medium">Ustaz Hafiz</span>
-                        </td>
-                        <td class="text-center">
-                            <span class="block m-1 px-3 py-1 text-xs rounded-sm bg-purple-100 text-purple-800 font-medium">Ustaz Jazmy</span>
-                        </td>
-                        <td colspan="8"></td>
-                    </tr>
-
-                    <!-- Sunday -->
-                    <tr class="hover:bg-gray-50 border border-gray-200">
-                        <td class="p-3 font-medium text-gray-700 border border-gray-200">Sunday</td>
-                        <td colspan="12" class="text-center text-gray-400 italic">No classes</td>
-                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
