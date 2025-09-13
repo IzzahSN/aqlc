@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Package;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -14,20 +15,11 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
-        $packages = Student::with('joinPackages')->get();
         $packageFilters = Package::all();
         $totalStudents = Student::count();
         $activeStudents = Student::where('status', 'active')->count();
         $inactiveStudents = Student::where('status', 'inactive')->count();
-        return view('admin.record.student', compact('students', 'totalStudents', 'activeStudents', 'inactiveStudents', 'packages', 'packageFilters'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('admin.record.student', compact('students', 'totalStudents', 'activeStudents', 'inactiveStudents', 'packageFilters'));
     }
 
     /**
@@ -35,7 +27,31 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'ic_number' => 'required|string|max:12|unique:students,ic_number',
+            'birth_date' => 'nullable|date',
+            'age' => 'nullable|integer|min:3',
+            'gender' => 'required|in:male,female',
+            'address' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
+        ]);
+        //admission_date == current date
+        $admission_date = Carbon::now();
+
+        Student::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'ic_number' => $request->ic_number,
+            'birth_date' => $request->birth_date,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'status' => $request->status,
+            'admission_date' => $admission_date,
+        ]);
+        return redirect()->back()->with('success', 'Student added successfully!')->with('closeModalAdd', true);
     }
 
     /**

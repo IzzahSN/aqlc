@@ -100,6 +100,7 @@
                             <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editStudentModal" data-modal-toggle="editStudentModal">Edit</button>
                             <a href="{{ route('admin.student.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                            {{-- <a href="{{ route('admin.student.package.add') }}" class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">Package</a> --}}
                         </td>
                     </tr>
                     @endforeach
@@ -248,258 +249,88 @@
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addStudentModal">✕</button>
             </div>
 
-            <!-- Progress Indicator -->
-            <ol class="flex items-center w-full p-3 space-x-2 text-sm font-medium text-center text-gray-500 bg-white sm:text-base sm:p-4 sm:space-x-4 rtl:space-x-reverse">
-                <li class="flex items-center flex-1 justify-center step-indicator active" data-step="1">
-                    <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">1</span>
-                    <span class="hidden sm:inline-flex sm:ms-1">Student Info</span>
-                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
-                    </svg>
-                </li>
-                <li class="flex items-center flex-1 justify-center step-indicator" data-step="2">
-                    <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">2</span>
-                    <span class="hidden sm:inline-flex sm:ms-1">Package and Class</span>
-                    <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
-                    </svg>
-                </li>
-                <li class="flex items-center flex-1 justify-center step-indicator" data-step="3">
-                    <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">3</span>
-                    <span>Guardian Details</span>
-                </li>
-            </ol>
-
             <!-- Modal Body -->
-            <form id="studentForm">
+            <form id="addStudentForm" action="{{ route('admin.student.store') }}" method="POST">
+                @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
-                    <!-- Step 1 -->
-                    <div class="step-content" data-step="1">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                            <!-- First Name -->
-                            <div>
-                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
-                                <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-
-                            <!-- Last Name -->
-                            <div>
-                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
-                                <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-
-                            <!-- IC Number -->
-                            <div>
-                                <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
-                                <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-
-                            <!-- Age -->
-                            <div>
-                                <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
-                                <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-
-                            <!-- Birth Date -->
-                            <div>
-                                <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
-                                <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-
-                            <!-- Gender -->
-                            <div>
-                                <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
-                                <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                    <option value="">Select Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            </div>
-                            <!-- Status -->
-                            <div>
-                                <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                                <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                    <option value="">Select Status</option>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
-                                </select>
-                            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- First Name -->
+                        <div>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
-                        <!-- Address (full width) -->
-                        <div class="mt-6">
-                            <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                            <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        <!-- Last Name -->
+                        <div>
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- IC Number -->
+                        <div>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                            <input type="text" id="ic_number" name="ic_number" placeholder="990101145678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Age -->
+                        <div>
+                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                        </div>
+
+                        <!-- Birth Date -->
+                        <div>
+                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                        </div>
+
+                        <!-- Gender -->
+                        <div>
+                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                            <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>                                </select>
+                            </div>
+                            
+                        <!-- Status -->
+                        <div>
+                            <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                            <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- Step 2 -->
-                    <div class="step-content hidden" data-step="2">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                            <div>
-                                <label for="id" class="block mb-2 text-sm font-medium text-gray-900">Package Name</label>
-                                <select id="id" name="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                    <option value="">Select Package</option>
-                                    <option value="1">An-Nur Lite</option>
-                                    <option value="2">An-Nur Plus</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
-                                <input type="text" id="type" name="type" placeholder="group" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-                            <div>
-                                <label for="rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
-                                <input type="number" id="rate" name="rate" placeholder="100" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-                            <div>
-                                <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Unit</label>
-                                <input type="text" id="unit" name="unit" placeholder="Per month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-                            <div>
-                                <label for="duration" class="block mb-2 text-sm font-medium text-gray-900">Duration Per Session</label>
-                                <input type="text" id="duration" name="duration" placeholder="1 hour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-                            <div>
-                                <label for="join" class="block mb-2 text-sm font-medium text-gray-900">Class Joined</label>
-                                <select id="join" name="join[]" multiple
-                                    class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
-                                    <option value="Mon-2100-K1">Mon-2100-K1</option>
-                                    <option value="Tue-2000-K2">Tue-2000-K2</option>
-                                    <option value="Wed-1930-K3">Wed-1930-K3</option>
-                                </select>
-                            </div>
-
-                            <script>
-                                new TomSelect("#join", {
-                                    plugins: ['remove_button'],
-                                    maxItems: 2,
-                                    create: false,
-                                    persist: false,
-                                    render: {
-                                        item: function(data, escape) {
-                                            return `<div class="bg-green-100 text-green-800 text-xs font-medium mr-1 mb-1 px-2.5 py-1 rounded-md flex items-center">${escape(data.text)}</div>`;
-                                        },
-                                        option: function(data, escape) {
-                                            return `<div class="px-3 py-2 text-sm text-gray-900 hover:bg-green-50 cursor-pointer">${escape(data.text)}</div>`;
-                                        }
-                                    }
-                                });
-                            </script>
-                        </div>
-
-                        <!-- Available Classes Table -->
-                        <div class="mt-4">
-                            <h5 class="font-semibold text-gray-800 mb-3">List of Available Classes</h5>
-                            <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                                <table class="w-full text-sm text-left text-gray-700">
-                                    <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-semibold">
-                                        <tr>
-                                            <th class="px-4 py-3">No</th>
-                                            <th class="px-4 py-3">Class Name</th>
-                                            <th class="px-4 py-3">Room</th>
-                                            <th class="px-4 py-3">Day</th>
-                                            <th class="px-4 py-3">Start</th>
-                                            <th class="px-4 py-3">End</th>
-                                            <th class="px-4 py-3">Capacity Left</th>
-                                            <th class="px-4 py-3">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-200">
-                                        <tr>
-                                            <td class="px-4 py-3">1</td>
-                                            <td class="px-4 py-3">Kelas 1</td>
-                                            <td class="px-4 py-3">PC003</td>
-                                            <td class="px-4 py-3">Monday</td>
-                                            <td class="px-4 py-3">20:00</td>
-                                            <td class="px-4 py-3">21:00</td>
-                                            <td class="px-4 py-3">7</td>
-                                            <td class="px-4 py-3">
-                                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">Available</span>
-                                            </td>
-                                        </tr>
-                                        <!-- Repeat rows here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <!-- Address (full width) -->
+                    <div class="mt-6">
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
+            </div>
 
-
-                    <!-- Step 3 -->
-                    <div class="step-content hidden" data-step="3">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
-                                <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-                            <div>
-                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
-                                <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-                            <div>
-                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                                <input type="email" id="email" name="email" placeholder="abu@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-                            <div>
-                                <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
-                                <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-                            <div>
-                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
-                                <input type="text" id="phone" name="phone" placeholder="01234567891" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addStudentModal">Cancel</button>
-
-                    <div class="flex gap-2">
-                        <button type="button" id="prevStep" class="hidden px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300">Previous</button>
-                        <button type="button" id="nextStep" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Next</button>
-                        <button type="submit" id="submitForm" class="hidden text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            <!-- Modal Footer -->
+            <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addGuardianModal">Cancel</button>
+                <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+            </div>
+        </form>
     </div>
 
-    <!-- Script for Step Navigation -->
+    @if(session('closeModalAdd'))
     <script>
-        let currentStep = 1;
-        const totalSteps = 3;
-
-        const updateSteps = () => {
-            document.querySelectorAll('.step-content').forEach(el => {
-                el.classList.add('hidden');
-                if (parseInt(el.dataset.step) === currentStep) el.classList.remove('hidden');
-            });
-
-            document.querySelectorAll('.step-indicator').forEach(el => {
-                el.classList.remove('text-green-700', 'font-semibold');
-                if (parseInt(el.dataset.step) === currentStep) el.classList.add('text-green-700', 'font-semibold');
-            });
-
-            document.getElementById('prevStep').classList.toggle('hidden', currentStep === 1);
-            document.getElementById('nextStep').classList.toggle('hidden', currentStep === totalSteps);
-            document.getElementById('submitForm').classList.toggle('hidden', currentStep !== totalSteps);
-        };
-
-        document.getElementById('nextStep').addEventListener('click', () => {
-            if (currentStep < totalSteps) currentStep++;
-            updateSteps();
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="addTutorModal"
+            const closeBtn = document.querySelector('[data-modal-hide="addStudentModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
         });
-
-        document.getElementById('prevStep').addEventListener('click', () => {
-            if (currentStep > 1) currentStep--;
-            updateSteps();
-        });
-
-        updateSteps();
     </script>
+    @endif
+
 
     <!-- Edit Student Modal -->
     <div id="editStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
@@ -698,38 +529,5 @@
             </form>
         </div>
     </div>
-    <!-- Script for Step Navigation -->
-    <script>
-        let currentStepEdit = 1;
-        const totalStepsEdit = 2;
-
-        const updateStepsEdit = () => {
-            document.querySelectorAll('.step-content-edit').forEach(el => {
-                el.classList.add('hidden');
-                if (parseInt(el.dataset.step) === currentStepEdit) el.classList.remove('hidden');
-            });
-
-            document.querySelectorAll('.step-indicator-edit').forEach(el => {
-                el.classList.remove('text-green-700', 'font-semibold');
-                if (parseInt(el.dataset.step) === currentStepEdit) el.classList.add('text-green-700', 'font-semibold');
-            });
-
-            document.getElementById('prevStepEdit').classList.toggle('hidden', currentStepEdit === 1);
-            document.getElementById('nextStepEdit').classList.toggle('hidden', currentStepEdit === totalStepsEdit);
-            document.getElementById('submitFormEdit').classList.toggle('hidden', currentStepEdit !== totalStepsEdit);
-        };
-
-        document.getElementById('nextStepEdit').addEventListener('click', () => {
-            if (currentStepEdit < totalStepsEdit) currentStepEdit++;
-            updateStepsEdit();
-        });
-
-        document.getElementById('prevStepEdit').addEventListener('click', () => {
-            if (currentStepEdit > 1) currentStepEdit--;
-            updateStepsEdit();
-        });
-
-        updateStepsEdit();
-    </script>
 
 </x-admin-layout>
