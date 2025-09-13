@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,12 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
+        $packages = Student::with('joinPackages')->get();
+        $packageFilters = Package::all();
         $totalStudents = Student::count();
         $activeStudents = Student::where('status', 'active')->count();
         $inactiveStudents = Student::where('status', 'inactive')->count();
-        return view('admin.record.student', compact('students', 'totalStudents', 'activeStudents', 'inactiveStudents'));
+        return view('admin.record.student', compact('students', 'totalStudents', 'activeStudents', 'inactiveStudents', 'packages', 'packageFilters'));
     }
 
     /**

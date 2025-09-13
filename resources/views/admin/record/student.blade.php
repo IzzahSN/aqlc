@@ -46,7 +46,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <!-- Search -->
             <div class="relative w-full sm:w-full">
-                <input type="text" placeholder="Search by name or ID"
+                <input type="text" id="searchInput" placeholder="Search by name or ID"
                     class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                 <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -55,13 +55,15 @@
                 </svg>
             </div>
             <!-- Filter -->
-            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Package</option>
-                <option value="active">An-Nur Lite</option>
-                <option value="inactive">An-Nur Plus</option>
+            <select id="filterPackage" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                <option value="">All Package</option>
+                {{-- optional dari package --}}
+                @foreach ($packageFilters as $packageFilter)
+                    <option value="{{ strtolower($packageFilter->package_name) }}">{{ $packageFilter->package_name }}</option>
+                @endforeach
             </select>
-            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Status</option>
+            <select id="filterStatus" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                <option value="">All Status</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
             </select>
@@ -69,25 +71,30 @@
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table class="min-w-full text-sm text-left text-gray-600">
+            <table id="studentTable" class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">First Name</th>
+                        <th class="px-4 py-3">Full Name</th>
                         <th class="px-4 py-3">Package Name</th>
                         <th class="px-4 py-3">Admission Date</th>
                         <th class="px-4 py-3">Status</th>
                         <th class="px-4 py-3 text-center">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="studentBody">
+                    @foreach ($students as $student)                        
                     <tr class="border-b">
-                        <td class="px-4 py-3">ST001</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Wade Warren</td>
-                        <td class="px-4 py-3">An-Nur Lite</td>
-                        <td class="px-4 py-3">15/08/2024</td>
+                        <td class="px-4 py-3 row-index"></td>
+                        <td class="px-4 py-3 font-medium text-gray-900">{{ $student->first_name }} {{ $student->last_name }}</td>
+                        <td class="px-4 py-3">{{ $student->package->package_name ?? '-'}}</td>
+                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($student->admission_date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3">
-                            <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
+                            @if($student->status == 'active')
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
+                            @else
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Inactive</span>
+                            @endif 
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editStudentModal" data-modal-toggle="editStudentModal">Edit</button>
@@ -95,45 +102,140 @@
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
                     </tr>
-
-                    <tr class="border-b">
-                        <td class="px-4 py-3">ST002</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Esther Howard</td>
-                        <td class="px-4 py-3">An-Nur Plus</td>
-                        <td class="px-4 py-3">10/07/2025</td>
-                        <td class="px-4 py-3">
-                            <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Inactive</span>
-                        </td>
-                        <td class="px-4 py-3 flex gap-2 justify-center">
-                            <!-- Edit Button -->
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editStudentModal" data-modal-toggle="editStudentModal">Edit</button>
-                            <a href="{{ route('admin.student.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
+
+            <!-- No Record Message -->
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
         </div>
 
-        <!-- Pagination -->
-        <div class="flex items-center justify-between mt-4">
-            <div class="flex items-center gap-2">
-                <span class="text-sm text-gray-500">Result per page</span>
-                <select class="border rounded px-2 py-1 text-sm">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                </select>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                <button class="px-3 py-1 border rounded text-sm">2</button>
-                <button class="px-3 py-1 border rounded text-sm">3</button>
-                <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-            </div>
+         <!-- Pagination (manual JS) -->
+        <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">
+            <!-- Showing entries -->
+            <div id="entriesInfo" class="mb-2 sm:mb-0"></div>
+            <!-- Pagination buttons -->
+            <div class="flex items-center gap-2" id="pagination"></div>
         </div>
+
+      <!-- Pagination Script -->
+        <script>
+            const searchInput = document.getElementById("searchInput");
+            const filterPackage = document.getElementById("filterPackage");
+            const filterStatus = document.getElementById("filterStatus");
+            const tbody = document.getElementById("studentBody");
+            const rows = Array.from(tbody.getElementsByTagName("tr"));
+            const noRecord = document.getElementById("noRecord");
+            const pagination = document.getElementById("pagination");
+            const entriesInfo = document.getElementById("entriesInfo");
+
+            let currentPage = 1;
+            const rowsPerPage = 5;
+
+            function renderTable() {
+                const searchValue = searchInput.value.toLowerCase();
+                const packageValue = filterPackage.value.toLowerCase();
+                const statusValue = filterStatus.value.toLowerCase();
+
+                let filteredRows = rows.filter(row => {
+                    const id = row.cells[0].textContent.toLowerCase();
+                    const name = row.cells[1].textContent.toLowerCase();
+                    const packageName = row.cells[2].textContent.toLowerCase();
+                    const status = row.cells[4].textContent.toLowerCase();
+
+                    const matchSearch = name.includes(searchValue) || id.includes(searchValue);
+                    const matchPackage = packageValue === "" || packageName.includes(packageValue);
+                    const matchStatus = statusValue === "" || status.trim() === statusValue;
+
+                    return matchSearch && matchPackage && matchStatus;
+                });
+
+                const totalRows = filteredRows.length;
+                const totalPages = Math.ceil(totalRows / rowsPerPage);
+                if (currentPage > totalPages) currentPage = totalPages || 1;
+
+                // hide all rows dulu
+                rows.forEach(r => r.style.display = "none");
+
+                // ambil rows ikut page
+                let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+                pageRows.forEach((r, i) => {
+                    r.style.display = "";
+                    // update numbering semula (row-index)
+                    r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
+                });
+
+                // show/hide "no records"
+                noRecord.classList.toggle("hidden", totalRows > 0);
+
+                // entries info
+                const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+                const end = Math.min(currentPage * rowsPerPage, totalRows);
+                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+
+                // build pagination
+                pagination.innerHTML = "";
+
+                // prev button
+                const prevBtn = document.createElement("button");
+                prevBtn.textContent = "‹";
+                prevBtn.disabled = currentPage === 1;
+                prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                prevBtn.addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(prevBtn);
+
+                // page numbers (max 5)
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, currentPage + 2);
+
+                if (endPage - startPage < 4) {
+                    if (startPage === 1) {
+                        endPage = Math.min(totalPages, startPage + 4);
+                    } else if (endPage === totalPages) {
+                        startPage = Math.max(1, endPage - 4);
+                    }
+                }
+
+                for (let i = startPage; i <= endPage; i++) {
+                    const btn = document.createElement("button");
+                    btn.textContent = i;
+                    btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+                    btn.addEventListener("click", () => {
+                        currentPage = i;
+                        renderTable();
+                    });
+                    pagination.appendChild(btn);
+                }
+
+                // next button
+                const nextBtn = document.createElement("button");
+                nextBtn.textContent = "›";
+                nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+                nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                nextBtn.addEventListener("click", () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(nextBtn);
+            }
+
+            // event listeners
+            searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+            filterStatus.addEventListener("change", () => { currentPage = 1; renderTable(); });
+            filterPackage.addEventListener("change", () => { currentPage = 1; renderTable(); });
+
+            // initial render
+            renderTable();
+        </script>
+
     </div>
 
     <!-- Multi-step Add Student Modal -->
