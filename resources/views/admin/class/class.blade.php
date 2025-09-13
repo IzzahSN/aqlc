@@ -535,18 +535,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                          <!-- Package name -->
                         <div>
-                            <label for="package_id" class="block mb-2 text-sm font-medium text-gray-900">Select Package</label>
-                            <select id="package_id" name="package_id" disabled
+                            <label for="package_name_display" class="block mb-2 text-sm font-medium text-gray-900">Package Name</label>
+                            <input type="text" id="package_name_display" name="package_name_display"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                @foreach($packages as $package)
-                                    <option value="{{ $package->package_id }}" data-duration="{{ $package->duration_per_sessions }}">
-                                        {{ $package->package_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                             <!-- supaya value tetap dihantar dalam form -->
-                            <input type="hidden" name="package_id" value="{{ $class->package_id }}">
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
+                            <input type="hidden" name="package_id" id="package_id_hidden">
                         </div>
 
                         <!-- Package duration -->
@@ -556,14 +549,6 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                     focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
-
-                        <script>
-                            document.getElementById('package_id').addEventListener('change', function() {
-                                let selected = this.options[this.selectedIndex];
-                                let duration = selected.getAttribute('data-duration') || '';
-                                document.getElementById('duration_per_sessions').value = duration;
-                            });
-                        </script>
 
                         <!-- Class Name -->
                         <div>
@@ -696,7 +681,8 @@
                             editForm.action = `/admin/class/${classId}`;
 
                             // Populate form fields
-                            editForm.package_id.value = data.package_id;
+                            editForm.package_name_display.value = data.package.package_name;
+                            editForm.package_id_hidden.value = data.package_id;
                             editForm.duration_per_sessions.value = data.package.duration_per_sessions;
                             editForm.class_name.value = data.class_name;
                             editForm.day.value = data.day;
