@@ -725,7 +725,7 @@
         });
 
         document.getElementById('prevStepEdit').addEventListener('click', () => {
-            if (currentStepEdit > 1) currecurrentStepEditntStep--;
+            if (currentStepEdit > 1) currentStepEdit--;
             updateStepsEdit();
         });
 
