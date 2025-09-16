@@ -91,7 +91,11 @@
                             @endif 
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editGuardianModal" data-modal-toggle="editGuardianModal">Edit</button>
+                            <button type="button"
+                                class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
+                                data-id="{{ $guardian->guardian_id }}" 
+                                data-modal-target="editGuardianModal"
+                                data-modal-toggle="editGuardianModal">Edit</button>
                             <form id="delete-form-{{ $guardian->guardian_id }}" 
                                 action="{{ route('admin.guardian.destroy', $guardian->guardian_id) }}" 
                                 method="POST" class="delete-form">
@@ -326,7 +330,7 @@
         </div>
     </div>
 
-    <!-- Edit Guardian Modal -->
+    <!-- Add Guardian Modal -->
     <div id="editGuardianModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
         <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
             <!-- Modal Header -->
@@ -337,7 +341,9 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="guardianFormEdit">
+            <form id="editGuardianForm" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- First Name -->
@@ -355,31 +361,31 @@
                         <!-- Email -->
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                            <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
 
                         <!-- Phone Number -->
                         <div>
-                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
-                            <input type="text" id="phone" name="phone" placeholder="0122039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                            <input type="text" id="phone_number" name="phone_number" placeholder="012-2039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- IC Number -->
                         <div>
                             <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
-                            <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="text" id="ic_number" name="ic_number" placeholder="990101145678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
 
                         <!-- Age -->
                         <div>
                             <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
-                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Birth Date -->
                         <div>
                             <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
-                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Gender -->
@@ -389,15 +395,6 @@
                                 <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
-                            </select>
-                        </div>
-                        <!-- Role -->
-                        <div>
-                            <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                            <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Role</option>
-                                <option value="father">Father</option>
-                                <option value="mother">Mother</option>
                             </select>
                         </div>
                         <!-- Status -->
@@ -410,28 +407,10 @@
                             </select>
                         </div>
                     </div>
-                     <!-- Children -->
-                    <div class="mt-6">
-                        <label for="child_edit" class="block mb-2 text-sm font-medium text-gray-900">Children</label>
-                        <select id="child_edit" name="child_edit[]" multiple
-                            class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500">
-                            <option value="1">Muhammad Azhar</option>
-                            <option value="2">Nurul Jannah</option>
-                            <option value="3">Ahmad Salleh</option>
-                        </select>
-                    </div>
-
-                    <script>
-                        new TomSelect("#child_edit", {
-                            plugins: ['remove_button'], // ada button x untuk buang tag
-                            create: false, // kalau true, user boleh tambah value baru
-                            persist: false,
-                        });
-                    </script>
                     <!-- Address (full width) -->
                     <div class="mt-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
                 </div>
 
@@ -439,7 +418,7 @@
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
                     <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editGuardianModal">Cancel</button>
 
-                    <button type="submit" id="submitFormEdit" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
                 </div>
             </form>
         </div>
@@ -456,6 +435,53 @@
         });
     </script>
     @endif
+
+    @if(session('closeModalEdit'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="editGuardianModal"
+            const closeBtn = document.querySelector('[data-modal-hide="editGuardianModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
+     {{-- Edit form --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll('.edit-button');
+            const editForm = document.getElementById('editGuardianForm');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const guardianId = this.getAttribute('data-id');
+                    fetch(`/admin/guardian/${guardianId}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Set action URL for the form
+                            editForm.action = `/admin/guardian/${guardianId}`;
+
+                            // Populate form fields with fetched data
+                            editForm.first_name.value = data.first_name;
+                            editForm.last_name.value = data.last_name;
+                            editForm.email.value = data.email;
+                            editForm.phone_number.value = data.phone_number;
+                            editForm.ic_number.value = data.ic_number;
+                            editForm.age.value = data.age;
+                            editForm.birth_date.value = data.birth_date;
+                            editForm.gender.value = data.gender;
+                            editForm.status.value = data.status;
+                            editForm.address.value = data.address || '';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching package data:', error);
+                        });
+                });
+            });
+        });
+    </script>
 
     {{-- Delete Confirmation --}}
     <script>
