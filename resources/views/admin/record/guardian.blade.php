@@ -441,16 +441,16 @@
             <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                 <form id="linkChildForm" method="POST">
                 @csrf
-                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-2">
                         <!-- IC Number -->
-                        <div>
+                        <div class="col-span-2 md:col-span-3 lg:col-span-4">
                             <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Child IC Number</label>
                             <input type="text" id="ic_number" name="ic_number" placeholder="030810101788" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Relationship type -->
-                        <div>
+                        <div class="col-span-2 md:col-span-3 lg:col-span-4">
                             <label for="relationship_type" class="block mb-2 text-sm font-medium text-gray-900">Relationship</label>
                             <select id="relationship_type" name="relationship_type" 
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
@@ -463,8 +463,8 @@
                         </div>
 
                         <!-- Submit -->
-                        <div class="flex items-end">
-                            <button type="submit" id="submitFormAddChild" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center w-full">
+                        <div class="flex items-end col-span-1 md:col-span-2 lg:col-span-2">
+                            <button type="submit" id="submitFormAddChild" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm py-2.5 text-center w-full">
                                 Submit
                             </button>
                         </div>
@@ -487,7 +487,6 @@
                                         <tr class="border-b">
                                             <td class="px-4 py-3">{{ $index+1 }}</td>
                                             <td class="px-4 py-3 font-medium text-gray-900">{{ $child->student->first_name }} {{ $child->student->last_name }}</td>
-                                            <td class="px-4 py-3">{{ $child->relation_type }}</td>
                                             <td class="px-4 py-3 flex gap-2 justify-center">
                                                 <form action="{{ route('admin.guardian.children.destroy', [$guardian->id, $child->id]) }}" 
                                                     method="POST" class="delete-form">
