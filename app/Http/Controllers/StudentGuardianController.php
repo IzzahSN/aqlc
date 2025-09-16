@@ -60,10 +60,14 @@ class StudentGuardianController extends Controller
     }
 
     // Delete child link
-    public function adminDeleteChild($id)
+    public function adminDeleteChild($guardianId, $id)
     {
-        $studentGuardian = StudentGuardian::findOrFail($id);
-        $studentGuardian->delete();
+        // Pastikan record student_guardian memang milik guardian itu
+        $studentGuardian = StudentGuardian::where('guardian_id', $guardianId)
+            ->where('student_id', $id) // id = student_guardian_id
+            ->firstOrFail();
+
+        $studentGuardian->delete(); // soft delete
 
         return redirect()->route('admin.guardian.index')->with('success', 'Child removed successfully.');
     }

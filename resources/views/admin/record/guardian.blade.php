@@ -517,7 +517,7 @@
                                                                                 ${item.relationship_type ?? '-'}
                                                                             </td>
                                                                             <td class="px-4 py-3 flex gap-2 justify-center">
-                                                                                <form action="/admin/guardian/${guardianId}/children/${item.id}" method="POST" class="delete-form">
+                                                                                <form action="/admin/guardian/${guardianId}/children/${item.student.student_id}" method="POST" class="delete-form-child">
                                                                                     @csrf
                                                                                     @method('DELETE')
                                                                                     <button type="submit" 
@@ -673,7 +673,7 @@
     {{-- Delete Linked Child Confirmation --}}
     <script>
         document.addEventListener("click", function (e) {
-            if (e.target && e.target.type === "submit" && e.target.closest("form") && e.target.closest("form").classList.contains("delete-form")) {
+            if (e.target && e.target.type === "submit" && e.target.closest("form") && e.target.closest("form").classList.contains("delete-form-child")) {
                 e.preventDefault();
                 let form = e.target.closest("form");
                 Swal.fire({
