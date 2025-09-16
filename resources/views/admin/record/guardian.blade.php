@@ -82,7 +82,7 @@
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $guardian->first_name }} {{ $guardian->last_name }}</td>
                         <td class="px-4 py-3">{{ $guardian->phone_number }}</td>
                         <td class="px-4 py-3">{{ $guardian->email }}</td>
-                        <td class="px-4 py-3">{{ $guardian->student_guardians_count }}</td>
+                        <td class="px-4 py-3 text-center">{{ $guardian->student_guardians_count }}</td>
                         <td class="px-4 py-3">
                             @if($guardian->status == 'active')
                                 <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
@@ -473,15 +473,15 @@
 
                 <!-- Linked Children Table -->
                 <div class="mt-6">
-                        <div class="overflow-x-auto">
-                            <table id="linkChildrenTable" class="min-w-full text-sm text-left text-gray-600">
-                                <thead class="bg-gray-100 text-xs uppercase text-gray-500">
-                                    <tr>
-                                        <th class="px-4 py-3">No</th>
-                                        <th class="px-4 py-3">Full Name</th>
-                                        <th class="px-4 py-3">Relationship</th>
-                                        <th class="px-4 py-3 text-center">Action</th>
-                                    </tr>
+                    <div class="overflow-x-auto">
+                        <table id="linkChildrenTable" class="min-w-full text-sm text-left text-gray-600">
+                           <thead class="bg-gray-100 text-xs uppercase text-gray-500">
+                                <tr>
+                                    <th class="px-4 py-3">No</th>
+                                    <th class="px-4 py-3">Full Name</th>
+                                    <th class="px-4 py-3">Relationship</th>
+                                    <th class="px-4 py-3 text-center">Action</th>
+                                </tr>
                                 </thead>
                                 <tbody id="linkChildrenBody">
                                    <script>
@@ -536,12 +536,12 @@
                                                         .catch(error => {
                                                             console.error("Error fetching children:", error);
                                                             tableBody.innerHTML = `<tr><td colspan="3" class="text-center text-red-500 py-4">Failed to load data</td></tr>`;
-                                                        });
+                                                    });
                                                 });
                                             });
                                         });
-                                    </script>
-                                </tbody>
+                                </script>
+                            </tbody>
                         </table>
                     </div>                    
                 </div>
@@ -549,7 +549,7 @@
         </div>
     </div>
 
-     @if(session('closemodalAddChildren'))
+    @if(session('closemodalAddChildren'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Cari button yang ada data-modal-hide="addTutorModal"
