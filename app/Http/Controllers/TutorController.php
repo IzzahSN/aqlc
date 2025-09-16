@@ -122,16 +122,19 @@ class TutorController extends Controller
             'role' => 'required|in:Tutor,Admin',
         ]);
 
-        // Handle file upload
+        // define $data awal-awal
+        $data = $request->except('resume');
+
+        // Handle file upload only if new file uploaded
         if ($request->hasFile('resume')) {
-            $ext = $request->file('resume')->getClientOriginalExtension(); // ambil extension asal
+            $ext = $request->file('resume')->getClientOriginalExtension();
             $fileName = 'resume_' . Str::slug($request->first_name) . '_' . time() . '.' . $ext;
             $resumePath = $request->file('resume')->storeAs('resumes', $fileName, 'public');
-        } else {
-            return back()->withErrors(['resume' => 'Resume upload failed.'])->withInput();
+
+            $data['resume'] = $resumePath;
         }
 
-        $tutor->update($request->all());
+        $tutor->update($data);
 
         return redirect()->back()->with('success', 'Tutor updated successfully')->with('closeModalEdit', true);
     }

@@ -93,7 +93,11 @@
                             @endif 
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editTutorModal" data-modal-toggle="editTutorModal">Edit</button>
+                            <button type="button"
+                                class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-tutor-button"
+                                data-id="{{ $tutor->tutor_id }}" 
+                                data-modal-target="editTutorModal"
+                                data-modal-toggle="editTutorModal">Edit</button>
                             <a href="{{ route('admin.tutor.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
                              <form id="delete-form-{{ $tutor->tutor_id }}" 
                                 action="{{ route('admin.tutor.destroy', $tutor->tutor_id) }}" 
@@ -401,14 +405,14 @@
 
             <!-- Progress Indicator -->
             <ol class="flex items-center w-full p-3 space-x-2 text-sm font-medium text-center text-gray-500 bg-white sm:text-base sm:p-4 sm:space-x-4 rtl:space-x-reverse">
-                <li class="flex items-center flex-1 justify-center step-indicator active" data-step="3">
+                <li class="flex items-center flex-1 justify-center step-indicator-edit active" data-step="1">
                     <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">1</span>
                     <span class="hidden sm:inline-flex sm:ms-1">Tutor Info</span>
                     <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4" />
                     </svg>
                 </li>
-                <li class="flex items-center flex-1 justify-center step-indicator" data-step="4">
+                <li class="flex items-center flex-1 justify-center step-indicator-edit" data-step="2">
                     <span class="flex items-center justify-center w-6 h-6 me-2 text-xs border rounded-full shrink-0 step-circle">2</span>
                     <span class="hidden sm:inline-flex sm:ms-1">Education Background</span>
                     <svg class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
@@ -418,130 +422,135 @@
             </ol>
 
             <!-- Modal Body -->
-            <form id="tutorFormEdit">
+            <form id="editTutorForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <!-- Step 1 -->
-                    <div class="step-content-edit" data-step="3">
+                    <div class="step-content-edit" data-step="1">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                             <!-- First Name -->
                             <div>
-                                <label for="first_name_edit" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
-                                <input type="text" id="first_name_edit" name="first_name_edit" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                                <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
                             <!-- Last Name -->
                             <div>
-                                <label for="last_name_edit" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
-                                <input type="text" id="last_name_edit" name="last_name_edit" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
                             <!-- Username -->
                             <div>
-                                <label for="username_edit" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
-                                <input type="text" id="username_edit" name="username_edit" placeholder="Ustaz Jazmy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
+                                <input type="text" id="username" name="username" placeholder="Ustaz Jazmy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
                             <!-- Email -->
                             <div>
-                                <label for="email_edit" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                                <input type="email_edit" id="email_edit" name="email_edit" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                                <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
+                            </div>
+
+                            <!-- Phone Number -->
+                            <div>
+                                <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                                <input type="text" id="phone_number" name="phone_number" placeholder="012-3456789" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
                             <!-- IC Number -->
                             <div>
-                                <label for="ic_number_edit" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
-                                <input type="text" id="ic_number_edit" name="ic_number_edit" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                                <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                             </div>
 
                             <!-- Age -->
                             <div>
-                                <label for="age_edit" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
-                                <input type="number" id="age_edit" name="age_edit" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                                <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
                             <!-- Birth Date -->
                             <div>
-                                <label for="birth_date_edit" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
-                                <input type="date" id="birth_date_edit" name="birth_date_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                                <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
                             <!-- Gender -->
                             <div>
-                                <label for="gender_edit" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
-                                <select id="gender_edit" name="gender_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                    <option value="">Select Gender</option>
+                                <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                                <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
                             </div>
                             <!-- Role -->
                             <div>
-                                <label for="role_edit" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                                <select id="role_edit" name="role_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                    <option value="">Select Role</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="tutor">Tutor</option>
+                                <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                                <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Tutor">Tutor</option>
                                 </select>
                             </div>
-
                             <!-- Status -->
                             <div>
-                                <label for="status_edit" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                                <select id="status_edit" name="status_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                    <option value="">Select Status</option>
+                                <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                                <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                     <option value="active">Active</option>
                                     <option value="inactive">Inactive</option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- Address -->
+                        <!-- Address (full width) -->
                         <div class="mt-6">
-                            <label for="address_edit" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                            <textarea id="address_edit" name="address_edit" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                            <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                            <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                         </div>
                     </div>
 
                     <!-- Step 2 -->
-                    <div class="step-content-edit hidden" data-step="4">
+                    <div class="step-content-edit hidden" data-step="2">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {{-- university --}}
                             <div>
-                                <label for="university_edit" class="block mb-2 text-sm font-medium text-gray-900">University</label>
-                                <select id="university_edit" name="university_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                    <option value="">Select University</option>
-                                    <option value="Universiti Malaya">Universiti Malaya</option>
-                                    <option value="Universiti Kebangsaan Malaysia">Universiti Kebangsaan Malaysia</option>
-                                </select>
+                                <label for="university" class="block mb-2 text-sm font-medium text-gray-900">University</label>
+                                <input type="text" id="university" name="university" placeholder="International Islamic University Malaysia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
+                            {{-- programme --}}
                             <div>
-                                <label for="programme_edit" class="block mb-2 text-sm font-medium text-gray-900">Programme</label>
-                                <input type="text" id="programme_edit" name="programme_edit" placeholder="Bachelor of Quran Sunnah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <label for="programme" class="block mb-2 text-sm font-medium text-gray-900">Programme</label>
+                                <input type="text" id="programme" name="programme" placeholder="Bachelor of Quran Sunnah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
+                            {{-- grade --}}
                             <div>
-                                <label for="grade_edit" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
-                                <input type="text" id="grade_edit" name="grade_edit" placeholder="4.0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
+                                <input type="text" id="grade" name="grade" placeholder="CGPA 3.75" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" min="0.00" max="4.00" step="0.01" required>
                             </div>
+                            {{-- resume --}}
                             <div>
-                                <label for="resume_edit" class="block mb-2 text-sm font-medium text-gray-900">Upload Resume (PDF)</label>
-                                <input type="file" id="resume_edit" name="resume_edit" accept="application/pdf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                                <label for="resume" class="block mb-2 text-sm font-medium text-gray-900">Upload Resume (PDF)</label>
+                                <input type="file" id="resume" name="resume" accept="application/pdf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                             </div>
+                            {{-- background description --}}
+                            <div>
+                                <label for="bg_description" class="block mb-2 text-sm font-medium text-gray-900">Background Description</label>
+                                <textarea id="bg_description" name="bg_description" rows="4" placeholder="Briefly describe your educational background" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
+                            </div>
+
                         </div>
                     </div>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button"
-                        class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300"
-                        data-modal-hide="editTutorModal">Cancel</button>
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editTutorModal">Cancel</button>
 
                     <div class="flex gap-2">
-                        <button type="button" id="prevStepEdit"
-                            class="hidden px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300">Previous</button>
-                        <button type="button" id="nextStepEdit"
-                            class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Next</button>
-                        <button type="submit" id="submitFormEdit"
-                            class="hidden text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
+                        <button type="button" id="prevStepEdit" class="hidden px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300">Previous</button>
+                        <button type="button" id="nextStepEdit" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Next</button>
+                        <button type="submit" id="submitFormEdit" class="hidden text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
                     </div>
                 </div>
             </form>
@@ -553,6 +562,18 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Cari button yang ada data-modal-hide="addTutorModal"
             const closeBtn = document.querySelector('[data-modal-hide="addTutorModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
+     @if(session('closeModalEdit'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="editTutorModal"
+            const closeBtn = document.querySelector('[data-modal-hide="editTutorModal"]');
             if (closeBtn) {
                 closeBtn.click(); // trigger tutup modal
             }
@@ -586,20 +607,122 @@
         });
     </script>
 
-    <!-- Script for Step Navigation -->
-   <script>
+    {{-- Script for Step Navigation --}}
+    <script>
+            (function(){
+            const modal = document.getElementById('addTutorModal');
+            if (!modal) return;
+
+            const stepContents = Array.from(modal.querySelectorAll('.step-content'));
+            const stepNums = stepContents.map(s => parseInt(s.dataset.step, 10)).sort((a,b)=>a-b);
+            let currentIndex = 0; // index dalam stepNums array
+
+            const prevBtn = modal.querySelector('#prevStep');
+            const nextBtn = modal.querySelector('#nextStep');
+            const submitBtn = modal.querySelector('#submitForm');
+            const indicators = Array.from(modal.querySelectorAll('.step-indicator'));
+
+            const update = () => {
+                const currentStep = stepNums[currentIndex];
+
+                // show/hide step contents (scoped)
+                stepContents.forEach(el => {
+                el.classList.toggle('hidden', parseInt(el.dataset.step, 10) !== currentStep);
+                });
+
+                // update indicators (scoped)
+                indicators.forEach(ind => {
+                const circle = ind.querySelector('.step-circle');
+                if (parseInt(ind.dataset.step, 10) === currentStep) {
+                    ind.classList.add('text-green-600', 'font-bold');
+                    circle.classList.add('bg-green-600', 'text-white', 'border-green-600');
+                } else {
+                    ind.classList.remove('text-green-600', 'font-bold');
+                    circle.classList.remove('bg-green-600', 'text-white', 'border-green-600');
+                }
+                });
+
+                // buttons
+                prevBtn.classList.toggle('hidden', currentIndex === 0);
+                nextBtn.classList.toggle('hidden', currentIndex === stepNums.length - 1);
+                submitBtn.classList.toggle('hidden', currentIndex !== stepNums.length - 1);
+            };
+
+        nextBtn.addEventListener('click', () => {
+                if (currentIndex < stepNums.length - 1) {
+                    // validate step 1 sebelum move ke step 2
+                    if (currentIndex === 0) {
+                        const step1 = stepContents.find(s => s.dataset.step === "1");
+                        const inputs = step1.querySelectorAll("input[required], select[required], textarea[required]");
+                        let valid = true;
+
+                        inputs.forEach(input => {
+                            if (!input.value.trim()) {
+                                input.classList.add("border-red-500"); // highlight merah
+                                valid = false;
+                            } else {
+                                input.classList.remove("border-red-500");
+                            }
+                        });
+
+                    if (!valid) {
+                        const firstInvalid = step1.querySelector(".border-red-500");
+                        if (firstInvalid) {
+                            firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+                        }
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Form Incomplete",
+                            text: "Please fill in all required fields in Step 1.",
+                            confirmButtonColor: "#16a34a",
+                            confirmButtonText: "Got it"
+                        });
+                        return;
+                    }
+
+                    }
+
+                    currentIndex++;
+                    update();
+                }
+            });
+
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) currentIndex--;
+                update();
+            });
+
+            // init once
+            update();
+
+            // Reset to first step each time modal is opened (detect class change 'hidden')
+            const mo = new MutationObserver(muts => {
+                muts.forEach(m => {
+                if (m.attributeName === 'class' && !modal.classList.contains('hidden')) {
+                    currentIndex = 0;
+                    update();
+                }
+                });
+            });
+            mo.observe(modal, { attributes: true });
+            })();
+    </script>
+
+    {{-- Edit navigation --}}
+    <script>
         (function(){
-        const modal = document.getElementById('addTutorModal');
+        const modal = document.getElementById('editTutorModal');
         if (!modal) return;
 
-        const stepContents = Array.from(modal.querySelectorAll('.step-content'));
+        const stepContents = Array.from(modal.querySelectorAll('.step-content-edit'));
         const stepNums = stepContents.map(s => parseInt(s.dataset.step, 10)).sort((a,b)=>a-b);
         let currentIndex = 0; // index dalam stepNums array
 
-        const prevBtn = modal.querySelector('#prevStep');
-        const nextBtn = modal.querySelector('#nextStep');
-        const submitBtn = modal.querySelector('#submitForm');
-        const indicators = Array.from(modal.querySelectorAll('.step-indicator'));
+        const prevBtn = modal.querySelector('#prevStepEdit');
+        const nextBtn = modal.querySelector('#nextStepEdit');
+        const submitBtn = modal.querySelector('#submitFormEdit');
+        const indicators = Array.from(modal.querySelectorAll('.step-indicator-edit'));
 
         const update = () => {
             const currentStep = stepNums[currentIndex];
@@ -688,71 +811,73 @@
         })();
     </script>
 
-    <!-- Script for Step Navigation (Edit Modal) -->
-   <script>
-        (function(){
-        const modal = document.getElementById('editTutorModal');
-        if (!modal) return;
+    {{-- Edit Tutor Form --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll('.edit-tutor-button'); // butang edit
+            const editForm = document.getElementById('editTutorForm');
 
-        const stepContents = Array.from(modal.querySelectorAll('.step-content-edit'));
-        const stepNums = stepContents.map(s => parseInt(s.dataset.step, 10)).sort((a,b)=>a-b);
-        let currentIndex = 0; // index dalam stepNums array (automatically picks smallest dataset-step)
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tutorId = this.getAttribute('data-id');
 
-        const prevBtn = modal.querySelector('#prevStepEdit');
-        const nextBtn = modal.querySelector('#nextStepEdit');
-        const submitBtn = modal.querySelector('#submitFormEdit');
-        const indicators = Array.from(modal.querySelectorAll('.step-indicator'));
+                    fetch(`/admin/tutor/${tutorId}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Set form action untuk PUT
+                            editForm.action = `/admin/tutor/${tutorId}`;
 
-        const update = () => {
-            const currentStep = stepNums[currentIndex];
+                            // Step 1 - Personal Info
+                            editForm.first_name.value = data.first_name || '';
+                            editForm.last_name.value = data.last_name || '';
+                            editForm.username.value = data.username || '';
+                            editForm.email.value = data.email || '';
+                            editForm.phone_number.value = data.phone_number || '';
+                            editForm.ic_number.value = data.ic_number || '';
+                            editForm.age.value = data.age || '';
+                            editForm.birth_date.value = data.birth_date || '';
+                            editForm.gender.value = data.gender || '';
+                            editForm.role.value = data.role || '';
+                            editForm.status.value = data.status || '';
+                            editForm.address.value = data.address || '';
 
-            // show/hide step contents (scoped)
-            stepContents.forEach(el => {
-            el.classList.toggle('hidden', parseInt(el.dataset.step, 10) !== currentStep);
+                            // Step 2 - Education
+                            editForm.university.value = data.university || '';
+                            editForm.programme.value = data.programme || '';
+                            editForm.grade.value = data.grade || '';
+                            editForm.bg_description.value = data.bg_description || '';
+
+                            // Resume upload tak boleh auto isi (security reason)
+                            // Kalau nak, boleh letak link preview resume lama
+                        if (data.resume) {
+                                const resumeField = editForm.querySelector('#resume');
+                                let oldResume = document.getElementById('oldResumeLink');
+                                if (!oldResume) {
+                                    oldResume = document.createElement('a');
+                                    oldResume.id = 'oldResumeLink';
+                                    oldResume.href = `/storage/${data.resume}`;
+                                    oldResume.target = '_blank';
+                                    oldResume.className = 'block text-sm text-blue-600 mt-1';
+                                    oldResume.innerText = 'View current resume';
+                                    resumeField.insertAdjacentElement('afterend', oldResume);
+                                } else {
+                                    oldResume.href = `/storage/${data.resume}`;
+                                }
+                            } else {
+                                // kalau tiada resume, remove link lama
+                                let oldResume = document.getElementById('oldResumeLink');
+                                if (oldResume) {
+                                    oldResume.remove();
+                                }
+                            }
+
+                        })
+                        .catch(error => {
+                            console.error('Error fetching tutor data:', error);
+                        });
+                });
             });
-
-            // update indicators (scoped to this modal only)
-            indicators.forEach(ind => {
-            const circle = ind.querySelector('.step-circle');
-            if (parseInt(ind.dataset.step, 10) === currentStep) {
-                ind.classList.add('text-green-600', 'font-bold');
-                circle.classList.add('bg-green-600', 'text-white', 'border-green-600');
-            } else {
-                ind.classList.remove('text-green-600', 'font-bold');
-                circle.classList.remove('bg-green-600', 'text-white', 'border-green-600');
-            }
-            });
-
-            // buttons
-            prevBtn.classList.toggle('hidden', currentIndex === 0);
-            nextBtn.classList.toggle('hidden', currentIndex === stepNums.length - 1);
-            submitBtn.classList.toggle('hidden', currentIndex !== stepNums.length - 1);
-        };
-
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < stepNums.length - 1) currentIndex++;
-            update();
         });
-
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) currentIndex--;
-            update();
-        });
-
-        // init
-        update();
-
-        // reset when edit modal is opened
-        const mo = new MutationObserver(muts => {
-            muts.forEach(m => {
-            if (m.attributeName === 'class' && !modal.classList.contains('hidden')) {
-                currentIndex = 0;
-                update();
-            }
-            });
-        });
-        mo.observe(modal, { attributes: true });
-        })();
     </script>
 
 
