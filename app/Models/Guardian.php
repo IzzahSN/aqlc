@@ -41,4 +41,11 @@ class Guardian extends Model
     {
         return $this->hasMany(BillHistory::class, 'guardian_id', 'guardian_id');
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'student_guardians', 'guardian_id', 'student_id')
+            ->withPivot('relationship_type')
+            ->withTimestamps();
+    }
 }

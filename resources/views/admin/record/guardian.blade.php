@@ -92,13 +92,11 @@
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button"
-                                class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
+                                class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 link-child-btn"
                                 data-id="{{ $guardian->guardian_id }}" 
                                 data-modal-target="editGuardianModal"
                                 data-modal-toggle="editGuardianModal">Edit</button>
-                            <form id="delete-form-{{ $guardian->guardian_id }}" 
-                                action="{{ route('admin.guardian.destroy', $guardian->guardian_id) }}" 
-                                method="POST" class="delete-form">
+                            <form id="delete-form-{{ $guardian->guardian_id }}" action="{{ route('admin.guardian.destroy', $guardian->guardian_id) }}" method="POST" class="delete-form">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" 
@@ -107,7 +105,11 @@
                                     Delete
                                 </button>
                             </form>
-                            <button type="button" class="px-3 py-1 text-xs rounded  bg-cyan-500 text-white hover:bg-cyan-600" data-modal-target="" data-modal-toggle="">Link Child</button>
+                            <button type="button"
+                                class="px-3 py-1 text-xs rounded text-white bg-cyan-500 hover:bg-cyan-600 link-child-button"
+                                data-id="{{ $guardian->guardian_id }}" 
+                                data-modal-target="addChildModal"
+                                data-modal-toggle="addChildModal">Link Child</button>
                         </td>
                     </tr>
                     @endforeach
@@ -330,7 +332,7 @@
         </div>
     </div>
 
-    <!-- Add Guardian Modal -->
+    <!-- Edit Guardian Modal -->
     <div id="editGuardianModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
         <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
             <!-- Modal Header -->
@@ -424,6 +426,105 @@
         </div>
     </div>
 
+    {{-- Link Child Modal --}}
+   <div id="addChildModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Link Children</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" 
+                        data-modal-hide="addChildModal">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                <form id="linkChildForm" method="POST">
+                @csrf
+                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                        <!-- IC Number -->
+                        <div>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Child IC Number</label>
+                            <input type="text" id="ic_number" name="ic_number" placeholder="030810101788" 
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Relationship type -->
+                        <div>
+                            <label for="relationship_type" class="block mb-2 text-sm font-medium text-gray-900">Relationship</label>
+                            <select id="relationship_type" name="relationship_type" 
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Relationship</option>
+                                <option value="Father">Father</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Guardian">Guardian</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="flex items-end">
+                            <button type="submit" id="submitFormAddChild" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center w-full">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Linked Children Table -->
+                <div class="mt-6">
+                        <div class="overflow-x-auto">
+                            <table id="linkChildrenTable" class="min-w-full text-sm text-left text-gray-600">
+                                <thead class="bg-gray-100 text-xs uppercase text-gray-500">
+                                    <tr>
+                                        <th class="px-4 py-3">No</th>
+                                        <th class="px-4 py-3">Full Name</th>
+                                        <th class="px-4 py-3 text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                {{-- <tbody id="linkChildrenBody">
+                                        @forelse ($students as $index => $child)
+                                        <tr class="border-b">
+                                            <td class="px-4 py-3">{{ $index+1 }}</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $child->student->first_name }} {{ $child->student->last_name }}</td>
+                                            <td class="px-4 py-3">{{ $child->relation_type }}</td>
+                                            <td class="px-4 py-3 flex gap-2 justify-center">
+                                                <form action="{{ route('admin.guardian.children.destroy', [$guardian->id, $child->id]) }}" 
+                                                    method="POST" class="delete-form">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" 
+                                                            class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center text-gray-500 py-4">No records found</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody> --}}
+                        </table>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+     @if(session('closemodalAddChildren'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cari button yang ada data-modal-hide="addTutorModal"
+            const closeBtn = document.querySelector('[data-modal-hide="addChildModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
     @if(session('closeModalAdd'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -482,6 +583,30 @@
             });
         });
     </script>
+
+    {{-- Link Child Form --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const linkButtons = document.querySelectorAll('.link-child-button');
+            const linkForm = document.getElementById('linkChildForm');
+
+            linkButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const guardianId = this.getAttribute('data-id');
+
+                    // Set action URL dynamically with guardianId
+                    linkForm.action = `/admin/guardian/${guardianId}/children`;
+
+                    // (Optional) kalau ada hidden input utk guardian_id
+                    const hiddenGuardianInput = linkForm.querySelector('input[name="guardian_id"]');
+                    if (hiddenGuardianInput) {
+                        hiddenGuardianInput.value = guardianId;
+                    }
+                });
+            });
+        });
+    </script>
+
 
     {{-- Delete Confirmation --}}
     <script>

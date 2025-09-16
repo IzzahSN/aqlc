@@ -57,9 +57,10 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::put('/guardian/{id}', [GuardianController::class, 'update'])->name('guardian.update');
     Route::delete('/guardian/{id}', [GuardianController::class, 'destroy'])->name('guardian.destroy');
 
-    Route::get('/guardian/children', [StudentGuardianController::class, 'adminViewChild'])->name('guardian.children.index');
-    Route::post('/guardian/children', [StudentGuardianController::class, 'adminAddChild'])->name('guardian.children.store');
-    Route::delete('/guardian/children/{id}', [StudentGuardianController::class, 'adminDestroyChild'])->name('guardian.children.destroy');
+    // StudentGuardian Routes
+    Route::get('/guardian/{id}/children', [StudentGuardianController::class, 'adminViewChild'])->name('guardian.children.view');
+    Route::post('/guardian/{id}/children', [StudentGuardianController::class, 'adminAddChild'])->name('guardian.children.add');
+    Route::delete('/guardian/children/{id}', [StudentGuardianController::class, 'adminDeleteChild'])->name('guardian.children.delete');
 
     // TUTOR
     Route::get('/tutor', [TutorController::class, 'index'])->name('tutor.index');

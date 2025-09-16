@@ -2,64 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guardian;
+use App\Models\Student;
 use App\Models\StudentGuardian;
 use Illuminate\Http\Request;
 
 class StudentGuardianController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // View all children for guardian
+    public function adminViewChild($guardianId)
     {
-        //
+        $guardian = Guardian::findOrFail($guardianId);
+
+        // dapatkan children list (join student_guardian + students)
+        $students = StudentGuardian::with('student')
+            ->where('guardian_id', $guardianId)
+            ->get();
+
+        $studentGuardian = StudentGuardian::where('guardian_id', $guardianId);
+
+        return view('admin.guardian.index', compact('guardian', 'students', 'studentGuardian'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    // Add child to guardian
+    public function adminAddChild(Request $request, $guardianId)
     {
-        //
+        $request->validate([
+            'ic_number' => 'required|string|exists:students,ic_number',
+            'relationship_type' => 'required|string',
+        ]);
+
+        // cari student ikut IC
+        $student = Student::where('ic_number', $request->ic_number)->first();
+
+        if (!$student) {
+            return back()->with('error', 'Student IC not found.');
+        }
+
+        // check kalau dah wujud
+        $exists = StudentGuardian::where('student_id', $student->student_id)
+            ->where('guardian_id', $guardianId)
+            ->exists();
+
+        if ($exists) {
+            return back()->with('error', 'This student is already linked to the guardian.');
+        }
+
+        // create record
+        StudentGuardian::create([
+            'student_id' => $student->student_id,
+            'guardian_id' => $guardianId,
+            'relationship_type' => $request->relationship_type,
+        ]);
+
+        return redirect()->back()->with('success', 'Child added successfully.')->with('closemodalAddChildren', true);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Delete child link
+    public function adminDeleteChild($id)
     {
-        //
-    }
+        $studentGuardian = StudentGuardian::findOrFail($id);
+        $studentGuardian->delete();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(StudentGuardian $studentGuardian)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(StudentGuardian $studentGuardian)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, StudentGuardian $studentGuardian)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(StudentGuardian $studentGuardian)
-    {
-        //
+        return redirect()->route('admin.guardian.index')->with('success', 'Child removed successfully.');
     }
 }
