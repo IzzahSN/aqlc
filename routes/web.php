@@ -60,7 +60,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     // StudentGuardian Routes
     Route::get('/guardian/{id}/children', [StudentGuardianController::class, 'adminViewChild'])->name('guardian.children.view');
     Route::post('/guardian/{id}/children', [StudentGuardianController::class, 'adminAddChild'])->name('guardian.children.add');
-    Route::delete('/guardian/children/{id}', [StudentGuardianController::class, 'adminDeleteChild'])->name('guardian.children.delete');
+    Route::delete('/guardian/{guardianId}/children/{id}', [StudentGuardianController::class, 'adminDeleteChild'])->name('guardian.children.delete');
 
     // TUTOR
     Route::get('/tutor', [TutorController::class, 'index'])->name('tutor.index');
