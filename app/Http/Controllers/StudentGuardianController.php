@@ -14,16 +14,16 @@ class StudentGuardianController extends Controller
     {
         $guardian = Guardian::findOrFail($guardianId);
 
-        // dapatkan children list (join student_guardian + students)
         $students = StudentGuardian::with('student')
             ->where('guardian_id', $guardianId)
             ->get();
 
-        $studentGuardian = StudentGuardian::where('guardian_id', $guardianId);
-
-        return view('admin.guardian.index', compact('guardian', 'students', 'studentGuardian'));
+        // return JSON supaya boleh populate dalam JS
+        return response()->json([
+            'guardian' => $guardian,
+            'students' => $students
+        ]);
     }
-
 
     // Add child to guardian
     public function adminAddChild(Request $request, $guardianId)

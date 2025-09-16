@@ -479,32 +479,69 @@
                                     <tr>
                                         <th class="px-4 py-3">No</th>
                                         <th class="px-4 py-3">Full Name</th>
+                                        <th class="px-4 py-3">Relationship</th>
                                         <th class="px-4 py-3 text-center">Action</th>
                                     </tr>
                                 </thead>
-                                {{-- <tbody id="linkChildrenBody">
-                                        @forelse ($students as $index => $child)
-                                        <tr class="border-b">
-                                            <td class="px-4 py-3">{{ $index+1 }}</td>
-                                            <td class="px-4 py-3 font-medium text-gray-900">{{ $child->student->first_name }} {{ $child->student->last_name }}</td>
-                                            <td class="px-4 py-3 flex gap-2 justify-center">
-                                                <form action="{{ route('admin.guardian.children.destroy', [$guardian->id, $child->id]) }}" 
-                                                    method="POST" class="delete-form">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" 
-                                                            class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center text-gray-500 py-4">No records found</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody> --}}
+                                <tbody id="linkChildrenBody">
+                                   <script>
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            const linkButtons = document.querySelectorAll('[data-modal-target="addChildModal"]');
+                                            const tableBody = document.getElementById("linkChildrenBody");
+                                            const linkChildForm = document.getElementById("linkChildForm");
+
+                                            linkButtons.forEach(button => {
+                                                button.addEventListener("click", function() {
+                                                    const guardianId = this.getAttribute("data-id");
+
+                                                    // Update form action supaya betul guardian
+                                                    linkChildForm.action = `/admin/guardian/${guardianId}/children`;
+
+                                                    // Clear dulu table
+                                                    tableBody.innerHTML = `<tr><td colspan="3" class="text-center text-gray-500 py-4">Loading...</td></tr>`;
+
+                                                    // Fetch children
+                                                    fetch(`/admin/guardian/${guardianId}/children`)
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            if (data.students.length > 0) {
+                                                                tableBody.innerHTML = "";
+                                                                data.students.forEach((item, index) => {
+                                                                    tableBody.innerHTML += `
+                                                                        <tr class="border-b">
+                                                                            <td class="px-4 py-3">${index + 1}</td>
+                                                                            <td class="px-4 py-3 font-medium text-gray-900">
+                                                                                ${item.student.first_name} ${item.student.last_name}
+                                                                            </td>
+                                                                           <td class="px-4 py-3">
+                                                                                ${item.relationship_type ?? '-'}
+                                                                            </td>
+                                                                            <td class="px-4 py-3 flex gap-2 justify-center">
+                                                                                <form action="/admin/guardian/${guardianId}/children/${item.id}" method="POST" class="delete-form">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit" 
+                                                                                            class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">
+                                                                                        Delete
+                                                                                    </button>
+                                                                                </form>
+                                                                            </td>
+                                                                        </tr>
+                                                                    `;
+                                                                });
+                                                            } else {
+                                                                tableBody.innerHTML = `<tr><td colspan="3" class="text-center text-gray-500 py-4">No records found</td></tr>`;
+                                                            }
+                                                        })
+                                                        .catch(error => {
+                                                            console.error("Error fetching children:", error);
+                                                            tableBody.innerHTML = `<tr><td colspan="3" class="text-center text-red-500 py-4">Failed to load data</td></tr>`;
+                                                        });
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                </tbody>
                         </table>
                     </div>                    
                 </div>
