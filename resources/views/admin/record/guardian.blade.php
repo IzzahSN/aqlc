@@ -669,4 +669,27 @@
             });
         });
     </script>
+
+    {{-- Delete Linked Child Confirmation --}}
+    <script>
+        document.addEventListener("click", function (e) {
+            if (e.target && e.target.type === "submit" && e.target.closest("form") && e.target.closest("form").classList.contains("delete-form")) {
+                e.preventDefault();
+                let form = e.target.closest("form");
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This linked child will be deleted!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            }
+        });
+    </script>
 </x-admin-layout>
