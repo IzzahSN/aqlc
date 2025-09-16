@@ -92,7 +92,7 @@
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button"
-                                class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 link-child-btn"
+                                class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
                                 data-id="{{ $guardian->guardian_id }}" 
                                 data-modal-target="editGuardianModal"
                                 data-modal-toggle="editGuardianModal">Edit</button>
@@ -642,7 +642,6 @@
             });
         });
     </script>
-
 
     {{-- Delete Confirmation --}}
     <script>
