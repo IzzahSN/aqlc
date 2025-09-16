@@ -6,6 +6,7 @@ use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentGuardianController;
 use App\Http\Controllers\TutorController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,10 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/guardian/{id}/edit', [GuardianController::class, 'edit'])->name('guardian.edit');
     Route::put('/guardian/{id}', [GuardianController::class, 'update'])->name('guardian.update');
     Route::delete('/guardian/{id}', [GuardianController::class, 'destroy'])->name('guardian.destroy');
+
+    Route::get('/guardian/children', [StudentGuardianController::class, 'adminViewChild'])->name('guardian.children.index');
+    Route::post('/guardian/children', [StudentGuardianController::class, 'adminAddChild'])->name('guardian.children.store');
+    Route::delete('/guardian/children/{id}', [StudentGuardianController::class, 'adminDestroyChild'])->name('guardian.children.destroy');
 
     // TUTOR
     Route::get('/tutor', [TutorController::class, 'index'])->name('tutor.index');
