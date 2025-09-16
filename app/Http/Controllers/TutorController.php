@@ -122,6 +122,12 @@ class TutorController extends Controller
             'role' => 'required|in:Tutor,Admin',
         ]);
 
+        if ($request->status === 'inactive' && $tutor->classes()->exists()) {
+            return back()
+                ->withErrors(['status' => 'Tutor cannot be set to inactive because there are still assigned classes.'])
+                ->withInput();
+        }
+
         // define $data awal-awal
         $data = $request->except('resume');
 
