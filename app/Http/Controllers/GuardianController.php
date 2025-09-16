@@ -63,17 +63,32 @@ class GuardianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Guardian $guardian)
+    public function edit($id)
     {
-        //
+        $guardian = Guardian::findOrFail($id);
+        return response()->json($guardian);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Guardian $guardian)
+    public function update(Request $request, $id)
     {
-        //
+        $guardian = Guardian::findOrFail($id);
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'birth_date' => 'nullable|date',
+            'age' => 'nullable|integer|min:18',
+            'gender' => 'required|in:male,female',
+            'phone_number' => 'required|string|max:15',
+            'address' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        $guardian->update($request->all());
+        return redirect()->back()->with('success', 'Guardiab updated successfullly!')->with('closeModalEdit', true);
     }
 
     /**

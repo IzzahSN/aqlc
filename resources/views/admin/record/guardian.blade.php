@@ -63,7 +63,7 @@
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table id="guardianTable" class="min-w-full text-sm text-left text-gray-600">
+            <table id="guardianTable" class="min-w-max text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">No</th>
@@ -103,6 +103,7 @@
                                     Delete
                                 </button>
                             </form>
+                            <button type="button" class="px-3 py-1 text-xs rounded  bg-cyan-500 text-white hover:bg-cyan-600" data-modal-target="" data-modal-toggle="">Link Child</button>
                         </td>
                     </tr>
                     @endforeach
