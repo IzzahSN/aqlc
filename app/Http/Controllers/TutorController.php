@@ -23,14 +23,6 @@ class TutorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -97,27 +89,51 @@ class TutorController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Tutor $tutor)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tutor $tutor)
+    public function edit($id)
     {
-        //
+        $tutor = Tutor::findOrFail($id);
+        return response()->json($tutor);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tutor $tutor)
+    public function update(Request $request, $id)
     {
-        //
+        $tutor = Tutor::findOrFail($id);
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'birth_date' => 'required|date',
+            'age' => 'required|integer|min:18',
+            'gender' => 'required|in:male,female',
+            'address' => 'nullable|string',
+            'phone_number' => 'required|string|max:15',
+            'university' => 'required|string|max:255',
+            'programme' => 'required|string|max:255',
+            'grade' => 'required|numeric|between:0,4.00',
+            'resume' => 'nullable|mimes:pdf|max:2048', // max 2MB
+            'bg_description' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
+            'role' => 'required|in:Tutor,Admin',
+        ]);
+
+        // Handle file upload
+        if ($request->hasFile('resume')) {
+            $ext = $request->file('resume')->getClientOriginalExtension(); // ambil extension asal
+            $fileName = 'resume_' . Str::slug($request->first_name) . '_' . time() . '.' . $ext;
+            $resumePath = $request->file('resume')->storeAs('resumes', $fileName, 'public');
+        } else {
+            return back()->withErrors(['resume' => 'Resume upload failed.'])->withInput();
+        }
+
+        $tutor->update($request->all());
+
+        return redirect()->back()->with('success', 'Tutor updated successfully')->with('closeModalEdit', true);
     }
 
     /**
