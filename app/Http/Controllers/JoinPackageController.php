@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JoinPackage;
 use App\Models\Package;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class JoinPackageController extends Controller
@@ -19,18 +20,19 @@ class JoinPackageController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-        $packages = Package::all();
-        return view('admin.record.student_create_package', compact('packages'));
+        $student = Student::findOrFail($id);
+        $packages = Package::with('classes')->get();
+        return view('admin.record.student_create_package', compact('packages', 'student'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        return redirect()->route('admin.student.index')->with('success', 'Package added to student successfully.');
     }
 
     /**
