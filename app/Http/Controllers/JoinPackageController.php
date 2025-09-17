@@ -7,6 +7,7 @@ use App\Models\JoinPackage;
 use App\Models\Package;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JoinPackageController extends Controller
 {
@@ -73,30 +74,43 @@ class JoinPackageController extends Controller
             ->with('success', 'Package and classes added successfully!');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(JoinPackage $joinPackage)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(JoinPackage $joinPackage)
+    public function edit($studentId, $id)
     {
-        //
+        $student = Student::with(['joinPackage.package', 'classes'])->findOrFail($studentId);
+        $joinPackage = JoinPackage::with('package')
+            ->where('student_id', $studentId)
+            ->where('package_id', $id)
+            ->firstOrFail();
+        // Ambil class_id yang sudah dipilih student
+        $selectedClasses = $student->classes->pluck('class_id')->map(fn($v) => (int)$v)->toArray();
+
+        return view('admin.record.student_edit_package', compact('student', 'selectedClasses', 'joinPackage'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JoinPackage $joinPackage)
+    public function update(Request $request, $studentId, $id)
     {
-        //
+        $request->validate([
+            'class_ids' => 'required|array',
+            'class_ids.*' => 'exists:class_models,class_id',
+        ]);
+
+        $student = Student::findOrFail($studentId);
+
+        // replace kelas lama dengan kelas baru sekali jalan
+        $student->classes()->sync($request->class_ids);
+
+        return redirect()
+            ->route('admin.student.index')
+            ->with('success', 'Student package classes updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
