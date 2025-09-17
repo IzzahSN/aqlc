@@ -70,9 +70,9 @@ class Student extends Model
         return $this->hasOne(StudentProgress::class, 'student_id', 'student_id')->latestOfMany();
     }
 
-    public function joinPackages()
+    public function joinPackage()
     {
-        return $this->hasMany(JoinPackage::class, 'student_id', 'student_id');
+        return $this->hasOne(JoinPackage::class, 'student_id', 'student_id');
     }
     public function packages()
     {

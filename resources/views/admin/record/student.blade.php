@@ -87,7 +87,9 @@
                     <tr class="border-b">
                         <td class="px-4 py-3 row-index"></td>
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $student->first_name }} {{ $student->last_name }}</td>
-                        <td class="px-4 py-3">{{ $student->package->package_name ?? '-'}}</td>
+                        <td class="px-4 py-3">
+                            {{ optional(optional($student->joinPackage)->package)->package_name ?? '-' }}
+                        </td>
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($student->admission_date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3">
                             @if($student->status == 'active')
@@ -112,11 +114,20 @@
                                     Delete
                                 </button>
                             </form>
-                            {{-- if package none package exist show create package, else edit package route --}}
-                            @if ($student->package)
-                                <a href="{{ route('admin.student.package.edit', ['studentId' => $student->student_id, 'id' => $student->package->package_id]) }}" class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">Package</a>
+                           {{-- if package none exist show create package, else edit package route --}}
+                            @if ($student->joinPackage && $student->joinPackage->package)
+                                <a href="{{ route('admin.student.package.edit', [
+                                    'studentId' => $student->student_id,
+                                    'id' => $student->joinPackage->package->package_id
+                                ]) }}" 
+                                class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">
+                                Package
+                                </a>
                             @else
-                                <a href="{{ route('admin.student.package.create', $student->student_id) }}" class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">Package</a>
+                                <a href="{{ route('admin.student.package.create', $student->student_id) }}" 
+                                class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">
+                                Package
+                                </a>
                             @endif
                         </td>
                     </tr>
