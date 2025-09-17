@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JoinClass;
 use App\Models\JoinPackage;
 use App\Models\Package;
 use App\Models\Student;
@@ -32,8 +33,40 @@ class JoinPackageController extends Controller
      */
     public function store(Request $request, $id)
     {
-        return redirect()->route('admin.student.index')->with('success', 'Package added to student successfully.');
+        $student = Student::findOrFail($id);
+
+        $request->validate([
+            'package_id' => 'required|exists:packages,package_id',
+            'class_ids' => 'required|array',
+        ]);
+
+        $package = Package::findOrFail($request->package_id);
+
+        // validate jumlah class ikut session_per_week
+        if (count($request->class_ids) > $package->session_per_week) {
+            return back()->withErrors([
+                'class_ids' => "You can only select {$package->session_per_week} classes for this package."
+            ])->withInput();
+        }
+
+        // insert join_packages
+        JoinPackage::create([
+            'student_id' => $student->student_id,
+            'package_id' => $package->package_id,
+        ]);
+
+        // insert join_classes
+        foreach ($request->class_ids as $classId) {
+            JoinClass::create([
+                'student_id' => $student->student_id,
+                'class_id' => $classId,
+            ]);
+        }
+
+        return redirect()->route('admin.student.index')
+            ->with('success', 'Package and classes added successfully!');
     }
+
 
     /**
      * Display the specified resource.

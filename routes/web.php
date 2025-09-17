@@ -9,6 +9,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentGuardianController;
 use App\Http\Controllers\TutorController;
+use App\Models\ClassModel;
 use Illuminate\Support\Facades\Route;
 
 // =======================
@@ -53,6 +54,11 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::post('/student/{id}/package', [JoinPackageController::class, 'store'])->name('student.package.store');
     Route::get('/student/{studentId}/package/{id}/edit', [JoinPackageController::class, 'edit'])->name('student.package.edit');
     Route::put('/student/{studentId}/package/{id}', [JoinPackageController::class, 'update'])->name('student.package.update');
+    Route::get('/api/package/{id}/classes', function ($id) {
+        $classes = ClassModel::where('package_id', $id)->get();
+        return response()->json($classes);
+    });
+
 
     // GUARDIAN
     Route::get('/guardian', [GuardianController::class, 'index'])->name('guardian.index');

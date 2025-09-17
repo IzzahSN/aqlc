@@ -69,7 +69,7 @@
             <div class="mt-4">
                 <h5 class="font-semibold text-gray-800 mb-3">List of Available Classes</h5>
                 <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                    <table class="w-full text-sm text-left text-gray-700">
+                    <table id="classTable" class="w-full text-sm text-left text-gray-700">
                         <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-semibold">
                             <tr>
                                 <th class="px-4 py-3"></th> {{-- for checkbox --}}
@@ -78,12 +78,11 @@
                                 <th class="px-4 py-3">Day</th>
                                 <th class="px-4 py-3">Start</th>
                                 <th class="px-4 py-3">End</th>
-                                <th class="px-4 py-3">Capacity Left</th>
                                 <th class="px-4 py-3">Status</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr>
+                        <tbody id="classTableBody" class="divide-y divide-gray-200">
+                            {{-- <tr>
                                 <td class="px-4 py-3"></td>
                                 <td class="px-4 py-3">Kelas 1</td>
                                 <td class="px-4 py-3">PC003</td>
@@ -94,8 +93,8 @@
                                 <td class="px-4 py-3">
                                     <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">Available</span>
                                 </td>
-                            </tr>
-                            <!-- Repeat rows here -->
+                            </tr> --}}
+                            <!-- Rows will be loaded dynamically -->
                         </tbody>
                     </table>
                 </div>
@@ -107,4 +106,96 @@
             </div>
         </form>
     </div>
+
+<script>
+    let sessionLimit = 0;
+
+    document.getElementById('package_id').addEventListener('change', function () {
+        let selected = this.options[this.selectedIndex];
+        document.getElementById('package_type').value = selected.dataset.type || '';
+        document.getElementById('package_rate').value = selected.dataset.rate || '';
+        document.getElementById('unit').value = selected.dataset.unit || '';
+        document.getElementById('duration_per_sessions').value = selected.dataset.duration || '';
+        document.getElementById('session_per_week').value = selected.dataset.session || '';
+
+        sessionLimit = parseInt(selected.dataset.session) || 0;
+
+        loadClasses(selected.value);
+    });
+
+    function loadClasses(packageId) {
+    console.log("Loading classes for package:", packageId); // Debug
+    fetch(`/admin/api/package/${packageId}/classes`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("API response:", data); // Debug
+
+            let tbody = document.getElementById("classTableBody");
+            tbody.innerHTML = "";
+
+            if (!Array.isArray(data) || data.length === 0) {
+                tbody.innerHTML = `<tr>
+                    <td colspan="8" class="text-center py-3 text-gray-500">No classes available</td>
+                </tr>`;
+                return;
+            }
+
+            data.forEach(cls => {
+                console.log("Row data:", cls); // Debug
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="px-4 py-3">
+                            <input 
+                                type="checkbox" 
+                                class="class-checkbox" 
+                                name="class_ids[]" 
+                                value="${cls.class_id}" 
+                                data-capacity="${cls.capacity}" 
+                                ${cls.capacity <= 0 ? 'disabled' : ''}>
+                        </td>
+                        <td class="px-4 py-3">${cls.class_name}</td>
+                        <td class="px-4 py-3">${cls.room}</td>
+                        <td class="px-4 py-3">${cls.day}</td>
+                        <td class="px-4 py-3">${cls.start_time?.substring(0,5) || ''}</td>
+                        <td class="px-4 py-3">${cls.end_time?.substring(0,5) || ''}</td>
+                        <td class="px-4 py-3">
+                            <span class="px-2 py-1 text-xs font-medium rounded-full ${cls.capacity > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                ${cls.status}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            attachCheckboxLimit();
+        })
+        .catch(err => {
+            console.error("Error fetching classes:", err);
+        });
+}
+
+
+    function attachCheckboxLimit() {
+        let checkboxes = document.querySelectorAll('.class-checkbox');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', function () {
+                let checked = document.querySelectorAll('.class-checkbox:checked').length;
+                if (checked >= sessionLimit) {
+                    checkboxes.forEach(box => {
+                        if (!box.checked) {
+                            box.disabled = true;
+                        }
+                    });
+                } else {
+                    checkboxes.forEach(box => {
+                        if (parseInt(box.dataset.capacity) > 0) {
+                            box.disabled = false;
+                        }
+                    });
+                }
+            });
+        });
+    }
+</script>
+
 </x-admin-layout>
