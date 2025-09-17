@@ -112,6 +112,12 @@
                                     Delete
                                 </button>
                             </form>
+                            {{-- if package none package exist show create package, else edit package route --}}
+                            @if ($student->package)
+                                <a href="{{ route('admin.student.package.edit', ['studentId' => $student->student_id, 'id' => $student->package->package_id]) }}" class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">Package</a>
+                            @else
+                                <a href="{{ route('admin.student.package.create', $student->student_id) }}" class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">Package</a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

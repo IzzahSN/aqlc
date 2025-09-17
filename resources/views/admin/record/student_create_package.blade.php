@@ -1,8 +1,8 @@
-{{-- <x-admin-layout :title="'Student'">
+<x-admin-layout :title="'Student'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Student Report Card</h2>
+        <h2 class="text-xl font-medium text-gray-800">Student Add Package</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
@@ -102,4 +102,4 @@
             </div>
         </div>
     </div>
-</x-admin-layout> --}}
+</x-admin-layout>

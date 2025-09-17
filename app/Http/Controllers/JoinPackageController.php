@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JoinPackage;
+use App\Models\Package;
 use Illuminate\Http\Request;
 
 class JoinPackageController extends Controller
@@ -20,7 +21,8 @@ class JoinPackageController extends Controller
      */
     public function create()
     {
-        //
+        $packages = Package::all();
+        return view('admin.record.student_create_package', compact('packages'));
     }
 
     /**

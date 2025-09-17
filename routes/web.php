@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassModelController;
 use App\Http\Controllers\GuardianController;
+use App\Http\Controllers\JoinPackageController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
@@ -47,8 +48,11 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::put('/student/{id}', [StudentController::class, 'update'])->name('student.update');
     Route::delete('/student/{id}', [StudentController::class, 'destroy'])->name('student.destroy');
     Route::get('/student/report', fn() => view('admin.record.student_report'))->name('student.report');
-    // redirect to page add package for student to add package
-    // Route::get('/student/package', [StudentController::class, 'addPackage'])->name('student.package.add');
+    // JoinPackage Routes
+    Route::get('/student/{id}/package/create', [JoinPackageController::class, 'create'])->name('student.package.create');
+    Route::post('/student/{id}/package', [JoinPackageController::class, 'store'])->name('student.package.store');
+    Route::get('/student/{studentId}/package/{id}/edit', [JoinPackageController::class, 'edit'])->name('student.package.edit');
+    Route::put('/student/{studentId}/package/{id}', [JoinPackageController::class, 'update'])->name('student.package.update');
 
     // GUARDIAN
     Route::get('/guardian', [GuardianController::class, 'index'])->name('guardian.index');
