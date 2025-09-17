@@ -115,20 +115,12 @@
                                 </button>
                             </form>
                            {{-- if package none exist show create package, else edit package route --}}
-                            @if ($student->joinPackage && $student->joinPackage->package)
-                                <a href="{{ route('admin.student.package.edit', [
-                                    'studentId' => $student->student_id,
-                                    'id' => $student->joinPackage->package->package_id
-                                ]) }}" 
+                            <a href="{{ $student->joinPackage && $student->joinPackage->package
+                                    ? route('admin.student.package.edit', ['studentId' => $student->student_id, 'id' => $student->joinPackage->package->package_id])
+                                    : route('admin.student.package.create', $student->student_id) }}"
                                 class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">
                                 Package
-                                </a>
-                            @else
-                                <a href="{{ route('admin.student.package.create', $student->student_id) }}" 
-                                class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">
-                                Package
-                                </a>
-                            @endif
+                            </a>
                         </td>
                     </tr>
                     @endforeach

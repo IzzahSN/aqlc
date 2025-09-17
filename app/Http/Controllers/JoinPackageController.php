@@ -11,19 +11,19 @@ use Illuminate\Http\Request;
 class JoinPackageController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::with('joinPackage')->findOrFail($id);
+
+        if ($student->joinPackage) {
+            // Kalau dah ada package, redirect ke edit
+            return redirect()->route('admin.student.package.edit', [
+                'studentId' => $student->student_id,
+                'id' => $student->joinPackage->package_id
+            ])->with('warning', 'Student already has a package. Redirected to edit.');
+        }
         $packages = Package::with('classes')->get();
         return view('admin.record.student_create_package', compact('packages', 'student'));
     }
@@ -33,7 +33,13 @@ class JoinPackageController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::with('joinPackage')->findOrFail($id);
+        if ($student->joinPackage) {
+            return redirect()->route('admin.student.package.edit', [
+                'studentId' => $student->student_id,
+                'id' => $student->joinPackage->package_id
+            ])->with('warning', 'Student already has a package. Redirected to edit.');
+        }
 
         $request->validate([
             'package_id' => 'required|exists:packages,package_id',

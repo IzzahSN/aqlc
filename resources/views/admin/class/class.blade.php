@@ -281,8 +281,19 @@
                 });
                 pagination.appendChild(prevBtn);
 
-                // page numbers
-                for (let i = 1; i <= totalPages; i++) {
+                // page numbers (limit 5 sahaja)
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, currentPage + 2);
+
+                if (endPage - startPage < 4) {
+                    if (startPage === 1) {
+                        endPage = Math.min(totalPages, startPage + 4);
+                    } else if (endPage === totalPages) {
+                        startPage = Math.max(1, endPage - 4);
+                    }
+                }
+
+                for (let i = startPage; i <= endPage; i++) {
                     const btn = document.createElement("button");
                     btn.textContent = i;
                     btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;

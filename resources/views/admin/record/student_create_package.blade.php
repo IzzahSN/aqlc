@@ -110,62 +110,64 @@
             loadClasses(selected.value);
         });
 
-        function loadClasses(packageId) {
-        console.log("Loading classes for package:", packageId); // Debug
-        fetch(`/admin/api/package/${packageId}/classes`)
-            .then(response => response.json())
-            .then(data => {
-                console.log("API response:", data); // Debug
+            function loadClasses(packageId) {
+            console.log("Loading classes for package:", packageId); // Debug
+            fetch(`/admin/api/package/${packageId}/classes`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("API response:", data); // Debug
 
-                let tbody = document.getElementById("classTableBody");
-                tbody.innerHTML = "";
+                    let tbody = document.getElementById("classTableBody");
+                    tbody.innerHTML = "";
 
-                if (!Array.isArray(data) || data.length === 0) {
-                    tbody.innerHTML = `<tr>
-                        <td colspan="8" class="text-center py-3 text-gray-500">No classes available</td>
-                    </tr>`;
-                    return;
-                }
+                    if (!Array.isArray(data) || data.length === 0) {
+                        tbody.innerHTML = `<tr>
+                            <td colspan="8" class="text-center py-3 text-gray-500">No classes available</td>
+                        </tr>`;
+                        return;
+                    }
 
-                data.forEach(cls => {
-                    console.log("Row data:", cls); // Debug
-                    tbody.innerHTML += `
-                        <tr>
-                            <td class="px-4 py-3">
-                                <input 
-                                    type="checkbox" 
-                                    class="class-checkbox" 
-                                    name="class_ids[]" 
-                                    value="${cls.class_id}" 
-                                    data-capacity="${cls.capacity}" 
-                                    ${cls.capacity <= 0 ? 'disabled' : ''}>
-                            </td>
-                            <td class="px-4 py-3">${cls.class_name}</td>
-                            <td class="px-4 py-3">${cls.room}</td>
-                            <td class="px-4 py-3">${cls.day}</td>
-                            <td class="px-4 py-3">${cls.start_time?.substring(0,5) || ''}</td>
-                            <td class="px-4 py-3">${cls.end_time?.substring(0,5) || ''}</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 text-xs font-medium rounded-full ${cls.capacity > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
-                                    ${cls.status}
-                                </span>
-                            </td>
-                        </tr>
-                    `;
+                    data.forEach(cls => {
+                        console.log("Row data:", cls); // Debug
+                        tbody.innerHTML += `
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <input 
+                                        type="checkbox" 
+                                        class="class-checkbox" 
+                                        name="class_ids[]" 
+                                        value="${cls.class_id}" 
+                                        data-capacity="${cls.capacity}" 
+                                        ${cls.capacity <= 0 ? 'disabled' : ''}>
+                                </td>
+                                <td class="px-4 py-3">${cls.class_name}</td>
+                                <td class="px-4 py-3">${cls.room}</td>
+                                <td class="px-4 py-3">${cls.day}</td>
+                                <td class="px-4 py-3">${cls.start_time?.substring(0,5) || ''}</td>
+                                <td class="px-4 py-3">${cls.end_time?.substring(0,5) || ''}</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full ${cls.capacity > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                        ${cls.status}
+                                    </span>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    attachCheckboxLimit();
+                })
+                .catch(err => {
+                    console.error("Error fetching classes:", err);
                 });
+        }
 
-                attachCheckboxLimit();
-            })
-            .catch(err => {
-                console.error("Error fetching classes:", err);
-            });
-    }
-
-        function attachCheckboxLimit() {
+            function attachCheckboxLimit() {
             let checkboxes = document.querySelectorAll('.class-checkbox');
             checkboxes.forEach(cb => {
                 cb.addEventListener('change', function () {
                     let checked = document.querySelectorAll('.class-checkbox:checked').length;
+
+                    // Lock checkboxes if exact limit reached
                     if (checked >= sessionLimit) {
                         checkboxes.forEach(box => {
                             if (!box.checked) {
@@ -174,12 +176,28 @@
                         });
                     } else {
                         checkboxes.forEach(box => {
-                            if (parseInt(box.dataset.capacity) > 0) {
+                            if (box.dataset.capacity > 0) {
                                 box.disabled = false;
                             }
                         });
                     }
                 });
+            });
+
+            // Prevent form submit if not exact number selected
+            document.getElementById("packageForm").addEventListener("submit", function (e) {
+                let checked = document.querySelectorAll('.class-checkbox:checked').length;
+                if (checked !== sessionLimit) {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Invalid Selection',
+                        text: `You must select exactly ${sessionLimit} classes.`,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Okay'
+                    });
+                }
             });
         }
     </script>
