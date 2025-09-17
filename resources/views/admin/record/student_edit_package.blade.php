@@ -112,7 +112,7 @@
                             <td class="px-4 py-3">${cls.start_time?.substring(0,5) || ''}</td>
                             <td class="px-4 py-3">${cls.end_time?.substring(0,5) || ''}</td>
                             <td class="px-4 py-3">
-                                <span class="px-2 py-1 text-xs font-medium rounded-full ${cls.capacity > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">
                                     ${cls.status}
                                 </span>
                             </td>

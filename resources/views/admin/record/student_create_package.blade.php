@@ -110,7 +110,7 @@
             loadClasses(selected.value);
         });
 
-            function loadClasses(packageId) {
+        function loadClasses(packageId) {
             console.log("Loading classes for package:", packageId); // Debug
             fetch(`/admin/api/package/${packageId}/classes`)
                 .then(response => response.json())
@@ -129,6 +129,8 @@
 
                     data.forEach(cls => {
                         console.log("Row data:", cls); // Debug
+                        let isAvailable = cls.status === "Available";
+
                         tbody.innerHTML += `
                             <tr>
                                 <td class="px-4 py-3">
@@ -137,8 +139,7 @@
                                         class="class-checkbox" 
                                         name="class_ids[]" 
                                         value="${cls.class_id}" 
-                                        data-capacity="${cls.capacity}" 
-                                        ${cls.capacity <= 0 ? 'disabled' : ''}>
+                                        ${isAvailable ? '' : 'disabled'}>
                                 </td>
                                 <td class="px-4 py-3">${cls.class_name}</td>
                                 <td class="px-4 py-3">${cls.room}</td>
@@ -146,7 +147,7 @@
                                 <td class="px-4 py-3">${cls.start_time?.substring(0,5) || ''}</td>
                                 <td class="px-4 py-3">${cls.end_time?.substring(0,5) || ''}</td>
                                 <td class="px-4 py-3">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full ${cls.capacity > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full ${isAvailable ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
                                         ${cls.status}
                                     </span>
                                 </td>
@@ -161,7 +162,7 @@
                 });
         }
 
-            function attachCheckboxLimit() {
+        function attachCheckboxLimit() {
             let checkboxes = document.querySelectorAll('.class-checkbox');
             checkboxes.forEach(cb => {
                 cb.addEventListener('change', function () {
@@ -176,7 +177,7 @@
                         });
                     } else {
                         checkboxes.forEach(box => {
-                            if (box.dataset.capacity > 0) {
+                            if (box.closest('tr').querySelector('span').innerText === "Available") {
                                 box.disabled = false;
                             }
                         });
@@ -201,5 +202,6 @@
             });
         }
     </script>
+
 
 </x-admin-layout>
