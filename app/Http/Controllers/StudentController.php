@@ -88,8 +88,14 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        //
+        // cannot delete student if linked to guardian or class
+        $student = Student::findOrFail($id);
+        if ($student->guardians()->exists() || $student->classes()->exists()) {
+            return redirect()->back()->with('error', 'Cannot delete student linked to guardian or class.');
+        }
+        $student->delete();
+        return redirect()->route('admin.student.index')->with('success', 'Student deleted successfully.');
     }
 }
