@@ -102,9 +102,8 @@
                                 data-id="{{ $student->student_id }}" 
                                 data-modal-target="editStudentModal"
                                 data-modal-toggle="editStudentModal">Edit</button>
-                            <a href="{{ route('admin.student.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                            {{-- <a href="{{ route('admin.student.package.add') }}" class="px-3 py-1 text-xs rounded bg-cyan-500 text-white hover:bg-cyan-600">Package</a> --}}
+                            {{-- <a href="{{ route('admin.student.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a> --}}
+                            {{-- <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button> --}}
                         </td>
                     </tr>
                     @endforeach
@@ -245,7 +244,7 @@
 
     <!-- Add Student Modal -->
     <div id="addStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
@@ -293,8 +292,9 @@
                             <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
                             <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>                                </select>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>                                
+                            </select>
                             </div>
                             
                         <!-- Status -->
@@ -321,23 +321,12 @@
                 <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
             </div>
         </form>
+        </div>
     </div>
-
-    @if(session('closeModalAdd'))
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Cari button yang ada data-modal-hide="addTutorModal"
-            const closeBtn = document.querySelector('[data-modal-hide="addStudentModal"]');
-            if (closeBtn) {
-                closeBtn.click(); // trigger tutup modal
-            }
-        });
-    </script>
-    @endif
 
     <!-- Edit Student Modal -->
     <div id="editStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
@@ -385,9 +374,8 @@
                         <div>
                             <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
                             <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select>
                         </div>
                             
@@ -395,26 +383,78 @@
                         <div>
                             <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
                             <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Status</option>
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
                     </div>
-
                     <!-- Address (full width) -->
                     <div class="mt-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
                         <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editStudentModal">Cancel</button>
-                <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
-            </div>
-        </form>
+                </div>
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editStudentModal">Cancel</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
-    
+
+    @if(session('closeModalAdd'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const closeBtn = document.querySelector('[data-modal-hide="addStudentModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
+    @if(session('closeModalEdit'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const closeBtn = document.querySelector('[data-modal-hide="editStudentModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
+     {{-- Edit Student Form --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll('.edit-student-button'); // butang edit
+            const editForm = document.getElementById('editStudentForm');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const studentId = this.getAttribute('data-id');
+                    fetch(`/admin/student/${studentId}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Set form action untuk PUT
+                            editForm.action = `/admin/student/${studentId}`;
+
+                            editForm.first_name.value = data.first_name || '';
+                            editForm.last_name.value = data.last_name || '';
+                            editForm.ic_number.value = data.ic_number || '';
+                            editForm.age.value = data.age || '';
+                            editForm.birth_date.value = data.birth_date || '';
+                            editForm.gender.value = data.gender || '';
+                            editForm.status.value = data.status || '';
+                            editForm.address.value = data.address || '';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching student data:', error);
+                        });
+                });
+            });
+        });
+    </script>
+
 </x-admin-layout>

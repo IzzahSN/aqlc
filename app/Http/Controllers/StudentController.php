@@ -33,7 +33,7 @@ class StudentController extends Controller
             'ic_number' => 'required|string|max:12|unique:students,ic_number',
             'birth_date' => 'nullable|date',
             'age' => 'nullable|integer|min:3',
-            'gender' => 'required|in:male,female',
+            'gender' => 'required|in:Male,Female',
             'address' => 'nullable|string',
             'status' => 'required|in:active,inactive',
         ]);
@@ -55,27 +55,34 @@ class StudentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Student $student)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit($id)
     {
-        //
+        $student = Student::findOrFail($id);
+        return response()->json($student);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $id)
     {
-        //
+        $student = Student::findOrFail($id);
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'ic_number' => 'required|string|max:12|unique:students,ic_number,' . $student->student_id . ',student_id',
+            'birth_date' => 'nullable|date',
+            'age' => 'nullable|integer|min:3',
+            'gender' => 'required|in:Male,Female',
+            'address' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        $student->update($request->all());
+        return redirect()->back()->with('success', 'Student updated successfully!')->with('closeModalEdit', true);
     }
 
     /**

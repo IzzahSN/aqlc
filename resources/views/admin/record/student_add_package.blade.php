@@ -1,4 +1,4 @@
-<x-admin-layout :title="'Student'">
+{{-- <x-admin-layout :title="'Student'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
@@ -102,4 +102,4 @@
             </div>
         </div>
     </div>
-</x-admin-layout>
+</x-admin-layout> --}}
