@@ -36,6 +36,16 @@ class ScheduleController extends Controller
             return $slots;
         });
 
+        // ❗ kalau tiada kelas, terus return view kosong
+        if ($classes->isEmpty()) {
+            $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            return view('admin.class.schedule', [
+                'timetable' => [],
+                'days' => $days,
+                'timeSlots' => []
+            ]);
+        }
+
         // Ambil min & max masa ikut semua kelas
         $minStart = $classes->min(function ($c) {
             return \Carbon\Carbon::createFromFormat('H:i', explode('-', $c->slot)[0]);
