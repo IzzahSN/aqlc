@@ -339,30 +339,30 @@
                         <!-- Package Name -->
                         <div>
                             <label for="package_name" class="block mb-2 text-sm font-medium text-gray-900">Package Name</label>
-                            <input type="text" id="package_name" name="package_name" placeholder="An-Nur Lite" value="{{ old('package_name', $package->package_name) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="text" id="package_name" name="package_name" placeholder="An-Nur Lite" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Package Type -->
                         <div>
                             <label for="package_type" class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
                             <select id="package_type" name="package_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="personal" {{old('package_type', $package->package_type) == 'personal' ? 'selected' : '' }}>Personal</option>
-                                <option value="group" {{old('package_type', $package->package_type) == 'group' ? 'selected' : '' }}>Group</option>
+                                <option value="personal">Personal</option>
+                                <option value="group">Group</option>
                             </select>
                         </div>
 
                         <!-- Rate -->
                         <div>
                             <label for="package_rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
-                            <input type="number" id="package_rate" name="package_rate" placeholder="15" value="{{ old('package_rate', $package->package_rate) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" step="0.01" min="0" required>
+                            <input type="number" id="package_rate" name="package_rate" placeholder="15"" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" step="0.01" min="0" required>
                         </div>
 
                         <!-- Unit -->
                         <div>
                             <label for="unit" class="block mb-2 text-sm font-medium text-gray-900">Select Unit</label>
                             <select id="unit" name="unit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="per month" {{old('unit', $package->unit) == 'per month' ? 'selected' : '' }}>Per Month</option>
-                                <option value="per session" {{old('unit', $package->unit) == 'per session' ? 'selected' : '' }}>Per Session</option>
+                                <option value="per month">Per Month</option>
+                                <option value="per session">Per Session</option>
                             </select>
                         </div>
 
@@ -370,30 +370,30 @@
                         <div>
                             <label for="duration_per_sessions" class="block mb-2 text-sm font-medium text-gray-900">Class Duration</label>
                             <select id="duration_per_sessions" name="duration_per_sessions" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="30 minutes" {{old('duration_per_sessions', $package->duration_per_sessions) == '30 minutes' ? 'selected' : '' }}>30 Minutes</option>
-                                <option value="1 hour" {{old('duration_per_sessions', $package->duration_per_sessions) == '1 hour' ? 'selected' : '' }}>1 Hour</option>
+                                <option value="30 minutes">30 Minutes</option>
+                                <option value="1 hour">1 Hour</option>
                             </select>
                         </div>
 
                         <!-- Session per week -->
                         <div>
                             <label for="session_per_week" class="block mb-2 text-sm font-medium text-gray-900">Class Limit per Week</label>
-                            <input type="number" id="session_per_week" name="session_per_week" placeholder="15" value="{{ old('session_per_week', $package->session_per_week) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="number" id="session_per_week" name="session_per_week" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Status -->
                         <div>
                             <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
                             <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="active" {{old('status', $package->status) == 'active' ? 'selected' : '' }}>Active</option>
-                                <option value="inactive" {{old('status', $package->status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
                             </select>
                         </div>
                         
                          <!-- Details -->
                         <div>
                             <label for="details" class="block mb-2 text-sm font-medium text-gray-900">Details</label>
-                            <textarea id="details" name="details" rows="3" placeholder="Additional information about the package..." value="{{ old('details', $package->details) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
+                            <textarea id="details" name="details" rows="3" placeholder="Additional information about the package..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                         </div>
 
                     </div>
