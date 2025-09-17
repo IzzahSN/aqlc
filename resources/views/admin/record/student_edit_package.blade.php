@@ -79,87 +79,96 @@
     </div>
 
     <script>
-    let sessionLimit = parseInt(@json($joinPackage->package->session_per_week ?? 0));
-    let selectedClasses = @json($selectedClasses ?? []);
+        let sessionLimit = parseInt(@json($joinPackage->package->session_per_week ?? 0));
+        let selectedClasses = @json($selectedClasses ?? []);
 
-    function loadClasses(packageId) {
-        fetch(`/admin/api/package/${packageId}/classes`)
-            .then(r => r.json())
-            .then(data => {
-                let tbody = document.getElementById("classTableBody");
-                tbody.innerHTML = "";
+        function loadClasses(packageId) {
+            fetch(`/admin/api/package/${packageId}/classes`)
+                .then(r => r.json())
+                .then(data => {
+                    let tbody = document.getElementById("classTableBody");
+                    tbody.innerHTML = "";
 
-                if (!Array.isArray(data) || data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="8" class="text-center py-3 text-gray-500">No classes available</td></tr>`;
-                    return;
-                }
+                    if (!Array.isArray(data) || data.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-3 text-gray-500">No classes available</td></tr>`;
+                        return;
+                    }
 
-                data.forEach(cls => {
-                    // ensure numeric comparison
-                    const clsId = Number(cls.class_id);
-                    const checked = selectedClasses.includes(clsId) ? "checked" : "";
-                    const disabled = (cls.capacity <= 0 && !checked) ? "disabled" : "";
+                    data.forEach(cls => {
+                        const clsId = Number(cls.class_id);
+                        const checked = selectedClasses.includes(clsId) ? "checked" : "";
 
-                    tbody.innerHTML += `
-                        <tr>
-                            <td class="px-4 py-3">
-                                <input type="checkbox" class="class-checkbox" name="class_ids[]" value="${cls.class_id}"
-                                    data-capacity="${cls.capacity}" ${checked} ${disabled}>
-                            </td>
-                            <td class="px-4 py-3">${cls.class_name}</td>
-                            <td class="px-4 py-3">${cls.room}</td>
-                            <td class="px-4 py-3">${cls.day}</td>
-                            <td class="px-4 py-3">${cls.start_time?.substring(0,5) || ''}</td>
-                            <td class="px-4 py-3">${cls.end_time?.substring(0,5) || ''}</td>
-                            <td class="px-4 py-3">
-                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">
-                                    ${cls.status}
-                                </span>
-                            </td>
-                        </tr>
-                    `;
-                });
+                        // condition baru: hanya enable kalau status == "Available" atau dah dipilih sebelum ni
+                        const disabled = (cls.status !== "Available" && !checked) ? "disabled" : "";
 
-                attachCheckboxLimit();
-            })
-            .catch(err => console.error(err));
-    }
-
-    function attachCheckboxLimit() {
-        let checkboxes = document.querySelectorAll('.class-checkbox');
-        checkboxes.forEach(cb => {
-            cb.addEventListener('change', function () {
-                let checked = document.querySelectorAll('.class-checkbox:checked').length;
-
-                if (checked >= sessionLimit) {
-                    checkboxes.forEach(box => {
-                        if (!box.checked) box.disabled = true;
+                        tbody.innerHTML += `
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <input type="checkbox" 
+                                        class="class-checkbox" 
+                                        name="class_ids[]" 
+                                        value="${cls.class_id}"
+                                        data-status="${cls.status}" 
+                                        ${checked} ${disabled}>
+                                </td>
+                                <td class="px-4 py-3">${cls.class_name}</td>
+                                <td class="px-4 py-3">${cls.room}</td>
+                                <td class="px-4 py-3">${cls.day}</td>
+                                <td class="px-4 py-3">${cls.start_time?.substring(0,5) || ''}</td>
+                                <td class="px-4 py-3">${cls.end_time?.substring(0,5) || ''}</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full 
+                                        ${cls.status === 'Available' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                        ${cls.status}
+                                    </span>
+                                </td>
+                            </tr>
+                        `;
                     });
-                } else {
-                    checkboxes.forEach(box => {
-                        if (Number(box.dataset.capacity) > 0) box.disabled = false;
+
+                    attachCheckboxLimit();
+                })
+                .catch(err => console.error(err));
+        }
+
+        function attachCheckboxLimit() {
+            let checkboxes = document.querySelectorAll('.class-checkbox');
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', function () {
+                    let checked = document.querySelectorAll('.class-checkbox:checked').length;
+
+                    if (checked >= sessionLimit) {
+                        checkboxes.forEach(box => {
+                            if (!box.checked && box.dataset.status === "Available") {
+                                box.disabled = true;
+                            }
+                        });
+                    } else {
+                        checkboxes.forEach(box => {
+                            if (box.dataset.status === "Available") {
+                                box.disabled = false;
+                            }
+                        });
+                    }
+                });
+            });
+
+            document.getElementById("packageEditForm").addEventListener("submit", function (e) {
+                let checked = document.querySelectorAll('.class-checkbox:checked').length;
+                if (checked !== sessionLimit) {
+                    e.preventDefault();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Invalid Selection',
+                        text: `You must select exactly ${sessionLimit} classes.`,
+                        confirmButtonText: 'Okay'
                     });
                 }
             });
-        });
+        }
 
-        document.getElementById("packageEditForm").addEventListener("submit", function (e) {
-            let checked = document.querySelectorAll('.class-checkbox:checked').length;
-            if (checked !== sessionLimit) {
-                e.preventDefault();
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Invalid Selection',
-                    text: `You must select exactly ${sessionLimit} classes.`,
-                    confirmButtonText: 'Okay'
-                });
-            }
-        });
-    }
-
-    // initial load
-    loadClasses(@json($joinPackage->package_id));
-</script>
-
+        // initial load
+        loadClasses(@json($joinPackage->package_id));
+    </script>
 
 </x-admin-layout>
