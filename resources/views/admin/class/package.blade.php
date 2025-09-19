@@ -88,7 +88,7 @@
                         <td class="px-4 py-3">{{ ucfirst($package->package_type) }}</td>
                         <td class="px-4 py-3">RM{{ number_format($package->package_rate, 2) }}</td>
                         <td class="px-4 py-3">{{ ucwords(str_replace('_', ' ', $package->unit)) }}</td>
-                        <td class="px-4 py-3">{{ $package->join_packages_count }}</td>
+                        <td class="px-4 py-3 text-center">{{ $package->join_packages_count }}</td>
                         <td class="px-4 py-3">{{ $package->duration_per_sessions }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button"
