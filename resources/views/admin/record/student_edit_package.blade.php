@@ -58,15 +58,15 @@
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
-                    <input type="text" id="package_type" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ $student->joinPackage->package->package_type }}" readonly>
+                    <input type="text" id="package_type" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ ucwords($student->joinPackage->package->package_type) }}" readonly>
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900">Package Rate</label>
-                    <input type="text" id="package_rate" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ $student->joinPackage->package->package_rate }}" readonly>
+                    <input type="text" id="package_rate" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="RM {{ $student->joinPackage->package->package_rate }}" readonly>
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900">Unit</label>
-                    <input type="text" id="unit" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ $student->joinPackage->package->unit }}" readonly>
+                    <input type="text" id="unit" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ ucwords($student->joinPackage->package->unit) }}" readonly>
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900">Duration per Session</label>
