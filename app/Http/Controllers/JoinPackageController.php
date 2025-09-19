@@ -117,6 +117,18 @@ class JoinPackageController extends Controller
         // replace kelas lama dengan kelas baru sekali jalan
         $student->classes()->sync($request->class_ids);
 
+        // Update status class for all classes
+        $allClasses = ClassModel::all();
+        foreach ($allClasses as $class) {
+            $totalStudents = $class->students()->count(); // relationship students
+            if ($totalStudents >= $class->capacity) {
+                $class->status = 'Full';
+            } else {
+                $class->status = 'Available';
+            }
+            $class->save();
+        }
+
         return redirect()
             ->route('admin.student.index')
             ->with('success', 'Student package classes updated successfully.');
