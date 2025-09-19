@@ -115,8 +115,19 @@ class JoinPackageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JoinPackage $joinPackage)
+    public function destroy($studentId, $id)
     {
-        //
+        // Pastikan student dan package wujud
+        $student = Student::findOrFail($studentId);
+        $package = Package::findOrFail($id);
+        //delete student dari join_classes dan join_packages
+        DB::transaction(function () use ($studentId, $id) {
+            JoinClass::where('student_id', $studentId)->delete();
+            JoinPackage::where('student_id', $studentId)->where('package_id', $id)->delete();
+        });
+
+        return redirect()
+            ->route('admin.student.index')
+            ->with('success', 'Student package and associated classes removed successfully.');
     }
 }

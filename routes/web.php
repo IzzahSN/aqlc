@@ -54,6 +54,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::post('/student/{id}/package', [JoinPackageController::class, 'store'])->name('student.package.store');
     Route::get('/student/{studentId}/package/{id}/edit', [JoinPackageController::class, 'edit'])->name('student.package.edit');
     Route::put('/student/{studentId}/package/{id}', [JoinPackageController::class, 'update'])->name('student.package.update');
+    Route::delete('/student/{studentId}/package/{id}', [JoinPackageController::class, 'destroy'])->name('student.package.destroy');
     Route::get('/api/package/{id}/classes', function ($id) {
         $classes = ClassModel::where('package_id', $id)->get();
         return response()->json($classes);

@@ -2,7 +2,7 @@
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Student Add Package</h2>
+        <h2 class="text-xl font-medium text-gray-800">Student Edit Package</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
@@ -13,6 +13,37 @@
             </ol>
         </nav>
     </div>
+    {{-- disjoin package button --}}
+    <div class="mb-4 flex justify-end">
+        <form id="disjoinForm" 
+            action="{{ route('admin.student.package.destroy', ['studentId' => $student->student_id,'id' => $joinPackage->package_id]) }}" 
+            method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="button" id="disjoinBtn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                Disjoin Package
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("disjoinBtn").addEventListener("click", function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This action will remove the student from this package and related classes.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("disjoinForm").submit();
+                }
+            });
+        });
+    </script>
 
     <div class="bg-white p-6 rounded-lg shadow-md">
         <form id="packageEditForm" action="{{ route('admin.student.package.update', ['studentId' => $student->student_id,'id' => $joinPackage->package_id]) }}" method="POST">
