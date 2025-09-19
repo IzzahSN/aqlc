@@ -52,7 +52,7 @@ class Student extends Model
 
     public function classes()
     {
-        return $this->belongsToMany(ClassModel::class, 'join_classes', 'student_id', 'class_id');
+        return $this->belongsToMany(ClassModel::class, 'join_classes', 'student_id', 'class_id')->withTimestamps();
     }
 
     public function attendances()
