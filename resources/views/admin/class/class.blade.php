@@ -115,8 +115,6 @@
         });
     </script>
 
-
-
     <!-- Classes List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
@@ -625,10 +623,7 @@
                         <!-- Status -->
                         <div>
                             <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                            <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="Available">Available</option>
-                                <option value="Full">Full</option>
-                            </select>
+                            <input type="text" id="status" name="status"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"value="{{ $class->status ?? '' }}" readonly>
                         </div>
 
                          <!-- Tutor Assign -->

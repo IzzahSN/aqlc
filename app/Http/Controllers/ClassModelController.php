@@ -82,7 +82,6 @@ class ClassModelController extends Controller
             'end_time' => 'required|date_format:H:i|after:start_time',
             'room' => 'required|string|max:255',
             'day' => 'required|in:Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday',
-            'status' => 'required|in:Available,Full',
             'tutor_id' => 'required|exists:tutors,tutor_id',
             'package_id' => 'required|exists:packages,package_id',
         ]);
