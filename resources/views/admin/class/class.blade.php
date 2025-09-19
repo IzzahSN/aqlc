@@ -164,6 +164,7 @@
                         <th class="px-4 py-3">End Time</th>
                         <th class="px-4 py-3">Room</th>
                         <th class="px-4 py-3">Tutor Name</th>
+                        <th class="px-4 py-3">Class Joined</th>
                         <th class="px-4 py-3">Status</th>
                         <th class="px-4 py-3 text-center">Action</th>
                     </tr>
@@ -178,6 +179,9 @@
                         <td class="px-4 py-3">{{ $class->end_time }}</td>
                         <td class="px-4 py-3">{{ $class->room }}</td>
                         <td class="px-4 py-3">{{ $class->tutor->username }}</td>
+                        {{-- display total join_classess / capacity --}}
+                        <td class="px-4 py-3">{{ $class->join_classes_count }} / {{ $class->capacity }}</td>
+                         {{-- status with color --}}
                         <td class="px-4 py-3">
                             @if($class->status == 'Available')
                                 <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Available</span>

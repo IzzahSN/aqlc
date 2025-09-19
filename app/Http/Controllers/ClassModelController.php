@@ -15,7 +15,7 @@ class ClassModelController extends Controller
      */
     public function index()
     {
-        $classes = ClassModel::all();
+        $classes = ClassModel::withCount('joinClasses')->with(['tutor', 'package'])->orderBy('day')->orderBy('start_time')->get();
         $totalClasses = ClassModel::count();
         $availableClasses = ClassModel::where('status', 'Available')->count();
         $fullClasses = ClassModel::where('status', 'Full')->count();
