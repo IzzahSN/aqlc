@@ -15,7 +15,24 @@ class ClassModelController extends Controller
      */
     public function index()
     {
-        $classes = ClassModel::withCount('joinClasses')->with(['tutor', 'package'])->orderBy('day')->orderBy('start_time')->get();
+        // Auto update status semua kelas
+        $classes = ClassModel::withCount('joinClasses')->get();
+
+        foreach ($classes as $class) {
+            if ($class->join_classes_count >= $class->capacity) {
+                $class->status = 'Full';
+            } else {
+                $class->status = 'Available';
+            }
+            $class->save();
+        }
+
+        // Lepas update, baru ambil data untuk paparan
+        $classes = ClassModel::withCount('joinClasses')
+            ->with(['tutor', 'package'])
+            ->orderBy('day')
+            ->orderBy('start_time')
+            ->get();
         $totalClasses = ClassModel::count();
         $availableClasses = ClassModel::where('status', 'Available')->count();
         $fullClasses = ClassModel::where('status', 'Full')->count();

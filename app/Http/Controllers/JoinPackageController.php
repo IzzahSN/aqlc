@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassModel;
 use App\Models\JoinClass;
 use App\Models\JoinPackage;
 use App\Models\Package;
@@ -69,6 +70,16 @@ class JoinPackageController extends Controller
                 'class_id' => $classId,
             ]);
         }
+
+        // Update status class
+        $class = ClassModel::findOrFail($request->class_id);
+        $totalStudents = $class->students()->count(); // relationship students
+        if ($totalStudents >= $class->capacity) {
+            $class->status = 'Full';
+        } else {
+            $class->status = 'Available';
+        }
+        $class->save();
 
         return redirect()->route('admin.student.index')
             ->with('success', 'Package and classes added successfully!');

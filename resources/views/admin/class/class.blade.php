@@ -239,7 +239,7 @@
                 let filteredRows = rows.filter(row => {
                     const name = row.cells[1].textContent.toLowerCase();
                     const id = row.cells[0].textContent.toLowerCase();
-                    const status = row.cells[7].textContent.toLowerCase(); // 👈 ambil status
+                    const status = row.cells[8].textContent.toLowerCase(); // 👈 ambil status
 
                     const matchSearch = name.includes(searchValue) || id.includes(searchValue);
                     const matchFilter = filterValue === "" || status.includes(filterValue); // 👈 filter ikut Available/Full
