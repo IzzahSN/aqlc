@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassModel;
 use App\Models\Package;
 use App\Models\Student;
 use Carbon\Carbon;
@@ -19,6 +20,18 @@ class StudentController extends Controller
         $totalStudents = Student::count();
         $activeStudents = Student::where('status', 'active')->count();
         $inactiveStudents = Student::where('status', 'inactive')->count();
+
+        // Auto update status semua kelas
+        $classes = ClassModel::withCount('joinClasses')->get();
+
+        foreach ($classes as $class) {
+            if ($class->join_classes_count >= $class->capacity) {
+                $class->status = 'Full';
+            } else {
+                $class->status = 'Available';
+            }
+            $class->save();
+        }
         return view('admin.record.student', compact('students', 'totalStudents', 'activeStudents', 'inactiveStudents', 'packageFilters'));
     }
 
