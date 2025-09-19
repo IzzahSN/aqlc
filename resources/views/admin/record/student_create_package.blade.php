@@ -45,7 +45,7 @@
                 {{-- package rate --}}
                 <div>
                     <label for="package_rate" class="block mb-2 text-sm font-medium text-gray-900">Package Rate (RM)</label>
-                    <input type="number" id="package_rate" name="package_rate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" step="0.01" min="0" readonly>
+                    <input type="text" id="package_rate" name="package_rate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" step="0.01" min="0" readonly>
                 </div>
                 {{-- package unit --}}
                 <div>
@@ -95,13 +95,29 @@
     </div>
 
     <script>
-        let sessionLimit = 0;
+      let sessionLimit = 0;
 
         document.getElementById('package_id').addEventListener('change', function () {
             let selected = this.options[this.selectedIndex];
-            document.getElementById('package_type').value = selected.dataset.type || '';
-            document.getElementById('package_rate').value = selected.dataset.rate || '';
-            document.getElementById('unit').value = selected.dataset.unit || '';
+
+            // Fungsi untuk Capitalize Setiap Perkataan
+            function capitalizeWords(str) {
+                return str.replace(/\b\w/g, char => char.toUpperCase());
+            }
+
+            // Assign value dengan formatting
+            document.getElementById('package_type').value = selected.dataset.type 
+                ? capitalizeWords(selected.dataset.type) 
+                : '';
+
+            document.getElementById('package_rate').value = selected.dataset.rate 
+                ? 'RM ' + selected.dataset.rate 
+                : '';
+
+            document.getElementById('unit').value = selected.dataset.unit 
+                ? capitalizeWords(selected.dataset.unit) 
+                : '';
+
             document.getElementById('duration_per_sessions').value = selected.dataset.duration || '';
             document.getElementById('session_per_week').value = selected.dataset.session || '';
 
