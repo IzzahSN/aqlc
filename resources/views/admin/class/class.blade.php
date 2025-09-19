@@ -178,7 +178,7 @@
                         <td class="px-4 py-3">{{ $class->room }}</td>
                         <td class="px-4 py-3">{{ $class->tutor->username }}</td>
                         {{-- display total join_classess / capacity --}}
-                        <td class="px-4 py-3">{{ $class->join_classes_count }} / {{ $class->capacity }}</td>
+                        <td class="px-4 py-3 text-center">{{ $class->join_classes_count }} / {{ $class->capacity }}</td>
                          {{-- status with color --}}
                         <td class="px-4 py-3">
                             @if($class->status == 'Available')
