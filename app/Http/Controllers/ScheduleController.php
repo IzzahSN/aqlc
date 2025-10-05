@@ -74,7 +74,10 @@ class ScheduleController extends Controller
             }
         }
 
-        return view('admin.class.schedule', compact('timetable', 'days', 'timeSlots'));
+        //display all schedule
+        $schedules = Schedule::all();
+
+        return view('admin.class.schedule', compact('timetable', 'days', 'timeSlots', 'schedules'));
     }
 
 
@@ -91,14 +94,6 @@ class ScheduleController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Schedule $schedule)
     {
         //
     }
