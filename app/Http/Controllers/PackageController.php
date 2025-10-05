@@ -111,6 +111,11 @@ class PackageController extends Controller
     public function destroy($id)
     {
         $package = Package::find($id);
+        // jika package ada student, tak boleh delete
+        if ($package->joinPackages()->exists()) {
+            return redirect()->route('admin.package.index')
+                ->withErrors(['error' => 'Cannot delete package with enrolled students.']);
+        }
         $package->delete();
         return redirect()->route('admin.package.index')
             ->with('success', 'Package deleted successfully.');
