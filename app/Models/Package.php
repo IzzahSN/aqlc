@@ -17,11 +17,13 @@ class Package extends Model
 
     protected $fillable = [
         'package_name',
+        'package_type',
         'package_rate',
         'duration_per_sessions',
         'unit',
         'details',
         'session_per_week',
+        'status',
     ];
 
     // Relationships
