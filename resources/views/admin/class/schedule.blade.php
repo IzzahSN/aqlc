@@ -160,7 +160,11 @@
                         </td>
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editScheduleModal" data-modal-toggle="editScheduleModal">Edit</button>
+                            <button type="button"
+                                class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
+                                data-id="{{ $schedule->schedule_id }}" 
+                                data-modal-target="editScheduleModal"
+                                data-modal-toggle="editScheduleModal">Edit</button>                            
                             <a href="{{ route('admin.schedule.attendance') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Attendance</a>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
@@ -333,29 +337,28 @@
                         </div>
 
                        <!-- Tutor Assign -->
-<div>
-    <label for="tutor_display" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
-    <!-- Papar username tutor -->
-    <input type="text" id="tutor_display" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-        focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
+                        <div>
+                            <label for="tutor_display" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
+                            <!-- Papar username tutor -->
+                            <input type="text" id="tutor_display" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
 
-    <!-- Hidden input simpan tutor_id -->
-    <input type="hidden" id="tutor_id" name="tutor_id">
-</div>
+                            <!-- Hidden input simpan tutor_id -->
+                            <input type="hidden" id="tutor_id" name="tutor_id">
+                        </div>
 
-{{-- class script dan display tutor username --}}
-<script>
-    document.getElementById('class_id').addEventListener('change', function() {
-        let selected = this.options[this.selectedIndex];
-        let tutorId = selected.getAttribute('data-tutor') || '';
-        let tutorName = selected.getAttribute('data-tutorname') || '';
+                        {{-- class script dan display tutor username --}}
+                        <script>
+                            document.getElementById('class_id').addEventListener('change', function() {
+                                let selected = this.options[this.selectedIndex];
+                                let tutorId = selected.getAttribute('data-tutor') || '';
+                                let tutorName = selected.getAttribute('data-tutorname') || '';
 
-        // Assign dua-dua sekali
-        document.getElementById('tutor_id').value = tutorId;        // untuk submit
-        document.getElementById('tutor_display').value = tutorName; // untuk paparan
-    });
-</script>
-
+                                // Assign dua-dua sekali
+                                document.getElementById('tutor_id').value = tutorId;        // untuk submit
+                                document.getElementById('tutor_display').value = tutorName; // untuk paparan
+                            });
+                        </script>
 
                         <!-- Relief Assign -->
                         <div>
@@ -370,7 +373,6 @@
                             </select>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- Modal Footer -->
@@ -394,44 +396,69 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="classForm">
+            <form id="editScheduleForm" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                        <!-- Schedule -->
+                        <!-- Date -->
                         <div>
-                            <label for="schedule_date" class="block mb-2 text-sm font-medium text-gray-900">Schedule Date</label>
-                            <input type="date" id="schedule_date" name="schedule_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Schedule Date</label>
+                            <input type="date" id="date" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Class -->
                         <div>
-                            <label for="class" class="block mb-2 text-sm font-medium text-gray-900">Select Class</label>
-                            <select id="class" name="class" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="class_id" class="block mb-2 text-sm font-medium text-gray-900">Select Class</label>
+                            <select id="class_id" name="class_id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>                                
                                 <option value="">Select Class</option>
-                                <option value="1">Mon-2000-K1</option>
-                                <option value="2">Tue-2000-K1</option>
+                                @foreach($classes as $class)
+                                    <option value="{{ $class->class_id }}" data-tutor="{{ $class->tutor->tutor_id }}" data-tutorname="{{ $class->tutor->username }}">
+                                        {{ $class->class_name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
-                        <!-- Tutor Assign -->
+                       <!-- Tutor Assign -->
                         <div>
-                            <label for="tutor" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
-                            <select id="tutor" name="tutor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" disabled>
-                                <option value="2">Ustazah Aira</option>
-                            </select>
+                            <label for="tutor_display" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
+                            <!-- Papar username tutor -->
+                            <input type="text" id="tutor_display" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
+
+                            <!-- Hidden input simpan tutor_id -->
+                            <input type="hidden" id="tutor_id" name="tutor_id">
                         </div>
+
+                        {{-- class script dan display tutor username --}}
+                        <script>
+                            document.getElementById('class_id').addEventListener('change', function() {
+                                let selected = this.options[this.selectedIndex];
+                                let tutorId = selected.getAttribute('data-tutor') || '';
+                                let tutorName = selected.getAttribute('data-tutorname') || '';
+
+                                // Assign dua-dua sekali
+                                document.getElementById('tutor_id').value = tutorId;        // untuk submit
+                                document.getElementById('tutor_display').value = tutorName; // untuk paparan
+                            });
+                        </script>
 
                         <!-- Relief Assign -->
                         <div>
-                            <label for="tutor" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
-                            <select id="tutor" name="tutor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="none">None</option>
-                                <option value="1">Ustaz Hakeem</option>
-                                <option value="2">Ustazah Aira</option>
+                            <label for="relief" class="block mb-2 text-sm font-medium text-gray-900">Relief Tutor</label>
+                             <select id="relief" name="relief"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                                <option value="">Select Tutor</option>
+                                @foreach($tutors as $tutor)
+                                    <option value="{{ $tutor->tutor_id }}">{{ $tutor->username }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- Modal Footer -->
@@ -454,5 +481,46 @@
         });
     </script>
     @endif
+
+    @if(session('closeModalEdit'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const closeBtn = document.querySelector('[data-modal-hide="editScheduleModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
+    {{-- Edit form --}}
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const editButtons = document.querySelectorAll('.edit-button');
+        const editForm = document.getElementById('editScheduleForm');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const scheduleId = this.getAttribute('data-id');
+                fetch(`/admin/schedule/${scheduleId}/edit`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Set form action
+                        editForm.action = `/admin/schedule/${scheduleId}`;
+
+                        // Populate form fields
+                        editForm.date.value = data.date || '';
+                        editForm.class_id.value = data.class_id || '';
+                        editForm.tutor_id.value = data.tutor_id || '';
+                        editForm.tutor_display.value = data.tutor_name || '';
+                        editForm.relief.value = data.relief || '';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching schedule data:', error);
+                    });
+            });
+        });
+    });
+</script>
 
 </x-admin-layout>

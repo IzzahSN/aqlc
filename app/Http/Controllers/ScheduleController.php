@@ -183,18 +183,100 @@ class ScheduleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Schedule $schedule)
+    public function edit($id)
     {
-        //
+        $schedule = Schedule::with(['class.tutor', 'reliefTutor'])->findOrFail($id);
+
+        return response()->json([
+            'schedule_id' => $schedule->schedule_id,
+            'date' => $schedule->date,
+            'class_id' => $schedule->class_id,
+            'tutor_id' => $schedule->class->tutor->tutor_id ?? null,
+            'tutor_name' => $schedule->class->tutor->username ?? '',
+            'relief' => $schedule->reliefTutor->tutor_id ?? '',
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Schedule $schedule)
+    public function update(Request $request, $id)
     {
-        //
+        $schedule = Schedule::findOrFail($id);
+
+        // Validation
+        $validated = $request->validate([
+            'class_id' => 'required|exists:class_models,class_id',
+            'date' => 'required|date',
+            'tutor_id' => 'required|exists:tutors,tutor_id',
+            'relief' => 'nullable|exists:tutors,tutor_id',
+        ]);
+
+        $class = ClassModel::findOrFail($validated['class_id']);
+
+        // 1️⃣ Elak duplicate schedule pada tarikh sama untuk class yang sama (kecuali current record)
+        $exists = Schedule::where('class_id', $validated['class_id'])
+            ->whereDate('date', $validated['date'])
+            ->where('schedule_id', '!=', $schedule->schedule_id)
+            ->exists();
+
+        if ($exists) {
+            return back()->with('error', 'This class already has a schedule on the selected date.')
+                ->withInput();
+        }
+
+        // 2️⃣ Relief tak boleh sama dengan tutor asal
+        if (!empty($validated['relief']) && $validated['relief'] == $class->tutor_id) {
+            return back()->with('error', 'Relief tutor cannot be the same as the main tutor.')
+                ->withInput();
+        }
+
+        // 3️⃣ Check conflict jika relief tutor diisi
+        if (!empty($validated['relief'])) {
+
+            // ✅ (a) Relief tutor ada class sebenar bertembung masa sama
+            $teachingConflict = ClassModel::where('tutor_id', $validated['relief'])
+                ->where('day', $class->day)
+                ->where(function ($q) use ($class) {
+                    $q->where(function ($query) use ($class) {
+                        $query->where('start_time', '<', $class->end_time)
+                            ->where('end_time', '>', $class->start_time);
+                    });
+                })
+                ->exists();
+
+            if ($teachingConflict) {
+                return back()->with('error', 'Relief tutor has a conflict with their own class schedule.')
+                    ->withInput();
+            }
+
+            // ✅ (b) Relief tutor dah relief kelas lain waktu sama
+            $reliefConflict = Schedule::where('relief', $validated['relief'])
+                ->where('id', '!=', $schedule->id) // exclude current schedule
+                ->whereDate('date', $validated['date'])
+                ->whereHas('class', function ($q) use ($class) {
+                    $q->where('day', $class->day)
+                        ->where(function ($query) use ($class) {
+                            $query->where('start_time', '<', $class->end_time)
+                                ->where('end_time', '>', $class->start_time);
+                        });
+                })
+                ->exists();
+
+            if ($reliefConflict) {
+                return back()->with('error', 'Relief tutor already assigned to another relief class that overlaps in time.')
+                    ->withInput();
+            }
+        }
+
+        // 4️⃣ Update record
+        $schedule->update($validated);
+
+        return redirect()->back()
+            ->with('success', 'Schedule updated successfully!')
+            ->with('closeModalEdit', true);
     }
+
 
     /**
      * Remove the specified resource from storage.
