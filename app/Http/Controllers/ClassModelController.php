@@ -127,7 +127,7 @@ class ClassModelController extends Controller
             'package_id' => $request->package_id,
         ]);
 
-        return redirect()->back()->with('success', 'Class created successfully!')->with('closeModal', true);
+        return redirect()->back()->with('success', 'Class created successfully!')->with('closeModalAdd', true);
     }
 
 

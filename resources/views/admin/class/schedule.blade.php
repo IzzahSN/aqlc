@@ -122,12 +122,12 @@
             </select>
             <select id="filterRoom" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                 <option value="">All Rooms</option>
-                <option value="1">Kelas 1</option>
-                <option value="2">Kelas 2</option>
-                <option value="3">Kelas 3</option>
-                <option value="4">Kelas 4</option>
-                <option value="5">Kelas 5</option>
-                <option value="6">Kelas 6</option>
+                <option value="Kelas 1">Kelas 1</option>
+                <option value="Kelas 2">Kelas 2</option>
+                <option value="Kelas 3">Kelas 3</option>
+                <option value="Kelas 4">Kelas 4</option>
+                <option value="Bilik 1">Bilik 1</option>
+                <option value="Bilik 2">Bilik 2</option>
             </select>
         </div>
 
@@ -153,7 +153,7 @@
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $schedule->class->class_name }}</td>
                         <td class="px-4 py-3">{{ $schedule->class->package->package_type }}</td>
                         <td class="px-4 py-3">{{ $schedule->class->day }}</td>
-                        <td class="px-4 py-3">{{ $schedule->class->room }}</
+                        <td class="px-4 py-3">{{ $schedule->class->room }}</td>
                         <td class="px-4 py-3">{{ $schedule->class->tutor->username }}</td>
                         <td class="px-4 py-3">{{ $schedule->date }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
@@ -181,7 +181,7 @@
          <!-- Pagination Script -->
         <script>
             const searchInput = document.getElementById("searchInput");
-            const filterStatus = document.getElementById("filterDay");
+            const filterDay = document.getElementById("filterDay");
             const filterRoom = document.getElementById("filterRoom");
             const tbody = document.getElementById("scheduleBody");
             const rows = Array.from(tbody.getElementsByTagName("tr"));
@@ -286,7 +286,8 @@
             }
 
             searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
-            filterStatus.addEventListener("change", () => { currentPage = 1; renderTable(); });
+            filterDay.addEventListener("change", () => { currentPage = 1; renderTable(); });
+            filterRoom.addEventListener("change", () => { currentPage = 1; renderTable(); });
 
             renderTable();
         </script>
@@ -303,40 +304,66 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="classForm">
+            <form id="classForm" action="{{ route('admin.schedule.store') }}" method="POST">
+                @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                        <!-- Schedule -->
+                        <!-- Date -->
                         <div>
-                            <label for="schedule_date" class="block mb-2 text-sm font-medium text-gray-900">Schedule Date</label>
-                            <input type="date" id="schedule_date" name="schedule_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Schedule Date</label>
+                            <input type="date" id="date" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Class -->
                         <div>
-                            <label for="class" class="block mb-2 text-sm font-medium text-gray-900">Select Class</label>
-                            <select id="class" name="class" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="class_id" class="block mb-2 text-sm font-medium text-gray-900">Select Class</label>
+                            <select id="class_id" name="class_id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>                                
                                 <option value="">Select Class</option>
-                                <option value="1">Mon-2000-K1</option>
-                                <option value="2">Tue-2000-K1</option>
+                                @foreach($classes as $class)
+                                    <option value="{{ $class->class_id }}" data-tutor="{{ $class->tutor->tutor_id }}" data-tutorname="{{ $class->tutor->username }}">
+                                        {{ $class->class_name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
-                        <!-- Tutor Assign -->
-                        <div>
-                            <label for="tutor" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
-                            <select id="tutor" name="tutor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" disabled>
-                                <option value="2">Ustazah Aira</option>
-                            </select>
-                        </div>
+                       <!-- Tutor Assign -->
+<div>
+    <label for="tutor_display" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
+    <!-- Papar username tutor -->
+    <input type="text" id="tutor_display" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
+
+    <!-- Hidden input simpan tutor_id -->
+    <input type="hidden" id="tutor_id" name="tutor_id">
+</div>
+
+{{-- class script dan display tutor username --}}
+<script>
+    document.getElementById('class_id').addEventListener('change', function() {
+        let selected = this.options[this.selectedIndex];
+        let tutorId = selected.getAttribute('data-tutor') || '';
+        let tutorName = selected.getAttribute('data-tutorname') || '';
+
+        // Assign dua-dua sekali
+        document.getElementById('tutor_id').value = tutorId;        // untuk submit
+        document.getElementById('tutor_display').value = tutorName; // untuk paparan
+    });
+</script>
+
 
                         <!-- Relief Assign -->
                         <div>
-                            <label for="tutor" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
-                            <select id="tutor" name="tutor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="none">None</option>
-                                <option value="1">Ustaz Hakeem</option>
-                                <option value="2">Ustazah Aira</option>
+                            <label for="relief" class="block mb-2 text-sm font-medium text-gray-900">Relief Tutor</label>
+                             <select id="relief" name="relief"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                                <option value="">Select Tutor</option>
+                                @foreach($tutors as $tutor)
+                                    <option value="{{ $tutor->tutor_id }}">{{ $tutor->username }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -413,4 +440,16 @@
             </form>
         </div>
     </div>
+
+     @if(session('closeModalAdd'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const closeBtn = document.querySelector('[data-modal-hide="addScheduleModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
+
 </x-admin-layout>

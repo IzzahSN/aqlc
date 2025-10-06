@@ -76,11 +76,11 @@ class ScheduleController extends Controller
 
         //display all schedule
         $schedules = Schedule::all();
+        $tutors = Tutor::where('status', 'active')->get();
+        $classes = ClassModel::all();
 
-        return view('admin.class.schedule', compact('timetable', 'days', 'timeSlots', 'schedules'));
+        return view('admin.class.schedule', compact('timetable', 'days', 'timeSlots', 'schedules', 'classes', 'tutors'));
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -95,7 +95,63 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'class_id' => 'required|exists:class_models,class_id',
+            'date' => 'required|date',
+            'tutor_id' => 'required|exists:tutors,tutor_id',
+            'relief' => 'nullable|exists:tutors,tutor_id',
+        ]);
+
+        // 1️⃣ Cegah duplicate schedule pada tarikh yang sama untuk kelas ini
+        $exists = Schedule::where('class_id', $request->class_id)
+            ->whereDate('date', $request->date)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()
+                ->with('error', 'This class already has a schedule on the selected date.')
+                ->withInput();
+        }
+
+        // 2️⃣ Jika ada relief tutor, semak konflik jadual
+        if (!empty($request->relief)) {
+            $class = ClassModel::find($request->class_id);
+
+            $conflict = ClassModel::where('tutor_id', $request->relief)
+                ->where('day', $class->day)
+                ->where(function ($q) use ($class) {
+                    $q->where(function ($query) use ($class) {
+                        $query->where('start_time', '<', $class->end_time)
+                            ->where('end_time', '>', $class->start_time);
+                    });
+                })
+                ->exists();
+
+            if ($conflict) {
+                return redirect()->back()
+                    ->with('error', 'The relief tutor has a scheduling conflict with another class.')
+                    ->withInput();
+            }
+
+            // Tak boleh assign relief tutor yang sama dengan tutor asal
+            if ($request->relief == $class->tutor_id) {
+                return redirect()->back()
+                    ->with('error', 'Relief tutor cannot be the same as the main tutor.')
+                    ->withInput();
+            }
+        }
+
+        // 3️⃣ Tiada konflik → create schedule baru
+        Schedule::create([
+            'class_id' => $request->class_id,
+            'date' => $request->date,
+            'tutor_id' => $request->tutor_id,
+            'relief' => $request->relief,
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'Class schedule created successfully.')
+            ->with('closeModalAdd', true);
     }
 
     /**
