@@ -133,7 +133,7 @@
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table id="scheduleTable" class="min-w-full text-sm text-left text-gray-600">
+            <table id="scheduleTable" class="min-w-max text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">No</th>
@@ -158,7 +158,7 @@
                         <td class="px-4 py-3">
                             {{ $schedule->reliefTutor ? $schedule->reliefTutor->username : $schedule->class->tutor->username }}
                         </td>
-                        <td class="px-4 py-3">{{ $schedule->date }}</td>
+                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editScheduleModal" data-modal-toggle="editScheduleModal">Edit</button>
                             <a href="{{ route('admin.schedule.attendance') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Attendance</a>
