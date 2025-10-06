@@ -74,10 +74,16 @@ class ScheduleController extends Controller
             }
         }
 
-        //display all schedule
-        $schedules = Schedule::all();
+        //display all schedule ->orderBy('day') ->orderBy('start_time')
+        $schedules = Schedule::with('class.tutor')->orderBy('date')->get();
+
+        // select semua tutor
         $tutors = Tutor::where('status', 'active')->get();
-        $classes = ClassModel::all();
+
+        // select semua class  ->orderBy('day') ->orderBy('start_time')
+        $classes = ClassModel::with('tutor')->orderBy('day')
+            ->orderBy('start_time')
+            ->get();
 
         return view('admin.class.schedule', compact('timetable', 'days', 'timeSlots', 'schedules', 'classes', 'tutors'));
     }
