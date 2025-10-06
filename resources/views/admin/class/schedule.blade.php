@@ -151,10 +151,13 @@
                     <tr class="border-b">
                         <td class="px-4 py-3 row-index"></td>
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $schedule->class->class_name }}</td>
-                        <td class="px-4 py-3">{{ $schedule->class->package->package_type }}</td>
+                        <td class="px-4 py-3">{{ ucfirst($schedule->class->package->package_type) }}</td>
                         <td class="px-4 py-3">{{ $schedule->class->day }}</td>
                         <td class="px-4 py-3">{{ $schedule->class->room }}</td>
-                        <td class="px-4 py-3">{{ $schedule->class->tutor->username }}</td>
+                        {{-- if relief null display $schedule->class->tutor->username, if ada value $schedule->relief->tutor->username--}}
+                        <td class="px-4 py-3">
+                            {{ $schedule->reliefTutor ? $schedule->reliefTutor->username : $schedule->class->tutor->username }}
+                        </td>
                         <td class="px-4 py-3">{{ $schedule->date }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editScheduleModal" data-modal-toggle="editScheduleModal">Edit</button>
