@@ -166,7 +166,7 @@
                                 data-modal-target="editScheduleModal"
                                 data-modal-toggle="editScheduleModal">Edit</button>                            
                             <a href="{{ route('admin.schedule.attendance') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Attendance</a>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                            {{-- <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button> --}}
                         </td>
                     </tr>
                     @endforeach
