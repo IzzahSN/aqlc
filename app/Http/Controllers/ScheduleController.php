@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\ClassModel;
+use App\Models\JoinClass;
 use App\Models\Schedule;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
@@ -36,7 +38,7 @@ class ScheduleController extends Controller
             return $slots;
         });
 
-        // ❗ kalau tiada kelas, terus return view kosong
+        // kalau tiada kelas, terus return view kosong
         if ($classes->isEmpty()) {
             $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
             return view('admin.class.schedule', [
@@ -133,7 +135,7 @@ class ScheduleController extends Controller
         }
 
         if (!empty($request->relief)) {
-            // ✅ 1. Check kalau relief tutor ada class sebenar bertembung masa sama
+            // 1. Check kalau relief tutor ada class sebenar bertembung masa sama
             $teachingConflict = ClassModel::where('tutor_id', $request->relief)
                 ->where('day', $class->day)
                 ->where(function ($q) use ($class) {
@@ -149,7 +151,7 @@ class ScheduleController extends Controller
                     ->withInput();
             }
 
-            // ✅ 2. Check kalau relief tutor dah relief kelas lain pada waktu sama
+            // 2. Check kalau relief tutor dah relief kelas lain pada waktu sama
             $reliefConflict = Schedule::where('relief', $request->relief)
                 ->whereDate('date', $request->date)
                 ->whereHas('class', function ($q) use ($class) {
@@ -167,13 +169,26 @@ class ScheduleController extends Controller
             }
         }
 
-        // ✅ 3. Simpan jika semua okay
-        Schedule::create([
+        // 3. Simpan jika semua okay
+        $schedule = Schedule::create([
             'class_id' => $request->class_id,
             'date' => $request->date,
             'tutor_id' => $request->tutor_id,
             'relief' => $request->relief,
         ]);
+
+        // auto create attendance untuk semua student dalam class
+        $students = JoinClass::where('class_id', $request->class_id)->pluck('student_id');
+        foreach ($students as $student_id) {
+            Attendance::create([
+                'schedule_id' => $schedule->schedule_id,
+                'tutor_id' => $request->tutor_id,
+                'student_id' => $student_id,
+                'class_id' => $request->class_id,
+                'status' => 0,
+                'remark' => null,
+            ]);
+        }
 
         return back()->with('success', 'Class schedule created successfully.')
             ->with('closeModalAdd', true);
@@ -214,7 +229,7 @@ class ScheduleController extends Controller
 
         $class = ClassModel::findOrFail($validated['class_id']);
 
-        // 1️⃣ Elak duplicate schedule pada tarikh sama untuk class yang sama (kecuali current record)
+        // 1️ Elak duplicate schedule pada tarikh sama untuk class yang sama (kecuali current record)
         $exists = Schedule::where('class_id', $validated['class_id'])
             ->whereDate('date', $validated['date'])
             ->where('schedule_id', '!=', $schedule->schedule_id)
@@ -225,16 +240,16 @@ class ScheduleController extends Controller
                 ->withInput();
         }
 
-        // 2️⃣ Relief tak boleh sama dengan tutor asal
+        // 2️ Relief tak boleh sama dengan tutor asal
         if (!empty($validated['relief']) && $validated['relief'] == $class->tutor_id) {
             return back()->with('error', 'Relief tutor cannot be the same as the main tutor.')
                 ->withInput();
         }
 
-        // 3️⃣ Check conflict jika relief tutor diisi
+        // 3️ Check conflict jika relief tutor diisi
         if (!empty($validated['relief'])) {
 
-            // ✅ (a) Relief tutor ada class sebenar bertembung masa sama
+            // (a) Relief tutor ada class sebenar bertembung masa sama
             $teachingConflict = ClassModel::where('tutor_id', $validated['relief'])
                 ->where('day', $class->day)
                 ->where(function ($q) use ($class) {
@@ -250,7 +265,7 @@ class ScheduleController extends Controller
                     ->withInput();
             }
 
-            // ✅ (b) Relief tutor dah relief kelas lain waktu sama
+            // (b) Relief tutor dah relief kelas lain waktu sama
             $reliefConflict = Schedule::where('relief', $validated['relief'])
                 ->where('id', '!=', $schedule->id) // exclude current schedule
                 ->whereDate('date', $validated['date'])
@@ -269,7 +284,7 @@ class ScheduleController extends Controller
             }
         }
 
-        // 4️⃣ Update record
+        // 4 Update record
         $schedule->update($validated);
 
         return redirect()->back()

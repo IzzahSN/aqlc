@@ -20,6 +20,7 @@ class Attendance extends Model
         'schedule_id',
         'student_id',
         'tutor_id',
+        'class_id',
     ];
 
     // Relationships
