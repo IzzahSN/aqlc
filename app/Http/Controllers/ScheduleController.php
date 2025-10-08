@@ -99,10 +99,6 @@ class ScheduleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function attendance()
-    {
-        return view('admin.class.attendance');
-    }
 
     /**
      * Store a newly created resource in storage.

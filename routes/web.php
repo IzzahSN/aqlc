@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassModelController;
 use App\Http\Controllers\GuardianController;
@@ -106,7 +107,11 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/schedule/{id}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
     Route::put('/schedule/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
     Route::delete('/schedule/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
-    Route::get('/schedule/attendance', [ScheduleController::class, 'attendance'])->name('schedule.attendance');
+
+    Route::get('/schedule/{id}/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::put('/schedule/{id}/attendance', [AttendanceController::class, 'update'])->name('attendance.update');
+    Route::post('/schedule/{id}/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
+    Route::delete('/schedule/{scheduleId}/attendance/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
 
     // REPORT
     Route::get('/report', fn() => view('admin.report.index'))->name('report');
