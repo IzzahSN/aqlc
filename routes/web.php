@@ -122,8 +122,8 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/report/grade', [StudentProgressController::class, 'index'])->name('grade.index');
     Route::put('/report/{id}/grade/', [StudentProgressController::class, 'update'])->name('grade.update');
 
-    Route::get('/report/lesson-plan/{id}', [LessonPlanController::class, 'index'])->name('lesson-plan.index');
-    Route::put('/report/lesson-plan/{id}', [LessonPlanController::class, 'update'])->name('lesson-plan.update');
+    Route::get('/report/{id}/lesson-plan/', [LessonPlanController::class, 'index'])->name('lesson-plan.index');
+    Route::put('/report/{id}/lesson-plan/', [LessonPlanController::class, 'update'])->name('lesson-plan.update');
 
     // PAYMENT
     Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill');
