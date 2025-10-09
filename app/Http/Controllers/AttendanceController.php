@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Schedule;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -13,23 +15,44 @@ class AttendanceController extends Controller
     public function index($id)
     {
         $attendances = Attendance::with('student')->where('schedule_id', $id)->get();
-        return view('admin.class.attendance', compact('attendances', 'id'));
+        //get student yang active
+        $students = Student::where('status', 'active')->get();
+        return view('admin.class.attendance', compact('attendances', 'id', 'students'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
-    }
+        $request->validate([
+            'student_id' => 'required|exists:students,student_id',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Attendance $attendance)
-    {
-        //
+        $schedule = Schedule::find($id);
+
+        if (!$schedule) {
+            return redirect()->back()->with('error', 'Schedule not found.')->with('openModalAdd', true);
+        }
+
+        $exists = Attendance::where('schedule_id', $id)
+            ->where('student_id', $request->student_id)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()->with('error', 'Student already added to this schedule.')->with('openModalAdd', true);
+        }
+
+        Attendance::create([
+            'schedule_id' => $id,
+            'class_id' => $schedule->class_id,
+            'tutor_id' => $schedule->tutor_id,
+            'student_id' => $request->student_id,
+            'status' => 0,
+            'remark' => null,
+        ]);
+
+        return redirect()->back()->with('success', 'Student added successfully!')->with('closeModalAdd', true);
     }
 
     /**

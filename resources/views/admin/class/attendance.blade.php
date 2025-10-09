@@ -265,33 +265,18 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="studentForm">
+            <form id="studentForm" action="{{ route('admin.attendance.store', $id) }}" method="POST">
+                @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div>
-                        <label for="student" class="block mb-2 text-sm font-medium text-gray-900">Class Joined</label>
-                        <select id="student" name="student[]" multiple class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full">
-                            <option value="1">Muhammad Bin Hareez</option>
-                            <option value="2">Irfan Jaafar Bin Khamis</option>
-                            <option value="3">Ali Jais Bin Hazwan</option>
+                        <label for="student_id" class="block mb-2 text-sm font-medium text-gray-900">Select Student</label>
+                        <select id="student_id" name="student_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <option value="">Select Student</option>
+                            @foreach($students as $student)
+                                <option value="{{ $student->student_id }}">{{ $student->first_name }} {{ $student->last_name }} (ID: {{ $student->student_id }})</option>
+                            @endforeach
                         </select>
                     </div>
-
-                    <script>
-                        new TomSelect("#student", {
-                            plugins: ['remove_button'],
-                            maxItems: 1,
-                            create: false,
-                            persist: false,
-                            render: {
-                                item: function(data, escape) {
-                                    return `<div class="bg-green-100 text-green-800 text-sm font-medium mr-1 mb-1 px-2.5 py-1 rounded-md flex items-center">${escape(data.text)}</div>`;
-                                },
-                                option: function(data, escape) {
-                                    return `<div class="px-3 py-2 text-sm text-gray-900 hover:bg-green-50 cursor-pointer">${escape(data.text)}</div>`;
-                                }
-                            }
-                        });
-                    </script>
                 </div>
 
                 <!-- Modal Footer -->
@@ -303,4 +288,15 @@
             </form>
         </div>
     </div>
+
+    @if(session('closeModalAdd'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const closeBtn = document.querySelector('[data-modal-hide="addStudentModal"]');
+            if (closeBtn) {
+                closeBtn.click(); // trigger tutup modal
+            }
+        });
+    </script>
+    @endif
 </x-admin-layout>
