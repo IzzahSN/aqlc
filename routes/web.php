@@ -5,10 +5,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassModelController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\JoinPackageController;
+use App\Http\Controllers\LessonPlanController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentGuardianController;
+use App\Http\Controllers\StudentProgressController;
 use App\Http\Controllers\TutorController;
 use App\Models\ClassModel;
 use Illuminate\Support\Facades\Route;
@@ -114,9 +117,10 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::delete('/schedule/{scheduleId}/attendance/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
 
     // REPORT
-    Route::get('/report', fn() => view('admin.report.index'))->name('report');
-    Route::get('/report/grade', fn() => view('admin.report.grade'))->name('report.grade');
-    Route::get('/report/lesson-plan', fn() => view('admin.report.lesson_plan'))->name('report.lesson-plan');
+    Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+
+    Route::get('/report/grade', [StudentProgressController::class, 'index'])->name('grade.index');
+    Route::get('/report/lesson-plan', [LessonPlanController::class, 'index'])->name('lesson-plan.index');
 
     // PAYMENT
     Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill');

@@ -12,7 +12,7 @@ class LessonPlanController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.report.lesson_plan');
     }
 
     /**

@@ -12,7 +12,7 @@ class StudentProgressController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.report.grade');
     }
 
     /**

@@ -1,6 +1,9 @@
 <x-admin-layout :title="'Report'">
+
+    <!-- Summary Cards + Chart -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
 
+        {{-- summary cards --}}
         <div class="lg:col-span-1 space-y-4">
             <div class="bg-white p-5 rounded-2xl shadow flex items-center gap-4 hover:shadow-md transition">
                 <div class="p-4 rounded-full bg-blue-100 text-blue-600 text-xl">
@@ -32,6 +35,7 @@
             </div>
         </div>
 
+        {{-- chart --}}
         <div class="lg:col-span-2 bg-white rounded-2xl p-4 flex flex-col shadow-md">
             <!-- Header -->
             <div class="flex justify-between items-center mb-4">
@@ -57,7 +61,6 @@
 
         <!-- Chart.js CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
         <script>
             // Generate labels from 1 → 30
             const labels = Array.from({
@@ -172,20 +175,8 @@
                         <td class="px-4 py-3">Ustaz Hafiz</td>
                         <td class="px-4 py-3">12/09/2025</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <a href="{{ route('admin.report.grade') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>
-                            <a href="{{ route('admin.report.lesson-plan') }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>
-                        </td>
-                    </tr>
-
-                    <tr class="border-b">
-                        <td class="px-4 py-3">2</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Tue-21-K1</td>
-                        <td class="px-4 py-3">Group</td>
-                        <td class="px-4 py-3">Ustazah Nuha</td>
-                        <td class="px-4 py-3">10/08/2025</td>
-                        <td class="px-4 py-3 flex gap-2 justify-center">
-                            <a href="{{ route('admin.report.grade') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>
-                            <a href="{{ route('admin.report.lesson-plan') }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>
+                            <a href="{{ route('admin.grade.index') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>
+                            <a href="{{ route('admin.lesson-plan.index') }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>
                         </td>
                     </tr>
                 </tbody>
