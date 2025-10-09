@@ -68,15 +68,15 @@ class AttendanceController extends Controller
             ->first();
 
         if (!$attendance) {
-            return back()->with('error', 'Attendance record not found.');
+            return response()->json(['status' => 'error', 'message' => 'Attendance record not found.'], 404);
         }
 
         if ($attendance->status == 1) {
-            return back()->with('error', 'Cannot delete attendance record. Student already marked as present.');
+            return response()->json(['status' => 'error', 'message' => 'Cannot delete attendance record. Student already marked as present.'], 400);
         }
 
         $attendance->delete();
 
-        return back()->with('success', 'Attendance record deleted successfully.');
+        return response()->json(['status' => 'success', 'message' => 'Attendance record deleted successfully.']);
     }
 }

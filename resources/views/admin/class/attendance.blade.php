@@ -97,25 +97,68 @@
                                 </td>
 
                               <td class="px-4 py-3 flex justify-center">
-                                <form id="delete-form-{{ $attendance->attendance_id }}"
-                                    action="{{ route('admin.attendance.destroy', ['scheduleId' => $attendance->schedule_id, 'id' => $attendance->attendance_id]) }}"
-                                    method="POST" class="delete-form inline-block">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="button"
-                                        class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
-                                        data-id="{{ $attendance->attendance_id }}"
-                                        data-schedule-id="{{ $attendance->schedule_id }}"
-                                        @if ($attendance->status == 1) disabled @endif>
-                                        Delete
-                                    </button>
-                                </form>
+                                 <button type="button"
+                                    class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
+                                    data-id="{{ $attendance->attendance_id }}"
+                                    data-schedule-id="{{ $attendance->schedule_id }}"
+                                    @if ($attendance->status == 1) disabled @endif>
+                                    Delete
+                                </button>
                             </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const deleteButtons = document.querySelectorAll(".delete-button");
+
+                    deleteButtons.forEach(button => {
+                        button.addEventListener("click", function() {
+                            const attendanceId = this.dataset.id;
+                            const scheduleId = this.dataset.scheduleId;
+                            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                            Swal.fire({
+                                title: "Are you sure?",
+                                text: "This attendance record will be deleted.",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "Cancel"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    fetch(`/admin/schedule/${scheduleId}/attendance/${attendanceId}`, {
+                                        method: 'DELETE',
+                                        headers: {
+                                            'X-CSRF-TOKEN': token,
+                                            'Accept': 'application/json',
+                                            'X-Requested-With': 'XMLHttpRequest'
+                                        }
+                                    })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error("Network response was not ok");
+                                        }
+                                        return response.text(); // handle redirect or JSON
+                                    })
+                                    .then(data => {
+                                        Swal.fire("Deleted!", "Attendance record deleted successfully.", "success");
+                                        setTimeout(() => location.reload(), 1000);
+                                    })
+                                    .catch(err => {
+                                        Swal.fire("Error!", "Failed to delete attendance.", "error");
+                                        console.error(err);
+                                    });
+                                }
+                            });
+                        });
+                    });
+                });
+                </script>
 
                 <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
             </div>
@@ -260,33 +303,4 @@
             </form>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const deleteButtons = document.querySelectorAll(".delete-button");
-
-            deleteButtons.forEach(button => {
-                button.addEventListener("click", function() {
-                    const attendanceId = this.dataset.id;
-                    const form = document.getElementById(`delete-form-${attendanceId}`);
-
-                    Swal.fire({
-                        title: "Are you sure?",
-                        text: "This attendance record will be deleted.",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Yes, delete it!",
-                        cancelButtonText: "Cancel"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Hantar form delete Laravel
-                            form.submit();
-                        }
-                    });
-                });
-            });
-        });
-        </script>
 </x-admin-layout>
