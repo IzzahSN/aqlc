@@ -180,8 +180,8 @@
                         </td>
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <a href="{{ route('admin.grade.index') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>
-                            <a href="{{ route('admin.lesson-plan.index') }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>
+                            <a href="{{ route('admin.grade.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>                                                        
+                            <a href="{{ route('admin.lesson-plan.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>                                                        
                         </td>
                     </tr>
                     @endforeach

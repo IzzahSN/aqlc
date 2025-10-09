@@ -10,9 +10,10 @@ class LessonPlanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        return view('admin.report.lesson_plan');
+        $lessonPlan = LessonPlan::find($id);
+        return view('admin.report.lesson_plan', compact('lessonPlan'));
     }
 
     /**
