@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\ClassModel;
 use App\Models\JoinClass;
+use App\Models\LessonPlan;
 use App\Models\Schedule;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
@@ -185,6 +186,16 @@ class ScheduleController extends Controller
                 'remark' => null,
             ]);
         }
+
+        // auto create lesson plan
+        LessonPlan::create([
+            'schedule_id' => $schedule->schedule_id,
+            'class_id' => $request->class_id,
+            'tutor_id' => $request->tutor_id,
+            'title' => null,
+            'learning_materials' => null,
+            'descriptioon' => null,
+        ]);
 
         return back()->with('success', 'Class schedule created successfully.')
             ->with('closeModalAdd', true);

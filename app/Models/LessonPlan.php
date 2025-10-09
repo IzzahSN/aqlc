@@ -20,6 +20,7 @@ class LessonPlan extends Model
         'description',
         'schedule_id',
         'tutor_id',
+        'class_id',
     ];
     // Relationships
     public function schedule()
