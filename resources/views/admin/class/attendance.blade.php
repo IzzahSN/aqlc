@@ -96,13 +96,22 @@
                                         class="w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500">
                                 </td>
 
-                                <td class="px-4 py-3 flex justify-center">
+                              <td class="px-4 py-3 flex justify-center">
+                                <form id="delete-form-{{ $attendance->attendance_id }}"
+                                    action="{{ route('admin.attendance.destroy', ['scheduleId' => $attendance->schedule_id, 'id' => $attendance->attendance_id]) }}"
+                                    method="POST" class="delete-form inline-block">
+                                    @csrf
+                                    @method('DELETE')
+
                                     <button type="button"
-                                        class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
-                                        @if($attendance->status == 1) disabled @endif>
+                                        class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
+                                        data-id="{{ $attendance->attendance_id }}"
+                                        data-schedule-id="{{ $attendance->schedule_id }}"
+                                        @if ($attendance->status == 1) disabled @endif>
                                         Delete
                                     </button>
-                                </td>
+                                </form>
+                            </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -251,4 +260,33 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const deleteButtons = document.querySelectorAll(".delete-button");
+
+            deleteButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const attendanceId = this.dataset.id;
+                    const form = document.getElementById(`delete-form-${attendanceId}`);
+
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "This attendance record will be deleted.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "Cancel"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Hantar form delete Laravel
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+        </script>
 </x-admin-layout>

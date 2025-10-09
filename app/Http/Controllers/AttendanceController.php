@@ -61,8 +61,22 @@ class AttendanceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Attendance $attendance)
+    public function destroy($scheduleId, $id)
     {
-        //
+        $attendance = Attendance::where('schedule_id', $scheduleId)
+            ->where('attendance_id', $id)
+            ->first();
+
+        if (!$attendance) {
+            return back()->with('error', 'Attendance record not found.');
+        }
+
+        if ($attendance->status == 1) {
+            return back()->with('error', 'Cannot delete attendance record. Student already marked as present.');
+        }
+
+        $attendance->delete();
+
+        return back()->with('success', 'Attendance record deleted successfully.');
     }
 }
