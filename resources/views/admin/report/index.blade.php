@@ -1,4 +1,4 @@
-<x-admin-layout :title="'Report'">
+<x-admin-layout :title="'Grade & Lesson Plan Report'">
 
     <!-- Summary Cards + Chart -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">

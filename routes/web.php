@@ -129,10 +129,14 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::put('/report/{id}/lesson-plan/', [LessonPlanController::class, 'update'])->name('lesson-plan.update');
 
     // ACHIEVEMENT
-    Route::get('/report/achievement', fn() => view('admin.report.achievement'))->name('achievement.index');
+    Route::get('/achievement', fn() => view('admin.report.achievement'))->name('achievement.index');
 
     // MODULE
-    Route::get('/report/module', [RecitationModuleController::class, 'index'])->name('module.index');
+    Route::get('/module', [RecitationModuleController::class, 'index'])->name('module.index');
+    Route::post('/module', [RecitationModuleController::class, 'store'])->name('module.store');
+    Route::get('/module/{id}/edit', [RecitationModuleController::class, 'edit'])->name('module.edit');
+    Route::put('/module/{id}', [RecitationModuleController::class, 'update'])->name('module.update');
+    Route::delete('/module/{id}', [RecitationModuleController::class, 'destroy'])->name('module.destroy');
 
     // PAYMENT
     Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill');
