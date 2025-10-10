@@ -29,7 +29,7 @@ class RecitationModuleController extends Controller
             'level_type' => 'required|string|max:255',
             'first_page' => 'required|integer|min:1',
             'end_page' => 'required|integer|min:1|gte:first_page',
-            'badge' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // max 2MB
+            'badge' => 'image|mimes:jpeg,png,jpg|max:2048', // max 2MB
         ]);
 
         // Handle file upload
@@ -53,14 +53,6 @@ class RecitationModuleController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(RecitationModule $recitationModule)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(RecitationModule $recitationModule)
@@ -79,8 +71,11 @@ class RecitationModuleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RecitationModule $recitationModule)
+    public function destroy($id)
     {
-        //
+        $module = RecitationModule::findOrFail($id);
+        $module->delete();
+
+        return redirect()->back()->with('success', 'Recitation Module deleted successfully.');
     }
 }
