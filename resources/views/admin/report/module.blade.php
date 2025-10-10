@@ -30,8 +30,10 @@
             <!-- Filter -->
             <select id="leveltype" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                 <option value="">All Level</option>
-                <option value="Iqra">Iqra</option>
-                <option value="Quran">Quran</option>
+                {{-- unique level_type from all modules --}}
+                @foreach ($modules->pluck('level_type')->unique() as $level)
+                    <option value="{{ $level }}">{{ $level }}</option>
+                @endforeach
             </select>
         </div>
 
@@ -233,7 +235,7 @@
                         {{-- level_type --}}
                         <div>
                             <label for="level_type" class="block mb-2 text-sm font-medium text-gray-900">Level Type</label>
-                            <input type="text" name="level_type" id="level_type" placeholder="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="text" name="level_type" id="level_type" placeholder="Quran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         {{-- first_page --}}
@@ -265,5 +267,31 @@
             </form>
         </div>
     </div>
+
+    {{-- delete confirmation --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    let id = this.getAttribute("data-id");
+                    let form = document.getElementById("delete-form-" + id);
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This module will be deleted!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </x-admin-layout>
 
