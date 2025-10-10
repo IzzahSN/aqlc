@@ -116,14 +116,22 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::post('/schedule/{id}/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
     Route::delete('/schedule/{scheduleId}/attendance/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
 
-    // REPORT
-    Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+    //////////////////////
+    // REPORT MANAGEMENT //
+    //////////////////////
 
+    // GRADE & LESSON PLAN
+    Route::get('/report', [ReportController::class, 'index'])->name('report.index');
     Route::get('/report/grade', [StudentProgressController::class, 'index'])->name('grade.index');
     Route::put('/report/{id}/grade/', [StudentProgressController::class, 'update'])->name('grade.update');
-
     Route::get('/report/{id}/lesson-plan/', [LessonPlanController::class, 'index'])->name('lesson-plan.index');
     Route::put('/report/{id}/lesson-plan/', [LessonPlanController::class, 'update'])->name('lesson-plan.update');
+
+    // ACHIEVEMENT
+    Route::get('/report/achievement', fn() => view('admin.report.achievement'))->name('achievement.index');
+
+    // MODULE
+    Route::get('/report/module', fn() => view('admin.report.module'))->name('module.index');
 
     // PAYMENT
     Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill');

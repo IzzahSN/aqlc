@@ -87,14 +87,28 @@
             </li>
             <!-- Report Management -->
             <li>
-                <a href="{{ route('admin.report.index') }}" class="flex items-center p-2 rounded-lg group {{ request()->routeIs('admin.report.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 dark:text-white hover:bg-green-100 dark:hover:bg-green-700' }}">
-                    <svg class="w-5 h-5 transition duration-75 {{ request()->routeIs('admin.report.index') ? 'text-green-900 dark:text-green-300' : 'text-gray-500 dark:text-gray-400 group-hover:text-green-900 dark:group-hover:text-green' }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-green-100 dark:text-white dark:hover:bg-green-700" aria-controls="dropdown-report" data-collapse-toggle="dropdown-report" aria-expanded="false">
+                    <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-green-900 dark:text-gray-400 group-[aria-expanded=true]:text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke="none" d="M0 0h24v24H0z" />
                         <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
                         <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
                     </svg>
-                    <span class="ms-3">Report Management</span>
-                </a>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Report Management</span>
+                    <svg class="w-3 h-3 transition-transform duration-200 group-[aria-expanded=true]:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="dropdown-report" class="{{ request()->routeIs('admin.report.index','admin.achievement.index','admin.module.index') ? '' : 'hidden' }} py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('admin.report.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.report.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Grade & Lesson Plan</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.achievement.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.achievement.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Achievement</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.module.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.module.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Module</a>
+                    </li>
+                </ul>
             </li>
             <!-- Payment Management -->
             <li>
