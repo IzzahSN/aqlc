@@ -7,6 +7,7 @@ use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\JoinPackageController;
 use App\Http\Controllers\LessonPlanController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\RecitationModuleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
@@ -131,7 +132,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/report/achievement', fn() => view('admin.report.achievement'))->name('achievement.index');
 
     // MODULE
-    Route::get('/report/module', fn() => view('admin.report.module'))->name('module.index');
+    Route::get('/report/module', [RecitationModuleController::class, 'index'])->name('module.index');
 
     // PAYMENT
     Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill');
