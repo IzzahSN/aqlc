@@ -20,4 +20,10 @@ class RecitationModule extends Model
         'level_type',
         'badge',
     ];
+
+    // Relationships
+    public function achievements()
+    {
+        return $this->hasMany(Achievement::class, 'recitation_module_id', 'recitation_module_id');
+    }
 }

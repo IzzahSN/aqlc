@@ -78,4 +78,9 @@ class Student extends Model
     {
         return $this->belongsToMany(Package::class, 'join_packages', 'student_id', 'package_id');
     }
+
+    public function achievements()
+    {
+        return $this->hasMany(Achievement::class, 'student_id', 'student_id');
+    }
 }
