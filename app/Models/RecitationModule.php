@@ -26,4 +26,9 @@ class RecitationModule extends Model
     {
         return $this->hasMany(Achievement::class, 'recitation_module_id', 'recitation_module_id');
     }
+
+    public function studentProgresses()
+    {
+        return $this->hasMany(StudentProgress::class, 'recitation_module_id', 'recitation_module_id');
+    }
 }

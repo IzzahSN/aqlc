@@ -15,7 +15,7 @@ class StudentProgress extends Model
     protected $primaryKey = 'student_progress_id';
 
     protected $fillable = [
-        'recitation',
+        'recitation_module_id',
         'page_number',
         'grade',
         'remark',
@@ -38,5 +38,10 @@ class StudentProgress extends Model
     public function class()
     {
         return $this->belongsTo(ClassModel::class, 'class_id', 'class_id');
+    }
+
+    public function recitationModule()
+    {
+        return $this->belongsTo(RecitationModule::class, 'recitation_module_id', 'recitation_module_id');
     }
 }
