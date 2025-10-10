@@ -229,7 +229,7 @@
                        {{-- recitation_name --}}
                        <div>
                             <label for="recitation_name" class="block mb-2 text-sm font-medium text-gray-900">Recitation Name</label>
-                            <input type="text" name="recitation_name" id="recitation_name" placeholder="Quran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required/>
+                            <input type="text" name="recitation_name" id="recitation_name" placeholder="Juz 1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required/>
                        </div>
 
                         {{-- level_type --}}
