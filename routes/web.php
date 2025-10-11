@@ -124,7 +124,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     // GRADE & LESSON PLAN
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
     Route::get('/report/{id}/grade', [StudentProgressController::class, 'index'])->name('grade.index');
-    Route::post('/report/{id}/grade', [StudentProgressController::class, 'store'])->name('grade.store');
+    Route::post('/report/grade', [StudentProgressController::class, 'store'])->name('grade.store');
     Route::put('/report/{id}/grade', [StudentProgressController::class, 'update'])->name('grade.update');
     Route::delete('/report/{scheduleId}/grade/{id}', [StudentProgressController::class, 'destroy'])->name('grade.destroy');
 

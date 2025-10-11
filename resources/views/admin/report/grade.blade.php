@@ -135,7 +135,10 @@
                                         -
                                     @elseif ($studentProgress->is_main_page === 1 )
                                         <button type="button"
-                                            class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500"
+                                            class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500 add-progress-btn"
+                                            data-student-id="{{ $studentProgress->student->student_id }}"
+                                            data-student-name="{{ $studentProgress->student->first_name }} {{ $studentProgress->student->last_name }}"
+                                            data-student-progress-id="{{ $studentProgress->student_progress_id }}"
                                             data-modal-target="addStudentModal"
                                             data-modal-toggle="addStudentModal">+</button>
                                     @else
@@ -327,4 +330,180 @@
             </div>
         </div>
     </div>
+
+    {{-- Add Student Progress modal --}}
+    <div id="addStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Module</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addStudentModal">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <form id="addStudentForm" action="{{ route('admin.grade.store') }}" method="POST">
+                @csrf
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                         {{-- hidden ids --}}
+                        <input type="hidden" name="student_id" id="modal_student_id" value="" />
+                        <input type="hidden" name="student_progress_id" id="modal_student_progress_id" value="" />
+
+                        {{-- student name (readonly) --}}
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-700">Student Name</label>
+                            <input type="text" id="modal_student_name" class="border rounded-lg text-sm w-full px-2 py-2 bg-gray-100" readonly />
+                        </div>
+
+                        {{-- level_type --}}
+                        <div>
+                            <label for="level_type" class="block mb-2 text-sm font-medium text-gray-700">Level</label>
+                            <select name="level_type" id="level_type" class="border rounded-lg px-3 py-2 text-sm w-full">
+                                <option value="">Select Level</option>
+                                @foreach ($modules->pluck('level_type')->unique() as $level)
+                                    <option value="{{ $level }}">{{ $level }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- recitation_module_id --}}
+                        <div>
+                            <label for="recitation_module_id" class="block mb-2 text-sm font-medium text-gray-700">Recitation</label>
+                            <select name="recitation_module_id" id="recitation_module_id" class="border rounded-lg px-3 py-2 text-sm w-full">
+                                <option value="">Select Recitation</option>
+                                @foreach ($modules as $module)
+                                    <option value="{{ $module->recitation_module_id }}" data-level="{{ $module->level_type }}">
+                                        {{ $module->recitation_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- page_number --}}
+                        <div>
+                            <label for="page_number" class="block mb-2 text-sm font-medium text-gray-700">Page</label>
+                            <input type="number" name="page_number" id="page_number" class="border rounded-lg text-sm w-full px-2 py-2" placeholder="Page..." />
+                        </div>
+
+                        {{-- grade --}}
+                        <div>
+                            <label for="grade" class="block mb-2 text-sm font-medium text-gray-700">Grade</label>
+                            <select name="grade" id="grade" class="border rounded-lg px-3 py-2 text-sm w-full">
+                                <option value="">Select Grade</option>
+                                <option value="Mumtaz">Mumtaz</option>
+                                <option value="Jayyid Jiddan">Jayyid Jiddan</option>
+                                <option value="Jayyid">Jayyid</option>
+                                <option value="Maqbul">Maqbul</option>
+                                <option value="Rasib">Rasib</option>
+                            </select>
+                        </div>
+
+                        {{-- remark --}}
+                        <div>
+                            <label for="remark" class="block mb-2 text-sm font-medium text-gray-700">Remark</label>
+                            <input type="text" name="remark" id="remark" class="border rounded-lg text-sm w-full px-2 py-2" placeholder="Remark..." />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addStudentModal">Cancel</button>
+
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ambil elemen modal fields
+            const modalStudentId = document.getElementById('modal_student_id');
+            const modalProgressId = document.getElementById('modal_student_progress_id');
+            const modalStudentName = document.getElementById('modal_student_name');
+            const levelSelect = document.getElementById('modal_level_type');
+            const recitationSelect = document.getElementById('modal_recitation_module_id');
+            const pageInput = document.getElementById('modal_page_number');
+            const pageHint = document.getElementById('modal_page_hint');
+
+            // fill modal when "+" clicked
+            document.querySelectorAll('.add-progress-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                const sid = this.dataset.studentId;
+                const sname = this.dataset.studentName;
+                const spid = this.dataset.studentProgressId;
+
+                modalStudentId.value = sid ?? '';
+                modalProgressId.value = spid ?? '';
+                modalStudentName.value = sname ?? '';
+
+                // reset modal fields
+                levelSelect.value = '';
+                recitationSelect.value = '';
+                pageInput.value = '';
+                pageInput.removeAttribute('min');
+                pageInput.removeAttribute('max');
+                pageHint.textContent = '';
+
+                // show modal handled by your modal lib (data-modal-toggle) — no manual open here
+                });
+            });
+
+            // filter recitation options when level selected
+            levelSelect.addEventListener('change', function() {
+                const level = this.value;
+                Array.from(recitationSelect.options).forEach(opt => {
+                if (!opt.value) return; // skip placeholder
+                opt.hidden = (opt.dataset.level !== level);
+                });
+                recitationSelect.value = '';
+                pageInput.value = '';
+                pageInput.removeAttribute('min'); pageInput.removeAttribute('max');
+                pageHint.textContent = '';
+            });
+
+            // set page min/max when recitation selected
+            recitationSelect.addEventListener('change', function() {
+                const sel = recitationSelect.options[recitationSelect.selectedIndex];
+                if (sel && sel.value) {
+                const min = parseInt(sel.dataset.start);
+                const max = parseInt(sel.dataset.end);
+                pageInput.min = min;
+                pageInput.max = max;
+                pageInput.placeholder = `${min}-${max}`;
+                pageHint.textContent = `Allowed pages: ${min} — ${max}`;
+                pageInput.value = '';
+                } else {
+                pageInput.removeAttribute('min');
+                pageInput.removeAttribute('max');
+                pageHint.textContent = '';
+                }
+            });
+
+            // validate input realtime using SweetAlert2 (toast)
+            pageInput.addEventListener('input', function() {
+                if (!this.value) return;
+                const val = parseInt(this.value, 10);
+                const min = this.min ? parseInt(this.min, 10) : null;
+                const max = this.max ? parseInt(this.max, 10) : null;
+
+                if ((min !== null && val < min) || (max !== null && val > max)) {
+                this.value = '';
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Invalid Page Number',
+                    text: `Page number must be between ${min} and ${max}.`,
+                    confirmButtonColor: '#16a34a',
+                    timer: 2200
+                });
+                }
+            });
+
+            });
+    </script>
+    <script>window.modulesData = @json($modules);</script>
+
+
 </x-admin-layout>
