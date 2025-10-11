@@ -49,10 +49,12 @@
                         <tr class="border-b">
                             <td class="px-4 py-3">{{ $loop->iteration }}</td>
 
+                            {{-- STUDENT NAME --}}
                             <td class="px-4 py-3 font-medium text-gray-900">
                                 {{ $studentProgress->student->first_name }} {{ $studentProgress->student->last_name }}
                             </td>
 
+                            {{-- VIEW PAST RECITATION --}}
                             <td class="px-4 py-3 flex justify-center">
                                 <button type="button"
                                     class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500"
@@ -65,24 +67,29 @@
 
                             {{-- LEVEL --}}
                             <td class="px-4 py-3">
-                                <select name="level_type[]" class="level-select border rounded-lg px-3 py-1 text-sm w-full"
-                                    data-index="{{ $index }}">
+                                <select name="level_type[]" 
+                                    class="level-select border rounded-lg px-3 py-1 text-sm w-full"
+                                    data-index="{{ $loop->index }}">
                                     <option value="">Select Level</option>
                                     @foreach ($modules->pluck('level_type')->unique() as $level)
-                                        <option value="{{ $level }}" {{ $studentProgress->recitationModule && $studentProgress->recitationModule->level_type == $level ? 'selected' : '' }}>{{ $level }}</option>
+                                        <option value="{{ $level }}" 
+                                            {{ $studentProgress->recitationModule && $studentProgress->recitationModule->level_type == $level ? 'selected' : '' }}>
+                                            {{ $level }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </td>
 
                             {{-- RECITATION --}}
                             <td class="px-4 py-3">
-                                <select name="recitation_module_id[]" class="recitation-select border rounded-lg px-3 py-1 text-sm w-full"
-                                    data-index="{{ $index }}">
+                                <select name="recitation_module_id[]" 
+                                    class="recitation-select border rounded-lg px-3 py-1 text-sm w-full"
+                                    data-index="{{ $loop->index }}">
                                     <option value="">Select Recitation</option>
                                     @foreach ($modules as $module)
                                         <option value="{{ $module->recitation_module_id }}"
                                             data-level="{{ $module->level_type }}"
-                                            data-start="{{ $module->start_page }}"
+                                            data-start="{{ $module->first_page }}"
                                             data-end="{{ $module->end_page }}"
                                             {{ $studentProgress->recitation_module_id == $module->recitation_module_id ? 'selected' : '' }}>
                                             {{ $module->recitation_name }}
@@ -93,8 +100,11 @@
 
                             {{-- PAGE --}}
                             <td class="px-4 py-3 text-center">
-                                <input type="number" name="page_number[]" class="page-input border rounded-lg text-sm w-20 px-2 py-1"
-                                    placeholder="Page..." value="{{ $studentProgress->page_number }}" data-index="{{ $index }}" />
+                                <input type="number" name="page_number[]" 
+                                    class="page-input border rounded-lg text-sm w-30 px-2 py-1"
+                                    placeholder="Page..." 
+                                    value="{{ $studentProgress->page_number }}" 
+                                    data-index="{{ $loop->index }}" />
                             </td>
 
                             {{-- GRADE --}}
@@ -141,124 +151,85 @@
     </div>
 </form>
 
+<!-- Dynamic Page Input Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const levelSelects = document.querySelectorAll('.level-select');
+    const recitationSelects = document.querySelectorAll('.recitation-select');
+    const pageInputs = document.querySelectorAll('.page-input');
 
-    <!-- Pagination + Search Script -->
-    <script>
-        const searchInput = document.getElementById("searchInput");
-        const tbody = document.getElementById("gradeBody");
-        const rows = Array.from(tbody.getElementsByTagName("tr"));
-        const noRecord = document.getElementById("noRecord");
-        const pagination = document.getElementById("pagination");
-        const entriesInfo = document.getElementById("entriesInfo");
-
-        let currentPage = 1;
-        const rowsPerPage = 5;
-
-        function renderTable() {
-            const searchValue = searchInput.value.toLowerCase();
-
-            let filteredRows = rows.filter(row => {
-                const name = row.cells[1].textContent.toLowerCase();
-                const id = row.cells[0].textContent.toLowerCase();
-                return name.includes(searchValue) || id.includes(searchValue);
+    // Step 1: Filter recitation ikut level_type
+    levelSelects.forEach(levelSelect => {
+        levelSelect.addEventListener('change', function() {
+            const level = this.value;
+            const index = this.dataset.index;
+            const recitationSelect = document.querySelector(`.recitation-select[data-index="${index}"]`);
+            recitationSelect.value = '';
+            recitationSelect.querySelectorAll('option').forEach(opt => {
+                if (!opt.value) return;
+                opt.hidden = opt.dataset.level !== level;
             });
 
-            const totalRows = filteredRows.length;
-            const totalPages = Math.ceil(totalRows / rowsPerPage);
-            if (currentPage > totalPages) currentPage = totalPages || 1;
-
-            rows.forEach(r => r.style.display = "none");
-            let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
-            pageRows.forEach((r, i) => {
-                r.style.display = "";
-                r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
-            });
-
-            noRecord.classList.toggle("hidden", totalRows > 0);
-
-            const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
-            const end = Math.min(currentPage * rowsPerPage, totalRows);
-            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
-
-            pagination.innerHTML = "";
-
-            // Prev
-            const prevBtn = document.createElement("button");
-            prevBtn.textContent = "‹";
-            prevBtn.disabled = currentPage === 1;
-            prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
-            prevBtn.addEventListener("click", () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderTable();
-                }
-            });
-            pagination.appendChild(prevBtn);
-
-            // Numbers
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement("button");
-                btn.textContent = i;
-                btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
-                btn.addEventListener("click", () => {
-                    currentPage = i;
-                    renderTable();
-                });
-                pagination.appendChild(btn);
-            }
-
-            // Next
-            const nextBtn = document.createElement("button");
-            nextBtn.textContent = "›";
-            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
-            nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
-            nextBtn.addEventListener("click", () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderTable();
-                }
-            });
-            pagination.appendChild(nextBtn);
-        }
-
-        searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
-        renderTable();
-    </script>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function updatePageLimits(index) {
-                const recitationSelect = document.querySelector(`.recitation-select[data-index="${index}"]`);
-                const pageInput = document.querySelector(`.page-input[data-index="${index}"]`);
-                if (recitationSelect && pageInput) {
-                    const selectedOption = recitationSelect.options[recitationSelect.selectedIndex];
-                    if (selectedOption.value !== '') {
-                        const min = selectedOption.dataset.start;
-                        const max = selectedOption.dataset.end;
-                        pageInput.min = min;
-                        pageInput.max = max;
-                        // Clear value if out of range
-                        if (pageInput.value && (pageInput.value < min || pageInput.value > max)) {
-                            pageInput.value = '';
-                        }
-                    } else {
-                        pageInput.min = '';
-                        pageInput.max = '';
-                    }
-                }
-            }
-
-            // Initialize for all rows on load
-            document.querySelectorAll('.recitation-select').forEach((select, index) => {
-                updatePageLimits(index);
-                // Listen for changes
-                select.addEventListener('change', () => {
-                    updatePageLimits(index);
-                });
-            });
+            const pageInput = document.querySelector(`.page-input[data-index="${index}"]`);
+            pageInput.value = '';
+            pageInput.min = '';
+            pageInput.max = '';
+            pageInput.placeholder = 'Page...';
         });
-    </script>
+    });
+
+    // Step 2: Bila recitation berubah → set min & max
+    recitationSelects.forEach(recitationSelect => {
+        recitationSelect.addEventListener('change', function() {
+            const index = this.dataset.index;
+            const pageInput = document.querySelector(`.page-input[data-index="${index}"]`);
+            const selectedOption = this.options[this.selectedIndex];
+
+            if (selectedOption.value) {
+                const min = selectedOption.dataset.start;
+                const max = selectedOption.dataset.end;
+                pageInput.min = min;
+                pageInput.max = max;
+                pageInput.placeholder = `${min}-${max}`;
+                pageInput.value = '';
+            } else {
+                pageInput.min = '';
+                pageInput.max = '';
+                pageInput.placeholder = 'Page...';
+            }
+        });
+    });
+
+    // Step 3: Validasi dengan SweetAlert
+    pageInputs.forEach(pageInput => {
+        pageInput.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            const min = parseInt(this.min);
+            const max = parseInt(this.max);
+
+            if (this.value && (value < min || value > max)) {
+                this.value = ''; // clear value
+                this.classList.add('border-red-500');
+
+                // SweetAlert pop-up
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Invalid Page Number',
+                    text: `Page number must be between ${min} and ${max}.`,
+                    confirmButtonColor: '#16a34a', // green tone
+                    confirmButtonText: 'Okay',
+                    timer: 3000
+                });
+            } else {
+                this.classList.remove('border-red-500');
+            }
+        });
+    });
+});
+</script>
+
+
+
 
     <!-- View Class Modal -->
     <div id="reportClassModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
