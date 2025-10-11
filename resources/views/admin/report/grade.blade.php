@@ -120,7 +120,8 @@
                                 @if ($studentProgress->recitation_module_id === null &&
                                     $studentProgress->page_number === null &&
                                     $studentProgress->grade === null &&
-                                    $studentProgress->remark === null)
+                                    $studentProgress->remark === null &&
+                                    $studentProgress->is_main_page === 1)
                                     -
                                 @elseif ($studentProgress->is_main_page === 1 )
                                     <button type="button"
@@ -224,7 +225,7 @@
         renderTable();
     </script>
 
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             function updatePageLimits(index) {
