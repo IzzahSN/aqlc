@@ -14,7 +14,7 @@
         </nav>
     </div>
 
-    <!-- Attendance Report List -->
+    <!-- Grade Report List -->
     <form action="{{ route('admin.grade.update', $id) }}" method="POST">
         @csrf
         @method('PUT')
