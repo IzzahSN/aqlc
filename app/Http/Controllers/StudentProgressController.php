@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RecitationModule;
 use App\Models\StudentProgress;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,9 @@ class StudentProgressController extends Controller
      */
     public function index($id)
     {
-        $studentProgress  = StudentProgress::where('schedule_id', $id)->with('student')->get();
-        return view('admin.report.grade', compact('studentProgress'));
+        $studentProgresses  = StudentProgress::where('schedule_id', $id)->with('student')->get();
+        $modules = RecitationModule::all();
+        return view('admin.report.grade', compact('studentProgresses', 'id', 'modules'));
     }
 
     /**
