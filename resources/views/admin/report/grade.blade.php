@@ -352,14 +352,14 @@
 
                         {{-- student name (readonly) --}}
                         <div>
-                            <label class="block mb-2 text-sm font-medium text-gray-700">Student Name</label>
-                            <input type="text" id="modal_student_name" class="border rounded-lg text-sm w-full px-2 py-2 bg-gray-100" readonly />
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Student Name</label>
+                            <input type="text" id="modal_student_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly />
                         </div>
 
                         {{-- level_type --}}
                         <div>
-                            <label for="level_type" class="block mb-2 text-sm font-medium text-gray-700">Level</label>
-                            <select name="level_type" id="level_type" class="border rounded-lg px-3 py-2 text-sm w-full">
+                            <label for="level_type" class="block mb-2 text-sm font-medium text-gray-900">Level</label>
+                            <select name="level_type" id="level_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                                 <option value="">Select Level</option>
                                 @foreach ($modules->pluck('level_type')->unique() as $level)
                                     <option value="{{ $level }}">{{ $level }}</option>
@@ -369,8 +369,8 @@
 
                         {{-- recitation_module_id --}}
                         <div>
-                            <label for="recitation_module_id" class="block mb-2 text-sm font-medium text-gray-700">Recitation</label>
-                            <select name="recitation_module_id" id="recitation_module_id" class="border rounded-lg px-3 py-2 text-sm w-full">
+                            <label for="recitation_module_id" class="block mb-2 text-sm font-medium text-gray-900">Recitation</label>
+                            <select name="recitation_module_id" id="recitation_module_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                                 <option value="">Select Recitation</option>
                                 @foreach ($modules as $module)
                                     <option value="{{ $module->recitation_module_id }}" data-level="{{ $module->level_type }}">
@@ -382,14 +382,14 @@
 
                         {{-- page_number --}}
                         <div>
-                            <label for="page_number" class="block mb-2 text-sm font-medium text-gray-700">Page</label>
-                            <input type="number" name="page_number" id="page_number" class="border rounded-lg text-sm w-full px-2 py-2" placeholder="Page..." />
+                            <label for="page_number" class="block mb-2 text-sm font-medium text-gray-900">Page</label>
+                            <input type="number" name="page_number" id="page_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" placeholder="Page..." />
                         </div>
 
                         {{-- grade --}}
                         <div>
-                            <label for="grade" class="block mb-2 text-sm font-medium text-gray-700">Grade</label>
-                            <select name="grade" id="grade" class="border rounded-lg px-3 py-2 text-sm w-full">
+                            <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
+                            <select name="grade" id="grade" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                                 <option value="">Select Grade</option>
                                 <option value="Mumtaz">Mumtaz</option>
                                 <option value="Jayyid Jiddan">Jayyid Jiddan</option>
@@ -401,8 +401,8 @@
 
                         {{-- remark --}}
                         <div>
-                            <label for="remark" class="block mb-2 text-sm font-medium text-gray-700">Remark</label>
-                            <input type="text" name="remark" id="remark" class="border rounded-lg text-sm w-full px-2 py-2" placeholder="Remark..." />
+                            <label for="remark" class="block mb-2 text-sm font-medium text-gray-900">Remark</label>
+                            <input type="text" name="remark" id="remark" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" placeholder="Remark..." />
                         </div>
                     </div>
                 </div>
