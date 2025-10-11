@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Schedule;
 use App\Models\Student;
+use App\Models\StudentProgress;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -76,6 +77,19 @@ class AttendanceController extends Controller
                 'status' => $data['status'],
                 'remark' => $data['remark'],
             ]);
+
+            // ✅ Tambah logic auto generate student_progress bila status = 1
+            if ($data['status'] == 1) {
+                StudentProgress::create([
+                    'student_id' => $attendance->student_id,
+                    'class_id' => $attendance->class_id,
+                    'schedule_id' => $attendance->schedule_id,
+                    'recitation_module_id' => null,
+                    'page_number' => null,
+                    'grade' => null,
+                    'remark' => null,
+                ]);
+            }
         }
 
         return back()->with('success', 'Attendance records updated successfully.');
