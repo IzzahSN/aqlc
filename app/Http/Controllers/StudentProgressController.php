@@ -53,10 +53,31 @@ class StudentProgressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, StudentProgress $studentProgress)
+    public function update(Request $request, $schedule_id)
     {
-        //
+        $validated = $request->validate([
+            'level_type.*' => 'nullable|string',
+            'recitation_module_id.*' => 'nullable|integer|exists:recitation_modules,recitation_module_id',
+            'page_number.*' => 'nullable|integer',
+            'grade.*' => 'nullable|string',
+            'remark.*' => 'nullable|string',
+        ]);
+
+        // ambil semua pelajar berdasarkan schedule_id
+        $studentProgresses = StudentProgress::where('schedule_id', $schedule_id)->get();
+
+        foreach ($studentProgresses as $index => $progress) {
+            $progress->update([
+                'recitation_module_id' => $request->recitation_module_id[$index] ?? null,
+                'page_number' => $request->page_number[$index] ?? null,
+                'grade' => $request->grade[$index] ?? null,
+                'remark' => $request->remark[$index] ?? null,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Student grades updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -16,138 +16,129 @@
 
     <!-- Attendance Report List -->
     <form action="{{ route('admin.grade.update', $id) }}" method="POST">
-        @csrf
-        @method('PUT')
+    @csrf
+    @method('PUT')
 
-        <div class="bg-white p-6 rounded-xl shadow">
-            <!-- Header -->
-            <div class="flex items-center justify-between mb-4">
-                <div>
-                    <h2 class="text-lg font-semibold">List of Grade</h2>
-                    <p class="text-sm text-gray-500">Manage your grade: search, filter and update.</p>
-                </div>
-                <button type="submit" class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">Allocate Grade</button>
+    <div class="bg-white p-6 rounded-xl shadow">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h2 class="text-lg font-semibold">List of Grade</h2>
+                <p class="text-sm text-gray-500">Manage your grade: search, filter and update.</p>
             </div>
-
-            <!-- Search -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                <div class="relative w-full sm:w-full">
-                    <input type="text" id="searchInput" placeholder="Search by name or ID"
-                        class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                    <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Table -->
-            <div class="overflow-x-auto">
-                <table id="gradeTable" class="min-w-max text-sm text-left text-gray-600">
-                    <thead class="bg-gray-100 text-xs uppercase text-gray-500">
-                        <tr>
-                            <th class="px-4 py-3">No</th>
-                            <th class="px-4 py-3">Student Name</th>
-                            <th class="px-4 py-3">Past Recitation</th>
-                            <th class="px-4 py-3">Level</th>
-                            <th class="px-4 py-3">Recitation</th>
-                            <th class="px-4 py-3">Page</th>
-                            <th class="px-4 py-3">Grade</th>
-                            <th class="px-4 py-3">Remark</th>
-                            <th class="px-4 py-3">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="gradeBody">
-                        @foreach ($studentProgresses as $studentProgress)
-                             <tr class="border-b">
-                                <td class="px-4 py-3 row-index"></td>
-
-                                {{-- student name --}}
-                                <td class="px-4 py-3 font-medium text-gray-900">
-                                    {{ $studentProgress->student->first_name }} {{ $studentProgress->student->last_name }}
-                                </td>
-
-                                {{-- view progress history --}}
-                                <td class="px-4 py-3 flex justify-center">
-                                    <button type="button" class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500" data-modal-target="reportClassModal" data-modal-toggle="reportClassModal">View</button>
-                                </td>
-
-                                {{-- unique level_type from recitation_module_id table --}}
-                                <td class="px-4 py-3">
-                                    <select name="level_type[]" class="border rounded-lg px-3 py-1 text-sm w-full sm:w-auto">
-                                        <option value="">Select Level</option>
-                                        @php
-                                            $levels = $modules->pluck('level_type')->unique();
-                                        @endphp
-                                        @foreach ($levels as $level)
-                                            <option value="{{ $level }}" {{ $studentProgress->level_type == $level ? 'selected' : '' }}>
-                                                {{ $level }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-
-                                {{-- recitation name from recitation_module_id that filter based on level_type --}}
-                                <td class="px-4 py-3">
-                                    <select name="recitation_name[]" class="border rounded-lg px-3 py-1 text-sm w-full sm:w-auto">
-                                        <option value="">Select Recitation</option>
-                                        @php
-                                            $filteredModules = $modules->where('level_type', $studentProgress->level_type);
-                                        @endphp
-                                        @foreach ($filteredModules as $module)
-                                            <option value="{{ $module->id }}" {{ $studentProgress->recitation_module_id == $module->id ? 'selected' : '' }}>
-                                                {{ $module->recitation_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-
-                                {{-- page number limit based on recitation_module_id selected on recitation name --}}
-                                <td class="px-4 py-3 text-center">
-                                    <input type="number" name="page_number[]" value="{{ $studentProgress->page_number }}" placeholder="Page" class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" min="1" />
-                                </td>
-
-                                {{-- grade --}}
-                                <td>
-                                    <select name="grade[]" class="border rounded-lg px-3 py-1 text-sm w-full sm:w-auto">
-                                        <option value="">Select Grade</option>
-                                        <option value="Mumtaz" {{ $studentProgress->grade == 'Mumtaz' ? 'selected' : '' }}>Mumtaz</option>
-                                        <option value="Jayyid Jiddan" {{ $studentProgress->grade == 'Jayyid Jiddan' ? 'selected' : '' }}>Jayyid Jiddan</option>
-                                        <option value="Jayyid" {{ $studentProgress->grade == 'Jayyid' ? 'selected' : '' }}>Jayyid</option>
-                                        <option value="Maqbul" {{ $studentProgress->grade == 'Maqbul' ? 'selected' : '' }}>Maqbul</option>
-                                        <option value="Rasib" {{ $studentProgress->grade == 'Rasib' ? 'selected' : '' }}>Rasib</option>
-                                    </select>
-                                </td>
-
-                                {{-- remark --}}
-                                <td class="px-4 py-3">
-                                    <input type="text" name="remark[]" value="{{ $studentProgress->remark }}" placeholder="Remark..." class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
-                                </td>
-
-                                {{-- action --}}
-                                {{-- if current row recitation_module_id, page_number, grade and remark is null action display '-', kalau tak null display add button (hanya untuk untuk irst row setiap student name, bila tambah bacaan action button seteusnya adalah '-' delete button) --}}
-                                <td class="px-4 py-3 flex justify-center">
-                                    @if ($studentProgress->recitation_module_id && $studentProgress->page_number && $studentProgress->grade && $studentProgress->remark)
-                                        <button onclick="addSubRow(this)" class="px-3 py-1 text-xs rounded bg-yellow-500 text-white hover:bg-yellow-600">+</button>
-                                    @else
-                                        -
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
-            </div>
-
-             <!-- Pagination Info -->
-            <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">
-                <div id="entriesInfo" class="mb-2 sm:mb-0"></div>
-                <div class="flex items-center gap-2" id="pagination"></div>
-            </div>
+            <button type="submit" class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">Allocate Grade</button>
         </div>
-    </form>
+
+        <div class="overflow-x-auto">
+            <table id="gradeTable" class="min-w-max text-sm text-left text-gray-600">
+                <thead class="bg-gray-100 text-xs uppercase text-gray-500">
+                    <tr>
+                        <th class="px-4 py-3">No</th>
+                        <th class="px-4 py-3">Student Name</th>
+                        <th class="px-4 py-3">Past Recitation</th>
+                        <th class="px-4 py-3">Level</th>
+                        <th class="px-4 py-3">Recitation</th>
+                        <th class="px-4 py-3">Page</th>
+                        <th class="px-4 py-3">Grade</th>
+                        <th class="px-4 py-3">Remark</th>
+                        <th class="px-4 py-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="gradeBody">
+                    @foreach ($studentProgresses as $index => $studentProgress)
+                        <tr class="border-b">
+                            <td class="px-4 py-3">{{ $loop->iteration }}</td>
+
+                            <td class="px-4 py-3 font-medium text-gray-900">
+                                {{ $studentProgress->student->first_name }} {{ $studentProgress->student->last_name }}
+                            </td>
+
+                            <td class="px-4 py-3 flex justify-center">
+                                <button type="button"
+                                    class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500"
+                                    data-modal-target="reportClassModal"
+                                    data-modal-toggle="reportClassModal">View</button>
+                            </td>
+
+                            {{-- student_progress_id hidden (important) --}}
+                            <input type="hidden" name="student_progress_id[]" value="{{ $studentProgress->id }}" />
+
+                            {{-- LEVEL --}}
+                            <td class="px-4 py-3">
+                                <select name="level_type[]" class="level-select border rounded-lg px-3 py-1 text-sm w-full"
+                                    data-index="{{ $index }}">
+                                    <option value="">Select Level</option>
+                                    @foreach ($modules->pluck('level_type')->unique() as $level)
+                                        <option value="{{ $level }}">{{ $level }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+
+                            {{-- RECITATION --}}
+                            <td class="px-4 py-3">
+                                <select name="recitation_module_id[]" class="recitation-select border rounded-lg px-3 py-1 text-sm w-full"
+                                    data-index="{{ $index }}">
+                                    <option value="">Select Recitation</option>
+                                    @foreach ($modules as $module)
+                                        <option value="{{ $module->recitation_module_id }}"
+                                            data-level="{{ $module->level_type }}"
+                                            data-start="{{ $module->start_page }}"
+                                            data-end="{{ $module->end_page }}">
+                                            {{ $module->recitation_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
+
+                            {{-- PAGE --}}
+                            <td class="px-4 py-3 text-center">
+                                <input type="number" name="page_number[]" class="page-input border rounded-lg text-sm w-20 px-2 py-1"
+                                    placeholder="Page..." />
+                            </td>
+
+                            {{-- GRADE --}}
+                            <td class="px-4 py-3">
+                                <select name="grade[]" class="border rounded-lg px-3 py-1 text-sm w-full">
+                                    <option value="">Select Grade</option>
+                                    <option value="Mumtaz">Mumtaz</option>
+                                    <option value="Jayyid Jiddan">Jayyid Jiddan</option>
+                                    <option value="Jayyid">Jayyid</option>
+                                    <option value="Maqbul">Maqbul</option>
+                                    <option value="Rasib">Rasib</option>
+                                </select>
+                            </td>
+
+                            {{-- REMARK --}}
+                            <td class="px-4 py-3">
+                                <input type="text" name="remark[]" class="border rounded-lg text-sm w-full px-2 py-1"
+                                    placeholder="Remark..." />
+                            </td>
+
+                            {{-- ACTION --}}
+                            <td class="px-4 py-3 text-center">
+                                @if ($studentProgress->recitation_module_id === null &&
+                                    $studentProgress->page_number === null &&
+                                    $studentProgress->grade === null &&
+                                    $studentProgress->remark === null)
+                                    -
+                                @elseif ($loop->first)
+                                    <button type="button"
+                                        class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500"
+                                        data-modal-target="addStudentModal"
+                                        data-modal-toggle="addStudentModal">+</button>
+                                @else
+                                    <button type="button"
+                                        class="px-3 py-1 text-xs rounded text-white bg-red-600 hover:bg-red-700">-</button>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
 
     <!-- Pagination + Search Script -->
     <script>
