@@ -332,195 +332,193 @@
     </div>
 
    {{-- Add Student Progress Modal --}}
-<div id="addStudentModal" tabindex="-1" aria-hidden="true"
-    class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-    <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
-        <!-- Modal Header -->
-        <div class="flex items-center justify-between px-6 py-4">
-            <div class="w-6"></div>
-            <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Module</h3>
-            <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200"
-                data-modal-hide="addStudentModal">✕</button>
-        </div>
+    <div id="addStudentModal" tabindex="-1" aria-hidden="true"
+        class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Module</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                    data-modal-hide="addStudentModal">✕</button>
+            </div>
 
-        <!-- Modal Body -->
-        <form id="addStudentForm" action="{{ route('admin.grade.store') }}" method="POST">
-            @csrf
-            <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                    {{-- Hidden IDs --}}
-                    <input type="hidden" name="student_id" id="modal_student_id" value="" />
-                    <input type="hidden" name="student_progress_id" id="modal_student_progress_id" value="" />
+            <!-- Modal Body -->
+            <form id="addStudentForm" action="{{ route('admin.grade.store') }}" method="POST">
+                @csrf
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        {{-- Hidden IDs --}}
+                        <input type="hidden" name="student_id" id="modal_student_id" value="" />
+                        <input type="hidden" name="student_progress_id" id="modal_student_progress_id" value="" />
 
-                    {{-- Student Name (readonly) --}}
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Student Name</label>
-                        <input type="text" id="modal_student_name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                            readonly />
-                    </div>
+                        {{-- Student Name (readonly) --}}
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Student Name</label>
+                            <input type="text" id="modal_student_name"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                                readonly />
+                        </div>
 
-                    {{-- Level --}}
-                    <div>
-                        <label for="modal_level_type"
-                            class="block mb-2 text-sm font-medium text-gray-900">Level</label>
-                        <select name="level_type" id="modal_level_type"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
-                            <option value="">Select Level</option>
-                            @foreach ($modules->pluck('level_type')->unique() as $level)
-                                <option value="{{ $level }}">{{ $level }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        {{-- Level --}}
+                        <div>
+                            <label for="modal_level_type"
+                                class="block mb-2 text-sm font-medium text-gray-900">Level</label>
+                            <select name="level_type" id="modal_level_type"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                                <option value="">Select Level</option>
+                                @foreach ($modules->pluck('level_type')->unique() as $level)
+                                    <option value="{{ $level }}">{{ $level }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    {{-- Recitation --}}
-                    <div>
-                        <label for="modal_recitation_module_id"
-                            class="block mb-2 text-sm font-medium text-gray-900">Recitation</label>
-                        <select name="recitation_module_id" id="modal_recitation_module_id"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
-                            <option value="">Select Recitation</option>
-                            @foreach ($modules as $module)
-                                <option value="{{ $module->recitation_module_id }}"
-                                    data-level="{{ $module->level_type }}"
-                                    data-start="{{ $module->first_page }}"
-                                    data-end="{{ $module->end_page }}">
-                                    {{ $module->recitation_name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                        {{-- Recitation --}}
+                        <div>
+                            <label for="modal_recitation_module_id"
+                                class="block mb-2 text-sm font-medium text-gray-900">Recitation</label>
+                            <select name="recitation_module_id" id="modal_recitation_module_id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                                <option value="">Select Recitation</option>
+                                @foreach ($modules as $module)
+                                    <option value="{{ $module->recitation_module_id }}"
+                                        data-level="{{ $module->level_type }}"
+                                        data-start="{{ $module->first_page }}"
+                                        data-end="{{ $module->end_page }}">
+                                        {{ $module->recitation_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    {{-- Page --}}
-                    <div>
-                        <label for="modal_page_number"
-                            class="block mb-2 text-sm font-medium text-gray-900">Page</label>
-                        <input type="number" name="page_number" id="modal_page_number"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                            placeholder="Page..." />
-                        <small id="modal_page_hint" class="text-xs text-gray-500"></small>
-                    </div>
+                        {{-- Page --}}
+                        <div>
+                            <label for="modal_page_number"
+                                class="block mb-2 text-sm font-medium text-gray-900">Page</label>
+                            <input type="number" name="page_number" id="modal_page_number"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                                placeholder="Page..." />
+                            <small id="modal_page_hint" class="text-xs text-gray-500"></small>
+                        </div>
 
-                    {{-- Grade --}}
-                    <div>
-                        <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
-                        <select name="grade" id="grade"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
-                            <option value="">Select Grade</option>
-                            <option value="Mumtaz">Mumtaz</option>
-                            <option value="Jayyid Jiddan">Jayyid Jiddan</option>
-                            <option value="Jayyid">Jayyid</option>
-                            <option value="Maqbul">Maqbul</option>
-                            <option value="Rasib">Rasib</option>
-                        </select>
-                    </div>
+                        {{-- Grade --}}
+                        <div>
+                            <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
+                            <select name="grade" id="grade"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                                <option value="">Select Grade</option>
+                                <option value="Mumtaz">Mumtaz</option>
+                                <option value="Jayyid Jiddan">Jayyid Jiddan</option>
+                                <option value="Jayyid">Jayyid</option>
+                                <option value="Maqbul">Maqbul</option>
+                                <option value="Rasib">Rasib</option>
+                            </select>
+                        </div>
 
-                    {{-- Remark --}}
-                    <div>
-                        <label for="remark" class="block mb-2 text-sm font-medium text-gray-900">Remark</label>
-                        <input type="text" name="remark" id="remark"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                            placeholder="Remark..." />
+                        {{-- Remark --}}
+                        <div>
+                            <label for="remark" class="block mb-2 text-sm font-medium text-gray-900">Remark</label>
+                            <input type="text" name="remark" id="remark"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                                placeholder="Remark..." />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Modal Footer -->
-            <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                <button type="button"
-                    class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300"
-                    data-modal-hide="addStudentModal">Cancel</button>
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button"
+                        class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300"
+                        data-modal-hide="addStudentModal">Cancel</button>
 
-                <button type="submit" id="submitForm"
-                    class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">
-                    Submit
-                </button>
-            </div>
-        </form>
+                    <button type="submit" id="submitForm"
+                        class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-{{-- JS Section --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const modalStudentId = document.getElementById('modal_student_id');
-        const modalProgressId = document.getElementById('modal_student_progress_id');
-        const modalStudentName = document.getElementById('modal_student_name');
-        const levelSelect = document.getElementById('modal_level_type');
-        const recitationSelect = document.getElementById('modal_recitation_module_id');
-        const pageInput = document.getElementById('modal_page_number');
-        const pageHint = document.getElementById('modal_page_hint');
+    {{-- JS Section --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalStudentId = document.getElementById('modal_student_id');
+            const modalProgressId = document.getElementById('modal_student_progress_id');
+            const modalStudentName = document.getElementById('modal_student_name');
+            const levelSelect = document.getElementById('modal_level_type');
+            const recitationSelect = document.getElementById('modal_recitation_module_id');
+            const pageInput = document.getElementById('modal_page_number');
+            const pageHint = document.getElementById('modal_page_hint');
 
-        // open modal: fill data from button
-        document.querySelectorAll('.add-progress-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                modalStudentId.value = this.dataset.studentId || '';
-                modalProgressId.value = this.dataset.studentProgressId || '';
-                modalStudentName.value = this.dataset.studentName || '';
+            // open modal: fill data from button
+            document.querySelectorAll('.add-progress-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    modalStudentId.value = this.dataset.studentId || '';
+                    modalProgressId.value = this.dataset.studentProgressId || '';
+                    modalStudentName.value = this.dataset.studentName || '';
 
-                // reset modal fields
-                levelSelect.value = '';
+                    // reset modal fields
+                    levelSelect.value = '';
+                    recitationSelect.value = '';
+                    pageInput.value = '';
+                    pageInput.removeAttribute('min');
+                    pageInput.removeAttribute('max');
+                    pageHint.textContent = '';
+                });
+            });
+
+            // filter recitation based on level
+            levelSelect.addEventListener('change', function() {
+                const level = this.value;
+                Array.from(recitationSelect.options).forEach(opt => {
+                    if (!opt.value) return;
+                    opt.hidden = (opt.dataset.level !== level);
+                });
                 recitationSelect.value = '';
                 pageInput.value = '';
                 pageInput.removeAttribute('min');
                 pageInput.removeAttribute('max');
                 pageHint.textContent = '';
             });
-        });
 
-        // filter recitation based on level
-        levelSelect.addEventListener('change', function() {
-            const level = this.value;
-            Array.from(recitationSelect.options).forEach(opt => {
-                if (!opt.value) return;
-                opt.hidden = (opt.dataset.level !== level);
+            // set min/max page when recitation selected
+            recitationSelect.addEventListener('change', function() {
+                const sel = recitationSelect.options[recitationSelect.selectedIndex];
+                if (sel && sel.value) {
+                    const min = parseInt(sel.dataset.start);
+                    const max = parseInt(sel.dataset.end);
+                    pageInput.min = min;
+                    pageInput.max = max;
+                    pageInput.placeholder = `${min}-${max}`;
+                    pageHint.textContent = `Allowed pages: ${min} — ${max}`;
+                    pageInput.value = '';
+                } else {
+                    pageInput.removeAttribute('min');
+                    pageInput.removeAttribute('max');
+                    pageHint.textContent = '';
+                }
             });
-            recitationSelect.value = '';
-            pageInput.value = '';
-            pageInput.removeAttribute('min');
-            pageInput.removeAttribute('max');
-            pageHint.textContent = '';
+
+            // realtime validation
+            pageInput.addEventListener('input', function() {
+                if (!this.value) return;
+                const val = parseInt(this.value, 10);
+                const min = this.min ? parseInt(this.min, 10) : null;
+                const max = this.max ? parseInt(this.max, 10) : null;
+
+                if ((min !== null && val < min) || (max !== null && val > max)) {
+                    this.value = '';
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Invalid Page Number',
+                        text: `Page number must be between ${min} and ${max}.`,
+                        confirmButtonColor: '#16a34a',
+                        timer: 2500
+                    });
+                }
+            });
         });
-
-        // set min/max page when recitation selected
-        recitationSelect.addEventListener('change', function() {
-            const sel = recitationSelect.options[recitationSelect.selectedIndex];
-            if (sel && sel.value) {
-                const min = parseInt(sel.dataset.start);
-                const max = parseInt(sel.dataset.end);
-                pageInput.min = min;
-                pageInput.max = max;
-                pageInput.placeholder = `${min}-${max}`;
-                pageHint.textContent = `Allowed pages: ${min} — ${max}`;
-                pageInput.value = '';
-            } else {
-                pageInput.removeAttribute('min');
-                pageInput.removeAttribute('max');
-                pageHint.textContent = '';
-            }
-        });
-
-        // realtime validation
-        pageInput.addEventListener('input', function() {
-            if (!this.value) return;
-            const val = parseInt(this.value, 10);
-            const min = this.min ? parseInt(this.min, 10) : null;
-            const max = this.max ? parseInt(this.max, 10) : null;
-
-            if ((min !== null && val < min) || (max !== null && val > max)) {
-                this.value = '';
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Invalid Page Number',
-                    text: `Page number must be between ${min} and ${max}.`,
-                    confirmButtonColor: '#16a34a',
-                    timer: 2500
-                });
-            }
-        });
-    });
-</script>
-
-
+    </script>
 
 </x-admin-layout>
