@@ -69,7 +69,7 @@
                                     data-index="{{ $index }}">
                                     <option value="">Select Level</option>
                                     @foreach ($modules->pluck('level_type')->unique() as $level)
-                                        <option value="{{ $level }}">{{ $level }}</option>
+                                        <option value="{{ $level }}" {{ $studentProgress->recitationModule && $studentProgress->recitationModule->level_type == $level ? 'selected' : '' }}>{{ $level }}</option>
                                     @endforeach
                                 </select>
                             </td>
@@ -83,7 +83,8 @@
                                         <option value="{{ $module->recitation_module_id }}"
                                             data-level="{{ $module->level_type }}"
                                             data-start="{{ $module->start_page }}"
-                                            data-end="{{ $module->end_page }}">
+                                            data-end="{{ $module->end_page }}"
+                                            {{ $studentProgress->recitation_module_id == $module->recitation_module_id ? 'selected' : '' }}>
                                             {{ $module->recitation_name }}
                                         </option>
                                     @endforeach
@@ -93,25 +94,25 @@
                             {{-- PAGE --}}
                             <td class="px-4 py-3 text-center">
                                 <input type="number" name="page_number[]" class="page-input border rounded-lg text-sm w-20 px-2 py-1"
-                                    placeholder="Page..." />
+                                    placeholder="Page..." value="{{ $studentProgress->page_number }}" data-index="{{ $index }}" />
                             </td>
 
                             {{-- GRADE --}}
                             <td class="px-4 py-3">
                                 <select name="grade[]" class="border rounded-lg px-3 py-1 text-sm w-full">
                                     <option value="">Select Grade</option>
-                                    <option value="Mumtaz">Mumtaz</option>
-                                    <option value="Jayyid Jiddan">Jayyid Jiddan</option>
-                                    <option value="Jayyid">Jayyid</option>
-                                    <option value="Maqbul">Maqbul</option>
-                                    <option value="Rasib">Rasib</option>
+                                    <option value="Mumtaz" {{ $studentProgress->grade == 'Mumtaz' ? 'selected' : '' }}>Mumtaz</option>
+                                    <option value="Jayyid Jiddan" {{ $studentProgress->grade == 'Jayyid Jiddan' ? 'selected' : '' }}>Jayyid Jiddan</option>
+                                    <option value="Jayyid" {{ $studentProgress->grade == 'Jayyid' ? 'selected' : '' }}>Jayyid</option>
+                                    <option value="Maqbul" {{ $studentProgress->grade == 'Maqbul' ? 'selected' : '' }}>Maqbul</option>
+                                    <option value="Rasib" {{ $studentProgress->grade == 'Rasib' ? 'selected' : '' }}>Rasib</option>
                                 </select>
                             </td>
 
                             {{-- REMARK --}}
                             <td class="px-4 py-3">
                                 <input type="text" name="remark[]" class="border rounded-lg text-sm w-full px-2 py-1"
-                                    placeholder="Remark..." />
+                                    placeholder="Remark..." value="{{ $studentProgress->remark ?? '' }}" />
                             </td>
 
                             {{-- ACTION --}}
@@ -121,7 +122,7 @@
                                     $studentProgress->grade === null &&
                                     $studentProgress->remark === null)
                                     -
-                                @elseif ($loop->first)
+                                @elseif ($studentProgress->is_main_page === 1 )
                                     <button type="button"
                                         class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500"
                                         data-modal-target="addStudentModal"
@@ -221,6 +222,41 @@
 
         searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
         renderTable();
+    </script>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updatePageLimits(index) {
+                const recitationSelect = document.querySelector(`.recitation-select[data-index="${index}"]`);
+                const pageInput = document.querySelector(`.page-input[data-index="${index}"]`);
+                if (recitationSelect && pageInput) {
+                    const selectedOption = recitationSelect.options[recitationSelect.selectedIndex];
+                    if (selectedOption.value !== '') {
+                        const min = selectedOption.dataset.start;
+                        const max = selectedOption.dataset.end;
+                        pageInput.min = min;
+                        pageInput.max = max;
+                        // Clear value if out of range
+                        if (pageInput.value && (pageInput.value < min || pageInput.value > max)) {
+                            pageInput.value = '';
+                        }
+                    } else {
+                        pageInput.min = '';
+                        pageInput.max = '';
+                    }
+                }
+            }
+
+            // Initialize for all rows on load
+            document.querySelectorAll('.recitation-select').forEach((select, index) => {
+                updatePageLimits(index);
+                // Listen for changes
+                select.addEventListener('change', () => {
+                    updatePageLimits(index);
+                });
+            });
+        });
     </script>
 
     <!-- View Class Modal -->

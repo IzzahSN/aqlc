@@ -86,6 +86,7 @@ class AttendanceController extends Controller
                     'schedule_id' => $attendance->schedule_id,
                     'recitation_module_id' => null,
                     'page_number' => null,
+                    'is_main_page' => 1,
                     'grade' => null,
                     'remark' => null,
                 ]);

@@ -17,6 +17,7 @@ class StudentProgress extends Model
     protected $fillable = [
         'recitation_module_id',
         'page_number',
+        'is_main_page',
         'grade',
         'remark',
         'schedule_id',
