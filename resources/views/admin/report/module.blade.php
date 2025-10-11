@@ -268,6 +268,64 @@
         </div>
     </div>
 
+    {{-- editModuleModal --}}
+    <div id="editModuleModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="w-6"></div>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Module</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editModuleModal">✕</button>
+            </div>
+
+            <!-- Modal Body -->
+            <form id="editModuleForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                       {{-- recitation_name --}}
+                       <div>
+                            <label for="recitation_name" class="block mb-2 text-sm font-medium text-gray-900">Recitation Name</label>
+                            <input type="text" name="recitation_name" id="recitation_name" placeholder="Juz 1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required/>
+                       </div>
+
+                        {{-- level_type --}}
+                        <div>
+                            <label for="level_type" class="block mb-2 text-sm font-medium text-gray-900">Level Type</label>
+                            <input type="text" name="level_type" id="level_type" placeholder="Quran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        {{-- first_page --}}
+                        <div>
+                            <label for="first_page" class="block mb-2 text-sm font-medium text-gray-900">First Page</label>
+                            <input type="number" name="first_page" id="first_page" placeholder="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required/>
+                        </div>
+
+                        {{-- end_page --}}
+                        <div>
+                            <label for="end_page" class="block mb-2 text-sm font-medium text-gray-900">End Page</label>
+                            <input type="number" name="end_page" id="end_page" placeholder="20" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        {{-- badge --}}
+                        <div>
+                            <label for="badge" class="block mb-2 text-sm font-medium text-gray-900">Badge (optional)</label>
+                            <input type="file" name="badge" id="badge" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-between px-6 py-4 rounded-b-lg">
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editModuleModal">Cancel</button>
+
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     {{-- delete confirmation --}}
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -289,6 +347,55 @@
                             form.submit();
                         }
                     });
+                });
+            });
+        });
+    </script>
+
+    {{-- edit modal script --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const editButtons = document.querySelectorAll(".edit-button");
+            const editForm = document.getElementById("editModuleForm");
+
+            editButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const id = this.getAttribute("data-id");
+
+                    fetch(`/admin/module/${id}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            editForm.action = `/admin/module/${id}`;
+                            editForm.recitation_name.value = data.recitation_name;
+                            editForm.level_type.value = data.level_type;
+                            editForm.first_page.value = data.first_page;
+                            editForm.end_page.value = data.end_page;
+
+                            // Resume upload tak boleh auto isi (security reason)
+                            // Kalau nak, boleh letak link preview badge lama
+                            if (data.badge) {
+                                const badgeField = editForm.querySelector('#badge');
+                                let oldBadge = document.getElementById('oldBadgeLink');
+                                if (!oldBadge) {
+                                    oldBadge = document.createElement('a');
+                                    oldBadge.id = 'oldBadgeLink';
+                                    oldBadge.className = 'text-green-600 underline text-sm';
+                                    badgeField.parentNode.appendChild(oldBadge);
+                                }
+                                oldBadge.href = `/storage/${data.badge}`;
+                                oldBadge.textContent = 'View Existing Badge';
+                                oldBadge.target = '_blank';
+                            } else {
+                                const oldBadge = document.getElementById('oldBadgeLink');
+                                if (oldBadge) {
+                                    oldBadge.remove();
+                                }
+                            }
+
+                        })
+                        .catch(error => {
+                            console.error('Error fetching module data:', error);
+                        });
                 });
             });
         });

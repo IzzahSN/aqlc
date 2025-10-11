@@ -55,17 +55,42 @@ class RecitationModuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RecitationModule $recitationModule)
+    public function edit($id)
     {
-        //
+        $module = RecitationModule::findOrFail($id);
+        return response()->json($module);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RecitationModule $recitationModule)
+    public function update(Request $request, $id)
     {
-        //
+        $module = RecitationModule::findOrFail($id);
+
+        $request->validate([
+            'recitation_name' => 'required|string|max:255',
+            'level_type' => 'required|string|max:255',
+            'first_page' => 'required|integer|min:1',
+            'end_page' => 'required|integer|min:1|gte:first_page',
+            'badge' => 'image|mimes:jpeg,png,jpg|max:2048', // max 2MB
+        ]);
+
+        // Handle file upload
+        if ($request->hasFile('badge')) {
+            $ext = $request->file('badge')->getClientOriginalExtension(); // ambil extension asal;
+            $fileName = 'badge_' . Str::slug($request->recitation_name) . '_' . time() . '.' . $ext;
+            $badgePath = $request->file('badge')->storeAs('badges', $fileName, 'public');
+            $module->badge = $badgePath;
+        }
+
+        $module->recitation_name = $request->recitation_name;
+        $module->level_type = $request->level_type;
+        $module->first_page = $request->first_page;
+        $module->end_page = $request->end_page;
+        $module->save();
+
+        return redirect()->back()->with('success', 'Recitation Module updated successfully.')->with('closeModalEdit', true);
     }
 
     /**
