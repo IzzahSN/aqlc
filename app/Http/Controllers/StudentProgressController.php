@@ -10,9 +10,10 @@ class StudentProgressController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        return view('admin.report.grade');
+        $studentProgress  = StudentProgress::where('schedule_id', $id)->with('student')->get();
+        return view('admin.report.grade', compact('studentProgress'));
     }
 
     /**
