@@ -152,24 +152,28 @@
 </form>
 
 <!-- Dynamic Page Input Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const levelSelects = document.querySelectorAll('.level-select');
     const recitationSelects = document.querySelectorAll('.recitation-select');
     const pageInputs = document.querySelectorAll('.page-input');
 
-    // Step 1: Filter recitation ikut level_type
+    // Step 1: Bila pilih level_type → filter recitation ikut level
     levelSelects.forEach(levelSelect => {
         levelSelect.addEventListener('change', function() {
             const level = this.value;
             const index = this.dataset.index;
             const recitationSelect = document.querySelector(`.recitation-select[data-index="${index}"]`);
+
+            // Reset recitation options
             recitationSelect.value = '';
             recitationSelect.querySelectorAll('option').forEach(opt => {
                 if (!opt.value) return;
                 opt.hidden = opt.dataset.level !== level;
             });
 
+            // Reset page input bila tukar level
             const pageInput = document.querySelector(`.page-input[data-index="${index}"]`);
             pageInput.value = '';
             pageInput.min = '';
@@ -178,20 +182,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Step 2: Bila recitation berubah → set min & max
+    // Step 2: Bila pilih recitation → auto set min & max
     recitationSelects.forEach(recitationSelect => {
         recitationSelect.addEventListener('change', function() {
             const index = this.dataset.index;
             const pageInput = document.querySelector(`.page-input[data-index="${index}"]`);
             const selectedOption = this.options[this.selectedIndex];
 
-            if (selectedOption.value) {
-                const min = selectedOption.dataset.start;
-                const max = selectedOption.dataset.end;
+            if (selectedOption && selectedOption.value) {
+                const min = parseInt(selectedOption.dataset.start);
+                const max = parseInt(selectedOption.dataset.end);
                 pageInput.min = min;
                 pageInput.max = max;
                 pageInput.placeholder = `${min}-${max}`;
-                pageInput.value = '';
+
+                // Validate current value
+                const currentValue = parseInt(pageInput.value);
+                if (currentValue && (currentValue < min || currentValue > max)) {
+                    pageInput.value = '';
+                }
             } else {
                 pageInput.min = '';
                 pageInput.max = '';
@@ -200,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Step 3: Validasi dengan SweetAlert
+    // Step 3: Validate page input (SweetAlert)
     pageInputs.forEach(pageInput => {
         pageInput.addEventListener('input', function() {
             const value = parseInt(this.value);
@@ -211,25 +220,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.value = ''; // clear value
                 this.classList.add('border-red-500');
 
-                // SweetAlert pop-up
                 Swal.fire({
                     icon: 'warning',
                     title: 'Invalid Page Number',
                     text: `Page number must be between ${min} and ${max}.`,
-                    confirmButtonColor: '#16a34a', // green tone
+                    confirmButtonColor: '#16a34a',
                     confirmButtonText: 'Okay',
-                    timer: 3000
+                    timer: 2500
                 });
             } else {
                 this.classList.remove('border-red-500');
             }
         });
     });
+
+    // ✅ Step 4: Auto-trigger constraints for preloaded data (edit mode)
+    recitationSelects.forEach(select => {
+        if (select.value) {
+            // Hide irrelevant recitations based on current level
+            const index = select.dataset.index;
+            const levelSelect = document.querySelector(`.level-select[data-index="${index}"]`);
+            const level = levelSelect ? levelSelect.value : '';
+            select.querySelectorAll('option').forEach(opt => {
+                if (!opt.value) return;
+                opt.hidden = (opt.dataset.level !== level);
+            });
+
+            // Trigger change to apply min/max constraint
+            select.dispatchEvent(new Event('change'));
+        }
+    });
 });
 </script>
-
-
-
 
     <!-- View Class Modal -->
     <div id="reportClassModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
