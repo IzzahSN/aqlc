@@ -54,12 +54,16 @@
                                     {{ $studentProgress->student->first_name }} {{ $studentProgress->student->last_name }}
                                 </td>
 
-                                {{-- VIEW PAST RECITATION --}}
+                                {{-- VIEW PAST RECITATION only show when is_main_page==1 --}}
                                 <td class="px-4 py-3 flex justify-center">
+                                    @if ($studentProgress->is_main_page === 1)
                                     <button type="button"
                                         class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500"
                                         data-modal-target="reportClassModal"
                                         data-modal-toggle="reportClassModal">View</button>
+                                    @else
+                                        -
+                                    @endif
                                 </td>
 
                                 {{-- student_progress_id hidden (important) --}}
