@@ -58,23 +58,6 @@ class StudentProgressController extends Controller
         return redirect()->back()->with('success', 'Student progress added successfully.');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(StudentProgress $studentProgress)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(StudentProgress $studentProgress)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
@@ -107,8 +90,31 @@ class StudentProgressController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StudentProgress $studentProgress)
+    public function destroy($schedule_id, $id)
     {
-        //
+        try {
+            $studentProgress = StudentProgress::where('schedule_id', $schedule_id)
+                ->where('student_progress_id', $id)
+                ->first();
+
+            if (!$studentProgress) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Student progress not found.'
+                ], 404);
+            }
+
+            $studentProgress->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Student progress deleted successfully.'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete student progress: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

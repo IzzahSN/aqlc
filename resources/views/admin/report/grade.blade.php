@@ -147,7 +147,9 @@
                                             data-modal-toggle="addStudentModal">+</button>
                                     @else
                                         <button type="button"
-                                            class="px-3 py-1 text-xs rounded text-white bg-red-600 hover:bg-red-700">-</button>
+                                            class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
+                                            data-id="{{$studentProgress->student_progress_id }}"
+                                            data-schedule-id="{{$studentProgress->schedule_id }}">-</button>
                                     @endif
                                 </td>
                             </tr>
@@ -157,6 +159,56 @@
             </div>
         </div>
     </form>
+
+    {{-- delete button --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const deleteButtons = document.querySelectorAll(".delete-button");
+
+            deleteButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const studentProgressId = this.dataset.id;
+                    const scheduleId = this.dataset.scheduleId;
+                    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "This progress record will be deleted.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "Cancel"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch(`/admin/report/${scheduleId}/grade/${studentProgressId}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'X-CSRF-TOKEN': token,
+                                    'Accept': 'application/json',
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    Swal.fire("Deleted!", data.message, "success");
+                                    setTimeout(() => location.reload(), 1000);
+                                } else {
+                                    Swal.fire("Error!", data.message, "error");
+                                }
+                            })
+                            .catch(err => {
+                                Swal.fire("Error!", "Failed to delete progress record.", "error");
+                                console.error(err);
+                            });
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
     <!-- Dynamic Page Input Script -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
