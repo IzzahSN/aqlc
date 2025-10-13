@@ -20,7 +20,8 @@ class StudentProgressController extends Controller
             ->orderBy('page_number')       // susun ikut nombor muka surat
             ->get();
 
-        $modules = RecitationModule::all();
+        //get module hannya status is_complete_series = 0
+        $modules = RecitationModule::where('is_complete_series', 0)->get();
 
         return view('admin.report.grade', compact('studentProgresses', 'id', 'modules'));
     }
