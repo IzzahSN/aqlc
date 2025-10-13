@@ -1,8 +1,7 @@
 <x-admin-layout :title="'Achievement Report'">
      <!-- Summary Cards + Chart -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         {{-- summary cards --}}
-        <div class="lg:col-span-1 space-y-4">
             <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-lime-600 border-l-6 justify-between">
                 <div>
                     <p class="text-sm font-semibold text-lime-600 uppercase">Total Finished Iqra'</p>
@@ -28,10 +27,12 @@
                     <path d="M16 12v1h-2v-1h2Z"/>
                 </svg>
             </div>
-        </div>
+    </div>
 
+    <!-- Chart Section -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         {{-- chart --}}
-        <div class="lg:col-span-2 bg-white rounded-sm shadow p-4 flex flex-col border-l-rose-600 border-l-6">
+        <div class="lg:col-span-3 bg-white rounded-sm shadow p-4 flex flex-col border-l-rose-600 border-l-6">
             <!-- Header -->
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-semibold text-gray-700">Student Progress Report</h2>
