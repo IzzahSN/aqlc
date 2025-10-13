@@ -66,6 +66,28 @@ class StudentProgressController extends Controller
             'class_id' => $studentProgress ? $studentProgress->class_id : null,
         ]);
 
+        // ✅ Check if student finishes module (page == end_page)
+        if ($module && $validated['page_number'] == $module->end_page) {
+
+            // Dapatkan schedule date
+            $schedule = $studentProgress ? Schedule::find($studentProgress->schedule_id) : null;
+
+            // Elak duplicate achievement
+            $exists = Achievement::where('student_id', $validated['student_id'])
+                ->where('recitation_module_id', $module->recitation_module_id)
+                ->exists();
+
+            if (!$exists) {
+                Achievement::create([
+                    'student_id' => $validated['student_id'],
+                    'recitation_module_id' => $module->recitation_module_id,
+                    'title' => 'Finished ' . $module->recitation_name,
+                    'certificate' => null,
+                    'completion_date' => $schedule ? $schedule->date : now(),
+                ]);
+            }
+        }
+
         return redirect()->back()->with('success', 'Student progress added successfully.');
     }
 
