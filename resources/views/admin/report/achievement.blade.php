@@ -38,7 +38,7 @@
                 <div>
                     <!-- Styled Dropdown -->
                     <div class="relative inline-block w-full sm:w-48">
-                        <select
+                        <select id="chartType"
                             class="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 shadow-sm transition ease-in-out duration-150">
                             <option value="quran">Quran</option>
                             <option value="iqra">Iqra'</option>
@@ -57,50 +57,75 @@
         <!-- Chart.js CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            // Generate labels from 1 → 30
-            const labels = Array.from({
-                length: 30
-            }, (_, i) => i + 1);
-
-            // Example random data for 30 days
-            const data = labels.map(() => Math.floor(Math.random() * 60) + 20);
+            // Data from PHP
+            const iqraData = @json($achievementsIqra);
+            const quranData = @json($achievementsQuran);
+            const iqraLabels = @json($labelsIqra);
+            const quranLabels = @json($labelsQuran);
 
             const ctx = document.getElementById('progressChart').getContext('2d');
-            const progressChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Progress',
-                        data: data,
-                        backgroundColor: '#fc8181 ', // Tailwind blue-500
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            ticks: {
-                                autoSkip: false, // biar semua label keluar
-                                maxRotation: 0, // elak tulisan senget
-                                minRotation: 0
+            let progressChart;
+
+            function createChart(type) {
+                let labels, data, labelText;
+                if (type === 'iqra') {
+                    labels = Object.values(iqraLabels);
+                    data = Object.values(iqraData);
+                    labelText = 'Students in Iqra Modules';
+                } else {
+                    labels = Object.values(quranLabels);
+                    data = Object.values(quranData);
+                    labelText = 'Students in Quran Modules';
+                }
+
+                if (progressChart) {
+                    progressChart.destroy();
+                }
+
+                progressChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: labelText,
+                            data: data,
+                            backgroundColor: '#fc8181',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    autoSkip: false,
+                                    maxRotation: 45,
+                                    minRotation: 0
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                }
                             }
                         },
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 20
+                        plugins: {
+                            legend: {
+                                display: false
                             }
                         }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
                     }
-                }
+                });
+            }
+
+            // Initial chart
+            createChart('quran');
+
+            // Handle dropdown change
+            document.getElementById('chartType').addEventListener('change', function() {
+                createChart(this.value);
             });
         </script>
     </div>

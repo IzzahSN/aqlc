@@ -30,7 +30,39 @@ class AchievementController extends Controller
 
         // Kira total active students
         $totalStudents = Student::where('status', 'active')->count();
-        return view('admin.report.achievement', compact('achievements', 'totalFinishedIqra', 'totalFinishedQuran', 'totalStudents'));
+
+        // === Data untuk Chart ===
+        // Ambil semua module Iqra dengan is_complete_series=0
+        $iqraModules = RecitationModule::where('is_complete_series', 0)
+            ->where('level_type', 'Iqra')
+            ->get();
+
+        $achievementsIqra = collect();
+        foreach ($iqraModules as $module) {
+            $count = Achievement::where('recitation_module_id', $module->recitation_module_id)
+                ->distinct('student_id')
+                ->count();
+            $achievementsIqra[$module->recitation_module_id] = $count;
+        }
+
+        // Ambil semua module Quran dengan is_complete_series=0
+        $quranModules = RecitationModule::where('is_complete_series', 0)
+            ->where('level_type', 'Quran')
+            ->get();
+
+        $achievementsQuran = collect();
+        foreach ($quranModules as $module) {
+            $count = Achievement::where('recitation_module_id', $module->recitation_module_id)
+                ->distinct('student_id')
+                ->count();
+            $achievementsQuran[$module->recitation_module_id] = $count;
+        }
+
+        // Labels
+        $labelsIqra = $iqraModules->pluck('recitation_name', 'recitation_module_id');
+        $labelsQuran = $quranModules->pluck('recitation_name', 'recitation_module_id');
+
+        return view('admin.report.achievement', compact('achievements', 'totalFinishedIqra', 'totalFinishedQuran', 'totalStudents', 'achievementsIqra', 'achievementsQuran', 'labelsIqra', 'labelsQuran'));
     }
 
     /**
