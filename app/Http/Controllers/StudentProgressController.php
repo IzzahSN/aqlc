@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Achievement;
 use App\Models\RecitationModule;
+use App\Models\Schedule;
 use App\Models\StudentProgress;
 use Illuminate\Http\Request;
 
@@ -93,6 +95,29 @@ class StudentProgressController extends Controller
                     'grade' => $request->grade[$index] ?? null,
                     'remark' => !empty($request->remark[$index]) ? $request->remark[$index] : '-',
                 ]);
+
+                // Check jika student capai end_page module
+                $module = RecitationModule::find($progress->recitation_module_id);
+                if ($module && $progress->page_number == $module->end_page) {
+
+                    // Dapatkan schedule date
+                    $schedule = Schedule::find($schedule_id);
+
+                    // Elak duplicate achievement untuk student + module
+                    $exists = Achievement::where('student_id', $progress->student_id)
+                        ->where('recitation_module_id', $module->recitation_module_id)
+                        ->exists();
+
+                    if (!$exists) {
+                        Achievement::create([
+                            'student_id' => $progress->student_id,
+                            'recitation_module_id' => $module->recitation_module_id,
+                            'title' => 'Finished ' . $module->recitation_name,
+                            'certificate' => null,
+                            'completion_date' => $schedule ? $schedule->date : now(),
+                        ]);
+                    }
+                }
             }
         }
 
