@@ -38,7 +38,7 @@
                 <h2 class="text-lg font-semibold text-gray-700">Student Progress Report</h2>
                 <div>
                     <!-- Styled Dropdown -->
-                    <div class="relative inline-block w-full sm:w-48">
+                    <div class="relative inline-block w-full sm:w-auto lg:w-48">
                         <select id="chartType"
                             class="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 shadow-sm transition ease-in-out duration-150">
                             <option value="quran">Quran</option>
