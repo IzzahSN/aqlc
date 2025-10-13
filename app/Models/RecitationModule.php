@@ -17,6 +17,7 @@ class RecitationModule extends Model
         'recitation_name',
         'first_page',
         'end_page',
+        'is_complete_series',
         'level_type',
         'badge',
     ];
