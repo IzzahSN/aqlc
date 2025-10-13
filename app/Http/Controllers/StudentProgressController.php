@@ -13,10 +13,18 @@ class StudentProgressController extends Controller
      */
     public function index($id)
     {
-        $studentProgresses  = StudentProgress::where('schedule_id', $id)->with('student')->get();
+        $studentProgresses = StudentProgress::where('schedule_id', $id)
+            ->with(['student', 'recitationModule'])
+            ->orderBy('student_id')        // kumpul ikut pelajar
+            ->orderByDesc('is_main_page')  // main page dulu
+            ->orderBy('page_number')       // susun ikut nombor muka surat
+            ->get();
+
         $modules = RecitationModule::all();
+
         return view('admin.report.grade', compact('studentProgresses', 'id', 'modules'));
     }
+
 
     /**
      * Store a newly created resource in storage.
