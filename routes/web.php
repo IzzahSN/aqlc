@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassModelController;
@@ -132,7 +133,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::put('/report/{id}/lesson-plan', [LessonPlanController::class, 'update'])->name('lesson-plan.update');
 
     // ACHIEVEMENT
-    Route::get('/achievement', fn() => view('admin.report.achievement'))->name('achievement.index');
+    Route::get('/achievement', [AchievementController::class, 'index'])->name('achievement.index');
 
     // MODULE
     Route::get('/module', [RecitationModuleController::class, 'index'])->name('module.index');
