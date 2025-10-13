@@ -244,8 +244,10 @@
 
             let filteredRows = rows.filter(row => {
                 const name = row.cells[1].textContent.toLowerCase();
-                const gradeSelect = row.cells[6].querySelector('select[name="grade[]"]');
-                const grade = gradeSelect ? gradeSelect.value.toLowerCase() : '';
+                const gradeCell = row.cells[6];
+                const gradeSelect = gradeCell.querySelector('select[name="grade[]"]');
+                const gradeSpan = gradeCell.querySelector('span');
+                const grade = gradeSelect ? gradeSelect.value.toLowerCase() : (gradeSpan ? gradeSpan.textContent.toLowerCase().trim() : '');
 
                 const matchSearch = name.includes(searchValue);
                 const matchFilter = filterValue === "" || grade === filterValue;
