@@ -153,6 +153,7 @@ class StudentProgressController extends Controller
     public function destroy($schedule_id, $id)
     {
         try {
+            // Cari student progress berdasarkan schedule dan ID
             $studentProgress = StudentProgress::where('schedule_id', $schedule_id)
                 ->where('student_progress_id', $id)
                 ->first();
@@ -164,7 +165,27 @@ class StudentProgressController extends Controller
                 ], 404);
             }
 
+            // Dapatkan module berkaitan
+            $module = RecitationModule::find($studentProgress->recitation_module_id);
+
+            // Simpan dulu data sebelum delete (supaya boleh check nanti)
+            $studentId = $studentProgress->student_id;
+            $moduleId = $studentProgress->recitation_module_id;
+            $pageNumber = $studentProgress->page_number;
+
+            // Delete student progress
             $studentProgress->delete();
+
+            // ✅ Jika page yang dipadam ialah end_page module, delete achievement sekali
+            if ($module && $pageNumber == $module->end_page) {
+                $achievement = Achievement::where('student_id', $studentId)
+                    ->where('recitation_module_id', $moduleId)
+                    ->first();
+
+                if ($achievement) {
+                    $achievement->delete();
+                }
+            }
 
             return response()->json([
                 'status' => 'success',
