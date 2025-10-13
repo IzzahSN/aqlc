@@ -69,6 +69,15 @@
                     </thead>
                     <tbody id="gradeBody">
                         @foreach ($studentProgresses as $index => $studentProgress)
+                            @php
+                                $isReadOnly = (
+                                    $studentProgress->recitation_module_id !== null ||
+                                    $studentProgress->page_number !== null ||
+                                    $studentProgress->grade !== null ||
+                                    $studentProgress->remark !== null ||
+                                    $studentProgress->is_main_page == 0
+                                );
+                            @endphp
                             <tr class="border-b">
                                 <td class="px-4 py-3 row-index">{{ $loop->iteration }}</td>
 
@@ -89,12 +98,19 @@
                                     @endif
                                 </td>
 
-                                {{-- student_progress_id hidden (important) --}}
-                                <input type="hidden" name="student_progress_id[]" value="{{ $studentProgress->id }}" />
+                                @if (!$isReadOnly)
+                                    <input type="hidden" name="student_progress_id[]" value="{{ $studentProgress->student_progress_id }}" />
+                                @else
+                                    {{-- untuk pastikan dia tak dihantar --}}
+                                    <input type="hidden" name="skip_ids[]" value="{{ $studentProgress->student_progress_id }}">
+                                @endif
 
                                 {{-- LEVEL --}}
                                 <td class="px-4 py-3">
-                                    <select name="level_type[]" 
+                                    @if ($isReadOnly)
+                                        <span>{{ $studentProgress->recitationModule->level_type ?? '-' }}</span>
+                                    @else
+                                     <select name="level_type[]" 
                                         class="level-select border rounded-lg px-3 py-1 text-sm w-full"
                                         data-index="{{ $loop->index }}">
                                         <option value="">Select Level</option>
@@ -105,51 +121,68 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @endif
                                 </td>
 
                                 {{-- RECITATION --}}
                                 <td class="px-4 py-3">
-                                    <select name="recitation_module_id[]" 
-                                        class="recitation-select border rounded-lg px-3 py-1 text-sm w-full"
-                                        data-index="{{ $loop->index }}">
-                                        <option value="">Select Recitation</option>
-                                        @foreach ($modules as $module)
-                                            <option value="{{ $module->recitation_module_id }}"
-                                                data-level="{{ $module->level_type }}"
-                                                data-start="{{ $module->first_page }}"
-                                                data-end="{{ $module->end_page }}"
-                                                {{ $studentProgress->recitation_module_id == $module->recitation_module_id ? 'selected' : '' }}>
-                                                {{ $module->recitation_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    @if ($isReadOnly)
+                                        <span>{{ $studentProgress->recitationModule->recitation_name ?? '-' }}</span>
+                                    @else
+                                        <select name="recitation_module_id[]" 
+                                            class="recitation-select border rounded-lg px-3 py-1 text-sm w-full"
+                                            data-index="{{ $loop->index }}">
+                                            <option value="">Select Recitation</option>
+                                            @foreach ($modules as $module)
+                                                <option value="{{ $module->recitation_module_id }}"
+                                                    data-level="{{ $module->level_type }}"
+                                                    data-start="{{ $module->first_page }}"
+                                                    data-end="{{ $module->end_page }}"
+                                                    {{ $studentProgress->recitation_module_id == $module->recitation_module_id ? 'selected' : '' }}>
+                                                    {{ $module->recitation_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </td>
 
                                 {{-- PAGE --}}
                                 <td class="px-4 py-3 text-center">
+                                    @if ($isReadOnly)
+                                        <span>{{ $studentProgress->page_number ?? '-' }}</span>
+                                    @else
                                     <input type="number" name="page_number[]" 
                                         class="page-input border rounded-lg text-sm w-30 px-2 py-1"
                                         placeholder="Page..." 
                                         value="{{ $studentProgress->page_number }}" 
                                         data-index="{{ $loop->index }}" />
+                                    @endif
                                 </td>
 
                                 {{-- GRADE --}}
                                 <td class="px-4 py-3">
-                                    <select name="grade[]" class="border rounded-lg px-3 py-1 text-sm w-full">
-                                        <option value="">Select Grade</option>
-                                        <option value="Mumtaz" {{ $studentProgress->grade == 'Mumtaz' ? 'selected' : '' }}>Mumtaz</option>
-                                        <option value="Jayyid Jiddan" {{ $studentProgress->grade == 'Jayyid Jiddan' ? 'selected' : '' }}>Jayyid Jiddan</option>
-                                        <option value="Jayyid" {{ $studentProgress->grade == 'Jayyid' ? 'selected' : '' }}>Jayyid</option>
-                                        <option value="Maqbul" {{ $studentProgress->grade == 'Maqbul' ? 'selected' : '' }}>Maqbul</option>
-                                        <option value="Rasib" {{ $studentProgress->grade == 'Rasib' ? 'selected' : '' }}>Rasib</option>
-                                    </select>
+                                    @if ($isReadOnly)
+                                        <span>{{ $studentProgress->grade ?? '-' }}</span>
+                                    @else
+                                        <select name="grade[]" class="border rounded-lg px-3 py-1 text-sm w-full">
+                                            <option value="">Select Grade</option>
+                                            <option value="Mumtaz" {{ $studentProgress->grade == 'Mumtaz' ? 'selected' : '' }}>Mumtaz</option>
+                                            <option value="Jayyid Jiddan" {{ $studentProgress->grade == 'Jayyid Jiddan' ? 'selected' : '' }}>Jayyid Jiddan</option>
+                                            <option value="Jayyid" {{ $studentProgress->grade == 'Jayyid' ? 'selected' : '' }}>Jayyid</option>
+                                            <option value="Maqbul" {{ $studentProgress->grade == 'Maqbul' ? 'selected' : '' }}>Maqbul</option>
+                                            <option value="Rasib" {{ $studentProgress->grade == 'Rasib' ? 'selected' : '' }}>Rasib</option>
+                                        </select>
+                                    @endif
                                 </td>
 
                                 {{-- REMARK --}}
                                 <td class="px-4 py-3">
+                                    @if ($isReadOnly)
+                                        <span>{{ $studentProgress->remark ?? '-' }}</span>
+                                    @else
                                     <input type="text" name="remark[]" class="border rounded-lg text-sm w-full px-2 py-1"
                                         placeholder="Remark..." value="{{ $studentProgress->remark ?? '' }}" />
+                                    @endif
                                 </td>
 
                                 {{-- ACTION --}}

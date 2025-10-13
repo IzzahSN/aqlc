@@ -64,23 +64,27 @@ class StudentProgressController extends Controller
     public function update(Request $request, $schedule_id)
     {
         $validated = $request->validate([
-            'level_type.*' => 'nullable|string',
-            'recitation_module_id.*' => 'nullable|integer|exists:recitation_modules,recitation_module_id',
-            'page_number.*' => 'nullable|integer',
-            'grade.*' => 'nullable|string',
+            'level_type.*' => 'required|nullable|string',
+            'recitation_module_id.*' => 'required|nullable|integer|exists:recitation_modules,recitation_module_id',
+            'page_number.*' => 'required|nullable|integer',
+            'grade.*' => 'required|nullable|string',
             'remark.*' => 'nullable|string',
         ]);
 
-        // ambil semua pelajar berdasarkan schedule_id
-        $studentProgresses = StudentProgress::where('schedule_id', $schedule_id)->get();
+        // Hanya update data yang dihantar (editable sahaja)
+        $editableIds = $request->student_progress_id ?? [];
 
-        foreach ($studentProgresses as $index => $progress) {
-            $progress->update([
-                'recitation_module_id' => $request->recitation_module_id[$index] ?? null,
-                'page_number' => $request->page_number[$index] ?? null,
-                'grade' => $request->grade[$index] ?? null,
-                'remark' => $request->remark[$index] ?? null,
-            ]);
+        foreach ($editableIds as $index => $id) {
+            $progress = StudentProgress::find($id);
+
+            if ($progress) {
+                $progress->update([
+                    'recitation_module_id' => $request->recitation_module_id[$index] ?? null,
+                    'page_number' => $request->page_number[$index] ?? null,
+                    'grade' => $request->grade[$index] ?? null,
+                    'remark' => !empty($request->remark[$index]) ? $request->remark[$index] : '-',
+                ]);
+            }
         }
 
         return redirect()->back()->with('success', 'Student grades updated successfully.');
