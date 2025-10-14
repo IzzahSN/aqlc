@@ -572,6 +572,7 @@
                         {{-- Hidden IDs --}}
                         <input type="hidden" name="student_id" id="modal_student_id" value="" />
                         <input type="hidden" name="student_progress_id" id="modal_student_progress_id" value="" />
+                        <input type="hidden" name="schedule_id" value="{{ $id }}" />
 
                         {{-- Student Name (readonly) --}}
                         <div>

@@ -38,13 +38,16 @@ class StudentProgressController extends Controller
             'student_id' => 'required|exists:students,student_id',
             'recitation_module_id' => 'required|integer|exists:recitation_modules,recitation_module_id',
             'page_number' => 'required|integer',
-            'grade' => 'nullable|string',
+            'grade' => 'required|nullable|string',
             'remark' => 'nullable|string',
             'student_progress_id' => 'nullable|integer|exists:student_progress,student_progress_id',
+            'schedule_id' => 'required|exists:schedules,schedule_id',
         ]);
 
         // Dapatkan progress pertama untuk ambil schedule & class
-        $studentProgress = StudentProgress::where('student_id', $validated['student_id'])->first();
+        $studentProgress = StudentProgress::where('student_id', $validated['student_id'])
+            ->where('schedule_id', $validated['schedule_id'])
+            ->first();
 
         // Server side range check
         $module = RecitationModule::where('recitation_module_id', $validated['recitation_module_id'])->first();
@@ -62,7 +65,7 @@ class StudentProgressController extends Controller
             'grade' => $validated['grade'] ?? null,
             'remark' => $validated['remark'] ?? null,
             'is_main_page' => 0,
-            'schedule_id' => $studentProgress ? $studentProgress->schedule_id : null,
+            'schedule_id' => $validated['schedule_id'],
             'class_id' => $studentProgress ? $studentProgress->class_id : null,
         ]);
 
@@ -104,7 +107,6 @@ class StudentProgressController extends Controller
             'remark.*' => 'nullable|string',
         ]);
 
-        // Hanya update data yang dihantar (editable sahaja)
         $editableIds = $request->student_progress_id ?? [];
 
         foreach ($editableIds as $index => $id) {
@@ -118,14 +120,12 @@ class StudentProgressController extends Controller
                     'remark' => !empty($request->remark[$index]) ? $request->remark[$index] : '-',
                 ]);
 
-                // Check jika student capai end_page module
+                // Dapatkan maklumat module & schedule
                 $module = RecitationModule::find($progress->recitation_module_id);
+                $schedule = Schedule::find($schedule_id);
+
                 if ($module && $progress->page_number == $module->end_page) {
-
-                    // Dapatkan schedule date
-                    $schedule = Schedule::find($schedule_id);
-
-                    // Elak duplicate achievement untuk student + module
+                    // === 1️⃣ Create achievement for individual module ===
                     $exists = Achievement::where('student_id', $progress->student_id)
                         ->where('recitation_module_id', $module->recitation_module_id)
                         ->exists();
@@ -139,12 +139,52 @@ class StudentProgressController extends Controller
                             'completion_date' => $schedule ? $schedule->date : now(),
                         ]);
                     }
+
+                    // === 2️⃣ Check if student finished all modules for this level type ===
+                    // Kira total module yang is_complete_series=0 untuk level_type yang sama
+                    $totalModules = RecitationModule::where('is_complete_series', 0)
+                        ->where('level_type', $module->level_type)
+                        ->count();
+
+                    // Kira berapa module yang student dah capai untuk level_type ni
+                    $completedModules = Achievement::where('student_id', $progress->student_id)
+                        ->whereHas('recitationModule', function ($q) use ($module) {
+                            $q->where('is_complete_series', 0)
+                                ->where('level_type', $module->level_type);
+                        })
+                        ->count();
+
+                    // Kalau jumlah dua-dua sama → semua module habis
+                    if ($totalModules > 0 && $completedModules == $totalModules) {
+                        // Cari module series yang complete (is_complete_series=1)
+                        $seriesModule = RecitationModule::where('is_complete_series', 1)
+                            ->where('level_type', $module->level_type)
+                            ->first();
+
+                        if ($seriesModule) {
+                            // Elak duplicate achievement untuk siri ni
+                            $hasSeriesAchievement = Achievement::where('student_id', $progress->student_id)
+                                ->where('recitation_module_id', $seriesModule->recitation_module_id)
+                                ->exists();
+
+                            if (!$hasSeriesAchievement) {
+                                Achievement::create([
+                                    'student_id' => $progress->student_id,
+                                    'recitation_module_id' => $seriesModule->recitation_module_id,
+                                    'title' => 'Completed ' . $seriesModule->recitation_name . ' Series',
+                                    'certificate' => null,
+                                    'completion_date' => $schedule ? $schedule->date : now(),
+                                ]);
+                            }
+                        }
+                    }
                 }
             }
         }
 
         return redirect()->back()->with('success', 'Student grades updated successfully.');
     }
+
 
 
     /**
