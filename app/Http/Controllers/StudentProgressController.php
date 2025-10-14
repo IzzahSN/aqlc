@@ -44,13 +44,13 @@ class StudentProgressController extends Controller
             'schedule_id' => 'required|exists:schedules,schedule_id',
         ]);
 
-        // Dapatkan progress pertama untuk ambil schedule & class
+        // Dapatkan progress pertama untuk ambil class_id (schedule_id dah ada dari form)
         $studentProgress = StudentProgress::where('student_id', $validated['student_id'])
             ->where('schedule_id', $validated['schedule_id'])
             ->first();
 
-        // Server side range check
-        $module = RecitationModule::where('recitation_module_id', $validated['recitation_module_id'])->first();
+        // Semak module & validasi page range
+        $module = RecitationModule::find($validated['recitation_module_id']);
         if ($module && ($validated['page_number'] < $module->start_page || $validated['page_number'] > $module->end_page)) {
             return redirect()->back()
                 ->withErrors(['page_number' => "Page must be between {$module->start_page} and {$module->end_page}"])
@@ -69,13 +69,10 @@ class StudentProgressController extends Controller
             'class_id' => $studentProgress ? $studentProgress->class_id : null,
         ]);
 
-        // ✅ Check if student finishes module (page == end_page)
+        // ✅ 1️⃣ Bila capai end_page → cipta achievement individu
         if ($module && $validated['page_number'] == $module->end_page) {
+            $schedule = Schedule::find($validated['schedule_id']);
 
-            // Dapatkan schedule date
-            $schedule = $studentProgress ? Schedule::find($studentProgress->schedule_id) : null;
-
-            // Elak duplicate achievement
             $exists = Achievement::where('student_id', $validated['student_id'])
                 ->where('recitation_module_id', $module->recitation_module_id)
                 ->exists();
@@ -89,10 +86,46 @@ class StudentProgressController extends Controller
                     'completion_date' => $schedule ? $schedule->date : now(),
                 ]);
             }
+
+            // ✅ 2️⃣ Semak sama ada semua modul dalam level_type ni dah selesai
+            $totalModules = RecitationModule::where('is_complete_series', 0)
+                ->where('level_type', $module->level_type)
+                ->count();
+
+            $completedModules = Achievement::where('student_id', $validated['student_id'])
+                ->whereHas('recitationModule', function ($q) use ($module) {
+                    $q->where('is_complete_series', 0)
+                        ->where('level_type', $module->level_type);
+                })
+                ->count();
+
+            // Kalau semua module selesai → cipta achievement siri penuh
+            if ($totalModules > 0 && $completedModules == $totalModules) {
+                $seriesModule = RecitationModule::where('is_complete_series', 1)
+                    ->where('level_type', $module->level_type)
+                    ->first();
+
+                if ($seriesModule) {
+                    $hasSeriesAchievement = Achievement::where('student_id', $validated['student_id'])
+                        ->where('recitation_module_id', $seriesModule->recitation_module_id)
+                        ->exists();
+
+                    if (!$hasSeriesAchievement) {
+                        Achievement::create([
+                            'student_id' => $validated['student_id'],
+                            'recitation_module_id' => $seriesModule->recitation_module_id,
+                            'title' => $seriesModule->recitation_name,
+                            'certificate' => null,
+                            'completion_date' => $schedule ? $schedule->date : now(),
+                        ]);
+                    }
+                }
+            }
         }
 
         return redirect()->back()->with('success', 'Student progress added successfully.');
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -171,7 +204,7 @@ class StudentProgressController extends Controller
                                 Achievement::create([
                                     'student_id' => $progress->student_id,
                                     'recitation_module_id' => $seriesModule->recitation_module_id,
-                                    'title' => 'Completed ' . $seriesModule->recitation_name . ' Series',
+                                    'title' => $seriesModule->recitation_name,
                                     'certificate' => null,
                                     'completion_date' => $schedule ? $schedule->date : now(),
                                 ]);
