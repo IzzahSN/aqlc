@@ -258,6 +258,19 @@ class StudentProgressController extends Controller
                 if ($achievement) {
                     $achievement->delete();
                 }
+
+                // delete achievement for complete series if exists
+                $seriesModule = RecitationModule::where('is_complete_series', 1)
+                    ->where('level_type', $module->level_type)
+                    ->first();
+                if ($seriesModule) {
+                    $seriesAchievement = Achievement::where('student_id', $studentId)
+                        ->where('recitation_module_id', $seriesModule->recitation_module_id)
+                        ->first();
+                    if ($seriesAchievement) {
+                        $seriesAchievement->delete();
+                    }
+                }
             }
 
             return response()->json([
