@@ -29,16 +29,15 @@ class RecitationModuleController extends Controller
             'level_type' => 'required|string|max:255',
             'first_page' => 'required|integer|min:1',
             'end_page' => 'required|integer|min:1|gte:first_page',
-            'badge' => 'image|mimes:jpeg,png,jpg|max:2048', // max 2MB
+            'badge' => 'nullable|file|mimes:jpeg,png,jpg,svg|max:2048', // max 2MB
         ]);
 
         // Handle file upload
+        $badgePath = null;
         if ($request->hasFile('badge')) {
             $ext = $request->file('badge')->getClientOriginalExtension(); // ambil extension asal;
             $fileName = 'badge_' . Str::slug($request->recitation_name) . '_' . time() . '.' . $ext;
             $badgePath = $request->file('badge')->storeAs('badges', $fileName, 'public');
-        } else {
-            return back()->withErrors(['badge' => 'Badge upload failed.'])->withInput();
         }
 
         RecitationModule::create([
@@ -73,7 +72,7 @@ class RecitationModuleController extends Controller
             'level_type' => 'required|string|max:255',
             'first_page' => 'required|integer|min:1',
             'end_page' => 'required|integer|min:1|gte:first_page',
-            'badge' => 'image|mimes:jpeg,png,jpg|max:2048', // max 2MB
+            'badge' => 'nullable|file|mimes:jpeg,png,jpg,svg|max:2048', // max 2MB
         ]);
 
         // Handle file upload
