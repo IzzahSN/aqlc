@@ -241,7 +241,7 @@ class StudentProgressController extends Controller
             // Dapatkan module berkaitan
             $module = RecitationModule::find($studentProgress->recitation_module_id);
 
-            // Simpan dulu data sebelum delete (supaya boleh check nanti)
+            // Simpan data sebelum delete
             $studentId = $studentProgress->student_id;
             $moduleId = $studentProgress->recitation_module_id;
             $pageNumber = $studentProgress->page_number;
@@ -249,26 +249,50 @@ class StudentProgressController extends Controller
             // Delete student progress
             $studentProgress->delete();
 
-            // ✅ Jika page yang dipadam ialah end_page module, delete achievement sekali
+            // ✅ Hanya pertimbangkan untuk delete achievement jika module wujud
             if ($module && $pageNumber == $module->end_page) {
-                $achievement = Achievement::where('student_id', $studentId)
+                // Semak jika masih ada progress lain untuk module yang sama
+                $hasOtherProgress = StudentProgress::where('student_id', $studentId)
                     ->where('recitation_module_id', $moduleId)
-                    ->first();
+                    ->exists();
 
-                if ($achievement) {
-                    $achievement->delete();
+                // Jika tiada progress lain untuk module tu, baru delete achievement
+                if (!$hasOtherProgress) {
+                    $achievement = Achievement::where('student_id', $studentId)
+                        ->where('recitation_module_id', $moduleId)
+                        ->first();
+
+                    if ($achievement) {
+                        $achievement->delete();
+                    }
                 }
 
-                // delete achievement for complete series if exists
+                // ✅ Handle complete series achievement
                 $seriesModule = RecitationModule::where('is_complete_series', 1)
                     ->where('level_type', $module->level_type)
                     ->first();
+
                 if ($seriesModule) {
-                    $seriesAchievement = Achievement::where('student_id', $studentId)
-                        ->where('recitation_module_id', $seriesModule->recitation_module_id)
-                        ->first();
-                    if ($seriesAchievement) {
-                        $seriesAchievement->delete();
+                    // Dapatkan semua module dalam level_type yang bukan complete series
+                    $allModules = RecitationModule::where('level_type', $module->level_type)
+                        ->where('is_complete_series', 0)
+                        ->pluck('recitation_module_id');
+
+                    // Kira berapa banyak module yang pelajar ini masih ada achievement
+                    $achievedModulesCount = Achievement::where('student_id', $studentId)
+                        ->whereIn('recitation_module_id', $allModules)
+                        ->count();
+
+                    // Kalau pelajar sudah tiada achievement langsung dalam semua module siri ini,
+                    // baru delete complete series achievement.
+                    if ($achievedModulesCount == 0) {
+                        $seriesAchievement = Achievement::where('student_id', $studentId)
+                            ->where('recitation_module_id', $seriesModule->recitation_module_id)
+                            ->first();
+
+                        if ($seriesAchievement) {
+                            $seriesAchievement->delete();
+                        }
                     }
                 }
             }
