@@ -10,6 +10,7 @@ use App\Http\Controllers\LessonPlanController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\RecitationModuleController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SalaryRecordController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentGuardianController;
@@ -146,7 +147,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill');
     Route::get('/bill/report', fn() => view('admin.payment.bills_report'))->name('bill.report');
 
-    Route::get('/salary', fn() => view('admin.payment.salary'))->name('salary');
+    Route::get('/salary', [SalaryRecordController::class, 'index'])->name('salary.index');
     Route::get('/salary/report', fn() => view('admin.payment.salary_report'))->name('salary.report');
 
     // NOTIFICATOIN

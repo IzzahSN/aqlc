@@ -12,7 +12,8 @@ class SalaryRecordController extends Controller
      */
     public function index()
     {
-        //
+        $salaryRecords = SalaryRecord::all();
+        return view('admin.payment.salary', compact('salaryRecords'));
     }
 
     /**
