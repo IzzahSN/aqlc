@@ -148,6 +148,10 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/bill/report', fn() => view('admin.payment.bills_report'))->name('bill.report');
 
     Route::get('/salary', [SalaryRecordController::class, 'index'])->name('salary.index');
+    Route::post('/salary', [SalaryRecordController::class, 'store'])->name('salary.store');
+    Route::get('/salary/{id}/edit', [SalaryRecordController::class, 'edit'])->name('salary.edit');
+    Route::put('/salary/{id}', [SalaryRecordController::class, 'update'])->name('salary.update');
+    Route::delete('/salary/{id}', [SalaryRecordController::class, 'destroy'])->name('salary.destroy');
     Route::get('/salary/report', fn() => view('admin.payment.salary_report'))->name('salary.report');
 
     // NOTIFICATOIN
