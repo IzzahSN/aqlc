@@ -72,7 +72,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <!-- Search -->
             <div class="relative w-full sm:w-full">
-                <input type="text" placeholder="Search by name or ID"
+                <input type="text" id="searchInput" placeholder="Search by name or ID"
                     class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                 <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -81,33 +81,33 @@
                 </svg>
             </div>
             <!-- Filter -->
-            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Month</option>
-                <option value="january">January</option>
-                <option value="february">February</option>
-                <option value="march">March</option>
-                <option value="april">April</option>
-                <option value="may">May</option>
-                <option value="june">June</option>
-                <option value="july">July</option>
-                <option value="august">August</option>
-                <option value="september">September</option>
-                <option value="october">October</option>
-                <option value="november">November</option>
-                <option value="december">December</option>
+            <select id="filterMonth" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                <option value="">All Months</option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
             </select>
-
-            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Year</option>
-                <option value="2026">2026</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
+            <select id="filterYear" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                <option value="">All Years</option>
+                {{-- filter unique salary_year from salary records table--}}
+                @foreach ($salaryRecords as $salaryRecord)
+                    <option value="{{ $salaryRecord->salary_year }}">{{ $salaryRecord->salary_year }}</option>
+                @endforeach
             </select>
         </div>
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table class="min-w-full text-sm text-left text-gray-600">
+            <table id="salaryTable" class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">No</th>
@@ -118,55 +118,148 @@
                         <th class="px-4 py-3 text-center">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="salaryBody">
+                    @foreach ($salaryRecords as $salaryRecord)
                     <tr class="border-b">
-                        <td class="px-4 py-3">1</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Sal-Jan-2025</td>
-                        <td class="px-4 py-3">January</td>
-                        <td class="px-4 py-3">2025</td>
-                        <td class="px-4 py-3">31/01/2025</td>
+                        <td class="px-4 py-3 row-index"></td>
+                        <td class="px-4 py-3 font-medium text-gray-900">{{ $salaryRecord->salary_name }}</td>
+                        <td class="px-4 py-3">{{ $salaryRecord->salary_month }}</td>
+                        <td class="px-4 py-3">{{ $salaryRecord->salary_year }}</td>
+                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($salaryRecord->salary_date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editSalaryModal" data-modal-toggle="editSalaryModal">Edit</button>
                             <a href="{{ route('admin.salary.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
                             <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
                         </td>
                     </tr>
-
-                    <tr class="border-b">
-                        <td class="px-4 py-3">2</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Sal-Feb-2025</td>
-                        <td class="px-4 py-3">February</td>
-                        <td class="px-4 py-3">2025</td>
-                        <td class="px-4 py-3">28/02/2025</td>
-                        <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editSalaryModal" data-modal-toggle="editSalaryModal">Edit</button>
-                            <a href="{{ route('admin.salary.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
+             <!-- No Record Message -->
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
         </div>
 
-        <!-- Pagination -->
-        <div class="flex items-center justify-between mt-4">
-            <div class="flex items-center gap-2">
-                <span class="text-sm text-gray-500">Result per page</span>
-                <select class="border rounded px-2 py-1 text-sm">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                </select>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                <button class="px-3 py-1 border rounded text-sm">2</button>
-                <button class="px-3 py-1 border rounded text-sm">3</button>
-                <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-            </div>
+        <!-- Pagination (manual JS) -->
+        <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">
+            <!-- Showing entries -->
+            <div id="entriesInfo" class="mb-2 sm:mb-0"></div>
+            <!-- Pagination buttons -->
+            <div class="flex items-center gap-2" id="pagination"></div>
         </div>
+
+         <!-- Pagination Script -->
+        <script>
+            const searchInput = document.getElementById("searchInput");
+            const filterMonth = document.getElementById("filterMonth");
+            const filterYear = document.getElementById("filterYear");
+            const tbody = document.getElementById("salaryBody");
+            const rows = Array.from(tbody.getElementsByTagName("tr"));
+            const noRecord = document.getElementById("noRecord");
+            const pagination = document.getElementById("pagination");
+            const entriesInfo = document.getElementById("entriesInfo");
+
+            let currentPage = 1;
+            const rowsPerPage = 5;
+
+            function renderTable() {
+                const searchValue = searchInput.value.toLowerCase();
+                const monthValue = filterMonth.value.toLowerCase();
+                const yearValue = filterYear.value;
+
+                let filteredRows = rows.filter(row => {
+                    const name = row.cells[1].textContent.toLowerCase();
+                    const id = row.cells[0].textContent.toLowerCase();
+                    const month = row.cells[2].textContent.toLowerCase(); // 👈 ambil day
+                    const year = row.cells[3].textContent.toLowerCase(); // 👈 ambil room
+
+                    const matchSearch = name.includes(searchValue) || id.includes(searchValue);
+                    const matchMonth = monthValue === "" || month.includes(monthValue);
+                    const matchYear = yearValue === "" || year.includes(yearValue);
+                    return matchSearch && matchMonth && matchYear;
+                });
+
+                const totalRows = filteredRows.length;
+                const totalPages = Math.ceil(totalRows / rowsPerPage);
+                if (currentPage > totalPages) currentPage = totalPages || 1;
+
+            // show only current page rows
+                rows.forEach(r => r.style.display = "none");
+
+                let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+                pageRows.forEach((r, i) => {
+                    r.style.display = "";
+                    // update numbering semula
+                    r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
+                });
+
+                // show/hide "no records"
+                noRecord.classList.toggle("hidden", totalRows > 0);
+
+                // entries info
+                const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+                const end = Math.min(currentPage * rowsPerPage, totalRows);
+                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+
+                // build pagination buttons
+                pagination.innerHTML = "";
+
+                // prev button
+                const prevBtn = document.createElement("button");
+                prevBtn.textContent = "‹";
+                prevBtn.disabled = currentPage === 1;
+                prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                prevBtn.addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(prevBtn);
+
+                // page numbers (limit 5 sahaja)
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, currentPage + 2);
+
+                if (endPage - startPage < 4) {
+                    if (startPage === 1) {
+                        endPage = Math.min(totalPages, startPage + 4);
+                    } else if (endPage === totalPages) {
+                        startPage = Math.max(1, endPage - 4);
+                    }
+                }
+
+                for (let i = startPage; i <= endPage; i++) {
+                    const btn = document.createElement("button");
+                    btn.textContent = i;
+                    btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+                    btn.addEventListener("click", () => {
+                        currentPage = i;
+                        renderTable();
+                    });
+                    pagination.appendChild(btn);
+                }
+
+                // next button
+                const nextBtn = document.createElement("button");
+                nextBtn.textContent = "›";
+                nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+                nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                nextBtn.addEventListener("click", () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(nextBtn);
+            }
+
+            searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+            filterMonth.addEventListener("change", () => { currentPage = 1; renderTable(); });
+            filterYear.addEventListener("change", () => { currentPage = 1; renderTable(); });
+
+            renderTable();
+        </script>
     </div>
 
     <!-- Add Salary Modal -->
