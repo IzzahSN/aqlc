@@ -85,8 +85,10 @@ class SalaryRecordController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SalaryRecord $salaryRecord)
+    public function destroy($id)
     {
-        //
+        $salaryRecord = SalaryRecord::findOrFail($id);
+        $salaryRecord->delete();
+        return redirect()->back()->with('success', 'Salary record deleted successfully!');
     }
 }

@@ -325,7 +325,7 @@
 
                          {{-- salary_rate --}}
                         <div>
-                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Salary Rate (RM)</label>
+                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Salary Rate Per Hour(RM)</label>
                             <input type="number" step="0.01" id="salary_rate" name="salary_rate" placeholder="20.00" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
                     </div>
@@ -365,7 +365,7 @@
 
                         {{-- salary_rate --}}
                         <div>
-                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Salary Rate (RM)</label>
+                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Salary Rate Per Hour(RM)</label>
                             <input type="number" step="0.01" id="salary_rate" name="salary_rate" placeholder="20.00" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
                     </div>
@@ -408,4 +408,29 @@
         });
     </script>
 
+     {{-- Delete Confirmation --}}
+   <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    let id = this.getAttribute("data-id");
+                    let form = document.getElementById("delete-form-" + id);
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This package will be deleted!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </x-admin-layout>
