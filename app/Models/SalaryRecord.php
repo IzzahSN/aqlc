@@ -19,6 +19,7 @@ class SalaryRecord extends Model
         'salary_month',
         'salary_year',
         'salary_date',
+        'salary_rate',
     ];
 
     public function billHistories()
