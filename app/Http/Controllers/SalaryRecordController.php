@@ -57,17 +57,29 @@ class SalaryRecordController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SalaryRecord $salaryRecord)
+    public function edit($id)
     {
-        //
+        $salaryRecord = SalaryRecord::findOrFail($id);
+        return response()->json($salaryRecord);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SalaryRecord $salaryRecord)
+    public function update(Request $request, $id)
     {
-        //
+        $salaryRecord = SalaryRecord::findOrFail($id);
+
+        $request->validate([
+            'salary_name' => 'required|string|max:255',
+            'salary_rate' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0'],
+        ]);
+
+        // Update only the salary_rate
+        $salaryRecord->update([
+            'salary_rate' => $request->salary_rate,
+        ]);
+        return redirect()->back()->with('success', 'Salary record updated successfully!')->with('closeModalEdit', true);
     }
 
     /**

@@ -127,9 +127,23 @@
                         <td class="px-4 py-3">{{ $salaryRecord->salary_year }}</td>
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($salaryRecord->salary_date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300" data-modal-target="editSalaryModal" data-modal-toggle="editSalaryModal">Edit</button>
+                            <button type="button"
+                                class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
+                                data-id="{{ $salaryRecord->salary_id }}" 
+                                data-modal-target="editSalaryModal"
+                                data-modal-toggle="editSalaryModal">Edit</button>
                             <a href="{{ route('admin.salary.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
-                            <button class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">Delete</button>
+                            <form id="delete-form-{{ $salaryRecord->salary_id }}" 
+                                action="{{ route('admin.salary.destroy', $salaryRecord->salary_id) }}" 
+                                method="POST" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" 
+                                    class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
+                                    data-id="{{ $salaryRecord->salary_id }}">
+                                    Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -338,46 +352,23 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="salaryForm">
+            <form id="editSalaryForm" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                        <!-- Salary Name -->
+                        {{-- show salary_name, read only --}}
                         <div>
-                            <label for="salary_name" class="block mb-2 text-sm font-medium text-gray-900">Salary Name</label>
-                            <input type="text" id="salary_name" name="salary_name" placeholder="Sal-Jan-2026" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="salary_name" class="block mb-2 text-sm font-medium text-gray-900">Record Name</label>
+                            <input type="text" id="salary_name" name="salary_name" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
 
-                        <!-- Month -->
+                        {{-- salary_rate --}}
                         <div>
-                            <label for="month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
-                            <select id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Month</option>
-                                <option value="january">January</option>
-                                <option value="february">February</option>
-                                <option value="march">March</option>
-                                <option value="april">April</option>
-                                <option value="may">May</option>
-                                <option value="june">June</option>
-                                <option value="july">July</option>
-                                <option value="august">August</option>
-                                <option value="september">September</option>
-                                <option value="october">October</option>
-                                <option value="november">November</option>
-                                <option value="december">December</option>
-                            </select>
-                        </div>
-
-                        <!-- Year -->
-                        <div>
-                            <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
-                            <select id="year" name="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Year</option>
-                                <option value="2025">2025</option>
-                                <option value="2026">2026</option>
-                            </select>
+                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Salary Rate (RM)</label>
+                            <input type="number" step="0.01" id="salary_rate" name="salary_rate" placeholder="20.00" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- Modal Footer -->
@@ -389,5 +380,32 @@
             </form>
         </div>
     </div>
+
+    {{-- edit form script --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editButtons = document.querySelectorAll('.edit-button');
+            const editSalaryForm = document.getElementById('editSalaryForm');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const salaryId = this.getAttribute('data-id');
+
+                    // Fetch the salary record data using AJAX
+                    fetch(`/admin/salary/${salaryId}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Populate the form fields with the fetched data
+                            editSalaryForm.action = `/admin/salary/${salaryId}`;
+                            editSalaryForm.salary_name.value = data.salary_name;
+                            editSalaryForm.salary_rate.value = data.salary_rate;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching salary record:', error);
+                        });
+                });
+            });
+        });
+    </script>
 
 </x-admin-layout>
