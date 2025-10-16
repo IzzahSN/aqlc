@@ -273,32 +273,27 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="salaryForm">
+            <form id="salaryForm" action="{{ route('admin.salary.store') }}" method="POST">
+                @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                        <!-- Salary Name -->
-                        <div>
-                            <label for="salary_name" class="block mb-2 text-sm font-medium text-gray-900">Salary Name</label>
-                            <input type="text" id="salary_name" name="salary_name" placeholder="Sal-Jan-2026" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                        </div>
-
                         <!-- Month -->
                         <div>
                             <label for="month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
                             <select id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select Month</option>
-                                <option value="january">January</option>
-                                <option value="february">February</option>
-                                <option value="march">March</option>
-                                <option value="april">April</option>
-                                <option value="may">May</option>
-                                <option value="june">June</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
                                 <option value="july">July</option>
-                                <option value="august">August</option>
-                                <option value="september">September</option>
-                                <option value="october">October</option>
-                                <option value="november">November</option>
-                                <option value="december">December</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
                             </select>
                         </div>
 
@@ -311,8 +306,13 @@
                                 <option value="2026">2026</option>
                             </select>
                         </div>
-                    </div>
 
+                         {{-- salary_rate --}}
+                        <div>
+                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Salary Rate (RM)</label>
+                            <input type="number" step="0.01" id="salary_rate" name="salary_rate" placeholder="20.00" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Modal Footer -->
