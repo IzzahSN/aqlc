@@ -12,7 +12,10 @@ class SalaryRecordController extends Controller
      */
     public function index()
     {
-        $salaryRecords = SalaryRecord::all();
+        // sort decending by salary_year and then by salary_month
+        $salaryRecords = SalaryRecord::orderBy('salary_year', 'desc')
+            ->orderByRaw("FIELD(salary_month, 'December', 'November', 'October', 'September', 'August', 'July', 'June', 'May', 'April', 'March', 'February', 'January')")
+            ->get();
         return view('admin.payment.salary', compact('salaryRecords'));
     }
 
@@ -21,7 +24,34 @@ class SalaryRecordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'salary_month' => 'required|in:January,February,March,April,May,June,July,August,September,October,November,December',
+            'salary_year' => 'required|integer|min:2000|max:2100',
+            'salary_rate' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0'],
+        ]);
+
+        // Create a unique salary name based on month and year
+        $salaryName = 'Salary-' . substr($request->salary_month, 0, 3) . '-' . $request->salary_year;
+
+        // Check if a record with the same month and year already exists
+        $existingRecord = SalaryRecord::where('salary_month', $request->salary_month)
+            ->where('salary_year', $request->salary_year)
+            ->first();
+
+        if ($existingRecord) {
+            return redirect()->back()->with('error', 'Salary record for ' . $request->salary_month . ' ' . $request->salary_year . ' already exists.');
+        }
+
+        // Create the new salary record
+        SalaryRecord::create([
+            'salary_name' => $salaryName,
+            'salary_month' => $request->salary_month,
+            'salary_year' => $request->salary_year,
+            'salary_rate' => $request->salary_rate,
+            'salary_date' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Salary record for ' . $request->salary_month . ' ' . $request->year . ' has been created successfully.');
     }
 
     /**

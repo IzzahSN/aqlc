@@ -279,8 +279,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- Month -->
                         <div>
-                            <label for="month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
-                            <select id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="salary_month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
+                            <select id="salary_month" name="salary_month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select Month</option>
                                 <option value="January">January</option>
                                 <option value="February">February</option>
@@ -299,11 +299,13 @@
 
                         <!-- Year -->
                         <div>
-                            <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
-                            <select id="year" name="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="salary_year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
+                            <select id="salary_year" name="salary_year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="">Select Year</option>
+                                <option value="2024">2024</option>
                                 <option value="2025">2025</option>
                                 <option value="2026">2026</option>
+                                <option value="2027">2027</option>
                             </select>
                         </div>
 
