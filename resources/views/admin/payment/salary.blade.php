@@ -132,7 +132,10 @@
                                 data-id="{{ $salaryRecord->salary_id }}" 
                                 data-modal-target="editSalaryModal"
                                 data-modal-toggle="editSalaryModal">Edit</button>
-                            <a href="{{ route('admin.salary.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
+                            <a href="{{ route('admin.salary.report', $salaryRecord->salary_id) }}" 
+                            class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">
+                            Report
+                            </a>
                             <form id="delete-form-{{ $salaryRecord->salary_id }}" 
                                 action="{{ route('admin.salary.destroy', $salaryRecord->salary_id) }}" 
                                 method="POST" class="delete-form">

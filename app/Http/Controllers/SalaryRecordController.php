@@ -91,4 +91,10 @@ class SalaryRecordController extends Controller
         $salaryRecord->delete();
         return redirect()->back()->with('success', 'Salary record deleted successfully!');
     }
+
+    public function report($id)
+    {
+        $salaryRecord = SalaryRecord::findOrFail($id);
+        return view('admin.payment.salary_report', compact('salaryRecord'));
+    }
 }
