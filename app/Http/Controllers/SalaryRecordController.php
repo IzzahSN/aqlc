@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\SalaryRecord;
+use App\Models\Schedule;
+use App\Models\BillHistory;
 use Illuminate\Http\Request;
 
 class SalaryRecordController extends Controller
@@ -43,7 +45,7 @@ class SalaryRecordController extends Controller
         }
 
         // Create the new salary record
-        SalaryRecord::create([
+        $salaryRecord = SalaryRecord::create([
             'salary_name' => $salaryName,
             'salary_month' => $request->salary_month,
             'salary_year' => $request->salary_year,
@@ -51,7 +53,10 @@ class SalaryRecordController extends Controller
             'salary_date' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Salary record for ' . $request->salary_month . ' ' . $request->year . ' has been created successfully.');
+        // Auto create bill_histories for tutors who taught in that month and year
+        $this->createBillHistoriesForSalary($salaryRecord);
+
+        return redirect()->back()->with('success', 'Salary record for ' . $request->salary_month . ' ' . $request->salary_year . ' has been created successfully.');
     }
 
     /**
@@ -96,5 +101,64 @@ class SalaryRecordController extends Controller
     {
         $salaryRecord = SalaryRecord::findOrFail($id);
         return view('admin.payment.salary_report', compact('salaryRecord'));
+    }
+
+    /**
+     * Create bill_histories for tutors who taught in the given salary record's month and year
+     */
+    private function createBillHistoriesForSalary(SalaryRecord $salaryRecord)
+    {
+        // Get schedules for the month and year
+        $schedules = Schedule::whereYear('date', $salaryRecord->salary_year)
+            ->whereMonth('date', $this->getMonthNumber($salaryRecord->salary_month))
+            ->with(['tutor', 'reliefTutor'])
+            ->get();
+
+        // Collect unique tutor_ids
+        $tutors = collect();
+
+        foreach ($schedules as $schedule) {
+            $tutorId = $schedule->relief ? $schedule->relief : $schedule->tutor_id;
+            if ($tutorId && !$tutors->contains($tutorId)) {
+                $tutors->push($tutorId);
+            }
+        }
+
+        // Create bill_history for each unique tutor, avoiding duplicates
+        foreach ($tutors as $tutorId) {
+            $existingBill = BillHistory::where('salary_id', $salaryRecord->salary_id)
+                ->where('tutor_id', $tutorId)
+                ->first();
+
+            if (!$existingBill) {
+                BillHistory::create([
+                    'tutor_id' => $tutorId,
+                    'salary_id' => $salaryRecord->salary_id,
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Get month number from month name
+     */
+    private function getMonthNumber($monthName)
+    {
+        $months = [
+            'January' => 1,
+            'February' => 2,
+            'March' => 3,
+            'April' => 4,
+            'May' => 5,
+            'June' => 6,
+            'July' => 7,
+            'August' => 8,
+            'September' => 9,
+            'October' => 10,
+            'November' => 11,
+            'December' => 12,
+        ];
+
+        return $months[$monthName] ?? 1;
     }
 }

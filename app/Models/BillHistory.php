@@ -12,7 +12,6 @@ class BillHistory extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'bill_history';
     protected $primaryKey = 'bill_id';
 
     protected $fillable = [
