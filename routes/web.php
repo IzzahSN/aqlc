@@ -3,6 +3,7 @@
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BillHistoryController;
 use App\Http\Controllers\ClassModelController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\JoinPackageController;
@@ -153,7 +154,8 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/salary/{id}/edit', [SalaryRecordController::class, 'edit'])->name('salary.edit');
     Route::put('/salary/{id}', [SalaryRecordController::class, 'update'])->name('salary.update');
     Route::delete('/salary/{id}', [SalaryRecordController::class, 'destroy'])->name('salary.destroy');
-    Route::get('/salary/{id}/report', [SalaryRecordController::class, 'report'])->name('salary.report');
+
+    Route::get('/salary/{id}/report', [BillHistoryController::class, 'indexSalary'])->name('salary.report.index');
 
     // NOTIFICATOIN
     Route::get('/notification', fn() => view('admin.notification.index'))->name('notification');

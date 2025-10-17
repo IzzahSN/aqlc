@@ -132,7 +132,7 @@
                                 data-id="{{ $salaryRecord->salary_id }}" 
                                 data-modal-target="editSalaryModal"
                                 data-modal-toggle="editSalaryModal">Edit</button>
-                            <a href="{{ route('admin.salary.report', $salaryRecord->salary_id) }}" 
+                            <a href="{{ route('admin.salary.report.index', $salaryRecord->salary_id) }}" 
                             class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">
                             Report
                             </a>

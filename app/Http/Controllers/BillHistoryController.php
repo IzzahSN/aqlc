@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BillHistory;
+use App\Models\SalaryRecord;
 use Illuminate\Http\Request;
 
 class BillHistoryController extends Controller
@@ -10,10 +11,14 @@ class BillHistoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function indexSalary($id)
     {
-        //
+        // display all bill histories for a specific salary record
+        $salaryRecord = SalaryRecord::findOrFail($id);
+        $billHistories = BillHistory::where('salary_id', $id)->get();
+        return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories'));
     }
+
 
     /**
      * Show the form for creating a new resource.

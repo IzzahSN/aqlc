@@ -97,12 +97,6 @@ class SalaryRecordController extends Controller
         return redirect()->back()->with('success', 'Salary record deleted successfully!');
     }
 
-    public function report($id)
-    {
-        $salaryRecord = SalaryRecord::findOrFail($id);
-        return view('admin.payment.salary_report', compact('salaryRecord'));
-    }
-
     /**
      * Create bill_histories for tutors who taught in the given salary record's month and year
      */
