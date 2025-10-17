@@ -16,7 +16,7 @@ class BillHistoryController extends Controller
         // display all bill histories for a specific salary record
         $salaryRecord = SalaryRecord::findOrFail($id);
         $billHistories = BillHistory::where('salary_id', $id)->get();
-        return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories'));
+        return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories', 'id'));
     }
 
 
