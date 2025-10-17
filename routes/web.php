@@ -156,6 +156,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::delete('/salary/{id}', [SalaryRecordController::class, 'destroy'])->name('salary.destroy');
 
     Route::get('/salary/{id}/report', [BillHistoryController::class, 'indexSalary'])->name('salary.report.index');
+    Route::put('/salary/{id}/report', [BillHistoryController::class, 'storeSalary'])->name('salary.report.store');
 
     // NOTIFICATOIN
     Route::get('/notification', fn() => view('admin.notification.index'))->name('notification');
