@@ -26,9 +26,9 @@
 
         <!-- Search + Filter -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <!-- Search -->
+             <!-- Search -->
             <div class="relative w-full sm:w-full">
-                <input type="text" placeholder="Search by name or ID"
+                <input type="text" id="searchInput" placeholder="Search by name or ID"
                     class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                 <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -37,7 +37,7 @@
                 </svg>
             </div>
             <!-- Filter -->
-            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+            <select id="filterRoom" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                 <option value="">Room</option>
                 <option value="1">Kelas 1</option>
                 <option value="2">Kelas 2</option>
@@ -46,26 +46,29 @@
                 <option value="5">Kelas 5</option>
                 <option value="6">Kelas 6</option>
             </select>
-            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+            <select id="filterDay" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                 <option value="">Day</option>
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <option value="wednesday">Wednesday</option>
-                <option value="thursday">Thursday</option>
-                <option value="friday">Friday</option>
-                <option value="saturday">Saturday</option>
-                <option value="sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
             </select>
-            <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+            <select id="filterYear" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                 <option value="">Year</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
                 <option value="2025">2025</option>
                 <option value="2026">2026</option>
+                <option value="2027">2027</option>
             </select>
         </div>
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table class="min-w-full text-sm text-left text-gray-600">
+            <table id="reportTable" class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">No</th>
@@ -77,26 +80,20 @@
                         <th class="px-4 py-3">Date</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="reportBody">
+                    @foreach ($schedules as $schedule)                        
                     <tr class="border-b">
-                        <td class="px-4 py-3">1</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Mon-20-K1</td>
-                        <td class="px-4 py-3">Personal</td>
-                        <td class="px-4 py-3">Kelas 1</td>
-                        <td class="px-4 py-3">1 hour</td>
-                        <td class="px-4 py-3">Monday</td>
-                        <td class="px-4 py-3">12/09/2025</td>
+                        <td class="px-4 py-3 row-index"></td>
+                        <td class="px-4 py-3 font-medium text-gray-900">{{ $schedule->class->class_name }}</td>
+                        {{-- Capital letter in front --}}
+                        <td class="px-4 py-3">{{ ucfirst($schedule->class->package->package_type) }}</td>
+                        <td class="px-4 py-3">{{ $schedule->class->room }}</td>
+                        <td class="px-4 py-3">{{ $schedule->class->package->duration_per_sessions }}</td>
+                        <td class="px-4 py-3">{{ $schedule->class->day }}</td>
+                        {{-- date in format 10/12/2023--}}
+                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
                     </tr>
-
-                    <tr class="border-b">
-                        <td class="px-4 py-3">2</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Tue-21-K1</td>
-                        <td class="px-4 py-3">Group</td>
-                        <td class="px-4 py-3">Bilik 2</td>
-                        <td class="px-4 py-3">30 minutes</td>
-                        <td class="px-4 py-3">Tueday</td>
-                        <td class="px-4 py-3">10/08/2025</td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

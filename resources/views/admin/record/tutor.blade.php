@@ -102,7 +102,7 @@
                                 class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">
                                 Report
                             </a>
-                             <form id="delete-form-{{ $tutor->tutor_id }}" 
+                             {{-- <form id="delete-form-{{ $tutor->tutor_id }}" 
                                 action="{{ route('admin.tutor.destroy', $tutor->tutor_id) }}" 
                                 method="POST" class="delete-form">
                                 @csrf
@@ -112,7 +112,7 @@
                                     data-id="{{ $tutor->tutor_id }}">
                                     Delete
                                 </button>
-                            </form>                        
+                            </form>                         --}}
                         </td>
                     </tr>
                     @endforeach

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tutor;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -148,27 +149,30 @@ class TutorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {
-        $tutor = Tutor::findOrFail($id);
+    // public function destroy($id)
+    // {
+    //     $tutor = Tutor::findOrFail($id);
 
-        // Check kalau tutor ada class
-        if ($tutor->classes()->exists()) {
-            return redirect()->route('admin.tutor.index')
-                ->with('error', 'Cannot delete tutor. This tutor is already assigned to a class.');
-        }
+    //     // Check kalau tutor ada class
+    //     if ($tutor->classes()->exists()) {
+    //         return redirect()->route('admin.tutor.index')
+    //             ->with('error', 'Cannot delete tutor. This tutor is already assigned to a class.');
+    //     }
 
-        $tutor->delete();
+    //     $tutor->delete();
 
-        return redirect()->route('admin.tutor.index')
-            ->with('success', 'Tutor deleted successfully.');
-    }
+    //     return redirect()->route('admin.tutor.index')
+    //         ->with('success', 'Tutor deleted successfully.');
+    // }
 
     public function report($id)
     {
         $tutor = Tutor::with('classes')->findOrFail($id);
-        // show all schedules of the tutor's classes include relief classes
-        $tutor->load(['classes.schedules', 'classes.reliefClasses.schedules']);
-        return view('admin.record.tutor_report', compact('tutor'));
+        // show all schedules of the tutor's classes include his relief classes(from Schedule model), if his class has relief tutor, do not display that schedule
+        $schedules = Schedule::where(function ($query) use ($id) {
+            $query->where('tutor_id', $id)->whereNull('relief');
+        })->orWhere('relief', $id)->with('class.package')->get();
+
+        return view('admin.record.tutor_report', compact('tutor', 'schedules'));
     }
 }
