@@ -10,7 +10,7 @@
         <div class="flex items-center justify-between ps-2.5 mb-5">
             <a href="{{ route('admin.dashboard') }}" class="flex items-center">
                 <img src="/images/logo-round.svg" class="sidebar-logo h-10 w-10 rounded-full shadow me-3" alt=" AQLC Logo" />
-                <h2 class="self-center text-sm font-semibold dark:text-white sidebar-text">Pusat Pengajian Quran<br>As-Siraaj</h2>
+                <h2 class="self-center text-sm font-semibold dark:text-white sidebar-text">Pusat Pengajian<br>Quran As-Siraaj</h2>
             </a>
             <button id="collapse-btn" type="button" class="hidden md:flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                 <span class="sr-only">Toggle sidebar</span>
