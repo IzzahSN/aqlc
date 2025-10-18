@@ -45,7 +45,10 @@ class ScheduleController extends Controller
             return view('admin.class.schedule', [
                 'timetable' => [],
                 'days' => $days,
-                'timeSlots' => []
+                'timeSlots' => [],
+                'schedules' => collect(),
+                'classes' => collect(),
+                'tutors' => collect()
             ]);
         }
 
