@@ -111,4 +111,10 @@ class StudentController extends Controller
         $student->delete();
         return redirect()->route('admin.student.index')->with('success', 'Student deleted successfully.');
     }
+
+    public function report($id)
+    {
+        $student = Student::findOrFail($id);
+        return view('admin.record.student_report', compact('student'));
+    }
 }

@@ -56,7 +56,8 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/student/{id}/edit', [StudentController::class, 'edit'])->name('student.edit');
     Route::put('/student/{id}', [StudentController::class, 'update'])->name('student.update');
     Route::delete('/student/{id}', [StudentController::class, 'destroy'])->name('student.destroy');
-    Route::get('/student/report', fn() => view('admin.record.student_report'))->name('student.report');
+    Route::get('/student/{id}/report', [StudentController::class, 'report'])->name('student.report');
+
     // JoinPackage Routes
     Route::get('/student/{id}/package/create', [JoinPackageController::class, 'create'])->name('student.package.create');
     Route::post('/student/{id}/package', [JoinPackageController::class, 'store'])->name('student.package.store');

@@ -104,7 +104,10 @@
                                 data-id="{{ $student->student_id }}" 
                                 data-modal-target="editStudentModal"
                                 data-modal-toggle="editStudentModal">Edit</button>
-                            <a href="{{ route('admin.student.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
+                            <a href="{{ route('admin.student.report', $student->student_id) }}" 
+                                class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">
+                                Report
+                            </a>
                             <form id="delete-form-{{ $student->student_id }}" action="{{ route('admin.student.destroy', $student->student_id) }}" method="POST" class="delete-form">
                                 @csrf
                                 @method('DELETE')
