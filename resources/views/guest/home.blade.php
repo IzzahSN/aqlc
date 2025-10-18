@@ -97,7 +97,7 @@
     <!-- Why Choose Us Section -->
     <section class="relative bg-gray-50 dark:bg-neutral-950 py-8 sm:py-16 px-4 sm:px-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:grid lg:grid-cols-12 lg:gap-8 lg:gap-16 lg:items-center">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-8 lg:items-center">
 
                 <!-- Left Image Grid -->
                 <div class="lg:col-span-7">
