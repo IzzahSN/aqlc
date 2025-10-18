@@ -63,7 +63,7 @@
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Report Badges</h3>
                 @if($achievements->isNotEmpty())
                     <div class="overflow-hidden relative">
-                        <div id="badgeCarousel" class="flex space-x-4">
+                        <div id="badgeCarousel" class="flex space-x-4" data-count="{{ $achievements->count() }}">
                             @foreach($achievements as $achievement)
                             <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
                                 <img src="{{ asset('storage/' . ($achievement->recitationModule->badge ?? 'default.png')) }}"
@@ -75,15 +75,17 @@
                             @endforeach
 
                             {{-- Duplicate for infinite scrolling --}}
-                            @foreach($achievements as $achievement)
-                            <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
-                                <img src="{{ asset('storage/' . ($achievement->recitationModule->badge ?? 'default.png')) }}"
-                                    alt="{{ $achievement->title }}"
-                                    class="w-full h-24 object-contain rounded mb-2 mx-auto">
-                                <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
-                                <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
-                            </div>
-                            @endforeach
+                            @if($achievements->count() > 3)
+                                @foreach($achievements as $achievement)
+                                <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
+                                    <img src="{{ asset('storage/' . ($achievement->recitationModule->badge ?? 'default.png')) }}"
+                                        alt="{{ $achievement->title }}"
+                                        class="w-full h-24 object-contain rounded mb-2 mx-auto">
+                                    <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
+                                    <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
+                                </div>
+                                @endforeach
+                            @endif
                         </div>
                         </div>
                 @else
@@ -94,24 +96,27 @@
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                 const carousel = document.getElementById('badgeCarousel');
-                const speed = 0.5; // adjust for faster/slower movement
-                let translateX = 0;
+                const count = parseInt(carousel.getAttribute('data-count'));
+                if (count > 3) {
+                    const speed = 0.5; // adjust for faster/slower movement
+                    let translateX = 0;
 
-                function animate() {
-                    translateX -= speed;
-                    const totalWidth = carousel.scrollWidth / 2; // half (since duplicated)
-                    
-                    // when halfway, reset to start seamlessly
-                    if (Math.abs(translateX) >= totalWidth) {
-                    translateX = 0;
+                    function animate() {
+                        translateX -= speed;
+                        const totalWidth = carousel.scrollWidth / 2; // half (since duplicated)
+
+                        // when halfway, reset to start seamlessly
+                        if (Math.abs(translateX) >= totalWidth) {
+                        translateX = 0;
+                        }
+
+                        carousel.style.transform = `translateX(${translateX}px)`;
+                        carousel.style.transition = 'transform 0s linear';
+                        requestAnimationFrame(animate);
                     }
 
-                    carousel.style.transform = `translateX(${translateX}px)`;
-                    carousel.style.transition = 'transform 0s linear';
-                    requestAnimationFrame(animate);
+                    animate();
                 }
-
-                animate();
                 });
                 </script>
 
