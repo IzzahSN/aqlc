@@ -62,41 +62,59 @@
             <div class="bg-white rounded-xl shadow p-6">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Report Badges</h3>
                 @if($achievements->isNotEmpty())
-                    <div class="overflow-hidden">
+                    <div class="overflow-hidden relative">
                         <div id="badgeCarousel" class="flex space-x-4">
                             @foreach($achievements as $achievement)
-                                <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
-                                    @if($achievement->recitationModule && $achievement->recitationModule->badge)
-                                        <img src="{{ asset('storage/' . $achievement->recitationModule->badge) }}" alt="{{ $achievement->title }}" class="w-full h-24 object-contain rounded mb-2 mx-auto">
-                                    @else
-                                        <div class="w-full h-24 bg-green-200 rounded flex items-center justify-center mb-2">
-                                            <i class="fas fa-trophy text-green-600 text-2xl"></i>
-                                        </div>
-                                    @endif
-                                    <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
-                                    <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
-                                </div>
+                            <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
+                                <img src="{{ asset('storage/' . ($achievement->recitationModule->badge ?? 'default.png')) }}"
+                                    alt="{{ $achievement->title }}"
+                                    class="w-full h-24 object-contain rounded mb-2 mx-auto">
+                                <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
+                                <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
+                            </div>
                             @endforeach
-                            <!-- Duplicate for infinite scroll -->
+
+                            {{-- Duplicate for infinite scrolling --}}
                             @foreach($achievements as $achievement)
-                                <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
-                                    @if($achievement->recitationModule && $achievement->recitationModule->badge)
-                                        <img src="{{ asset('storage/' . $achievement->recitationModule->badge) }}" alt="{{ $achievement->title }}" class="w-full h-24 object-contain rounded mb-2 mx-auto">
-                                    @else
-                                        <div class="w-full h-24 bg-green-200 rounded flex items-center justify-center mb-2">
-                                            <i class="fas fa-trophy text-green-600 text-2xl"></i>
-                                        </div>
-                                    @endif
-                                    <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
-                                    <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
-                                </div>
+                            <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
+                                <img src="{{ asset('storage/' . ($achievement->recitationModule->badge ?? 'default.png')) }}"
+                                    alt="{{ $achievement->title }}"
+                                    class="w-full h-24 object-contain rounded mb-2 mx-auto">
+                                <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
+                                <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
+                            </div>
                             @endforeach
                         </div>
-                    </div>
+                        </div>
                 @else
                     <p class="text-gray-500">No badges earned yet.</p>
                 @endif
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                const carousel = document.getElementById('badgeCarousel');
+                const speed = 0.5; // adjust for faster/slower movement
+                let translateX = 0;
+
+                function animate() {
+                    translateX -= speed;
+                    const totalWidth = carousel.scrollWidth / 2; // half (since duplicated)
+                    
+                    // when halfway, reset to start seamlessly
+                    if (Math.abs(translateX) >= totalWidth) {
+                    translateX = 0;
+                    }
+
+                    carousel.style.transform = `translateX(${translateX}px)`;
+                    carousel.style.transition = 'transform 0s linear';
+                    requestAnimationFrame(animate);
+                }
+
+                animate();
+                });
+                </script>
+
 
             <!-- Recitation Table -->
             <div class="bg-white rounded-xl shadow p-6">
