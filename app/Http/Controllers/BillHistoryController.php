@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BillHistory;
 use App\Models\SalaryRecord;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class BillHistoryController extends Controller
@@ -16,6 +17,26 @@ class BillHistoryController extends Controller
         // display all bill histories for a specific salary record
         $salaryRecord = SalaryRecord::findOrFail($id);
         $billHistories = BillHistory::where('salary_id', $id)->get();
+
+        // calculate bill_amount for all tutors in the salary record. dalam table schedules, count how many classes each tutor (kalau ada relief not null, admbil tutor_id as relief, kalau relief null tutor_idd ad tutor_id) taught in that month and year, tengok package_id pada kelas yang di ajar, kalau duration_per_Sessions = 30 minutes, kira as 0.5, kalau 1 hour kira as 1, then total kan darab dengan salary_rate dalam salary_records
+        foreach ($billHistories as $billHistory) {
+            $tutorId = $billHistory->tutor_id;
+            $salaryRate = $salaryRecord->salary_rate;
+            $totalHours = Schedule::where(function ($query) use ($tutorId) {
+                $query->where('tutor_id', $tutorId)
+                    ->orWhere('relief', $tutorId);
+            })
+                ->whereMonth('date', date('m', strtotime($salaryRecord->salary_month . ' 1')))
+                ->whereYear('date', $salaryRecord->salary_year)
+                ->with('class.package')
+                ->get()
+                ->sum(function ($schedule) {
+                    $duration = $schedule->class->package->duration_per_session;
+                    return $duration == 30 ? 0.5 : 1;
+                });
+            $billHistory->bill_amount = $totalHours * $salaryRate;
+            $billHistory->save();
+        }
         return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories', 'id'));
     }
 

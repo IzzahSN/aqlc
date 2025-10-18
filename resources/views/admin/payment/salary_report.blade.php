@@ -64,7 +64,8 @@
                         <tr class="border-b">
                             <td class="px-4 py-3 row-index">1</td>
                             <td class="px-4 py-3 font-medium text-gray-900">{{ $billHistory->tutor->username }}</td>
-                            <td class="px-4 py-3">RM120.00</td>
+                            {{-- show in 2 point --}}
+                            <td class="px-4 py-3">RM{{ number_format($billHistory->bill_amount, 2) }}</td>
                             <td class="px-4 py-3">
                                 {{-- if bill_status pending, bill_receipt read_only --}}
                                 <div class="flex items-center gap-2">
