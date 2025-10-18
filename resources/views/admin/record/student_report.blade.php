@@ -18,9 +18,11 @@
         <!-- Student Portfolio -->
         <div class="col-span-1 bg-green-900 text-white rounded-xl shadow p-6 space-y-6">
             <div class="flex flex-col items-center text-center">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                    alt="Student Photo"
-                    class="w-28 h-28 rounded-full border-4 border-white shadow">
+                {{-- if dont have profile, display avatar --}}
+                <img src="{{ $student->profile_image 
+                    ? asset('storage/'.$student->profile_image) 
+                    : 'https://ui-avatars.com/api/?name='.urlencode($student->first_name.' '.$student->last_name).'&background=D1FAE5&color=333' }}" 
+                    class="w-28 h-28 rounded-full mb-4 object-cover border-4 border-emerald-50" alt="Student Avatar">
                 <h2 class="text-lg font-semibold mt-4">{{ $student->first_name }} {{ $student->last_name }}</h2>
                 <p class="text-sm opacity-80">Student Portfolio</p>
             </div>
