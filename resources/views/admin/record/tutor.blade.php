@@ -84,8 +84,8 @@
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $tutor->username }}</td>
                         <td class="px-4 py-3">{{ $tutor->phone_number }}</td>
                         <td class="px-4 py-3">{{ $tutor->email }}</td>
-                        <td class="px-4 py-3">{{ $tutor->classes_count }}</td>
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 text-center">{{ $tutor->classes_count }}</td>
+                        <td class="px-4 py-3 text-center">
                             @if($tutor->status == 'active')
                                 <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
                             @else
@@ -98,7 +98,10 @@
                                 data-id="{{ $tutor->tutor_id }}" 
                                 data-modal-target="editTutorModal"
                                 data-modal-toggle="editTutorModal">Edit</button>
-                            <a href="{{ route('admin.tutor.report') }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Report</a>
+                            <a href="{{ route('admin.tutor.report', $tutor->tutor_id) }}" 
+                                class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">
+                                Report
+                            </a>
                              <form id="delete-form-{{ $tutor->tutor_id }}" 
                                 action="{{ route('admin.tutor.destroy', $tutor->tutor_id) }}" 
                                 method="POST" class="delete-form">

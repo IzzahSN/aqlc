@@ -163,4 +163,12 @@ class TutorController extends Controller
         return redirect()->route('admin.tutor.index')
             ->with('success', 'Tutor deleted successfully.');
     }
+
+    public function report($id)
+    {
+        $tutor = Tutor::with('classes')->findOrFail($id);
+        // show all schedules of the tutor's classes include relief classes
+        $tutor->load(['classes.schedules', 'classes.reliefClasses.schedules']);
+        return view('admin.record.tutor_report', compact('tutor'));
+    }
 }
