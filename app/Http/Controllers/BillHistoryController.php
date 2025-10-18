@@ -23,19 +23,56 @@ class BillHistoryController extends Controller
             $tutorId = $billHistory->tutor_id;
             $salaryRate = $salaryRecord->salary_rate;
             $totalHours = Schedule::where(function ($query) use ($tutorId) {
-                $query->where('tutor_id', $tutorId)
-                    ->orWhere('relief', $tutorId);
+                $query->where(function ($q) use ($tutorId) {
+                    $q->whereNull('relief')->where('tutor_id', $tutorId);
+                })->orWhere('relief', $tutorId);
             })
                 ->whereMonth('date', date('m', strtotime($salaryRecord->salary_month . ' 1')))
                 ->whereYear('date', $salaryRecord->salary_year)
                 ->with('class.package')
                 ->get()
                 ->sum(function ($schedule) {
-                    $duration = $schedule->class->package->duration_per_session;
-                    return $duration == 30 ? 0.5 : 1;
+                    $duration = $schedule->class->package->duration_per_sessions;
+                    return $duration == '30 minutes' ? 0.5 : 1;
                 });
             $billHistory->bill_amount = $totalHours * $salaryRate;
             $billHistory->save();
+        }
+
+        // create new bill history for tutors who don't have one yet, based on the salary record month and year, with bill_amount calculated, (kalau ada relief not null, admbil tutor_id as relief, kalau relief null tutor_idd ad tutor_id)
+        $tutorIds = Schedule::whereMonth('date', date('m', strtotime($salaryRecord->salary_month . ' 1')))
+            ->whereYear('date', $salaryRecord->salary_year)
+            ->distinct()
+            ->get()
+            ->map(function ($schedule) {
+                return $schedule->relief ?? $schedule->tutor_id;
+            })
+            ->unique();
+        foreach ($tutorIds as $tutorId) {
+            $existingBillHistory = BillHistory::where('salary_id', $id)
+                ->where('tutor_id', $tutorId)
+                ->first();
+            if (!$existingBillHistory) {
+                $totalHours = Schedule::where(function ($query) use ($tutorId) {
+                    $query->where(function ($q) use ($tutorId) {
+                        $q->whereNull('relief')->where('tutor_id', $tutorId);
+                    })->orWhere('relief', $tutorId);
+                })
+                    ->whereMonth('date', date('m', strtotime($salaryRecord->salary_month . ' 1')))
+                    ->whereYear('date', $salaryRecord->salary_year)
+                    ->with('class.package')
+                    ->get()
+                    ->sum(function ($schedule) {
+                        $duration = $schedule->class->package->duration_per_sessions;
+                        return $duration == '30 minutes' ? 0.5 : 1;
+                    });
+                $billAmount = $totalHours * $salaryRecord->salary_rate;
+                BillHistory::create([
+                    'salary_id' => $id,
+                    'tutor_id' => $tutorId,
+                    'bill_amount' => $billAmount,
+                ]);
+            }
         }
         return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories', 'id'));
     }
