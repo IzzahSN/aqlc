@@ -97,6 +97,10 @@ class GuardianController extends Controller
     public function destroy($id)
     {
         $guardian = Guardian::find($id);
+        // cannot delete guardian if has student guardians
+        if ($guardian->studentGuardians()->count() > 0) {
+            return redirect()->route('admin.guardian.index')->with('error', 'Cannot delete guardian with associated students.');
+        }
         $guardian->delete();
         return redirect()->route('admin.guardian.index')->with('success', 'Guardian deleted successfully.');
     }
