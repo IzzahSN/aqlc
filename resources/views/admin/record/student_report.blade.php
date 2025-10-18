@@ -58,66 +58,44 @@
         <!-- Right Section -->
         <div class="col-span-3 space-y-6">
 
-            <!-- Report Progress -->
+            <!-- Report Badges -->
             <div class="bg-white rounded-xl shadow p-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Report Progress</h3>
-                <div class="flex items-center space-x-6 overflow-x-auto">
-                    <!-- Progress Circles -->
-                    <div class="flex flex-col items-center">
-                        <div class="relative w-20 h-20">
-                            <svg class="w-full h-full">
-                                <circle class="text-gray-200" stroke-width="6" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                                <circle class="text-yellow-400" stroke-width="6" stroke-dasharray="188" stroke-dashoffset="0" stroke-linecap="round" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                            </svg>
-                            <span class="absolute inset-0 flex items-center justify-center font-semibold text-sm">100%</span>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Report Badges</h3>
+                @if($achievements->isNotEmpty())
+                    <div class="overflow-hidden">
+                        <div id="badgeCarousel" class="flex space-x-4">
+                            @foreach($achievements as $achievement)
+                                <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
+                                    @if($achievement->recitationModule && $achievement->recitationModule->badge)
+                                        <img src="{{ asset('storage/' . $achievement->recitationModule->badge) }}" alt="{{ $achievement->title }}" class="w-full h-24 object-contain rounded mb-2 mx-auto">
+                                    @else
+                                        <div class="w-full h-24 bg-green-200 rounded flex items-center justify-center mb-2">
+                                            <i class="fas fa-trophy text-green-600 text-2xl"></i>
+                                        </div>
+                                    @endif
+                                    <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
+                                    <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
+                                </div>
+                            @endforeach
+                            <!-- Duplicate for infinite scroll -->
+                            @foreach($achievements as $achievement)
+                                <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
+                                    @if($achievement->recitationModule && $achievement->recitationModule->badge)
+                                        <img src="{{ asset('storage/' . $achievement->recitationModule->badge) }}" alt="{{ $achievement->title }}" class="w-full h-24 object-contain rounded mb-2 mx-auto">
+                                    @else
+                                        <div class="w-full h-24 bg-green-200 rounded flex items-center justify-center mb-2">
+                                            <i class="fas fa-trophy text-green-600 text-2xl"></i>
+                                        </div>
+                                    @endif
+                                    <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
+                                    <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
+                                </div>
+                            @endforeach
                         </div>
-                        <span class="mt-2 text-sm font-medium">Iqra 1</span>
                     </div>
-
-                    <div class="flex flex-col items-center">
-                        <div class="relative w-20 h-20">
-                            <svg class="w-full h-full">
-                                <circle class="text-gray-200" stroke-width="6" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                                <circle class="text-pink-500" stroke-width="6" stroke-dasharray="188" stroke-dashoffset="47" stroke-linecap="round" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                            </svg>
-                            <span class="absolute inset-0 flex items-center justify-center font-semibold text-sm">75%</span>
-                        </div>
-                        <span class="mt-2 text-sm font-medium">Juz 30</span>
-                    </div>
-
-                    <div class="flex flex-col items-center">
-                        <div class="relative w-20 h-20">
-                            <svg class="w-full h-full">
-                                <circle class="text-gray-200" stroke-width="6" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                                <circle class="text-blue-500" stroke-width="6" stroke-dasharray="188" stroke-dashoffset="66" stroke-linecap="round" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                            </svg>
-                            <span class="absolute inset-0 flex items-center justify-center font-semibold text-sm">65%</span>
-                        </div>
-                        <span class="mt-2 text-sm font-medium">Juz 1</span>
-                    </div>
-
-                    <div class="flex flex-col items-center">
-                        <div class="relative w-20 h-20">
-                            <svg class="w-full h-full">
-                                <circle class="text-gray-200" stroke-width="6" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                                <circle class="text-green-500" stroke-width="6" stroke-dasharray="188" stroke-dashoffset="75" stroke-linecap="round" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                            </svg>
-                            <span class="absolute inset-0 flex items-center justify-center font-semibold text-sm">60%</span>
-                        </div>
-                        <span class="mt-2 text-sm font-medium">Juz 2</span>
-                    </div>
-
-                    <div class="flex flex-col items-center">
-                        <div class="relative w-20 h-20">
-                            <svg class="w-full h-full">
-                                <circle class="text-gray-200" stroke-width="6" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                                <circle class="text-purple-500" stroke-width="6" stroke-dasharray="188" stroke-dashoffset="122" stroke-linecap="round" stroke="currentColor" fill="transparent" r="30" cx="40" cy="40" />
-                            </svg>
-                            <span class="absolute inset-0 flex items-center justify-center font-semibold text-sm">35%</span>
-                        </div>
-                        <span class="mt-2 text-sm font-medium">Juz 3</span>
-                    </div>
-                </div>
+                @else
+                    <p class="text-gray-500">No badges earned yet.</p>
+                @endif
             </div>
 
             <!-- Recitation Table -->
@@ -310,6 +288,9 @@
                     searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
                     filterGrade.addEventListener("change", () => { currentPage = 1; renderTable(); });
                     filterRecitation.addEventListener("change", () => { currentPage = 1; renderTable(); });
+
+                    // Initial render
+                    renderTable();
                 </script>
             </div>
         </div>

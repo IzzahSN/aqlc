@@ -118,7 +118,7 @@ class StudentController extends Controller
         // get student progress records sort by latest date from schedule table
         $progressRecords = $student->studentProgresses()->with(['schedule.tutor', 'schedule.class', 'recitationModule'])->orderByDesc('created_at')->get();
         // get all student achievements
-        $achievements = $student->achievements;
+        $achievements = $student->achievements()->with('recitationModule')->get();
         return view('admin.record.student_report', compact('student', 'progressRecords', 'achievements'));
     }
 }
