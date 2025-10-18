@@ -114,7 +114,11 @@ class StudentController extends Controller
 
     public function report($id)
     {
-        $student = Student::findOrFail($id);
-        return view('admin.record.student_report', compact('student'));
+        $student = Student::with(['guardians', 'packages', 'classes'])->findOrFail($id);
+        // get student progress records sort by latest date from schedule table
+        $progressRecords = $student->studentProgresses()->with(['schedule.tutor', 'schedule.class', 'recitationModule'])->orderByDesc('created_at')->get();
+        // get all student achievements
+        $achievements = $student->achievements;
+        return view('admin.record.student_report', compact('student', 'progressRecords', 'achievements'));
     }
 }
