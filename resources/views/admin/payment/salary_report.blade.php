@@ -15,7 +15,7 @@
     </div>
 
     <!-- Attendance Form -->
-    <form action="{{ route('admin.salary.report.update', $id) }}" method="POST">
+    <form action="{{ route('admin.salary.report.update', $id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <!-- Attendance Report List -->
@@ -26,14 +26,16 @@
                     <h2 class="text-lg font-semibold">List of Report</h2>
                     <p class="text-sm text-gray-500">Manage your report: search, filter and update.</p>
                 </div>
-                <button class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">Allocate Payment</button>
+                <button type="submit"
+                    class="px-4 py-2 text-sm rounded-sm bg-green-600 text-white hover:bg-green-700">
+                    Allocate Payment
+                </button>
             </div>
 
-            <!-- Search + Filter -->
+            <!-- Search -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                <!-- Search -->
                 <div class="relative w-full sm:w-full">
-                    <input type="text" placeholder="Search by name or ID"
+                    <input type="text" id="searchInput" placeholder="Search by name or ID"
                         class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                     <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -45,7 +47,7 @@
 
             <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="min-w-full text-sm text-left text-gray-600">
+                <table id="salaryTable" class="min-w-max text-sm text-left text-gray-600">
                     <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                         <tr>
                             <th class="px-4 py-3">No</th>
@@ -57,72 +59,139 @@
                             <th class="px-4 py-3">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="salaryBody">
+                        @foreach ($billHistories as $index => $billHistory)                            
                         <tr class="border-b">
-                            <td class="px-4 py-3">1</td>
-                            <td class="px-4 py-3 font-medium text-gray-900">Ustaz Hilman</td>
+                            <td class="px-4 py-3 row-index">1</td>
+                            <td class="px-4 py-3 font-medium text-gray-900">{{ $billHistory->tutor->username }}</td>
                             <td class="px-4 py-3">RM120.00</td>
                             <td class="px-4 py-3">
-                                <input type="file" name="proof[1]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-1.5" />
+                                {{-- if bill_status pending, bill_receipt read_only --}}
+                                <div class="flex items-center gap-2">
+                                    <input type="hidden" name="billHistories[{{ $index }}][bill_id]" value="{{ $billHistory->bill_id }}" />
+                                    <input type="file" name="billHistories[{{ $index }}][bill_receipt]"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-auto p-1.5"
+                                        @if ($billHistory->bill_status == 'Pending') disabled @endif
+                                        />
+                                     @if($billHistory->bill_receipt)
+                                        <a href="{{ asset('storage/' . $billHistory->bill_receipt) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">View Receipt</a>
+                                    @endif
+                                </div>
                             </td>
-                            <td>
-                                <select class="border rounded-lg px-3 py-1 text-sm w-full sm:w-auto">
-                                    <option value="">Select Status</option>
-                                    <option value="Paid">Paid</option>
-                                    <option value="Unpaid">Unpaid</option>
-                                </select>
+                            <td class="px-4 py-3 text-center">
+                                {{-- if pending status in yellow badge, if Unpaid in red and Paid in green --}}
+                                @if ($billHistory->bill_status == 'Paid')
+                                    <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Paid</span>
+                                @elseif ($billHistory->bill_status == 'Unpaid')
+                                    <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Unpaid</span>
+                                @else
+                                    <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                @endif
                             </td>
-                            <td class="px-4 py-3">12/05/2025</td>
-                            <td class="px-4 py-3 flex justify-center">
-                                <button type="button" class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500" data-modal-target="reportClassModal" data-modal-toggle="reportClassModal">View</button>
-                            </td>
-                        </tr>
-
-                        <tr class="border-b">
-                            <td class="px-4 py-3">3</td>
-                            <td class="px-4 py-3 font-medium text-gray-900">Ustazah Aira</td>
-                            <td class="px-4 py-3">RM140.00</td>
                             <td class="px-4 py-3">
-                                <input type="file" name="proof[1]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-1.5" />
+                                {{-- if null display '-' --}}
+                                {{ $billHistory->bill_date ? \Carbon\Carbon::parse($billHistory->bill_date)->format('d/m/Y') : '-' }}
                             </td>
-                            <td>
-                                <select class="border rounded-lg px-3 py-1 text-sm w-full sm:w-auto">
-                                    <option value="">Select Status</option>
-                                    <option value="Paid">Paid</option>
-                                    <option value="Unpaid">Unpaid</option>
-                                </select>
-                            </td>
-                            <td class="px-4 py-3">-</td>
                             <td class="px-4 py-3 flex justify-center">
                                 <button type="button" class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500" data-modal-target="reportClassModal" data-modal-toggle="reportClassModal">View</button>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
             </div>
 
-
-            <!-- Pagination -->
-            <div class="flex items-center justify-between mt-4">
-                <div class="flex items-center gap-2">
-                    <span class="text-sm text-gray-500">Result per page</span>
-                    <select class="border rounded px-2 py-1 text-sm">
-                        <option>10</option>
-                        <option>20</option>
-                        <option>50</option>
-                    </select>
-                </div>
-
-                <div class="flex items-center gap-2">
-                    <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                    <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                    <button class="px-3 py-1 border rounded text-sm">2</button>
-                    <button class="px-3 py-1 border rounded text-sm">3</button>
-                    <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-                </div>
+             <!-- Pagination Info -->
+            <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">
+                <div id="entriesInfo" class="mb-2 sm:mb-0"></div>
+                <div class="flex items-center gap-2" id="pagination"></div>
             </div>
         </div>
     </form>
+
+    <!-- Pagination + Search Script -->
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const tbody = document.getElementById("salaryBody");
+        const rows = Array.from(tbody.getElementsByTagName("tr"));
+        const noRecord = document.getElementById("noRecord");
+        const pagination = document.getElementById("pagination");
+        const entriesInfo = document.getElementById("entriesInfo");
+
+        let currentPage = 1;
+        const rowsPerPage = 5;
+
+        function renderTable() {
+            const searchValue = searchInput.value.toLowerCase();
+
+            let filteredRows = rows.filter(row => {
+                const name = row.cells[1].textContent.toLowerCase();
+                const id = row.cells[0].textContent.toLowerCase();
+                return name.includes(searchValue) || id.includes(searchValue);
+            });
+
+            const totalRows = filteredRows.length;
+            const totalPages = Math.ceil(totalRows / rowsPerPage);
+            if (currentPage > totalPages) currentPage = totalPages || 1;
+
+            rows.forEach(r => r.style.display = "none");
+            let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+            pageRows.forEach((r, i) => {
+                r.style.display = "";
+                r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
+            });
+
+            noRecord.classList.toggle("hidden", totalRows > 0);
+
+            const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+            const end = Math.min(currentPage * rowsPerPage, totalRows);
+            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+
+            pagination.innerHTML = "";
+
+            // Prev
+            const prevBtn = document.createElement("button");
+            prevBtn.textContent = "‹";
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+            prevBtn.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+            pagination.appendChild(prevBtn);
+
+            // Numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+                btn.addEventListener("click", () => {
+                    currentPage = i;
+                    renderTable();
+                });
+                pagination.appendChild(btn);
+            }
+
+            // Next
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "›";
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+            nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+            nextBtn.addEventListener("click", () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+            pagination.appendChild(nextBtn);
+        }
+
+        searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+        renderTable();
+    </script>
 
     <!-- Add Class Modal -->
     <div id="reportClassModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
