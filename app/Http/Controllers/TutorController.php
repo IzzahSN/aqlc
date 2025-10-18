@@ -53,13 +53,13 @@ class TutorController extends Controller
         // profile picture default null
         $profile = null;
 
-        // Handle file upload
+        // Handle file upload and if null retun null
         if ($request->hasFile('resume')) {
             $ext = $request->file('resume')->getClientOriginalExtension(); // ambil extension asal
             $fileName = 'resume_' . Str::slug($request->first_name) . '_' . time() . '.' . $ext;
             $resumePath = $request->file('resume')->storeAs('resumes', $fileName, 'public');
         } else {
-            return back()->withErrors(['resume' => 'Resume upload failed.'])->withInput();
+            $resumePath = null;
         }
 
 
