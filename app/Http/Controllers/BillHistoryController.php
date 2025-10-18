@@ -6,6 +6,7 @@ use App\Models\BillHistory;
 use App\Models\SalaryRecord;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BillHistoryController extends Controller
 {
@@ -46,10 +47,20 @@ class BillHistoryController extends Controller
                         return $duration == '30 minutes' ? 0.5 : 1;
                     });
                 $billAmount = $totalHours * $salaryRecord->salary_rate;
+
+                // Determine bill_status
+                $currentDate = Carbon::now();
+                $billMonth = Carbon::createFromFormat('F', $salaryRecord->salary_month)->month;
+                $billYear = $salaryRecord->salary_year;
+                $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
+
+                $billStatus = $currentDate->greaterThan($billDate) ? 'Unpaid' : 'Pending';
+
                 BillHistory::create([
                     'salary_id' => $id,
                     'tutor_id' => $tutorId,
                     'bill_amount' => $billAmount,
+                    'bill_status' => $billStatus,
                 ]);
             }
         }
@@ -72,6 +83,19 @@ class BillHistoryController extends Controller
                     return $duration == '30 minutes' ? 0.5 : 1;
                 });
             $billHistory->bill_amount = $totalHours * $salaryRate;
+
+            // Update bill_status based on current date
+            $currentDate = Carbon::now();
+            $billMonth = Carbon::createFromFormat('F', $salaryRecord->salary_month)->month;
+            $billYear = $salaryRecord->salary_year;
+            $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth(); // Assuming bill is due at the end of the month
+
+            if ($currentDate->greaterThan($billDate)) {
+                $billHistory->bill_status = 'Unpaid';
+            } else {
+                $billHistory->bill_status = 'Pending';
+            }
+
             $billHistory->save();
         }
         return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories', 'id'));
