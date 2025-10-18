@@ -65,7 +65,7 @@
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table id="tutorTable" class="min-w-max text-sm text-left text-gray-600">
+            <table id="tutorTable" class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">No</th>

@@ -1,6 +1,6 @@
 <x-app-layout :title="'Home'">
     <!-- Hero Section -->
-    <div class="max-w-7xl pl-20 pr-20 pt-4 bg-gray-50">
+    <div class="max-w-auto pl-20 pr-20 pt-4 bg-gray-50">
         <div class="grid md:grid-cols-2 gap-8 items-center">
             <!-- Text Section -->
             <div class="">
@@ -27,10 +27,7 @@
             <!-- Image -->
             <div class="relative flex justify-center">
                 <!-- Boy Image -->
-                <img class="relative z-10 w-100 h-100" src="/images/boy-read-quran-2.png" alt="Pelajar mengaji Al-Quran">
-
-                <!-- Decorative Circle -->
-                <div class="absolute -bottom-10 right-10 w-100 h-100 bg-green-100 rounded-full z-0"></div>
+                <img class="relative z-10 w-100 h-100" src="/images/budak-lelaki.svg" alt="Pelajar mengaji Al-Quran">
             </div>
         </div>
     </div>
@@ -345,7 +342,7 @@
 
                 <!-- Center Image -->
                 <div class="flex justify-center relative">
-                    <img src="/images/ustaz.png"
+                    <img src="/images/ustaz.svg"
                         alt="Quran Learning"
                         class="w-64 md:w-80 object-contain -mt-16 relative z-10" />
                 </div>
