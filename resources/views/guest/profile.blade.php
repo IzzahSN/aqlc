@@ -7,16 +7,8 @@
 
                 <!-- Image -->
                 <img class="relative z-10 w-48 h-48 sm:w-64 sm:h-64 md:w-auto md:h-auto"
-                    src="/images/mengaji-1.png"
+                    src="/images/budak perempuan.svg"
                     alt="Pelajar mengaji Al-Quran">
-
-                <!-- Circle (ground for image) -->
-                <div class="absolute bottom-0 flex justify-center">
-                    <div class="w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96
-                  bg-gradient-to-bl from-amber-400 via-amber-300 to-amber-200
-                  rounded-full z-0 shadow-lg"></div>
-                </div>
-
             </div>
 
             <!-- Right: Content -->
