@@ -274,7 +274,7 @@ class ScheduleController extends Controller
 
             // (b) Relief tutor dah relief kelas lain waktu sama
             $reliefConflict = Schedule::where('relief', $validated['relief'])
-                ->where('id', '!=', $schedule->id) // exclude current schedule
+                ->where('schedule_id', '!=', $schedule->schedule_id) // exclude current schedule
                 ->whereDate('date', $validated['date'])
                 ->whereHas('class', function ($q) use ($class) {
                     $q->where('day', $class->day)
