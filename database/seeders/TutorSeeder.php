@@ -28,6 +28,6 @@ class TutorSeeder extends Seeder
             'email'      => 'izzahfsn@gmail.com',
             'status'     => 'active',
             'password' => Hash::make('030710101656'),
-        ])
+        ]);
     }
 }
