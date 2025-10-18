@@ -19,7 +19,6 @@ class LessonPlan extends Model
         'learning_materials',
         'description',
         'schedule_id',
-        'tutor_id',
         'class_id',
     ];
     // Relationships
@@ -27,10 +26,7 @@ class LessonPlan extends Model
     {
         return $this->belongsTo(Schedule::class, 'schedule_id', 'schedule_id');
     }
-    public function tutor()
-    {
-        return $this->belongsTo(Tutor::class, 'tutor_id', 'tutor_id');
-    }
+
 
     public function class()
     {

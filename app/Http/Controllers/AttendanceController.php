@@ -47,7 +47,6 @@ class AttendanceController extends Controller
         Attendance::create([
             'schedule_id' => $id,
             'class_id' => $schedule->class_id,
-            'tutor_id' => $schedule->tutor_id,
             'student_id' => $request->student_id,
             'status' => 0,
             'remark' => null,

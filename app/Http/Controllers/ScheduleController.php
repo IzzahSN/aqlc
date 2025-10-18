@@ -179,7 +179,6 @@ class ScheduleController extends Controller
         foreach ($students as $student_id) {
             Attendance::create([
                 'schedule_id' => $schedule->schedule_id,
-                'tutor_id' => $request->tutor_id,
                 'student_id' => $student_id,
                 'class_id' => $request->class_id,
                 'status' => 0,
@@ -191,7 +190,6 @@ class ScheduleController extends Controller
         LessonPlan::create([
             'schedule_id' => $schedule->schedule_id,
             'class_id' => $request->class_id,
-            'tutor_id' => $request->tutor_id,
             'title' => null,
             'learning_materials' => null,
             'descriptioon' => null,

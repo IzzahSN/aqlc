@@ -19,7 +19,6 @@ class Attendance extends Model
         'remark',
         'schedule_id',
         'student_id',
-        'tutor_id',
         'class_id',
     ];
 
@@ -34,10 +33,7 @@ class Attendance extends Model
         return $this->belongsTo(Student::class, 'student_id', 'student_id');
     }
 
-    public function tutor()
-    {
-        return $this->belongsTo(Tutor::class, 'tutor_id', 'tutor_id');
-    }
+
 
     public function class()
     {
