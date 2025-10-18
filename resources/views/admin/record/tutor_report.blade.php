@@ -39,12 +39,12 @@
             <!-- Filter -->
             <select id="filterRoom" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                 <option value="">Room</option>
-                <option value="1">Kelas 1</option>
-                <option value="2">Kelas 2</option>
-                <option value="3">Kelas 3</option>
-                <option value="4">Kelas 4</option>
-                <option value="5">Kelas 5</option>
-                <option value="6">Kelas 6</option>
+                <option value="Kelas 1">Kelas 1</option>
+                <option value="Kelas 2">Kelas 2</option>
+                <option value="Kelas 3">Kelas 3</option>
+                <option value="Kelas 4">Kelas 4</option>
+                <option value="Bilik 1">Bilik 1</option>
+                <option value="Bilk 2">Bilk 2</option>
             </select>
             <select id="filterDay" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                 <option value="">Day</option>
@@ -98,25 +98,133 @@
             </table>
         </div>
 
-        <!-- Pagination -->
-        <div class="flex items-center justify-between mt-4">
-            <div class="flex items-center gap-2">
-                <span class="text-sm text-gray-500">Result per page</span>
-                <select class="border rounded px-2 py-1 text-sm">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                </select>
-            </div>
+        <!-- No Records Message -->
+        <div id="noRecord" class="hidden text-center py-4 text-gray-500">No records found.</div>
 
-            <div class="flex items-center gap-2">
-                <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                <button class="px-3 py-1 border rounded text-sm">2</button>
-                <button class="px-3 py-1 border rounded text-sm">3</button>
-                <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-            </div>
+        <!-- Pagination (manual JS) -->
+        <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">
+            <!-- Showing entries -->
+            <div id="entriesInfo" class="mb-2 sm:mb-0"></div>
+            <!-- Pagination buttons -->
+            <div class="flex items-center gap-2" id="pagination"></div>
         </div>
-    </div>
 
+        <!-- Pagination Script -->
+        <script>
+            const searchInput = document.getElementById("searchInput");
+            const filterRoom = document.getElementById("filterRoom");
+            const filterDay = document.getElementById("filterDay");
+            const filterYear = document.getElementById("filterYear");
+            const tbody = document.getElementById("reportBody");
+            const rows = Array.from(tbody.getElementsByTagName("tr"));
+            const noRecord = document.getElementById("noRecord");
+            const pagination = document.getElementById("pagination");
+            const entriesInfo = document.getElementById("entriesInfo");
+
+            let currentPage = 1;
+            const rowsPerPage = 5;
+
+            function renderTable() {
+                const searchValue = searchInput.value.toLowerCase();
+                const roomValue = filterRoom.value.toLowerCase();
+                const dayValue = filterDay.value.toLowerCase();
+                const yearValue = filterYear.value.toLowerCase();
+
+                let filteredRows = rows.filter(row => {
+                    const name = row.cells[1].textContent.toLowerCase();
+                    const id = row.cells[0].textContent.toLowerCase();
+                    const room = row.cells[3].textContent.toLowerCase(); // 👈 ambil status
+                    const day = row.cells[5].textContent.toLowerCase(); // 👈 ambil status
+                    const date = row.cells[6].textContent.toLowerCase(); // 👈 ambil status
+
+                    const matchSearch = name.includes(searchValue) || id.includes(searchValue);
+                    const matchRoom = roomValue === "" || room.trim() === roomValue;
+                    const matchDay = dayValue === "" || day.trim() === dayValue;
+                    const matchYear = yearValue === "" || date.endsWith(yearValue); // tahun di hujung tarikh
+                    return matchSearch && matchRoom && matchDay && matchYear;
+                });
+
+                const totalRows = filteredRows.length;
+                const totalPages = Math.ceil(totalRows / rowsPerPage);
+                if (currentPage > totalPages) currentPage = totalPages || 1;
+
+            // show only current page rows
+                rows.forEach(r => r.style.display = "none");
+
+                let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+                pageRows.forEach((r, i) => {
+                    r.style.display = "";
+                    // update numbering semula
+                    r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
+                });
+
+                // show/hide "no records"
+                noRecord.classList.toggle("hidden", totalRows > 0);
+
+                // entries info
+                const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+                const end = Math.min(currentPage * rowsPerPage, totalRows);
+                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+
+                // build pagination buttons
+                pagination.innerHTML = "";
+
+                // prev button
+                const prevBtn = document.createElement("button");
+                prevBtn.textContent = "‹";
+                prevBtn.disabled = currentPage === 1;
+                prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                prevBtn.addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(prevBtn);
+
+                // page numbers (limit 5 sahaja)
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, currentPage + 2);
+
+                if (endPage - startPage < 4) {
+                    if (startPage === 1) {
+                        endPage = Math.min(totalPages, startPage + 4);
+                    } else if (endPage === totalPages) {
+                        startPage = Math.max(1, endPage - 4);
+                    }
+                }
+
+                for (let i = startPage; i <= endPage; i++) {
+                    const btn = document.createElement("button");
+                    btn.textContent = i;
+                    btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+                    btn.addEventListener("click", () => {
+                        currentPage = i;
+                        renderTable();
+                    });
+                    pagination.appendChild(btn);
+                }
+
+                // next button
+                const nextBtn = document.createElement("button");
+                nextBtn.textContent = "›";
+                nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+                nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                nextBtn.addEventListener("click", () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(nextBtn);
+            }
+
+            searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+            filterRoom.addEventListener("change", () => { currentPage = 1; renderTable(); });
+            filterDay.addEventListener("change", () => { currentPage = 1; renderTable(); });
+            filterYear.addEventListener("change", () => { currentPage = 1; renderTable(); });
+            renderTable();
+        </script>
+    </div>
 </x-admin-layout>
