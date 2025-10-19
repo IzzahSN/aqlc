@@ -133,10 +133,10 @@ class StudentProgressController extends Controller
     public function update(Request $request, $schedule_id)
     {
         $validated = $request->validate([
-            'level_type.*' => 'required|nullable|string',
-            'recitation_module_id.*' => 'required|nullable|integer|exists:recitation_modules,recitation_module_id',
-            'page_number.*' => 'required|nullable|integer',
-            'grade.*' => 'required|nullable|string',
+            'level_type.*' => 'nullable|string',
+            'recitation_module_id.*' => 'nullable|integer|exists:recitation_modules,recitation_module_id',
+            'page_number.*' => 'nullable|integer',
+            'grade.*' => 'nullable|string',
             'remark.*' => 'nullable|string',
         ]);
 

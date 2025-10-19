@@ -71,10 +71,11 @@
                         @foreach ($studentProgresses as $index => $studentProgress)
                             @php
                                 $isReadOnly = (
-                                    $studentProgress->recitation_module_id !== null ||
-                                    $studentProgress->page_number !== null ||
-                                    $studentProgress->grade !== null ||
-                                    $studentProgress->remark !== null ||
+                                    $studentProgress->recitation_module_id !== null &&
+                                    $studentProgress->page_number !== null &&
+                                    $studentProgress->grade !== null &&
+                                    $studentProgress->remark !== null &&
+                                    $studentProgress->is_main_page == 1 || 
                                     $studentProgress->is_main_page == 0
                                 );
                             @endphp
@@ -190,7 +191,6 @@
                                     @if ($studentProgress->recitation_module_id === null &&
                                         $studentProgress->page_number === null &&
                                         $studentProgress->grade === null &&
-                                        $studentProgress->remark === null &&
                                         $studentProgress->is_main_page === 1)
                                         -
                                     @elseif ($studentProgress->is_main_page === 1 )
