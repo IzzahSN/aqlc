@@ -165,7 +165,7 @@
                                 data-id="{{ $schedule->schedule_id }}" 
                                 data-modal-target="editScheduleModal"
                                 data-modal-toggle="editScheduleModal">Edit</button>
-                            <a href="{{ route('admin.attendance.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Attendance</a>                                                        
+                            <a href="{{ route('admin.schedule.attendance.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Attendance</a>                                                        
                         </td>
                     </tr>
                     @endforeach

@@ -87,8 +87,8 @@
             </li>
             <!-- Class Management -->
             <li>
-                <button type="button" class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ request()->routeIs('admin.package.index','admin.class.index','admin.schedule.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300 dropdown-active' : 'text-gray-900 dark:text-white hover:bg-green-100 dark:hover:bg-green-700' }}" aria-controls="dropdown-class" data-collapse-toggle="dropdown-class" aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 {{ request()->routeIs('admin.package.index','admin.class.index','admin.schedule.index') ? 'text-green-900 dark:text-green-300' : 'text-gray-500 dark:text-gray-400' }} transition duration-75 group-hover:text-green-900 group-[aria-expanded=true]:text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <button type="button" class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ request()->routeIs('admin.package.*','admin.class.*','admin.schedule.*') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300 dropdown-active' : 'text-gray-900 dark:text-white hover:bg-green-100 dark:hover:bg-green-700' }}" aria-controls="dropdown-class" data-collapse-toggle="dropdown-class" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 {{ request()->routeIs('admin.package.*','admin.class.*','admin.schedule.*') ? 'text-green-900 dark:text-green-300' : 'text-gray-500 dark:text-gray-400' }} transition duration-75 group-hover:text-green-900 group-[aria-expanded=true]:text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697" />
                         <path d="M18 14v4h4" />
@@ -103,15 +103,15 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-class" class="{{ request()->routeIs('admin.package.index','admin.class.index','admin.schedule.index') ? '' : 'hidden' }} py-2 space-y-2">
+                <ul id="dropdown-class" class="{{ request()->routeIs('admin.package.*','admin.class.*','admin.schedule.*') ? '' : 'hidden' }} py-2 space-y-2">
                     <li>
-                        <a href="{{ route('admin.package.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.package.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Package</a>
+                        <a href="{{ route('admin.package.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.package.*') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Package</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.class.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.class.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Class</a>
+                        <a href="{{ route('admin.class.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.class.*') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Class</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.schedule.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.schedule.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Schedule</a>
+                        <a href="{{ route('admin.schedule.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.schedule.*') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Schedule</a>
                     </li>
                 </ul>
             </li>

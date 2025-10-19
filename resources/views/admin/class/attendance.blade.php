@@ -15,7 +15,7 @@
     </div>
 
     <!-- Attendance Form -->
-    <form action="{{ route('admin.attendance.update', $id) }}" method="POST">
+    <form action="{{ route('admin.schedule.attendance.update', $id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -265,7 +265,7 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="studentForm" action="{{ route('admin.attendance.store', $id) }}" method="POST">
+            <form id="studentForm" action="{{ route('admin.schedule.attendance.store', $id) }}" method="POST">
                 @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div>

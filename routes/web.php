@@ -116,10 +116,10 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::put('/schedule/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
     Route::delete('/schedule/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
 
-    Route::get('/schedule/{id}/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
-    Route::put('/schedule/{id}/attendance', [AttendanceController::class, 'update'])->name('attendance.update');
-    Route::post('/schedule/{id}/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
-    Route::delete('/schedule/{scheduleId}/attendance/{id}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
+    Route::get('/schedule/{id}/attendance', [AttendanceController::class, 'index'])->name('schedule.attendance.index');
+    Route::put('/schedule/{id}/attendance', [AttendanceController::class, 'update'])->name('schedule.attendance.update');
+    Route::post('/schedule/{id}/attendance', [AttendanceController::class, 'store'])->name('schedule.attendance.store');
+    Route::delete('/schedule/{scheduleId}/attendance/{id}', [AttendanceController::class, 'destroy'])->name('schedule.attendance.destroy');
 
     //////////////////////
     // REPORT MANAGEMENT //
