@@ -146,7 +146,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::delete('/module/{id}', [RecitationModuleController::class, 'destroy'])->name('module.destroy');
 
     // PAYMENT
-    Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill');
+    Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill.index');
     Route::get('/bill/report', fn() => view('admin.payment.bills_report'))->name('bill.report');
 
     // SALARY

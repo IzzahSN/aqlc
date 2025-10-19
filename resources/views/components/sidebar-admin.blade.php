@@ -142,9 +142,9 @@
             </li>
             <!-- Payment Management -->
             <li>
-                <button type="button" class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ request()->routeIs('admin.salary.index','admin.bill') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300 dropdown-active' : 'text-gray-900 dark:text-white hover:bg-green-100 dark:hover:bg-green-700' }}" aria-controls="dropdown-payment" data-collapse-toggle="dropdown-payment" aria-expanded="false">
+                <button type="button" class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group {{ request()->routeIs('admin.salary.*','admin.bill.*') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300 dropdown-active' : 'text-gray-900 dark:text-white hover:bg-green-100 dark:hover:bg-green-700' }}" aria-controls="dropdown-payment" data-collapse-toggle="dropdown-payment" aria-expanded="false">
 
-                    <svg class="shrink-0 w-5 h-5 {{ request()->routeIs('admin.salary.index','admin.bill') ? 'text-green-900 dark:text-green-300' : 'text-gray-500 dark:text-gray-400' }} transition duration-75 group-hover:text-green-900 group-[aria-expanded=true]:text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="shrink-0 w-5 h-5 {{ request()->routeIs('admin.salary.*','admin.bill.*') ? 'text-green-900 dark:text-green-300' : 'text-gray-500 dark:text-gray-400' }} transition duration-75 group-hover:text-green-900 group-[aria-expanded=true]:text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M7 15h-3a1 1 0 0 1 -1 -1v-8a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v3" />
                         <path d="M7 9m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z" />
@@ -156,12 +156,12 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-payment" class="{{ request()->routeIs('admin.salary.index','admin.bill') ? '' : 'hidden' }} py-2 space-y-2">
+                <ul id="dropdown-payment" class="{{ request()->routeIs('admin.salary.*','admin.bill.*') ? '' : 'hidden' }} py-2 space-y-2">
                     <li>
-                        <a href="{{ route('admin.salary.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.salary.index') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Salary</a>
+                        <a href="{{ route('admin.salary.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.salary.*') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Salary</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.bill') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.bill') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Student Bill</a>
+                        <a href="{{ route('admin.bill.index') }}" class="flex items-center w-full p-2 pl-11 rounded-lg {{ request()->routeIs('admin.bill.*') ? 'bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-300' : 'text-gray-900 hover:bg-green-100 dark:text-white dark:hover:bg-green-700' }}">Student Bill</a>
                     </li>
                 </ul>
             </li>
