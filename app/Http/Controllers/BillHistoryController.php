@@ -66,10 +66,11 @@ class BillHistoryController extends Controller
         }
 
         // calculate bill_amount for all tutors in the salary record. dalam table schedules, count how many classes each tutor (kalau ada relief not null, admbil tutor_id as relief, kalau relief null tutor_idd ad tutor_id) taught in that month and year, tengok package_id pada kelas yang di ajar, kalau duration_per_Sessions = 30 minutes, kira as 0.5, kalau 1 hour kira as 1, then total kan darab dengan salary_rate dalam salary_records
-        foreach ($billHistories as $billHistory) {
+        $totalHours = []; // Initialize array to store total hours for each bill history
+        foreach ($billHistories as $index => $billHistory) {
             $tutorId = $billHistory->tutor_id;
             $salaryRate = $salaryRecord->salary_rate;
-            $totalHours = Schedule::where(function ($query) use ($tutorId) {
+            $hours = Schedule::where(function ($query) use ($tutorId) {
                 $query->where(function ($q) use ($tutorId) {
                     $q->whereNull('relief')->where('tutor_id', $tutorId);
                 })->orWhere('relief', $tutorId);
@@ -82,7 +83,11 @@ class BillHistoryController extends Controller
                     $duration = $schedule->class->package->duration_per_sessions;
                     return $duration == '30 minutes' ? 0.5 : 1;
                 });
-            $billHistory->bill_amount = $totalHours * $salaryRate;
+
+            // Store total hours in array indexed by bill history index
+            $totalHours[$index] = $hours;
+
+            $billHistory->bill_amount = $hours * $salaryRate;
 
             // Update bill_status based on current date
             $currentDate = Carbon::now();
@@ -98,7 +103,7 @@ class BillHistoryController extends Controller
 
             $billHistory->save();
         }
-        return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories', 'id'));
+        return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories', 'id', 'totalHours'));
     }
 
     /**
