@@ -65,7 +65,7 @@ class Student extends Model
         return $this->hasMany(StudentProgress::class, 'student_id', 'student_id');
     }
 
-    public function latestProgreess()
+    public function latestProgress()
     {
         return $this->hasOne(StudentProgress::class, 'student_id', 'student_id')->latestOfMany();
     }
