@@ -303,13 +303,13 @@
                             <!-- Phone Number -->
                             <div>
                                 <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
-                                <input type="text" id="phone_number" name="phone_number" placeholder="012-3456789" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <input type="text" id="phone_number" name="phone_number" placeholder="0123456789" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
                             <!-- IC Number -->
                             <div>
                                 <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
-                                <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <input type="text" id="ic_number" name="ic_number" placeholder="990101145678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             </div>
 
                             <!-- Age -->
