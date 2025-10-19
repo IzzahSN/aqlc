@@ -500,7 +500,6 @@
                                 <th class="px-4 py-3">Grade</th>
                                 <th class="px-4 py-3">Remark</th>
                                 <th class="px-4 py-3">Date</th>
-                                <th class="px-4 py-3">Attendance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -512,18 +511,6 @@
                                 <td class="px-4 py-3">-</td>
                                 <td class="px-4 py-3">-</td>
                                 <td class="px-4 py-3">12/09/2025</td>
-                                <td class="px-4 py-3 text-center">❌</td>
-                            </tr>
-
-                            <tr class="border-b">
-                                <td class="px-4 py-3">2</td>
-                                <td class="px-4 py-3 font-medium text-gray-900">Tue-21-K1</td>
-                                <td class="px-4 py-3">Juz 1</td>
-                                <td class="px-4 py-3">10</td>
-                                <td class="px-4 py-3">Mumtaz</td>
-                                <td class="px-4 py-3">Replacement Class</td>
-                                <td class="px-4 py-3">10/08/2025</td>
-                                <td class="px-4 py-3 text-center">✅</td>
                             </tr>
                         </tbody>
                     </table>
