@@ -1,4 +1,4 @@
-<x-admin-layout :title="'Student'">
+<x-admin-layout :title="'Student Report'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->

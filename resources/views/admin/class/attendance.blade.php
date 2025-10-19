@@ -1,4 +1,4 @@
-<x-admin-layout :title="'Schedule'">
+<x-admin-layout :title="'Attendance Report'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->

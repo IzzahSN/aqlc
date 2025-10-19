@@ -1,4 +1,4 @@
-<x-admin-layout :title="'Class'">
+<x-admin-layout :title="'Class Report'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
@@ -24,11 +24,11 @@
             </div>
         </div>
 
-        <!-- Search + Filter -->
+        <!-- Search -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <!-- Search -->
+           <!-- Search -->
             <div class="relative w-full sm:w-full">
-                <input type="text" placeholder="Search by name or ID"
+                <input id="searchInput" type="text" placeholder="Search by name or recitation"
                     class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                 <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -44,57 +44,128 @@
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Student Name</th>
+                        <th class="px-4 py-3">Schedule</th>
                         <th class="px-4 py-3">Total Attend</th>
                         <th class="px-4 py-3">Total Absent</th>
-                        <th class="px-4 py-3">Action</th>
-
+                        <th class="px-4 py-3">Tutor</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="classBody">
+                    @foreach ($schedules as $schedule)                        
                     <tr class="border-b">
-                        <td class="px-4 py-3">1</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Muhammad Ikhwan Bin Idris</td>
-                        <td class="px-4 py-3">19</td>
-                        <td class="px-4 py-3">1</td>
-                        <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded text-white bg-green-600 hover:bg-green-700" data-modal-target="reportClassModal" data-modal-toggle="reportClassModal">View</button>
-                        </td>
+                        <td class="px-4 py-3 row-index"></td>
+                        <td class="px-4 py-3 font-medium text-gray-900">{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
+                        {{-- count attendance status==1 --}}
+                        <td class="px-4 py-3">{{ $schedule->attendances->where('status', 1)->count() }}</td>
+                        <td class="px-4 py-3">{{ $schedule->attendances->where('status', 0)->count() }}</td>
+                        <td class="px-4 py-3">{{ $schedule->reliefTutor ? $schedule->reliefTutor->username : $schedule->tutor->username }}</td>
                     </tr>
-
-                    <tr class="border-b">
-                        <td class="px-4 py-3">2</td>
-                        <td class="px-4 py-3 font-medium text-gray-900">Nur Hanna Binti Eijaz</td>
-                        <td class="px-4 py-3">34</td>
-                        <td class="px-4 py-3">0</td>
-                        <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded text-white bg-green-600 hover:bg-green-700" data-modal-target="reportClassModal" data-modal-toggle="reportClassModal">View</button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
 
+        <!-- No record row -->
+        <p id="noRecord" class="text-center text-gray-500 py-3 hidden">No records found</p>
+
         <!-- Pagination -->
         <div class="flex items-center justify-between mt-4">
-            <div class="flex items-center gap-2">
-                <span class="text-sm text-gray-500">Result per page</span>
-                <select class="border rounded px-2 py-1 text-sm">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                </select>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                <button class="px-3 py-1 border rounded text-sm">2</button>
-                <button class="px-3 py-1 border rounded text-sm">3</button>
-                <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-            </div>
+            <div class="text-sm text-gray-500" id="showingEntries"></div>
+            <div class="flex items-center gap-2" id="paginationControls"></div>
         </div>
     </div>
+
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const tbody = document.getElementById("classBody");
+        const rows = Array.from(tbody.getElementsByTagName("tr"));
+        const noRecord = document.getElementById("noRecord");
+        const pagination = document.getElementById("paginationControls");
+        const entriesInfo = document.getElementById("showingEntries");
+
+        let currentPage = 1;
+        const rowsPerPage = 5;
+
+        function renderTable() {
+            const searchValue = searchInput.value.toLowerCase();
+
+            let filteredRows = rows.filter(row => {
+                const name = row.cells[1].textContent.toLowerCase();
+                const schedule = row.cells[2].textContent.toLowerCase();
+
+                const matchSearch = name.includes(searchValue) || schedule.includes(searchValue);
+                return matchSearch;
+            });
+
+            const totalRows = filteredRows.length;
+            const totalPages = Math.ceil(totalRows / rowsPerPage);
+            if (currentPage > totalPages) currentPage = totalPages || 1;
+
+            // hide semua rows
+            rows.forEach(r => r.style.display = "none");
+
+            // show hanya current page rows
+            let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+            pageRows.forEach((r, i) => {
+                r.style.display = "";
+                r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
+            });
+
+            // no records
+            noRecord.classList.toggle("hidden", totalRows > 0);
+
+            // entries info
+            const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+            const end = Math.min(currentPage * rowsPerPage, totalRows);
+            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+
+            // pagination
+            pagination.innerHTML = "";
+
+            // prev button
+            const prevBtn = document.createElement("button");
+            prevBtn.textContent = "‹";
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+            prevBtn.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+            pagination.appendChild(prevBtn);
+
+            // page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+                btn.addEventListener("click", () => {
+                    currentPage = i;
+                    renderTable();
+                });
+                pagination.appendChild(btn);
+            }
+
+            // next button
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "›";
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+            nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+            nextBtn.addEventListener("click", () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+            pagination.appendChild(nextBtn);
+        }
+
+        searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+
+        renderTable();
+    </script>
 
     <!-- Add Class Modal -->
     <div id="reportClassModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
