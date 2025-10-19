@@ -256,6 +256,14 @@
         }
 
         searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+        
+        // Prevent form submission when Enter is pressed in search input
+        searchInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+            }
+        });
+        
         renderTable();
     </script>
 
