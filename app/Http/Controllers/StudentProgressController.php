@@ -15,17 +15,23 @@ class StudentProgressController extends Controller
      */
     public function index($id)
     {
+        // Get current schedule
+        $currentSchedule = Schedule::findOrFail($id);
+
         $studentProgresses = StudentProgress::where('schedule_id', $id)
-            ->with(['student', 'recitationModule'])
+            ->with(['student', 'recitationModule',])
             ->orderBy('student_id')        // kumpul ikut pelajar
             ->orderByDesc('is_main_page')  // main page dulu
             ->orderBy('page_number')       // susun ikut nombor muka surat
             ->get();
 
+        // dapatkan semua studenet latest progree dalam studentProgresses
+        $studentProgresses->load(['student.latestProgress.recitationModule']);
+
         //get module hannya status is_complete_series = 0
         $modules = RecitationModule::where('is_complete_series', 0)->get();
 
-        return view('admin.report.grade', compact('studentProgresses', 'id', 'modules'));
+        return view('admin.report.grade', compact('studentProgresses', 'id', 'modules', 'currentSchedule'));
     }
 
 

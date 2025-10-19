@@ -88,12 +88,26 @@
                                 </td>
 
                                 {{-- VIEW PAST RECITATION only show when is_main_page==1 --}}
-                                <td class="px-4 py-3 flex justify-center">
+                                <td class="px-4 py-3">
                                     @if ($studentProgress->is_main_page === 1)
-                                    <button type="button"
-                                        class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500"
-                                        data-modal-target="reportClassModal"
-                                        data-modal-toggle="reportClassModal">View</button>
+                                        @php
+                                            // Get the student's latest progress before the current schedule date
+                                            $pastProgress = \App\Models\StudentProgress::where('student_id', $studentProgress->student_id)
+                                                ->whereHas('schedule', function($query) use ($currentSchedule) {
+                                                    $query->where('date', '<', $currentSchedule->date);
+                                                })
+                                                ->whereNotNull('recitation_module_id')
+                                                ->whereNotNull('page_number')
+                                                ->with('recitationModule')
+                                                ->orderBy('student_progress_id', 'desc')
+                                                ->first();
+                                        @endphp
+                                        
+                                        @if ($pastProgress && $pastProgress->recitationModule)
+                                            {{ $pastProgress->recitationModule->recitation_name }}, Page: {{ $pastProgress->page_number }}
+                                        @else
+                                            No Past Recitation
+                                        @endif
                                     @else
                                         -
                                     @endif
@@ -476,68 +490,6 @@
             });
         });
     </script>
-
-    <!-- View Class Modal -->
-    <div id="reportClassModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between px-6 py-4">
-                <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">List of Attendance</h3>
-                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="reportClassModal">✕</button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
-                <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                    <table class="min-w-full text-sm text-left text-gray-600">
-                        <thead class="bg-gray-100 text-xs uppercase text-gray-500">
-                            <tr>
-                                <th class="px-4 py-3">No</th>
-                                <th class="px-4 py-3">Class Name</th>
-                                <th class="px-4 py-3">Recitation</th>
-                                <th class="px-4 py-3">Page</th>
-                                <th class="px-4 py-3">Grade</th>
-                                <th class="px-4 py-3">Remark</th>
-                                <th class="px-4 py-3">Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b">
-                                <td class="px-4 py-3">1</td>
-                                <td class="px-4 py-3 font-medium text-gray-900">Mon-20-K1</td>
-                                <td class="px-4 py-3">-</td>
-                                <td class="px-4 py-3">-</td>
-                                <td class="px-4 py-3">-</td>
-                                <td class="px-4 py-3">-</td>
-                                <td class="px-4 py-3">12/09/2025</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-                <!-- Pagination -->
-                <div class="flex items-center justify-between mt-4">
-                    <div class="flex items-center gap-2">
-                        <span class="text-sm text-gray-500">Result per page</span>
-                        <select class="border rounded px-2 py-1 text-sm">
-                            <option>10</option>
-                            <option>20</option>
-                            <option>50</option>
-                        </select>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                        <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                        <button class="px-3 py-1 border rounded text-sm">2</button>
-                        <button class="px-3 py-1 border rounded text-sm">3</button>
-                        <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
    {{-- Add Student Progress Modal --}}
     <div id="addStudentModal" tabindex="-1" aria-hidden="true"

@@ -131,7 +131,6 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::post('/report/grade', [StudentProgressController::class, 'store'])->name('report.grade.store');
     Route::put('/report/{id}/grade', [StudentProgressController::class, 'update'])->name('report.grade.update');
     Route::delete('/report/{scheduleId}/grade/{id}', [StudentProgressController::class, 'destroy'])->name('report.grade.destroy');
-    Route::get('/report/student-progress/{student_id}', [StudentProgressController::class, 'getStudentProgress'])->name('report.student-progress');
 
     Route::get('/report/{id}/lesson-plan', [LessonPlanController::class, 'index'])->name('report.lesson-plan.index');
     Route::put('/report/{id}/lesson-plan', [LessonPlanController::class, 'update'])->name('report.lesson-plan.update');
