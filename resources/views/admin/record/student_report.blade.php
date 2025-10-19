@@ -14,9 +14,9 @@
         </nav>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[calc(100vh-8rem)]">
         <!-- Student Portfolio -->
-        <div class="col-span-1 bg-green-900 text-white rounded-xl shadow p-6 space-y-6">
+        <div class="col-span-1 bg-green-900 text-white rounded-xl shadow p-6 space-y-6 overflow-y-auto">
             <div class="flex flex-col items-center text-center">
                 {{-- if dont have profile, display avatar --}}
                 <img src="{{ $student->profile
@@ -58,10 +58,10 @@
         </div>
 
         <!-- Right Section -->
-        <div class="col-span-3 space-y-6">
+        <div class="col-span-3 flex flex-col gap-6 h-full">
 
             <!-- Report Badges -->
-            <div class="bg-white rounded-xl shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6 flex-shrink-0">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Report Badges</h3>
                 @if($achievements->isNotEmpty())
                     <div class="overflow-hidden relative">
@@ -124,7 +124,7 @@
 
 
             <!-- Recitation Table -->
-            <div class="bg-white rounded-xl shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6 flex-1 flex flex-col overflow-hidden">
                 <!-- Header -->
                 <div class="flex items-center justify-between mb-4">
                     <div>
@@ -165,7 +165,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto overflow-y-auto flex-1">
                     <table id="reportTable" class="min-w-full text-sm text-left text-gray-600">
                         <thead class="bg-gray-100 text-gray-700 text-xs uppercase">
                             <tr>
