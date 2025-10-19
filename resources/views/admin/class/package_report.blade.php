@@ -37,7 +37,12 @@
             <!-- Filter Tahun -->
             <select id="yearFilter" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                 <option value="">All Years</option>
-                @foreach($students->pluck('year')->unique() as $year)
+                @php
+                    $years = $students->map(function($student) {
+                        return \Carbon\Carbon::parse($student->admission_date)->format('Y');
+                    })->unique()->sort();
+                @endphp
+                @foreach($years as $year)
                     <option value="{{ $year }}">{{ $year }}</option>
                 @endforeach
             </select>
@@ -55,12 +60,15 @@
                     </tr>
                 </thead>
                 <tbody id="studentBody">
-                    @foreach($students as $i => $student)
+                    @foreach($students as $student)
                         <tr class="border-b">
-                            <td class="px-4 py-3 row-index">{{ $i + 1 }}</td>
-                            <td class="px-4 py-3 font-medium text-gray-900">{{ $student['name'] }}</td>
-                            <td class="px-4 py-3">{{ $student['current_recitation'] }}</td>
-                            <td class="px-4 py-3">{{ $student['admission_date'] }}</td>
+                            <td class="px-4 py-3 row-index"></td>
+                            <td class="px-4 py-3 font-medium text-gray-900">{{ $student->first_name }} {{ $student->last_name }}</td>
+                            {{-- show the latest student progress recitation name or 'No Progress' if none exists --}}
+                            <td class="px-4 py-3">
+                                {{ $student->latestProgress?->recitationModule?->recitation_name ?? 'No Progress' }}
+                            </td>
+                            <td class="px-4 py-3">{{ \Carbon\Carbon::parse($student->admission_date)->format('d/m/Y') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -83,8 +91,8 @@
         const tbody = document.getElementById("studentBody");
         const rows = Array.from(tbody.getElementsByTagName("tr"));
         const noRecord = document.getElementById("noRecord");
-        const pagination = document.getElementById("pagination");
-        const entriesInfo = document.getElementById("entriesInfo");
+        const pagination = document.getElementById("paginationControls");
+        const entriesInfo = document.getElementById("showingEntries");
 
         let currentPage = 1;
         const rowsPerPage = 5;

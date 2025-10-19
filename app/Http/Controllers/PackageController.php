@@ -24,19 +24,12 @@ class PackageController extends Controller
      */
     public function report($id)
     {
-        $package = Package::with(['joinPackages.student.latestProgress'])->findOrFail($id);
-
-        // Ambil semua student (tak paginate dari DB, nanti paginate guna JS)
-        $students = $package->joinPackages->map(function ($join) {
-            $student = $join->student;
-
-            return [
-                'name' => $student->name,
-                'current_recitation' => $student->latestProgress->recitation ?? '-',
-                'admission_date' => $student->created_at->format('d/m/Y'),
-                'year' => $student->created_at->format('Y'), // utk filter tahun
-            ];
-        });
+        $package = Package::findOrFail($id);
+        // show all latest student progress for the package with recitation module
+        $students = $package->joinPackages()
+            ->with(['student.latestProgress.recitationModule'])
+            ->get()
+            ->pluck('student');
 
         return view('admin.class.package_report', compact('package', 'students'));
     }
