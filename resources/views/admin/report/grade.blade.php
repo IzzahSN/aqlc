@@ -15,7 +15,7 @@
     </div>
 
     <!-- Grade Report List -->
-    <form action="{{ route('admin.grade.update', $id) }}" method="POST">
+    <form action="{{ route('admin.report.grade.update', $id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -565,7 +565,7 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="addStudentForm" action="{{ route('admin.grade.store') }}" method="POST">
+            <form id="addStudentForm" action="{{ route('admin.report.grade.store') }}" method="POST">
                 @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">

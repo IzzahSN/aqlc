@@ -79,12 +79,17 @@
                                 <td class="px-4 py-3">
                                     <input type="hidden" name="attendances[{{ $index }}][attendance_id]"
                                         value="{{ $attendance->attendance_id }}">
-                                    <input type="text"
-                                        name="attendances[{{ $index }}][remark]"
-                                        value="{{ $attendance->remark }}"
-                                        placeholder="Enter remark..."
-                                        @if($attendance->status == 1) disabled @endif
-                                        class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
+                                        {{-- if status == 1, display '-', else show input box --}}
+                                    @if($attendance->status == 1)
+                                        <span class="text-gray-500 italic">-</span>
+                                    @else
+                                        <input type="text"
+                                            name="attendances[{{ $index }}][remark]" 
+                                            value="{{ $attendance->remark }}"
+                                            placeholder="Enter remark..."
+                                            @if($attendance->status == 1) disabled @endif
+                                            class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
+                                    @endif
                                 </td>
 
                                 <td class="px-4 py-3 text-center">

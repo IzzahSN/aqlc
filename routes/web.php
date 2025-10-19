@@ -127,13 +127,13 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 
     // GRADE & LESSON PLAN
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
-    Route::get('/report/{id}/grade', [StudentProgressController::class, 'index'])->name('grade.index');
-    Route::post('/report/grade', [StudentProgressController::class, 'store'])->name('grade.store');
-    Route::put('/report/{id}/grade', [StudentProgressController::class, 'update'])->name('grade.update');
-    Route::delete('/report/{scheduleId}/grade/{id}', [StudentProgressController::class, 'destroy'])->name('grade.destroy');
+    Route::get('/report/{id}/grade', [StudentProgressController::class, 'index'])->name('report.grade.index');
+    Route::post('/report/grade', [StudentProgressController::class, 'store'])->name('report.grade.store');
+    Route::put('/report/{id}/grade', [StudentProgressController::class, 'update'])->name('report.grade.update');
+    Route::delete('/report/{scheduleId}/grade/{id}', [StudentProgressController::class, 'destroy'])->name('report.grade.destroy');
 
-    Route::get('/report/{id}/lesson-plan', [LessonPlanController::class, 'index'])->name('lesson-plan.index');
-    Route::put('/report/{id}/lesson-plan', [LessonPlanController::class, 'update'])->name('lesson-plan.update');
+    Route::get('/report/{id}/lesson-plan', [LessonPlanController::class, 'index'])->name('report.lesson-plan.index');
+    Route::put('/report/{id}/lesson-plan', [LessonPlanController::class, 'update'])->name('report.lesson-plan.update');
 
     // ACHIEVEMENT
     Route::get('/achievement', [AchievementController::class, 'index'])->name('achievement.index');

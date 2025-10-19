@@ -16,7 +16,7 @@
 
     <!-- Lesson Plan Form -->
     <div class="bg-white rounded-lg shadow p-6">
-        <form action="{{ route('admin.lesson-plan.update', $lessonPlan->lesson_plan_id) }}" 
+        <form action="{{ route('admin.report.lesson-plan.update', $lessonPlan->lesson_plan_id) }}" 
             method="POST" 
             enctype="multipart/form-data" 
             class="space-y-6">
