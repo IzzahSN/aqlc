@@ -71,15 +71,17 @@ class JoinPackageController extends Controller
             ]);
         }
 
-        // Update status class
-        $class = ClassModel::findOrFail($request->class_id);
-        $totalStudents = $class->students()->count(); // relationship students
-        if ($totalStudents >= $class->capacity) {
-            $class->status = 'Full';
-        } else {
-            $class->status = 'Available';
+        // Update status for all selected classes
+        foreach ($request->class_ids as $classId) {
+            $class = ClassModel::findOrFail($classId);
+            $totalStudents = $class->students()->count(); // relationship students
+            if ($totalStudents >= $class->capacity) {
+                $class->status = 'Full';
+            } else {
+                $class->status = 'Available';
+            }
+            $class->save();
         }
-        $class->save();
 
         return redirect()->route('admin.student.index')
             ->with('success', 'Package and classes added successfully!');
