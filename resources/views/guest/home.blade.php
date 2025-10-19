@@ -33,7 +33,7 @@
     </div>
 
     <!-- Statistic section -->
-    <section class="relative bg-gray-50 dark:bg-neutral-950 px-4 sm:px-6 md:px-20">
+    <section class="relative bg-gray-50 px-4 sm:px-6 md:px-20">
         <div class="p-4 sm:p-6 bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 rounded-2xl">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-y-8 sm:gap-y-12 gap-x-6 sm:gap-x-10 text-center">
                 <!-- Stats 1-->
@@ -95,7 +95,7 @@
     </section>
 
     <!-- Why Choose Us Section -->
-    <section class="relative bg-gray-50 dark:bg-neutral-950 py-8 sm:py-16 px-4 sm:px-6">
+    <section class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:grid lg:grid-cols-12 lg:gap-8 lg:items-center">
 
@@ -120,10 +120,10 @@
                     <div class="space-y-4 sm:space-y-6">
                         <!-- Title -->
                         <div class="space-y-4">
-                            <h2 class="font-bold text-2xl sm:text-3xl lg:text-4xl text-gray-900 dark:text-white">
+                            <h2 class="font-bold text-2xl sm:text-3xl lg:text-4xl text-gray-900">
                                 Why Choose Us?
                             </h2>
-                            <p class="text-gray-600 dark:text-neutral-400 text-sm sm:text-base">
+                            <p class="text-gray-600 text-sm sm:text-base">
                                 We are committed to providing the best Quran learning experience, tailored for individuals and families.
                             </p>
                         </div>
@@ -137,7 +137,7 @@
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </span>
-                                <span class="text-gray-700 dark:text-neutral-300 text-sm sm:text-base">Flexible Schedule</span>
+                                <span class="text-gray-700 text-sm sm:text-base">Flexible Schedule</span>
                             </li>
 
                             <li class="flex gap-x-3">
@@ -146,7 +146,7 @@
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </span>
-                                <span class="text-gray-700 dark:text-neutral-300 text-sm sm:text-base">Experienced Tutors</span>
+                                <span class="text-gray-700 text-sm sm:text-base">Experienced Tutors</span>
                             </li>
 
                             <li class="flex gap-x-3">
@@ -155,7 +155,7 @@
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </span>
-                                <span class="text-gray-700 dark:text-neutral-300 text-sm sm:text-base">Conducive Learning Environment</span>
+                                <span class="text-gray-700 text-sm sm:text-base">Conducive Learning Environment</span>
                             </li>
 
                             <li class="flex gap-x-3">
@@ -164,7 +164,7 @@
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </span>
-                                <span class="text-gray-700 dark:text-neutral-300 text-sm sm:text-base">Personalized Learning Plans</span>
+                                <span class="text-gray-700 text-sm sm:text-base">Personalized Learning Plans</span>
                             </li>
                         </ul>
                         <!-- End List -->

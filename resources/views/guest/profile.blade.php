@@ -86,13 +86,13 @@
             <!-- Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <!-- Card 1-->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-x-3 sm:gap-x-4">
                         <img class="rounded-full size-16 sm:size-20 shadow"
                             src="https://i.pravatar.cc/55"
                             alt="Foto Ustazah Aisyah Karim">
                         <div class="grow">
-                            <h3 class="font-semibold text-gray-900 dark:text-neutral-100 text-sm sm:text-base">
+                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                                 Ustazah Aisyah Karim
                             </h3>
                             <p class="text-xs tracking-wider text-gray-700">
@@ -113,13 +113,13 @@
                 </div>
 
                 <!-- Card 1 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-x-3 sm:gap-x-4">
                         <img class="rounded-full size-16 sm:size-20 shadow"
                             src="https://i.pravatar.cc/56"
                             alt="Foto Ustaz Ahmad Zulkifli">
                         <div class="grow">
-                            <h3 class="font-semibold text-gray-900 dark:text-neutral-100 text-sm sm:text-base">
+                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                                 Ustaz Ahmad Zulkifli
                             </h3>
                             <p class="text-xs tracking-wider text-gray-700">
@@ -140,13 +140,13 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-x-3 sm:gap-x-4">
                         <img class="rounded-full size-16 sm:size-20 shadow"
                             src="https://i.pravatar.cc/57"
                             alt="Foto Ustazah Nurul Huda">
                         <div class="grow">
-                            <h3 class="font-semibold text-gray-900 dark:text-neutral-100 text-sm sm:text-base">
+                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                                 Ustazah Nurul Huda
                             </h3>
                             <p class="text-xs tracking-wider text-gray-700">
@@ -167,13 +167,13 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-x-3 sm:gap-x-4">
                         <img class="rounded-full size-16 sm:size-20 shadow"
                             src="https://i.pravatar.cc/58"
                             alt="Foto Ustaz Farid Hakim">
                         <div class="grow">
-                            <h3 class="font-semibold text-gray-900 dark:text-neutral-100 text-sm sm:text-base">
+                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                                 Ustaz Farid Hakim
                             </h3>
                             <p class="text-xs tracking-wider text-gray-700">
@@ -194,13 +194,13 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-x-3 sm:gap-x-4">
                         <img class="rounded-full size-16 sm:size-20 shadow"
                             src="https://i.pravatar.cc/59"
                             alt="Foto Ustazah Siti Mariam">
                         <div class="grow">
-                            <h3 class="font-semibold text-gray-900 dark:text-neutral-100 text-sm sm:text-base">
+                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                                 Ustazah Siti Mariam
                             </h3>
                             <p class="text-xs tracking-wider text-gray-700">
@@ -221,13 +221,13 @@
                 </div>
 
                 <!-- Card 5 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow dark:bg-neutral-900 dark:border-emerald-900/50">
+                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-x-3 sm:gap-x-4">
                         <img class="rounded-full size-16 sm:size-20 shadow"
                             src="https://i.pravatar.cc/60"
                             alt="Foto Ustaz Khairul Nizam">
                         <div class="grow">
-                            <h3 class="font-semibold text-gray-900 dark:text-neutral-100 text-sm sm:text-base">
+                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
                                 Ustaz Khairul Nizam
                             </h3>
                             <p class="text-xs tracking-wider text-gray-700">
