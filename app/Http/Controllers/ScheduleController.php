@@ -80,11 +80,11 @@ class ScheduleController extends Controller
             }
         }
 
-        //display all schedule ->orderBy('day') ->orderBy('start_time')
+        //display all schedule ->orderBy('day') ->orderBy('start_time') orderByDesc('schedules.date')
         $schedules = Schedule::select('schedules.*')
             ->join('class_models', 'schedules.class_id', '=', 'class_models.class_id')
             ->with('class.tutor')
-            ->orderBy('schedules.date')
+            ->orderByDesc('schedules.date')
             ->orderBy('class_models.day')
             ->orderBy('class_models.start_time')
             ->get();

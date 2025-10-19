@@ -129,6 +129,7 @@
                 <option value="Bilik 1">Bilik 1</option>
                 <option value="Bilik 2">Bilik 2</option>
             </select>
+            <input type="date" id="filterDate" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto" placeholder="Filter by date">
         </div>
 
         <!-- Table -->
@@ -189,6 +190,7 @@
             const searchInput = document.getElementById("searchInput");
             const filterDay = document.getElementById("filterDay");
             const filterRoom = document.getElementById("filterRoom");
+            const filterDate = document.getElementById("filterDate");
             const tbody = document.getElementById("scheduleBody");
             const rows = Array.from(tbody.getElementsByTagName("tr"));
             const noRecord = document.getElementById("noRecord");
@@ -202,17 +204,29 @@
                 const searchValue = searchInput.value.toLowerCase();
                 const dayValue = filterDay.value.toLowerCase();
                 const roomValue = filterRoom.value.toLowerCase();
+                const dateValue = filterDate.value;
 
                 let filteredRows = rows.filter(row => {
                     const name = row.cells[1].textContent.toLowerCase();
                     const id = row.cells[0].textContent.toLowerCase();
-                    const day = row.cells[3].textContent.toLowerCase(); // 👈 ambil day
-                    const room = row.cells[4].textContent.toLowerCase(); // 👈 ambil room
+                    const day = row.cells[3].textContent.toLowerCase();
+                    const room = row.cells[4].textContent.toLowerCase();
+                    const dateText = row.cells[6].textContent.trim(); // Get date in format dd/mm/yyyy
 
                     const matchSearch = name.includes(searchValue) || id.includes(searchValue);
                     const matchDay = dayValue === "" || day.includes(dayValue);
                     const matchRoom = roomValue === "" || room.includes(roomValue);
-                    return matchSearch && matchDay && matchRoom;
+                    
+                    // Date matching logic
+                    let matchDate = true;
+                    if (dateValue !== "") {
+                        // Convert filter date (yyyy-mm-dd) to dd/mm/yyyy format for comparison
+                        const [year, month, day] = dateValue.split('-');
+                        const formattedFilterDate = `${day}/${month}/${year}`;
+                        matchDate = dateText === formattedFilterDate;
+                    }
+                    
+                    return matchSearch && matchDay && matchRoom && matchDate;
                 });
 
                 const totalRows = filteredRows.length;
@@ -294,6 +308,7 @@
             searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
             filterDay.addEventListener("change", () => { currentPage = 1; renderTable(); });
             filterRoom.addEventListener("change", () => { currentPage = 1; renderTable(); });
+            filterDate.addEventListener("change", () => { currentPage = 1; renderTable(); });
 
             renderTable();
         </script>
