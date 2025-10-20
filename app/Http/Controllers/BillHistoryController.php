@@ -202,15 +202,11 @@ class BillHistoryController extends Controller
 
                     $billStatus = $currentDate->greaterThan($billDate) ? 'Unpaid' : 'Pending';
 
-                    // Get the student's guardian (assuming first guardian is primary)
-                    $guardian = $student->guardians()->first();
-
                     // Create new bill history
                     BillHistory::create([
                         'student_bill_id' => $id,
                         'student_id' => $student->student_id,
                         'package_id' => $package->package_id,
-                        'guardian_id' => $guardian ? $guardian->guardian_id : null,
                         'bill_amount' => $billAmount,
                         'bill_status' => $billStatus,
                     ]);
@@ -220,7 +216,7 @@ class BillHistoryController extends Controller
 
         // Refresh bill histories after creating new ones
         $billHistories = BillHistory::where('student_bill_id', $id)
-            ->with(['student', 'package', 'guardian'])
+            ->with(['student', 'package'])
             ->get();
 
         // Recalculate bill amounts for existing bill histories
