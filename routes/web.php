@@ -149,9 +149,6 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     // PAYMENT
     Route::get('/bill', [StudentBillRecordController::class, 'index'])->name('bill.index');
     Route::post('/bill', [StudentBillRecordController::class, 'store'])->name('bill.store');
-    Route::get('/bill/{id}/edit', [StudentBillRecordController::class, 'edit'])->name('bill.edit');
-    Route::put('/bill/{id}', [StudentBillRecordController::class, 'update'])->name('bill.update');
-    Route::delete('/bill/{id}', [StudentBillRecordController::class, 'destroy'])->name('bill.destroy');
 
     Route::get('/bill/{id}/report', [BillHistoryController::class, 'indexStudentBill'])->name('bill.report.index');
     Route::put('/bill/{id}/report', [BillHistoryController::class, 'updateStudentBill'])->name('bill.report.update');

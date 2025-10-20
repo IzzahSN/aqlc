@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BillHistory;
 use App\Models\SalaryRecord;
 use App\Models\Schedule;
+use App\Models\StudentBillRecord;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -139,5 +140,14 @@ class BillHistoryController extends Controller
         }
 
         return redirect()->back()->with('success', 'Bill histories updated successfully.');
+    }
+
+    public function indexStudentBill($id)
+    {
+        // display all bill histories for a specific student bill record
+        $studentBillRecord = StudentBillRecord::findOrFail($id);
+        $billHistories = BillHistory::where('student_bill_id', $id)->get();
+
+        return view('admin.payment.bills_report', compact('studentBillRecord', 'billHistories', 'id'));
     }
 }

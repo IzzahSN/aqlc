@@ -7,7 +7,7 @@
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('admin.bill') }}" class="hover:text-green-600">Bill</a></li>
+                <li><a href="{{ route('admin.bill.index') }}" class="hover:text-green-600">Bill</a></li>
                 <li>/</li>
                 <li>Report</li>
             </ol>
