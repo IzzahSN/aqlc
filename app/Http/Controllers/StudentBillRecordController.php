@@ -50,36 +50,4 @@ class StudentBillRecordController extends Controller
 
         return redirect()->back()->with('success', 'Student bill record for ' . $request->student_bill_month . ' ' . $request->student_bill_year . ' has been created successfully.');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(StudentBillRecord $studentBillRecord)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(StudentBillRecord $studentBillRecord)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, StudentBillRecord $studentBillRecord)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(StudentBillRecord $studentBillRecord)
-    {
-        //
-    }
 }
