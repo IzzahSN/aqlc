@@ -6,6 +6,8 @@ use App\Models\BillHistory;
 use App\Models\SalaryRecord;
 use App\Models\Schedule;
 use App\Models\StudentBillRecord;
+use App\Models\JoinPackage;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -148,6 +150,102 @@ class BillHistoryController extends Controller
         $studentBillRecord = StudentBillRecord::findOrFail($id);
         $billHistories = BillHistory::where('student_bill_id', $id)->get();
 
-        return view('admin.payment.bills_report', compact('studentBillRecord', 'billHistories', 'id'));
+        // Get all students who have active packages
+        $joinPackages = JoinPackage::with(['student', 'package'])->get();
+
+        foreach ($joinPackages as $joinPackage) {
+            $student = $joinPackage->student;
+            $package = $joinPackage->package;
+
+            // Check if bill history already exists for this student
+            $existingBillHistory = BillHistory::where('student_bill_id', $id)
+                ->where('student_id', $student->student_id)
+                ->first();
+
+            if (!$existingBillHistory) {
+                $billAmount = 0;
+
+                // Calculate bill amount based on package unit
+                if ($package->unit === 'per session') {
+                    // Count attended sessions in the specified month and year
+                    $attendedSessions = Attendance::where('student_id', $student->student_id)
+                        ->where('status', 'Present')
+                        ->whereHas('schedule', function ($query) use ($studentBillRecord) {
+                            $query->whereMonth('date', date('m', strtotime($studentBillRecord->student_bill_month . ' 1')))
+                                ->whereYear('date', $studentBillRecord->student_bill_year);
+                        })
+                        ->count();
+
+                    $billAmount = $attendedSessions * $package->package_rate;
+                } elseif ($package->unit === 'per month') {
+                    // Use package rate directly for monthly packages
+                    $billAmount = $package->package_rate;
+                }
+
+                // Determine bill_status based on current date
+                $currentDate = Carbon::now();
+                $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
+                $billYear = $studentBillRecord->student_bill_year;
+                $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
+
+                $billStatus = $currentDate->greaterThan($billDate) ? 'Unpaid' : 'Pending';
+
+                // Create new bill history
+                BillHistory::create([
+                    'student_bill_id' => $id,
+                    'student_id' => $student->student_id,
+                    'package_id' => $package->package_id,
+                    'bill_amount' => $billAmount,
+                    'bill_status' => $billStatus,
+                ]);
+            }
+        }
+
+        // Refresh bill histories after creating new ones
+        $billHistories = BillHistory::where('student_bill_id', $id)
+            ->with(['student', 'package', 'guardian'])
+            ->get();
+
+        // Recalculate bill amounts for existing bill histories
+        $attendanceDetails = [];
+        foreach ($billHistories as $index => $billHistory) {
+            $student = $billHistory->student;
+            $package = $billHistory->package;
+
+            if ($package) {
+                if ($package->unit === 'per session') {
+                    // Count attended sessions
+                    $attendedSessions = Attendance::where('student_id', $student->student_id)
+                        ->where('status', 'Present')
+                        ->whereHas('schedule', function ($query) use ($studentBillRecord) {
+                            $query->whereMonth('date', date('m', strtotime($studentBillRecord->student_bill_month . ' 1')))
+                                ->whereYear('date', $studentBillRecord->student_bill_year);
+                        })
+                        ->count();
+
+                    $billHistory->bill_amount = $attendedSessions * $package->package_rate;
+                    $attendanceDetails[$index] = $attendedSessions;
+                } elseif ($package->unit === 'per month') {
+                    $billHistory->bill_amount = $package->package_rate;
+                    $attendanceDetails[$index] = 'Monthly';
+                }
+
+                // Update bill_status based on current date
+                $currentDate = Carbon::now();
+                $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
+                $billYear = $studentBillRecord->student_bill_year;
+                $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
+
+                if ($currentDate->greaterThan($billDate)) {
+                    $billHistory->bill_status = 'Unpaid';
+                } else {
+                    $billHistory->bill_status = 'Pending';
+                }
+
+                $billHistory->save();
+            }
+        }
+
+        return view('admin.payment.bills_report', compact('studentBillRecord', 'billHistories', 'id', 'attendanceDetails'));
     }
 }
