@@ -216,7 +216,7 @@ class BillHistoryController extends Controller
 
         // Refresh bill histories after creating new ones
         $billHistories = BillHistory::where('student_bill_id', $id)
-            ->with(['student', 'package'])
+            ->with(['student.guardians', 'package', 'guardian'])
             ->get();
 
         // Recalculate bill amounts for existing bill histories
@@ -250,21 +250,65 @@ class BillHistoryController extends Controller
                 }
 
                 // Update bill_status based on current date
-                // $currentDate = Carbon::now();
-                // $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
-                // $billYear = $studentBillRecord->student_bill_year;
-                // $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
+                $currentDate = Carbon::now();
+                $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
+                $billYear = $studentBillRecord->student_bill_year;
+                $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
 
-                // if ($currentDate->greaterThan($billDate)) {
-                //     $billHistory->bill_status = 'Unpaid';
-                // } else {
-                //     $billHistory->bill_status = 'Pending';
-                // }
+                if ($currentDate->greaterThan($billDate)) {
+                    $billHistory->bill_status = 'Unpaid';
+                } else {
+                    $billHistory->bill_status = 'Pending';
+                }
 
-                // $billHistory->save();
+                $billHistory->save();
             }
         }
 
         return view('admin.payment.bills_report', compact('studentBillRecord', 'billHistories', 'id', 'attendanceDetails'));
+    }
+
+    public function updateStudentBill(Request $request, $id)
+    {
+        $request->validate([
+            'billHistories' => 'required|array',
+            'billHistories.*.bill_id' => 'required|exists:bill_histories,bill_id',
+            'billHistories.*.bill_receipt' => 'nullable|file|mimes:pdf,jpg,png,jpeg|max:2048',
+            'billHistories.*.bill_type' => 'nullable|string',
+            'billHistories.*.guardian_id' => 'nullable|exists:guardians,guardian_id',
+        ]);
+
+        foreach ($request->billHistories as $item) {
+            $billHistory = BillHistory::findOrFail($item['bill_id']);
+
+            // Handle file upload if provided
+            if ($request->hasFile('billHistories.' . array_search($item, $request->billHistories) . '.bill_receipt')) {
+                $file = $request->file('billHistories.' . array_search($item, $request->billHistories) . '.bill_receipt');
+                $extension = $file->getClientOriginalExtension();
+                $newName = 'receipt_' . date('m_Y') . '_' . $item['bill_id'] . '.' . $extension;
+                $path = $file->storeAs('receipts', $newName, 'public');
+                $billHistory->bill_receipt = $path;
+            }
+
+            // Update guardian if provided
+            if (isset($item['guardian_id']) && !empty($item['guardian_id'])) {
+                $billHistory->guardian_id = $item['guardian_id'];
+            }
+
+            // Update bill type if provided
+            if (isset($item['bill_type']) && !empty($item['bill_type'])) {
+                $billHistory->bill_type = $item['bill_type'];
+            }
+
+            // Update status if bill_receipt not null and date
+            if ($billHistory->bill_receipt) {
+                $billHistory->bill_status = 'Paid';
+                $billHistory->bill_date = now();
+            }
+
+            $billHistory->save();
+        }
+
+        return redirect()->back()->with('success', 'Bill histories updated successfully.');
     }
 }

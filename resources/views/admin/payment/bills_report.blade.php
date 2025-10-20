@@ -56,23 +56,38 @@
                             <th class="px-4 py-3 text-center">Status</th>
                             <th class="px-4 py-3 text-center">Date</th>
                             <th class="px-4 py-3">Package</th>
-                            <th class="px-4 py-3 text-center">No. of Session</th>
+                            <th class="px-4 py-3 text-center">Attendance</th>
                         </tr>
                     </thead>
                     <tbody id="billBody">
                         @foreach ($billHistories as $index => $billHistory)   
                         <tr class="border-b">
                             <td class="px-4 py-3 row-index"></td>
+                            {{-- student name --}}
                             <td class="px-4 py-3 font-medium text-gray-900">{{ $billHistory->student->first_name }} {{ $billHistory->student->last_name }}</td>
+                            {{-- amount --}}
                             <td class="px-4 py-3">RM{{ number_format($billHistory->bill_amount, 2) }}</td>
-                            <td class="px-4 py-3 font-medium text-gray-900">
+                            {{-- guardian name --}}
+                            <td class="px-4 py-3 font-medium">
                                 {{-- if bill_status == 'Pending' show '-', else show guardian first_name or '-' --}}
                                 @if ($billHistory->bill_status == 'Pending')
                                     -
+                                @elseif ($billHistory->bill_status == 'Paid' && $billHistory->guardian_id != null)
+                                    {{ $billHistory->guardian->first_name}} {{ $billHistory->guardian->last_name }}
                                 @else
-                                    {{ $billHistory->guardian ? $billHistory->guardian->first_name : '-' }}
+                                    {{-- if bill_status == 'Unpaid' show selection input for guardian from guardians relationship--}}
+                                    <input type="hidden" name="billHistories[{{ $index }}][bill_id]" value="{{ $billHistory->bill_id }}" />
+                                    <select name="billHistories[{{ $index }}][guardian_id]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-1.5">
+                                        <option value="">Select Guardian</option>
+                                        @foreach ($billHistory->student->guardians as $guardian)
+                                            <option value="{{ $guardian->guardian_id }}" {{ $billHistory->guardian_id == $guardian->guardian_id ? 'selected' : '' }}>
+                                                {{ $guardian->first_name }} {{ $guardian->last_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 @endif
                             </td>
+                            {{-- bill type --}}
                             <td class="px-4 py-3">
                                 @if ($billHistory->bill_status == 'Pending')
                                     -
@@ -82,10 +97,13 @@
                                     {{-- selection input --}}
                                     <input type="hidden" name="billHistories[{{ $index }}][bill_id]" value="{{ $billHistory->bill_id }}" />
                                     <select name="billHistories[{{ $index }}][bill_type]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-1.5">
+                                        <option value="">Select Type</option>
                                         <option value="Cash" >Cash</option>
+                                        <option value="Online Banking" >Online Banking</option>
                                     </select>                 
                                 @endif
                             </td>
+                            {{-- bill receipt --}}
                             <td class="px-4 py-3">
                                  <input type="hidden" name="billHistories[{{ $index }}][bill_id]" value="{{ $billHistory->bill_id }}" />
                                     <input type="file" name="billHistories[{{ $index }}][bill_receipt]"
@@ -96,6 +114,7 @@
                                         <a href="{{ asset('storage/' . $billHistory->bill_receipt) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">View Receipt</a>
                                     @endif
                             </td>
+                            {{-- bill_status --}}
                             <td class="px-4 py-e">
                                  @if ($billHistory->bill_status == 'Paid')
                                     <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Paid</span>
