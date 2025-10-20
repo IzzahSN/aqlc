@@ -13,6 +13,7 @@ use App\Http\Controllers\RecitationModuleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryRecordController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\StudentBillRecordController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentGuardianController;
 use App\Http\Controllers\StudentProgressController;
@@ -146,8 +147,14 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::delete('/module/{id}', [RecitationModuleController::class, 'destroy'])->name('module.destroy');
 
     // PAYMENT
-    Route::get('/bill', fn() => view('admin.payment.bills'))->name('bill.index');
-    Route::get('/bill/report', fn() => view('admin.payment.bills_report'))->name('bill.report');
+    Route::get('/bill', [StudentBillRecordController::class, 'index'])->name('bill.index');
+    Route::post('/bill', [StudentBillRecordController::class, 'store'])->name('bill.store');
+    Route::get('/bill/{id}/edit', [StudentBillRecordController::class, 'edit'])->name('bill.edit');
+    Route::put('/bill/{id}', [StudentBillRecordController::class, 'update'])->name('bill.update');
+    Route::delete('/bill/{id}', [StudentBillRecordController::class, 'destroy'])->name('bill.destroy');
+
+    Route::get('/bill/{id}/report', [BillHistoryController::class, 'indexStudentBill'])->name('bill.report.index');
+    Route::put('/bill/{id}/report', [BillHistoryController::class, 'updateStudentBill'])->name('bill.report.update');
 
     // SALARY
     Route::get('/salary', [SalaryRecordController::class, 'index'])->name('salary.index');

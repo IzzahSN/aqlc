@@ -12,7 +12,10 @@ class StudentBillRecordController extends Controller
      */
     public function index()
     {
-        //
+        $studentBillRecords = StudentBillRecord::orderBy('student_bill_year', 'desc')
+            ->orderByRaw("FIELD(student_bill_month, 'December', 'November', 'October', 'September', 'August', 'July', 'June', 'May', 'April', 'March', 'February', 'January')")
+            ->get();
+        return view('admin.payment.bills', compact('studentBillRecords'));
     }
 
     /**
