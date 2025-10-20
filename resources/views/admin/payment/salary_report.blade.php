@@ -62,7 +62,7 @@
                     <tbody id="salaryBody">
                         @foreach ($billHistories as $index => $billHistory)                            
                         <tr class="border-b">
-                            <td class="px-4 py-3 row-index">1</td>
+                            <td class="px-4 py-3 row-index"></td>
                             <td class="px-4 py-3 font-medium text-gray-900">{{ $billHistory->tutor->username }}</td>
                             {{-- show in 2 point --}}
                             <td class="px-4 py-3">RM{{ number_format($billHistory->bill_amount, 2) }}</td>

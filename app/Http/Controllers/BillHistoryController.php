@@ -179,7 +179,7 @@ class BillHistoryController extends Controller
                 if ($package->unit === 'per session') {
                     // Count attended sessions in the specified month and year
                     $attendedSessions = Attendance::where('student_id', $student->student_id)
-                        ->where('status', 'Present')
+                        ->where('status', 1)
                         ->whereHas('schedule', function ($query) use ($studentBillRecord) {
                             $query->whereMonth('date', date('m', strtotime($studentBillRecord->student_bill_month . ' 1')))
                                 ->whereYear('date', $studentBillRecord->student_bill_year);
@@ -229,7 +229,7 @@ class BillHistoryController extends Controller
                 if ($package->unit === 'per session') {
                     // Count attended sessions
                     $attendedSessions = Attendance::where('student_id', $student->student_id)
-                        ->where('status', 'Present')
+                        ->where('status', 1)
                         ->whereHas('schedule', function ($query) use ($studentBillRecord) {
                             $query->whereMonth('date', date('m', strtotime($studentBillRecord->student_bill_month . ' 1')))
                                 ->whereYear('date', $studentBillRecord->student_bill_year);
@@ -240,22 +240,28 @@ class BillHistoryController extends Controller
                     $attendanceDetails[$index] = $attendedSessions;
                 } elseif ($package->unit === 'per month') {
                     $billHistory->bill_amount = $package->package_rate;
-                    $attendanceDetails[$index] = 'Monthly';
+                    $attendanceDetails[$index] = $attendedSessions = Attendance::where('student_id', $student->student_id)
+                        ->where('status', 1)
+                        ->whereHas('schedule', function ($query) use ($studentBillRecord) {
+                            $query->whereMonth('date', date('m', strtotime($studentBillRecord->student_bill_month . ' 1')))
+                                ->whereYear('date', $studentBillRecord->student_bill_year);
+                        })
+                        ->count();
                 }
 
                 // Update bill_status based on current date
-                $currentDate = Carbon::now();
-                $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
-                $billYear = $studentBillRecord->student_bill_year;
-                $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
+                // $currentDate = Carbon::now();
+                // $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
+                // $billYear = $studentBillRecord->student_bill_year;
+                // $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
 
-                if ($currentDate->greaterThan($billDate)) {
-                    $billHistory->bill_status = 'Unpaid';
-                } else {
-                    $billHistory->bill_status = 'Pending';
-                }
+                // if ($currentDate->greaterThan($billDate)) {
+                //     $billHistory->bill_status = 'Unpaid';
+                // } else {
+                //     $billHistory->bill_status = 'Pending';
+                // }
 
-                $billHistory->save();
+                // $billHistory->save();
             }
         }
 
