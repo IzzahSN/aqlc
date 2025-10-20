@@ -15,7 +15,7 @@ class ReportController extends Controller
         $schedules = Schedule::select('schedules.*')
             ->join('class_models', 'schedules.class_id', '=', 'class_models.class_id')
             ->with('class.tutor')
-            ->orderBy('schedules.date')
+            ->orderByDesc('schedules.date')
             ->orderBy('class_models.day')
             ->orderBy('class_models.start_time')
             ->get();
