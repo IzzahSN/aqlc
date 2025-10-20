@@ -68,7 +68,7 @@
                             {{-- amount --}}
                             <td class="px-4 py-3">RM{{ number_format($billHistory->bill_amount, 2) }}</td>
                             {{-- guardian name --}}
-                            <td class="px-4 py-3 font-medium">
+                            <td class="px-4 py-3">
                                 {{-- if bill_status == 'Pending' show '-', else show guardian first_name or '-' --}}
                                 @if ($billHistory->bill_status == 'Pending')
                                     -
@@ -91,9 +91,9 @@
                             <td class="px-4 py-3">
                                 @if ($billHistory->bill_status == 'Pending')
                                     -
-                                @elseif ($billHistory->bill_status == 'Paid')
-                                    {{ $billHistory->bill_type ? $billHistory->bill_type : '-' }}
-                                @elseif ($billHistory->bill_status == 'Unpaid')
+                                @elseif ($billHistory->bill_status == 'Paid' && $billHistory->bill_type != null)
+                                    {{ $billHistory->bill_type }}
+                                @else
                                     {{-- selection input --}}
                                     <input type="hidden" name="billHistories[{{ $index }}][bill_id]" value="{{ $billHistory->bill_id }}" />
                                     <select name="billHistories[{{ $index }}][bill_type]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-1.5">

@@ -93,16 +93,16 @@ class BillHistoryController extends Controller
             $billHistory->bill_amount = $hours * $salaryRate;
 
             // Update bill_status based on current date
-            $currentDate = Carbon::now();
-            $billMonth = Carbon::createFromFormat('F', $salaryRecord->salary_month)->month;
-            $billYear = $salaryRecord->salary_year;
-            $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth(); // Assuming bill is due at the end of the month
+            // $currentDate = Carbon::now();
+            // $billMonth = Carbon::createFromFormat('F', $salaryRecord->salary_month)->month;
+            // $billYear = $salaryRecord->salary_year;
+            // $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth(); // Assuming bill is due at the end of the month
 
-            if ($currentDate->greaterThan($billDate)) {
-                $billHistory->bill_status = 'Unpaid';
-            } else {
-                $billHistory->bill_status = 'Pending';
-            }
+            // if ($currentDate->greaterThan($billDate)) {
+            //     $billHistory->bill_status = 'Unpaid';
+            // } else {
+            //     $billHistory->bill_status = 'Pending';
+            // }
 
             $billHistory->save();
         }
@@ -117,6 +117,7 @@ class BillHistoryController extends Controller
         $request->validate([
             'billHistories' => 'required|array',
             'billHistories.*.bill_id' => 'required|exists:bill_histories,bill_id',
+            'billHistories.*.bill_type' => 'nullable|string',
             'billHistories.*.bill_receipt' => 'nullable|file|mimes:pdf,jpg,png,jpeg|max:2048',
         ]);
 
@@ -130,6 +131,11 @@ class BillHistoryController extends Controller
                 $newName = 'receipt_' . date('m_Y') . '_' . $item['bill_id'] . '.' . $extension;
                 $path = $file->storeAs('receipts', $newName, 'public');
                 $billHistory->bill_receipt = $path;
+            }
+
+            // Update bill type if provided
+            if (isset($item['bill_type']) && !empty($item['bill_type'])) {
+                $billHistory->bill_type = $item['bill_type'];
             }
 
             // Update status if bill_recipt not null and date
@@ -250,16 +256,16 @@ class BillHistoryController extends Controller
                 }
 
                 // Update bill_status based on current date
-                $currentDate = Carbon::now();
-                $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
-                $billYear = $studentBillRecord->student_bill_year;
-                $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
+                // $currentDate = Carbon::now();
+                // $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
+                // $billYear = $studentBillRecord->student_bill_year;
+                // $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
 
-                if ($currentDate->greaterThan($billDate)) {
-                    $billHistory->bill_status = 'Unpaid';
-                } else {
-                    $billHistory->bill_status = 'Pending';
-                }
+                // if ($currentDate->greaterThan($billDate)) {
+                //     $billHistory->bill_status = 'Unpaid';
+                // } else {
+                //     $billHistory->bill_status = 'Pending';
+                // }
 
                 $billHistory->save();
             }
