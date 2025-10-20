@@ -150,8 +150,18 @@ class BillHistoryController extends Controller
         $studentBillRecord = StudentBillRecord::findOrFail($id);
         $billHistories = BillHistory::where('student_bill_id', $id)->get();
 
-        // Get all students who have active packages
-        $joinPackages = JoinPackage::with(['student', 'package'])->get();
+        // Get distinct student IDs who had attendance in the specified month and year
+        $studentIdsWithAttendance = Attendance::whereHas('schedule', function ($query) use ($studentBillRecord) {
+            $query->whereMonth('date', date('m', strtotime($studentBillRecord->student_bill_month . ' 1')))
+                ->whereYear('date', $studentBillRecord->student_bill_year);
+        })
+            ->distinct()
+            ->pluck('student_id');
+
+        // Get join packages only for students who had attendance in that month/year
+        $joinPackages = JoinPackage::with(['student', 'package'])
+            ->whereIn('student_id', $studentIdsWithAttendance)
+            ->get();
 
         foreach ($joinPackages as $joinPackage) {
             $student = $joinPackage->student;
@@ -182,22 +192,29 @@ class BillHistoryController extends Controller
                     $billAmount = $package->package_rate;
                 }
 
-                // Determine bill_status based on current date
-                $currentDate = Carbon::now();
-                $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
-                $billYear = $studentBillRecord->student_bill_year;
-                $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
+                // Only create bill if there's an amount to bill
+                if ($billAmount > 0) {
+                    // Determine bill_status based on current date
+                    $currentDate = Carbon::now();
+                    $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
+                    $billYear = $studentBillRecord->student_bill_year;
+                    $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
 
-                $billStatus = $currentDate->greaterThan($billDate) ? 'Unpaid' : 'Pending';
+                    $billStatus = $currentDate->greaterThan($billDate) ? 'Unpaid' : 'Pending';
 
-                // Create new bill history
-                BillHistory::create([
-                    'student_bill_id' => $id,
-                    'student_id' => $student->student_id,
-                    'package_id' => $package->package_id,
-                    'bill_amount' => $billAmount,
-                    'bill_status' => $billStatus,
-                ]);
+                    // Get the student's guardian (assuming first guardian is primary)
+                    $guardian = $student->guardians()->first();
+
+                    // Create new bill history
+                    BillHistory::create([
+                        'student_bill_id' => $id,
+                        'student_id' => $student->student_id,
+                        'package_id' => $package->package_id,
+                        'guardian_id' => $guardian ? $guardian->guardian_id : null,
+                        'bill_amount' => $billAmount,
+                        'bill_status' => $billStatus,
+                    ]);
+                }
             }
         }
 
