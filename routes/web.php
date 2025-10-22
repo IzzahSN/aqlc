@@ -197,6 +197,8 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
 Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group(function () {
     // Dashboard
     Route::get('/', fn() => view('dashboard.guardian'))->name('dashboard');
+    Route::post('/children', [StudentGuardianController::class, 'guardianAddChild'])->name('dashboard.addChild');
+
     // report
     Route::get('/report', fn() => view('guardian.report'))->name('report');
     // bill

@@ -5,7 +5,7 @@
         <h2 class="text-xl font-bold text-gray-800">Welcome back, {{ session('username') }}!</h2>
 
         <!-- Link Child Button -->
-        <button data-modal-target="linkChildModal" data-modal-toggle="linkChildModal"
+        <button data-modal-target="addChildModal" data-modal-toggle="addChildModal"
             class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-green-500 text-white 
                hover:bg-green-600 hover:shadow-md hover:scale-105 transition-all duration-200">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -19,102 +19,87 @@
         </button>
     </div>
 
-    <!-- Link Child Modal -->
-    <div id="linkChildModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative w-full max-w-xl mx-auto my-8 bg-white rounded-lg shadow-lg">
+    <!-- Add Child Modal -->
+    <div id="addChildModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Link Child</h3>
-                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="linkChildModal">✕</button>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Link Children</h3>
+                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" 
+                        data-modal-hide="addChildModal">✕</button>
             </div>
 
             <!-- Modal Body -->
-            <form id="classForm">
-                <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
+            <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
+                <form id="linkChildForm" action="{{ route('guardian.dashboard.addChild') }}" method="POST">
+                @csrf
+                    <div class="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-2">
                         <!-- IC Number -->
-                        <div>
+                        <div class="col-span-2 md:col-span-3 lg:col-span-4">
                             <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Child IC Number</label>
-                            <input type="text" id="ic_number" name="ic_number" placeholder="090817101758" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="text" id="ic_number" name="ic_number" placeholder="030810101788" 
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        </div>
+
+                        <!-- Relationship type -->
+                        <div class="col-span-2 md:col-span-3 lg:col-span-4">
+                            <label for="relationship_type" class="block mb-2 text-sm font-medium text-gray-900">Relationship</label>
+                            <select id="relationship_type" name="relationship_type" 
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Select Relationship</option>
+                                <option value="Father">Father</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Guardian">Guardian</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="flex items-end col-span-1 md:col-span-2 lg:col-span-2">
+                            <button type="submit" id="submitFormAddChild" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm py-2.5 text-center w-full">
+                                Submit
+                            </button>
                         </div>
                     </div>
-
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="linkChildModal">Cancel</button>
-
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- Insight -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <!-- Children Reports -->
-        <div class="bg-white p-4 rounded-xl shadow">
-            <div class="flex items-center gap-3">
-                <div>
-                    <p class="text-sm text-gray-500">Children Reports</p>
-                    <h3 class="text-2xl font-bold">3</h3>
-                    <div class="flex items-center gap-1 mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="w-4 h-4 text-green-500">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M3 17l6 -6l4 4l8 -8" />
-                            <path d="M14 7l7 0l0 7" />
-                        </svg>
-                        <p class="text-xs text-green-500">2 updated this week</p>
-                    </div>
-                </div>
+        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-lime-600 border-l-6 justify-between">
+            <div>
+                <p class="text-sm font-semibold text-lime-600 uppercase">Total Children</p>
+                <h3 class="text-2xl font-bold text-gray-500">1</h3>
             </div>
+            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+            </svg>
         </div>
 
         <!-- Upcoming Classes -->
-        <div class="bg-white p-4 rounded-xl shadow">
-            <div class="flex items-center gap-3">
-                <div>
-                    <p class="text-sm text-gray-500">Outstanding Bills</p>
-                    <h3 class="text-2xl font-bold">RM 120</h3>
-                    <div class="flex items-center gap-1 mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="w-4 h-4 text-red-500">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <circle cx="12" cy="12" r="9" />
-                            <line x1="12" y1="8" x2="12" y2="12" />
-                            <line x1="12" y1="16" x2="12" y2="16.01" />
-                        </svg>
-                        <p class="text-xs text-red-500">1 bill pending payment</p>
-                    </div>
-                </div>
+        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-amber-400 border-l-6 justify-between">
+            <div>
+                <p class="text-sm font-semibold text-amber-600 uppercase">Total Class Joined</p>
+                <h3 class="text-2xl font-bold text-gray-500">23</h3>
             </div>
+            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z" clip-rule="evenodd"/>
+            </svg>
         </div>
 
         <!-- Salary -->
-        <div class="bg-white p-4 rounded-xl shadow">
-            <div class="flex items-center gap-3">
-                <div>
-                    <p class="text-sm text-gray-500">Upcoming Classes</p>
-                    <h3 class="text-2xl font-bold">5</h3>
-                    <div class="flex items-center gap-1 mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="w-4 h-4 text-blue-500">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="5" width="16" height="16" rx="2" />
-                            <line x1="16" y1="3" x2="16" y2="7" />
-                            <line x1="8" y1="3" x2="8" y2="7" />
-                            <line x1="4" y1="11" x2="20" y2="11" />
-                        </svg>
-                        <p class="text-xs text-blue-500">Next: Aug 20, 2025</p>
-                    </div>
-                </div>
+        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-red-600 border-l-6 justify-between">
+            <div>
+                <p class="text-sm font-semibold text-red-600 uppercase">Outstanding Bills</p>
+                <h3 class="text-2xl font-bold text-gray-500">RM90.00</h3>
             </div>
+            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M9 2a1 1 0 0 0-1 1H6a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a1 1 0 0 0-1-1H9Zm1 2h4v2h1a1 1 0 1 1 0 2H9a1 1 0 0 1 0-2h1V4Zm5.707 8.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
+            </svg>
         </div>
     </div>
 

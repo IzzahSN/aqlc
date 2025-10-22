@@ -71,4 +71,44 @@ class StudentGuardianController extends Controller
 
         return redirect()->route('admin.guardian.index')->with('success', 'Child removed successfully.');
     }
+
+    public function guardianAddChild(Request $request)
+    {
+        $request->validate([
+            'ic_number' => 'required|string|exists:students,ic_number',
+            'relationship_type' => 'required|string',
+        ]);
+
+        // Get guardian ID from session
+        $guardianId = session('user_id');
+
+        if (!$guardianId) {
+            return back()->with('error', 'You must be logged in to link a child.');
+        }
+
+        // cari student ikut IC
+        $student = Student::where('ic_number', $request->ic_number)->first();
+
+        if (!$student) {
+            return back()->with('error', 'Student IC not found.');
+        }
+
+        // check kalau dah wujud
+        $exists = StudentGuardian::where('student_id', $student->student_id)
+            ->where('guardian_id', $guardianId)
+            ->exists();
+
+        if ($exists) {
+            return back()->with('error', 'This student is already linked to you.');
+        }
+
+        // create record
+        StudentGuardian::create([
+            'student_id' => $student->student_id,
+            'guardian_id' => $guardianId,
+            'relationship_type' => $request->relationship_type,
+        ]);
+
+        return redirect()->back()->with('success', 'Child added successfully.')->with('closemodalAddChildren', true);
+    }
 }
