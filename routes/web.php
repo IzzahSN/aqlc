@@ -5,6 +5,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BillHistoryController;
 use App\Http\Controllers\ClassModelController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\JoinPackageController;
 use App\Http\Controllers\LessonPlanController;
@@ -196,7 +197,7 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
 // =======================
 Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group(function () {
     // Dashboard
-    Route::get('/', fn() => view('dashboard.guardian'))->name('dashboard');
+    Route::get('/', [DashboardController::class, 'guardianDashboard'])->name('dashboard');
     Route::post('/children', [StudentGuardianController::class, 'guardianAddChild'])->name('dashboard.addChild');
 
     // report
