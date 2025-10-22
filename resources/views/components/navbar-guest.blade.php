@@ -1,9 +1,9 @@
 <header class="fixed top-0 left-0 w-full bg-gray-50 border-b border-gray-200 shadow-sm z-50">
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
         <!-- Logo & Brand -->
-        <a href="{{ route('home') }}" class=" flex items-center">
-            <img src="/images/logo-round.svg" class="h-10 w-10 rounded-full shadow me-3" alt=" AQLC Logo" />
-            <h2 class="self-center text-xs font-semibold">Pusat Pengajian Quran <br>As-Siraaj</h2>
+        <a href="{{ route('home') }}" class="flex items-center gap-2">
+            <img src="/images/logo-1.svg" class="w-8" alt=" AQLC Logo" />
+            <h2 class="self-center text-xs font-semibold">Pusat Pengajian<br>Quran As-Siraaj</h2>
         </a>
 
         <!-- Nav Links -->

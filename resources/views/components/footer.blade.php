@@ -6,7 +6,7 @@
                 <!-- Brand (besar sikit: span 2 kolum) -->
                 <div class="md:col-span-2">
                     <a href="#" class="flex items-center mb-3">
-                        <img src="/images/logo-round.svg" class="h-10 mr-3" alt="Logo" />
+                        <img src="/images/logo-2.svg" class="h-10 mr-3 rounded-full" alt="Logo" />
                         <span class="self-center text-base font-semibold leading-tight">
                             Pusat Pengajian Quran <br> As-Siraaj
                         </span>
