@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BillHistory;
 use App\Models\Guardian;
+use App\Models\JoinClass;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -30,6 +32,48 @@ class DashboardController extends Controller
             ->where('bill_status', 'Unpaid')
             ->sum('bill_amount');
         session(['unpaid_bills' => $unpaidBills]);
-        return view('dashboard.guardian', compact('guardian', 'childrenCount', 'paidBills', 'unpaidBills'));
+
+        // Get all student IDs associated with this guardian
+        $studentIds = $guardian->students()->pluck('students.student_id');
+
+        // Get all classes that these students are enrolled in
+        $classIds = JoinClass::whereIn('student_id', $studentIds)
+            ->pluck('class_id')
+            ->unique();
+
+        // Get all schedules for these classes with related data and student info
+        $schedules = Schedule::whereIn('class_id', $classIds)
+            ->with([
+                'class.tutor',
+                'class.package',
+                'class.joinClasses.student',
+                'tutor',
+                'reliefTutor'
+            ])
+            ->orderBy('date', 'desc')
+            ->get();
+
+        // Create a collection that combines schedule with student information
+        $scheduleData = [];
+        foreach ($schedules as $schedule) {
+            // Get all students in this class that belong to this guardian
+            $studentsInClass = $schedule->class->joinClasses()
+                ->whereIn('student_id', $studentIds)
+                ->with('student')
+                ->get();
+
+            foreach ($studentsInClass as $joinClass) {
+                $scheduleData[] = (object)[
+                    'schedule' => $schedule,
+                    'student' => $joinClass->student,
+                    'class' => $schedule->class,
+                    'tutor' => $schedule->reliefTutor ?? $schedule->class->tutor,
+                ];
+            }
+        }
+
+        session(['schedules' => $schedules]);
+
+        return view('dashboard.guardian', compact('guardian', 'childrenCount', 'paidBills', 'unpaidBills', 'scheduleData'));
     }
 }

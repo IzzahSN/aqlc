@@ -110,13 +110,14 @@
             <!-- Header -->
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h3 class="font-semibold text-gray-800">List of Upcoming Schedule</h3>
+                    <h3 class="font-semibold text-gray-800">List of Schedule</h3>
                 </div>
             </div>
+            <!-- Search + Filter -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                 <!-- Search -->
                 <div class="relative w-full sm:w-full">
-                    <input type="text" placeholder="Search by name or ID"
+                    <input type="text" id="searchInput" placeholder="Search by name or ID"
                         class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                     <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -125,16 +126,7 @@
                     </svg>
                 </div>
                 <!-- Filter -->
-                <select class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                    <option value="">Day</option>
-                    <option value="monday">Monday</option>
-                    <option value="tuesday">Tuesday</option>
-                    <option value="wednesday">Wednesday</option>
-                    <option value="thursday">Thursday</option>
-                    <option value="friday">Friday</option>
-                    <option value="saturday">Saturday</option>
-                    <option value="sunday">Sunday</option>
-                </select>
+                <input type="date" id="filterDate" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto" placeholder="Filter by date">
             </div>
             <!-- Table -->
             <div class="overflow-x-auto">
@@ -144,58 +136,149 @@
                             <th class="px-4 py-3">No</th>
                             <th class="px-4 py-3">Student Name</th>
                             <th class="px-4 py-3">Class Name</th>
-                            <th class="px-4 py-3">Room</th>
-                            <th class="px-4 py-3">Day</th>
                             <th class="px-4 py-3">Start Time</th>
                             <th class="px-4 py-3">End Time</th>
+                            <th class="px-4 py-3">Date</th>
                             <th class="px-4 py-3">Tutor Name</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="scheduleBody">
+                    @forelse ($scheduleData as $data)
                         <tr class="border-b">
-                            <td class="px-4 py-3">1</td>
-                            <td class="px-4 py-3 font-medium text-gray-900">Muhammad Firas</td>
-                            <td class="px-4 py-3 font-medium text-gray-900">Mon-20-K1</td>
-                            <td class="px-4 py-3">Kelas 1</td>
-                            <td class="px-4 py-3">Monday</td>
-                            <td class="px-4 py-3">20:00:00</td>
-                            <td class="px-4 py-3">21:00:00</td>
-                            <td class="px-4 py-3">Ustaz Aamir</td>
+                            <td class="px-4 py-3 row-index"></td>
+                            <td class="px-4 py-3 font-medium text-gray-900">{{ $data->student->first_name }} {{ $data->student->last_name }}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900">{{ $data->class->class_name }}</td>
+                            <td class="px-4 py-3">{{ date('H:i', strtotime($data->class->start_time)) }}</td>
+                            <td class="px-4 py-3">{{ date('H:i', strtotime($data->class->end_time)) }}</td>
+                            <td class="px-4 py-3">{{ \Carbon\Carbon::parse($data->schedule->date)->format('d/m/Y') }}</td>
+                            <td class="px-4 py-3">{{ $data->tutor->username }}</td>
                         </tr>
-
-                        <tr class="border-b">
-                            <td class="px-4 py-3">2</td>
-                            <td class="px-4 py-3 font-medium text-gray-900">Muhammad Faqriez</td>
-                            <td class="px-4 py-3 font-medium text-gray-900">Tue-21-K4</td>
-                            <td class="px-4 py-3">Kelas 4</td>
-                            <td class="px-4 py-3">Tuesday</td>
-                            <td class="px-4 py-3">21:00:00</td>
-                            <td class="px-4 py-3">22:00:00</td>
-                            <td class="px-4 py-3">Ustazah Husniah</td>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="px-4 py-8 text-center text-gray-500">
+                                No schedules found. Please link a child first.
+                            </td>
                         </tr>
+                    @endforelse
                     </tbody>
                 </table>
+                <!-- No Record Message -->
+                <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
             </div>
 
-            <!-- Pagination -->
-            <div class="flex items-center justify-between mt-4">
-                <div class="flex items-center gap-2">
-                    <span class="text-sm text-gray-500">Result per page</span>
-                    <select class="border rounded px-2 py-1 text-sm">
-                        <option>10</option>
-                        <option>20</option>
-                        <option>50</option>
-                    </select>
-                </div>
-
-                <div class="flex items-center gap-2">
-                    <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                    <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                    <button class="px-3 py-1 border rounded text-sm">2</button>
-                    <button class="px-3 py-1 border rounded text-sm">3</button>
-                    <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-                </div>
+             <!-- Pagination (manual JS) -->
+            <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">
+                <!-- Showing entries -->
+                <div id="entriesInfo" class="mb-2 sm:mb-0"></div>
+                <!-- Pagination buttons -->
+                <div class="flex items-center gap-2" id="pagination"></div>
             </div>
+
+            <!-- Pagination Script -->
+        <script>
+            const searchInput = document.getElementById("searchInput");
+            const filterDate = document.getElementById("filterDate");
+            const tbody = document.getElementById("scheduleBody");
+            const rows = Array.from(tbody.getElementsByTagName("tr"));
+            const noRecord = document.getElementById("noRecord");
+            const pagination = document.getElementById("pagination");
+            const entriesInfo = document.getElementById("entriesInfo");
+
+            let currentPage = 1;
+            const rowsPerPage = 5;
+
+            function renderTable() {
+                const searchValue = searchInput.value.toLowerCase();
+                const dateValue = filterDate.value;
+
+                let filteredRows = rows.filter(row => {
+                    const name = row.cells[1].textContent.toLowerCase();
+                    const dateText = row.cells[5].textContent.trim();
+                    const id = row.cells[0].textContent.toLowerCase();
+
+                    // Date matching logic
+                    let matchDate = true;
+                    if (dateValue !== "") {
+                        // Convert filter date (yyyy-mm-dd) to dd/mm/yyyy format for comparison
+                        const [year, month, day] = dateValue.split('-');
+                        const formattedFilterDate = `${day}/${month}/${year}`;
+                        matchDate = dateText === formattedFilterDate;
+                    }
+
+                    const matchSearch = name.includes(searchValue) || id.includes(searchValue);
+                    return matchSearch && matchDate;
+                });
+
+                const totalRows = filteredRows.length;
+                const totalPages = Math.ceil(totalRows / rowsPerPage);
+                if (currentPage > totalPages) currentPage = totalPages || 1;
+
+            // show only current page rows
+                rows.forEach(r => r.style.display = "none");
+
+                let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+                pageRows.forEach((r, i) => {
+                    r.style.display = "";
+                    // update numbering semula
+                    r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
+                });
+
+                // show/hide "no records"
+                noRecord.classList.toggle("hidden", totalRows > 0);
+
+                // entries info
+                const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+                const end = Math.min(currentPage * rowsPerPage, totalRows);
+                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+
+                // build pagination buttons
+                pagination.innerHTML = "";
+
+                // prev button
+                const prevBtn = document.createElement("button");
+                prevBtn.textContent = "‹";
+                prevBtn.disabled = currentPage === 1;
+                prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                prevBtn.addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(prevBtn);
+
+                // page numbers
+                for (let i = 1; i <= totalPages; i++) {
+                    const btn = document.createElement("button");
+                    btn.textContent = i;
+                    btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+                    btn.addEventListener("click", () => {
+                        currentPage = i;
+                        renderTable();
+                    });
+                    pagination.appendChild(btn);
+                }
+
+                // next button
+                const nextBtn = document.createElement("button");
+                nextBtn.textContent = "›";
+                nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+                nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                nextBtn.addEventListener("click", () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderTable();
+                    }
+                });
+                pagination.appendChild(nextBtn);
+            }
+
+            searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+            filterDate.addEventListener("change", () => { currentPage = 1; renderTable(); });
+
+            renderTable();
+        </script>
         </div>
 
         <!-- Children Summary Section -->
