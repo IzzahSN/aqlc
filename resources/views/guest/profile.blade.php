@@ -1,6 +1,6 @@
 <x-app-layout :title="'Profile'">
     <!-- About Us Section -->
-    <section class="relative bg-gray-50 py-12 sm:py-20 px-4 sm:px-6">
+    <section class="relative bg-gray-50 py-8 sm:py-20 px-4 sm:px-6">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center px-4 sm:px-6">
             <!-- Left: Images -->
             <div class="relative flex flex-col items-center">
