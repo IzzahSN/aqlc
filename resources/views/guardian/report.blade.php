@@ -1,11 +1,11 @@
-<x-guardian-layout :title="'Student Bill'">
+<x-guardian-layout :title="'Student Report'">
     <!-- Student Bill List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Student Bill</h2>
-                <p class="text-sm text-gray-500">Manage your bill: search, or filter.</p>
+                <h2 class="text-lg font-semibold">List of Student Report</h2>
+                <p class="text-sm text-gray-500">Manage your report: search, or filter.</p>
             </div>
         </div>
 
