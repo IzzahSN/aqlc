@@ -77,7 +77,6 @@
                         </td>
                         <td class="px-4 py-3">31/01/2025</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500" data-modal-target="reportClassModal" data-modal-toggle="reportClassModal">View</button>
                             <button class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Pay</button>
                         </td>
                     </tr>
@@ -92,7 +91,6 @@
                         </td>
                         <td class="px-4 py-3">28/02/2025</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <button type="button" class="px-3 py-1 text-xs rounded text-white bg-yellow-400 hover:bg-yellow-500" data-modal-target="reportClassModal" data-modal-toggle="reportClassModal">View</button>
                             <button class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Pay</button>
                         </td>
                     </tr>

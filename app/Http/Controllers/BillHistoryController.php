@@ -93,16 +93,16 @@ class BillHistoryController extends Controller
             $billHistory->bill_amount = $hours * $salaryRate;
 
             // Update bill_status based on current date
-            // $currentDate = Carbon::now();
-            // $billMonth = Carbon::createFromFormat('F', $salaryRecord->salary_month)->month;
-            // $billYear = $salaryRecord->salary_year;
-            // $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth(); // Assuming bill is due at the end of the month
+            $currentDate = Carbon::now();
+            $billMonth = Carbon::createFromFormat('F', $salaryRecord->salary_month)->month;
+            $billYear = $salaryRecord->salary_year;
+            $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth(); // Assuming bill is due at the end of the month
 
-            // if ($currentDate->greaterThan($billDate)) {
-            //     $billHistory->bill_status = 'Unpaid';
-            // } else {
-            //     $billHistory->bill_status = 'Pending';
-            // }
+            if ($currentDate->greaterThan($billDate)) {
+                $billHistory->bill_status = 'Unpaid';
+            } else {
+                $billHistory->bill_status = 'Pending';
+            }
 
             $billHistory->save();
         }
@@ -256,16 +256,16 @@ class BillHistoryController extends Controller
                 }
 
                 // Update bill_status based on current date
-                // $currentDate = Carbon::now();
-                // $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
-                // $billYear = $studentBillRecord->student_bill_year;
-                // $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
+                $currentDate = Carbon::now();
+                $billMonth = Carbon::createFromFormat('F', $studentBillRecord->student_bill_month)->month;
+                $billYear = $studentBillRecord->student_bill_year;
+                $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
 
-                // if ($currentDate->greaterThan($billDate)) {
-                //     $billHistory->bill_status = 'Unpaid';
-                // } else {
-                //     $billHistory->bill_status = 'Pending';
-                // }
+                if ($currentDate->greaterThan($billDate)) {
+                    $billHistory->bill_status = 'Unpaid';
+                } else {
+                    $billHistory->bill_status = 'Pending';
+                }
 
                 $billHistory->save();
             }
