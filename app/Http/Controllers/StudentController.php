@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassModel;
+use App\Models\Guardian;
 use App\Models\Package;
 use App\Models\Student;
 use Carbon\Carbon;
@@ -120,5 +121,18 @@ class StudentController extends Controller
         // get all student achievements
         $achievements = $student->achievements()->with('recitationModule')->get();
         return view('admin.record.student_report', compact('student', 'progressRecords', 'achievements'));
+    }
+
+    public function guardianReport()
+    {
+        $guardianId = session('user_id');
+        $students = Student::whereHas('studentGuardians', function ($query) use ($guardianId) {
+            $query->where('guardian_id', $guardianId);
+        })
+            ->with(['studentGuardians' => function ($query) use ($guardianId) {
+                $query->where('guardian_id', $guardianId);
+            }])
+            ->get();
+        return view('guardian.report', compact('students'));
     }
 }

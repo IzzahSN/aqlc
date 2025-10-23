@@ -201,7 +201,7 @@ Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group
     Route::post('/children', [StudentGuardianController::class, 'guardianAddChild'])->name('dashboard.addChild');
 
     // report
-    Route::get('/report', fn() => view('guardian.report'))->name('report');
+    Route::get('/report', [StudentController::class, 'guardianReport'])->name('report.index');
     // bill
     Route::get('/student-bill', [BillHistoryController::class, 'guardianBillView'])->name('bill.index');
     // profile

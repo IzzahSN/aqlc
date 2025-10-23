@@ -288,7 +288,7 @@
             </div>
 
             <div class="space-y-3">
-                <a href="{{ route('guardian.report') }}" class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
+                <a href="" class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
                     <div class="flex items-center gap-3">
                         <!-- Text Section -->
                         <div>
@@ -347,7 +347,7 @@
                     </svg>
                 </a>
 
-                <a href="{{ route('guardian.report') }}" class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
+                <a href="" class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
                     <div class="flex items-center gap-3">
                         <!-- Text Section -->
                         <div>
