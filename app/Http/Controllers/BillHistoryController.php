@@ -8,6 +8,7 @@ use App\Models\Schedule;
 use App\Models\StudentBillRecord;
 use App\Models\JoinPackage;
 use App\Models\Attendance;
+use App\Models\Guardian;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -320,6 +321,22 @@ class BillHistoryController extends Controller
 
     public function guardianBillView()
     {
-        return view('guardian.bill');
+        // Display all student bill histories for the logged-in guardian
+        $guardianId = session('user_id');
+        $guardian = Guardian::findOrFail($guardianId);
+
+        $studentIds = $guardian->students()->pluck('students.student_id');
+        // sort bill based on month and year in descending order from table student_bill_records
+        $billHistories = BillHistory::whereIn('student_id', $studentIds)
+            ->whereNotNull('student_bill_id')
+            ->with(['student.guardians', 'package', 'studentBill'])
+            ->get()
+            ->sortByDesc(function ($billHistory) {
+                $month = Carbon::createFromFormat('F', $billHistory->studentBill->student_bill_month)->month;
+                $year = $billHistory->studentBill->student_bill_year;
+                return Carbon::create($year, $month, 1);
+            });
+
+        return view('guardian.bill', compact('billHistories'));
     }
 }
