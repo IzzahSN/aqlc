@@ -39,8 +39,8 @@
             </li>
             <!-- Payment Management -->
             <li>
-                <a href="{{ route('guardian.bill') }}" class="flex items-center p-2 rounded-lg group {{ request()->routeIs('guardian.bill') ? 'bg-green-200 text-green-900' : 'text-gray-900 hover:bg-green-100' }}">
-                    <svg class="w-5 h-5 transition duration-75 {{ request()->routeIs('guardian.bill') ? 'text-green-900' : 'text-gray-500 group-hover:text-green-900' }}"
+                <a href="{{ route('guardian.bill.index') }}" class="flex items-center p-2 rounded-lg group {{ request()->routeIs('guardian.bill.index') ? 'bg-green-200 text-green-900' : 'text-gray-900 hover:bg-green-100' }}">
+                    <svg class="w-5 h-5 transition duration-75 {{ request()->routeIs('guardian.bill.index') ? 'text-green-900' : 'text-gray-500 group-hover:text-green-900' }}"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />

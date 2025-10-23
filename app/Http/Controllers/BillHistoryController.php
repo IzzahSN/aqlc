@@ -317,4 +317,9 @@ class BillHistoryController extends Controller
 
         return redirect()->back()->with('success', 'Bill histories updated successfully.');
     }
+
+    public function guardianBillView()
+    {
+        return view('guardian.bill');
+    }
 }

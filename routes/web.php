@@ -203,7 +203,7 @@ Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group
     // report
     Route::get('/report', fn() => view('guardian.report'))->name('report');
     // bill
-    Route::get('/student-bill', fn() => view('guardian.bill'))->name('bill');
+    Route::get('/student-bill', [BillHistoryController::class, 'guardianBillView'])->name('bill.index');
     // profile
     Route::get('/profile', fn() => view('guardian.profile'))->name('profile');
 });
