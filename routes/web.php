@@ -202,6 +202,9 @@ Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group
 
     // report
     Route::get('/report', [StudentController::class, 'guardianReport'])->name('report.index');
+    Route::get('/report/{id}', [StudentController::class, 'guardianViewReport'])->name('report.view');
+    Route::get('report/{id}/edit', [StudentController::class, 'guardianEditReport'])->name('report.edit');
+    Route::put('report/{id}', [StudentController::class, 'guardianUpdateReport'])->name('report.update');
     // bill
     Route::get('/student-bill', [BillHistoryController::class, 'guardianBillView'])->name('bill.index');
     // profile

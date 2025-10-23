@@ -51,7 +51,7 @@
                             @endif
                         </td>
                         <td class="px-4 py-3 text-center">
-                            <a href="{{ route('guardian.report.index', ['id' => $student->student_id]) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">View Report</a>
+                            <a href="{{ route('guardian.report.view', ['id' => $student->student_id]) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">View Report</a>
                         </td>
                     </tr>
                     @endforeach

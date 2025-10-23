@@ -135,4 +135,20 @@ class StudentController extends Controller
             ->get();
         return view('guardian.report', compact('students'));
     }
+
+    public function guardianViewReport($id)
+    {
+        $guardianId = session('user_id');
+        $student = Student::where('student_id', $id)
+            ->whereHas('studentGuardians', function ($query) use ($guardianId) {
+                $query->where('guardian_id', $guardianId);
+            })
+            ->with(['guardians', 'packages', 'classes'])
+            ->firstOrFail();
+
+        $progressRecords = $student->studentProgresses()->with(['schedule.tutor', 'schedule.class', 'recitationModule'])->orderByDesc('created_at')->get();
+        $achievements = $student->achievements()->with('recitationModule')->get();
+
+        return view('guardian.student_report', compact('student', 'progressRecords', 'achievements'));
+    }
 }
