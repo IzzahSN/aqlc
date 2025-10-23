@@ -8,6 +8,7 @@ use App\Models\Package;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
@@ -150,5 +151,43 @@ class StudentController extends Controller
         $achievements = $student->achievements()->with('recitationModule')->get();
 
         return view('guardian.student_report', compact('student', 'progressRecords', 'achievements'));
+    }
+
+    public function guardianEditReport($id)
+    {
+        $student = Student::findOrFail($id);
+        return response()->json($student);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function guardianUpdateReport(Request $request, $id)
+    {
+        $student = Student::findOrFail($id);
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'ic_number' => 'required|string|max:12|unique:students,ic_number,' . $student->student_id . ',student_id',
+            'birth_date' => 'nullable|date',
+            'age' => 'nullable|integer|min:3',
+            'gender' => 'required|in:Male,Female',
+            'address' => 'nullable|string',
+            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $data = $request->except('profile');
+
+        if ($request->hasFile('profile')) {
+            $ext = $request->file('profile')->getClientOriginalExtension();
+            $fileName = 'profile_' . Str::slug($request->first_name) . '_' . time() . '.' . $ext;
+            $profilePath = $request->file('profile')->storeAs('profiles', $fileName, 'public');
+            $data['profile'] = $profilePath;
+        }
+
+        $student->update($data);
+
+        return redirect()->back()->with('success', 'Student updated successfully!')->with('closeModalEdit', true);
     }
 }

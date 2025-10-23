@@ -15,8 +15,8 @@
             </nav>
 
             <!-- Left: Breadcrumb -->
-            <button data-modal-target="editStudentModal" data-modal-toggle="editStudentModal"
-                class="px-4 py-2 text-sm rounded-lg bg-yellow-500 text-white hover:bg-yellow-600">
+            <button data-modal-target="editStudentModal" data-modal-toggle="editStudentModal" data-id="{{ $student->student_id }}"
+                class="px-4 py-2 text-sm rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 edit-student-button">
                 Edit Student
             </button>
         </div>
@@ -163,7 +163,8 @@
                         <option value="Maqbul">Maqbul</option>
                         <option value="Rasib">Rasib</option>
                     </select>
-                    <select id="filterRecitation" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">                        <option value="">Recitation</option>
+                    <select id="filterRecitation" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                        <option value="">Recitation</option>
                         {{-- all unique recitation name sort from the recitation_module_id iqra 1, iqra 2--}}
                         @php
                             $recitationNames = $progressRecords->map(function($progress) {
@@ -333,7 +334,7 @@
 
     <!-- Edit Student Modal -->
     <div id="editStudentModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
@@ -342,7 +343,9 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="editStudentForm">
+            <form id="editStudentForm" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- First Name -->
@@ -360,55 +363,82 @@
                         <!-- IC Number -->
                         <div>
                             <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
-                            <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="text" id="ic_number" name="ic_number" placeholder="990101145678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
 
                         <!-- Age -->
                         <div>
                             <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
-                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Birth Date -->
                         <div>
                             <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
-                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Gender -->
                         <div>
                             <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
                             <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select>
                         </div>
-                        <!-- Status -->
+
+                        {{-- profile --}}
                         <div>
-                            <label for="status_edit" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                            <select id="status_edit" name="status_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
+                            <label for="profile" class="block mb-2 text-sm font-medium text-gray-900">Profile Picture</label>
+                            <input type="file" id="profile" name="profile" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
                     </div>
                     <!-- Address (full width) -->
                     <div class="mt-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
                 </div>
-
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
                     <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editStudentModal">Cancel</button>
-
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
                 </div>
             </form>
         </div>
     </div>
+
+    {{-- Edit Student Form --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll('.edit-student-button'); // butang edit
+            const editForm = document.getElementById('editStudentForm');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const studentId = this.getAttribute('data-id');
+                    fetch(`/guardian/report/${studentId}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Set form action untuk PUT
+                            editForm.action = `/guardian/report/${studentId}`;
+
+                            editForm.first_name.value = data.first_name || '';
+                            editForm.last_name.value = data.last_name || '';
+                            editForm.ic_number.value = data.ic_number || '';
+                            editForm.age.value = data.age || '';
+                            editForm.birth_date.value = data.birth_date || '';
+                            editForm.gender.value = data.gender || '';
+                            editForm.status.value = data.status || '';
+                            editForm.profile.value = data.profile || '';
+                            editForm.address.value = data.address || '';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching student data:', error);
+                        });
+                });
+            });
+        });
+    </script>
 
 </x-guardian-layout>
