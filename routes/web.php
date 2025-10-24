@@ -187,7 +187,7 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
     Route::get('/report/lesson-plan', fn() => view('tutor.lesson_plan'))->name('report.lesson-plan');
 
     // Salary
-    Route::get('/salary', fn() => view('tutor.salary'))->name('salary');
+    Route::get('/salary', [BillHistoryController::class, 'tutorViewSalary'])->name('salary.index');
     // Profile
     Route::get('/profile', fn() => view('tutor.profile'))->name('profile');
 });

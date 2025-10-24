@@ -339,4 +339,46 @@ class BillHistoryController extends Controller
 
         return view('guardian.bill', compact('billHistories'));
     }
+
+    public function tutorViewSalary()
+    {
+        // Display all salary bill histories for the logged-in tutor
+        $tutorId = session('user_id');
+
+        $billHistories = BillHistory::where('tutor_id', $tutorId)
+            ->whereNotNull('salary_id')
+            ->with('salary')
+            ->get()
+            ->sortByDesc(function ($billHistory) {
+                $month = Carbon::createFromFormat('F', $billHistory->salary->salary_month)->month;
+                $year = $billHistory->salary->salary_year;
+                return Carbon::create($year, $month, 1);
+            });
+
+        // kira total hours taught for each bill history
+        $totalHours = [];
+        foreach ($billHistories as $index => $billHistory) {
+            // Get schedules for this salary period where the tutor taught
+            $schedules = $billHistory->salary->schedules()
+                ->where(function ($query) use ($tutorId) {
+                    $query->where(function ($q) use ($tutorId) {
+                        $q->whereNull('relief')->where('tutor_id', $tutorId);
+                    })->orWhere('relief', $tutorId);
+                })
+                ->with('class.package')
+                ->get();
+
+            // Calculate total hours
+            $hours = $schedules->sum(function ($schedule) {
+                $duration = $schedule->class->package->duration_per_sessions;
+                return $duration == '30 minutes' ? 0.5 : 1;
+            });
+
+            // kalau sum null jadi 0;
+            $totalHours[$index] = $hours ?? 0;
+        }
+
+
+        return view('tutor.salary', compact('billHistories', 'totalHours'));
+    }
 }

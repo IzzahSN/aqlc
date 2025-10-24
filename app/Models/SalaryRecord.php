@@ -26,4 +26,10 @@ class SalaryRecord extends Model
     {
         return $this->hasMany(BillHistory::class, 'salary_id', 'salary_id');
     }
+
+    public function schedules()
+    {
+        return Schedule::whereMonth('date', date('m', strtotime($this->salary_month . ' 1')))
+            ->whereYear('date', $this->salary_year);
+    }
 }
