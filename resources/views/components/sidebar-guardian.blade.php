@@ -9,7 +9,7 @@
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
         <div class="flex items-center justify-between ps-2.5 mb-5">
             <a href="{{ route('guardian.dashboard') }}" class="flex items-center">
-                <img src="/images/logo-round.svg" class="sidebar-logo h-10 w-10 rounded-full shadow me-3" alt=" AQLC Logo" />
+                <img src="/images/logo-1.svg" class="sidebar-logo h-10 w-10 me-3" alt=" AQLC Logo" />
                 <h2 class="self-center text-sm font-semibold sidebar-text">Pusat Pengajian<br>Quran As-Siraaj</h2>
             </a>
             <button id="collapse-btn" type="button" class="hidden md:flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
