@@ -6,6 +6,7 @@ use App\Models\BillHistory;
 use App\Models\Guardian;
 use App\Models\JoinClass;
 use App\Models\Schedule;
+use App\Models\StudentProgress;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -74,6 +75,16 @@ class DashboardController extends Controller
 
         session(['schedules' => $schedules]);
 
-        return view('dashboard.guardian', compact('guardian', 'childrenCount', 'paidBills', 'unpaidBills', 'scheduleData'));
+        // show student latest progress from table student_progresses where student_id in studentIds, ambil paling latest berdasarkan date dekat schedule_id
+        // $students = $package->joinPackages()
+        //             ->with(['student.latestProgress.recitationModule'])
+        //             ->get()
+        //             ->pluck('student');
+        $students = $guardian->students()
+            ->with(['latestProgress.recitationModule'])
+            ->get();
+        session(['students' => $students]);
+
+        return view('dashboard.guardian', compact('guardian', 'childrenCount', 'paidBills', 'unpaidBills', 'scheduleData', 'students'));
     }
 }
