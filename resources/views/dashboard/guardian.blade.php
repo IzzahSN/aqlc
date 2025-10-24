@@ -288,66 +288,70 @@
             </div>
 
             <div class="space-y-3">
-                @foreach ($students as $student)
-                <a href="{{ route('guardian.report.view', ['id' => $student->student_id]) }}" class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
-                    <div class="flex items-center gap-3">
-                        <!-- Text Section -->
-                        <div>
-                            <p class="text-sm font-semibold text-gray-700 group-hover:text-white transition">
-                                {{ $student->first_name }} {{ $student->last_name }}
-                            </p>
+                @forelse ($students as $student)
+                    <a href="{{ route('guardian.report.view', ['id' => $student->student_id]) }}" 
+                    class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-700 group-hover:text-white transition">
+                                    {{ $student->first_name }} {{ $student->last_name }}
+                                </p>
 
-                            <!-- Juz Info -->
-                            <div class="flex items-start gap-2 mt-1">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="w-4 h-4 text-emerald-600 group-hover:text-white transition mt-[2px]"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                                    <path d="M9 17l0 -5" />
-                                    <path d="M12 17l0 -1" />
-                                    <path d="M15 17l0 -3" />
-                                </svg>
-                                <div class="flex flex-col leading-tight">
+                                <!-- Juz Info -->
+                                <div class="flex items-start gap-2 mt-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4 text-emerald-600 group-hover:text-white transition mt-[2px]"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                        <path d="M9 17l0 -5" />
+                                        <path d="M12 17l0 -1" />
+                                        <path d="M15 17l0 -3" />
+                                    </svg>
+                                    <div class="flex flex-col leading-tight">
+                                        <p class="text-xs text-gray-500 group-hover:text-white transition">
+                                            {{ $student->latestProgress?->recitationModule?->recitation_name ?? 'No Progress' }}, 
+                                            Page {{ $student->latestProgress?->page_number ?? 'N/A' }}
+                                        </p>
+                                        <p class="text-xs text-gray-500 group-hover:text-white transition">
+                                            ({{ $student->latestProgress?->grade ?? 'N/A' }})
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Date Info -->
+                                <div class="flex items-center gap-2 mt-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4 text-emerald-600 group-hover:text-white transition"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+                                        <path d="M16 3v4" />
+                                        <path d="M8 3v4" />
+                                        <path d="M4 11h16" />
+                                        <path d="M11 15h1" />
+                                        <path d="M12 15v3" />
+                                    </svg>
                                     <p class="text-xs text-gray-500 group-hover:text-white transition">
-                                        {{ $student->latestProgress?->recitationModule?->recitation_name ?? 'No Progress' }}, Page {{ $student->latestProgress?->page_number ?? 'N/A' }}
-                                    </p>
-                                    <p class="text-xs text-gray-500 group-hover:text-white transition">
-                                        ({{ $student->latestProgress?->grade ?? 'N/A' }})
+                                        {{ $student->latestProgress ? \Carbon\Carbon::parse($student->latestProgress->schedule->date)->format('d/m/Y') : 'N/A' }}
                                     </p>
                                 </div>
                             </div>
-
-                            <!-- Date Info -->
-                            <div class="flex items-center gap-2 mt-1">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="w-4 h-4 text-emerald-600 group-hover:text-white transition"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-                                    <path d="M16 3v4" />
-                                    <path d="M8 3v4" />
-                                    <path d="M4 11h16" />
-                                    <path d="M11 15h1" />
-                                    <path d="M12 15v3" />
-                                </svg>
-                                <p class="text-xs text-gray-500 group-hover:text-white transition">
-                                    {{ $student->latestProgress ? \Carbon\Carbon::parse($student->latestProgress->schedule->date)->format('d/m/Y') : 'N/A' }}
-                                </p>
-                            </div>
                         </div>
-                    </div>
 
-                    <!-- Chevron Right -->
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-5 h-5 text-gray-400 group-hover:text-white transition"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M9 6l6 6l-6 6" />
-                    </svg>
-                </a>
-                @endforeach
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-5 h-5 text-gray-400 group-hover:text-white transition"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 6l6 6l-6 6" />
+                        </svg>
+                    </a>
+                @empty
+                    <div class="p-4 text-center text-gray-500 bg-gray-50 rounded-lg border border-gray-200">
+                        No student record yet.
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
