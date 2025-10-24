@@ -22,7 +22,7 @@
     @include('components.sidebar-guardian')
 
     <!-- Content Wrapper -->
-    <div class="sm:ml-64">
+    <div id="content-wrapper" class="sm:ml-64">
         <!-- Navbar -->
         <div class="bg-gray-100 py-2 px-2">
             @include('components.navbar-guardian')
