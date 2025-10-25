@@ -94,6 +94,10 @@ class DashboardController extends Controller
 
         // Total Classes assign in class_model table
         $totalClasses = Schedule::where('tutor_id', $tutorId)->distinct('class_id')->count('class_id');
+        // return 0 if null
+        if (!$totalClasses) {
+            $totalClasses = 0;
+        }
         session(['total_classes' => $totalClasses]);
 
         // Total Schedule in schedule_model table include relief tutor for current month and year
@@ -103,12 +107,20 @@ class DashboardController extends Controller
             ->whereMonth('date', date('m'))
             ->whereYear('date', date('Y'))
             ->count();
+        // return 0 if null
+        if (!$totalSchedules) {
+            $totalSchedules = 0;
+        }
         session(['total_schedules' => $totalSchedules]);
 
         // sum of Unpaid/pending salary from bill_histories table where tutor_id = $tutorId and bill_status = 'Unpaid' or 'Pending'
         $unpaidSalary = BillHistory::where('tutor_id', $tutorId)
             ->whereIn('bill_status', ['Unpaid', 'Pending'])
             ->sum('bill_amount');
+        // return 0 if null
+        if (!$unpaidSalary) {
+            $unpaidSalary = 0;
+        }
         session(['unpaid_salary' => $unpaidSalary]);
 
         return view('dashboard.tutor', compact('totalClasses', 'totalSchedules', 'unpaidSalary'));
