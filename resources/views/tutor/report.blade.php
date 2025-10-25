@@ -50,7 +50,7 @@
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->class->end_time)->format('H:i:i') }}</td>
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <a href="{{ route('tutor.report.attendance', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Attendance</a>
+                            <a href="{{ route('tutor.report.attendance.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Attendance</a>
                             <a href="{{ route('tutor.report.grade', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>
                             <a href="{{ route('tutor.report.lesson-plan', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>
                         </td>

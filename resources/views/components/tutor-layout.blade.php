@@ -22,7 +22,7 @@
     @include('components.sidebar-tutor')
 
     <!-- Content Wrapper -->
-    <div class="sm:ml-64">
+    <div id="content-wrapper" class="sm:ml-64">
         <!-- Navbar -->
         <div class="bg-gray-100 py-2 px-2">
             @include('components.navbar-tutor')
@@ -33,6 +33,38 @@
             {{ $slot }}
         </main>
     </div>
+     @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+    @endif
+
+    @if($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Validation Error',
+            html: `{!! implode('<br>', $errors->all()) !!}`,
+        });
+    </script>
+    @endif
+
+    @if(session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: "{{ session('error') }}",
+            showConfirmButton: true,
+        });
+    </script>
+@endif
 </body>
 
 </html>

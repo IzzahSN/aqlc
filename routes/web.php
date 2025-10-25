@@ -180,7 +180,13 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
 
     // Report
     Route::get('/report', [ReportController::class, 'tutorReportIndex'])->name('report.index');
-    Route::get('/schedule/attendance', fn() => view('tutor.attendance'))->name('report.attendance');
+
+    // Attendance
+    Route::get('/report/{id}/attendance', [AttendanceController::class, 'tutorIndex'])->name('report.attendance.index');
+    Route::post('/report/{id}/attendance', [AttendanceController::class, 'tutorStore'])->name('report.attendance.store');
+    Route::put('/report/{id}/attendance', [AttendanceController::class, 'tutorUpdate'])->name('report.attendance.update');
+    Route::delete('/report/{scheduleId}/attendance/{id}', [AttendanceController::class, 'tutorDestroy'])->name('report.attendance.destroy');
+
     Route::get('/report/grade', fn() => view('tutor.grade'))->name('report.grade');
     Route::get('/report/lesson-plan', fn() => view('tutor.lesson_plan'))->name('report.lesson-plan');
 
