@@ -87,4 +87,30 @@ class DashboardController extends Controller
 
         return view('dashboard.guardian', compact('guardian', 'childrenCount', 'paidBills', 'unpaidBills', 'scheduleData', 'students'));
     }
+
+    public function tutorDashboard()
+    {
+        $tutorId = session('user_id');
+
+        // Total Classes assign in class_model table
+        $totalClasses = Schedule::where('tutor_id', $tutorId)->distinct('class_id')->count('class_id');
+        session(['total_classes' => $totalClasses]);
+
+        // Total Schedule in schedule_model table include relief tutor for current month and year
+        $totalSchedules = Schedule::where(function ($query) use ($tutorId) {
+            $query->where('tutor_id', $tutorId)->whereNull('relief');
+        })->orWhere('relief', $tutorId)->with('class.package')
+            ->whereMonth('date', date('m'))
+            ->whereYear('date', date('Y'))
+            ->count();
+        session(['total_schedules' => $totalSchedules]);
+
+        // sum of Unpaid/pending salary from bill_histories table where tutor_id = $tutorId and bill_status = 'Unpaid' or 'Pending'
+        $unpaidSalary = BillHistory::where('tutor_id', $tutorId)
+            ->whereIn('bill_status', ['Unpaid', 'Pending'])
+            ->sum('bill_amount');
+        session(['unpaid_salary' => $unpaidSalary]);
+
+        return view('dashboard.tutor', compact('totalClasses', 'totalSchedules', 'unpaidSalary'));
+    }
 }

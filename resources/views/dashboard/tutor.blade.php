@@ -9,7 +9,7 @@
             <div>
                 <p class="text-sm font-semibold text-lime-600 uppercase">Total Schedule</p>
                 <div class="flex items-end gap-2">
-                    <h3 class="text-2xl font-bold text-gray-500">50</h3>
+                    <h3 class="text-2xl font-bold text-gray-500">{{ $totalSchedules }}</h3>
                     <p class="text-xs text-gray-400 mb-1">This month</p>
                 </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-amber-400 border-l-6 justify-between">
             <div>
                 <p class="text-sm font-semibold text-amber-600 uppercase">Total Assigned Class</p>
-                <h3 class="text-2xl font-bold text-gray-500">7</h3>
+                <h3 class="text-2xl font-bold text-gray-500">{{ $totalClasses }}</h3>
             </div>
             <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z" clip-rule="evenodd"/>
@@ -33,7 +33,7 @@
         <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-red-600 border-l-6 justify-between">
             <div>
                 <p class="text-sm font-semibold text-red-600 uppercase">Outstanding Salary</p>
-                <h3 class="text-2xl font-bold text-gray-500">RM100.00</h3>
+                <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($unpaidSalary, 2) }}</h3>
             </div>
             <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M9 2a1 1 0 0 0-1 1H6a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a1 1 0 0 0-1-1H9Zm1 2h4v2h1a1 1 0 1 1 0 2H9a1 1 0 0 1 0-2h1V4Zm5.707 8.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
