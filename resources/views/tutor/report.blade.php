@@ -22,33 +22,7 @@
                 </svg>
             </div>
             <!-- Filter -->
-            <select id="filterRoom" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Room</option>
-                <option value="Kelas 1">Kelas 1</option>
-                <option value="Kelas 2">Kelas 2</option>
-                <option value="Kelas 3">Kelas 3</option>
-                <option value="Kelas 4">Kelas 4</option>
-                <option value="Bilik 1">Bilik 1</option>
-                <option value="Bilk 2">Bilk 2</option>
-            </select>
-            <select id="filterDay" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Day</option>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
-            </select>
-            <select id="filterYear" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Year</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
-                <option value="2027">2027</option>
-            </select>
+            <input type="date" id="filterDate" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto" placeholder="Filter by date">
         </div>
 
         <!-- Table -->
@@ -99,9 +73,7 @@
         <!-- Pagination Script -->
         <script>
             const searchInput = document.getElementById("searchInput");
-            const filterRoom = document.getElementById("filterRoom");
-            const filterDay = document.getElementById("filterDay");
-            const filterYear = document.getElementById("filterYear");
+            const filterDate = document.getElementById("filterDate")
             const tbody = document.getElementById("reportBody");
             const rows = Array.from(tbody.getElementsByTagName("tr"));
             const noRecord = document.getElementById("noRecord");
@@ -113,22 +85,24 @@
 
             function renderTable() {
                 const searchValue = searchInput.value.toLowerCase();
-                const roomValue = filterRoom.value.toLowerCase();
-                const dayValue = filterDay.value.toLowerCase();
-                const yearValue = filterYear.value.toLowerCase();
+                const dateValue = filterDate.value;
 
                 let filteredRows = rows.filter(row => {
                     const name = row.cells[1].textContent.toLowerCase();
                     const id = row.cells[0].textContent.toLowerCase();
-                    const room = row.cells[3].textContent.toLowerCase(); // 👈 ambil status
-                    const day = row.cells[5].textContent.toLowerCase(); // 👈 ambil status
-                    const date = row.cells[6].textContent.toLowerCase(); // 👈 ambil status
+                    const dateText = row.cells[5].textContent.trim(); // 👈 ambil status
 
                     const matchSearch = name.includes(searchValue) || id.includes(searchValue);
-                    const matchRoom = roomValue === "" || room.trim() === roomValue;
-                    const matchDay = dayValue === "" || day.trim() === dayValue;
-                    const matchYear = yearValue === "" || date.endsWith(yearValue); // tahun di hujung tarikh
-                    return matchSearch && matchRoom && matchDay && matchYear;
+                    // Date matching logic
+                    let matchDate = true;
+                    if (dateValue !== "") {
+                        // Convert filter date (yyyy-mm-dd) to dd/mm/yyyy format for comparison
+                        const [year, month, day] = dateValue.split('-');
+                        const formattedFilterDate = `${day}/${month}/${year}`;
+                        matchDate = dateText === formattedFilterDate;
+                    }
+                    
+                    return matchSearch && matchDate;
                 });
 
                 const totalRows = filteredRows.length;
@@ -208,9 +182,7 @@
             }
 
             searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
-            filterRoom.addEventListener("change", () => { currentPage = 1; renderTable(); });
-            filterDay.addEventListener("change", () => { currentPage = 1; renderTable(); });
-            filterYear.addEventListener("change", () => { currentPage = 1; renderTable(); });
+            filterDate.addEventListener("change", () => { currentPage = 1; renderTable(); });
             renderTable();
         </script>
     </div>
