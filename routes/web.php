@@ -178,7 +178,7 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
     // Dashboard
     Route::get('/', fn() => view('dashboard.tutor'))->name('dashboard');
     // Schedule
-    Route::get('/schedule', fn() => view('tutor.schedule'))->name('schedule');
+    Route::get('/schedule', fn() => view('tutor.report'))->name('schedule');
     Route::get('/schedule/attendance', fn() => view('tutor.attendance'))->name('schedule.attendance');
 
     // Report

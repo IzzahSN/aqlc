@@ -26,22 +26,6 @@
                     <span class="ms-3">Dashboard</span>
                 </a>
             </li>
-            <!-- Schedule Management -->
-            <li>
-                <a href="{{ route('tutor.schedule') }}" class="flex items-center p-2 rounded-lg group {{ request()->routeIs('tutor.schedule') ? 'bg-green-200 text-green-900' : 'text-gray-900 hover:bg-green-100' }}">
-                    <svg class="w-5 h-5 transition duration-75 {{ request()->routeIs('tutor.schedule') ? 'text-green-900' : 'text-gray-500 group-hover:text-green-900' }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697" />
-                        <path d="M18 14v4h4" />
-                        <path d="M18 11v-4a2 2 0 0 0 -2 -2h-2" />
-                        <path d="M8 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-                        <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                        <path d="M8 11h4" />
-                        <path d="M8 15h3" />
-                    </svg>
-                    <span class="ms-3">Schedule Management</span>
-                </a>
-            </li>
             <!-- Report Management -->
             <li>
                 <a href="{{ route('tutor.report') }}" class="flex items-center p-2 rounded-lg group {{ request()->routeIs('tutor.report') ? 'bg-green-200 text-green-900' : 'text-gray-900 hover:bg-green-100' }}">
