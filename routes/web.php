@@ -129,11 +129,14 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 
     // GRADE & LESSON PLAN
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+
+    // GRADE
     Route::get('/report/{id}/grade', [StudentProgressController::class, 'index'])->name('report.grade.index');
     Route::post('/report/grade', [StudentProgressController::class, 'store'])->name('report.grade.store');
     Route::put('/report/{id}/grade', [StudentProgressController::class, 'update'])->name('report.grade.update');
     Route::delete('/report/{scheduleId}/grade/{id}', [StudentProgressController::class, 'destroy'])->name('report.grade.destroy');
 
+    // LESSON PLAN
     Route::get('/report/{id}/lesson-plan', [LessonPlanController::class, 'index'])->name('report.lesson-plan.index');
     Route::put('/report/{id}/lesson-plan', [LessonPlanController::class, 'update'])->name('report.lesson-plan.update');
 
@@ -187,7 +190,14 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
     Route::put('/report/{id}/attendance', [AttendanceController::class, 'tutorUpdate'])->name('report.attendance.update');
     Route::delete('/report/{scheduleId}/attendance/{id}', [AttendanceController::class, 'tutorDestroy'])->name('report.attendance.destroy');
 
-    Route::get('/report/grade', fn() => view('tutor.grade'))->name('report.grade');
+    // Grade
+    Route::get('/report/{id}/grade', [StudentProgressController::class, 'tutorIndex'])->name('report.grade.index');
+    Route::post('/report/grade', [StudentProgressController::class, 'tutorStore'])->name('report.grade.store');
+    Route::put('/report/{id}/grade', [StudentProgressController::class, 'tutorUpdate'])->name('report.grade.update');
+    Route::delete('/report/{scheduleId}/grade/{id}', [StudentProgressController::class, 'tutorDestroy'])->name('report.grade.destroy');
+
+
+    // Lesson Plan
     Route::get('/report/lesson-plan', fn() => view('tutor.lesson_plan'))->name('report.lesson-plan');
 
     // Salary
