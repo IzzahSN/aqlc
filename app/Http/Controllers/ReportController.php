@@ -30,4 +30,19 @@ class ReportController extends Controller
 
         return view('admin.report.index', compact('schedules', 'classes', 'tutors'));
     }
+
+    public function tutorReportIndex()
+    {
+        $tutorId = session('user_id');
+        $tutor = Tutor::with('classes')->findOrFail($tutorId);
+        // show all class tutor has attend and relief, if in table schedules relief is not null then get the id as tutor_id, if relief is null, get tutor_id from tutor_id field
+        $schedules = Schedule::where(function ($query) use ($tutorId) {
+            $query->where('tutor_id', $tutorId)->whereNull('relief');
+        })->orWhere('relief', $tutorId)->with('class.package')
+            // sort by date
+            ->orderByDesc('date')
+            ->get();
+
+        return view('tutor.report', compact('schedules'));
+    }
 }

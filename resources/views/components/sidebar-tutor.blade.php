@@ -28,8 +28,8 @@
             </li>
             <!-- Report Management -->
             <li>
-                <a href="{{ route('tutor.report') }}" class="flex items-center p-2 rounded-lg group {{ request()->routeIs('tutor.report') ? 'bg-green-200 text-green-900' : 'text-gray-900 hover:bg-green-100' }}">
-                    <svg class="w-5 h-5 transition duration-75 {{ request()->routeIs('tutor.report') ? 'text-green-900' : 'text-gray-500 group-hover:text-green-900' }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <a href="{{ route('tutor.report.index') }}" class="flex items-center p-2 rounded-lg group {{ request()->routeIs('tutor.report.index') ? 'bg-green-200 text-green-900' : 'text-gray-900 hover:bg-green-100' }}">
+                    <svg class="w-5 h-5 transition duration-75 {{ request()->routeIs('tutor.report.index') ? 'text-green-900' : 'text-gray-500 group-hover:text-green-900' }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke="none" d="M0 0h24v24H0z" />
                         <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
                         <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />

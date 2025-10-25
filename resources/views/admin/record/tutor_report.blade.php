@@ -96,10 +96,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <!-- No Records Message -->
+            <div id="noRecord" class="hidden text-center py-4 text-gray-500">No records found.</div>
         </div>
-
-        <!-- No Records Message -->
-        <div id="noRecord" class="hidden text-center py-4 text-gray-500">No records found.</div>
 
         <!-- Pagination (manual JS) -->
         <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">

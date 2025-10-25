@@ -7,7 +7,7 @@
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('tutor.schedule') }}" class="hover:text-green-600">Schedule</a></li>
+                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Schedule</a></li>
                 <li>/</li>
                 <li>Attendance</li>
             </ol>

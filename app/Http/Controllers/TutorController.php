@@ -171,7 +171,9 @@ class TutorController extends Controller
         // show all schedules of the tutor's classes include his relief classes(from Schedule model), if his class has relief tutor, do not display that schedule
         $schedules = Schedule::where(function ($query) use ($id) {
             $query->where('tutor_id', $id)->whereNull('relief');
-        })->orWhere('relief', $id)->with('class.package')->get();
+        })->orWhere('relief', $id)->with('class.package')
+            ->orderByDesc('date')
+            ->get();
 
         return view('admin.record.tutor_report', compact('tutor', 'schedules'));
     }

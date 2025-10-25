@@ -177,12 +177,10 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function () {
     // Dashboard
     Route::get('/', fn() => view('dashboard.tutor'))->name('dashboard');
-    // Schedule
-    Route::get('/schedule', fn() => view('tutor.report'))->name('schedule');
-    Route::get('/schedule/attendance', fn() => view('tutor.attendance'))->name('schedule.attendance');
 
     // Report
-    Route::get('/report', fn() => view('tutor.report'))->name('report');
+    Route::get('/report', [ReportController::class, 'tutorReportIndex'])->name('report.index');
+    Route::get('/schedule/attendance', fn() => view('tutor.attendance'))->name('report.attendance');
     Route::get('/report/grade', fn() => view('tutor.grade'))->name('report.grade');
     Route::get('/report/lesson-plan', fn() => view('tutor.lesson_plan'))->name('report.lesson-plan');
 

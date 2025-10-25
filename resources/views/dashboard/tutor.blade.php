@@ -84,7 +84,7 @@
             </div>
 
             <div class="space-y-3">
-                <a href="{{ route('tutor.schedule') }}"
+                <a href="{{ route('tutor.report.index') }}"
                     class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
                     <div class="flex items-center gap-3">
                         <!-- Calendar Icon -->
@@ -117,7 +117,7 @@
                         <path d="M9 6l6 6l-6 6" />
                     </svg>
                 </a>
-                <a href="{{ route('tutor.schedule') }}"
+                <a href="{{ route('tutor.report.index') }}"
                     class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
                     <div class="flex items-center gap-3">
                         <!-- Calendar Icon -->
@@ -150,7 +150,7 @@
                         <path d="M9 6l6 6l-6 6" />
                     </svg>
                 </a>
-                <a href="{{ route('tutor.schedule') }}"
+                <a href="{{ route('tutor.report.index') }}"
                     class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
                     <div class="flex items-center gap-3">
                         <!-- Calendar Icon -->
@@ -183,7 +183,7 @@
                         <path d="M9 6l6 6l-6 6" />
                     </svg>
                 </a>
-                <a href="{{ route('tutor.schedule') }}"
+                <a href="{{ route('tutor.report.index') }}"
                     class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
                     <div class="flex items-center gap-3">
                         <!-- Calendar Icon -->
