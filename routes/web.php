@@ -198,7 +198,8 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
 
 
     // Lesson Plan
-    Route::get('/report/lesson-plan', fn() => view('tutor.lesson_plan'))->name('report.lesson-plan');
+    Route::get('/report/{id}/lesson-plan', [LessonPlanController::class, 'tutorIndex'])->name('report.lesson-plan.index');
+    Route::put('/report/{id}/lesson-plan', [LessonPlanController::class, 'tutorUpdate'])->name('report.lesson-plan.update');
 
     // Salary
     Route::get('/salary', [BillHistoryController::class, 'tutorViewSalary'])->name('salary.index');
