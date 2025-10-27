@@ -43,96 +43,95 @@
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-<!-- Salary Report -->
-<div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
-    <div class="flex items-center justify-between mb-4">
-        <h3 class="font-semibold">Salary Report</h3>
-        <select id="yearFilter" class="text-sm border rounded-lg px-3 py-1">
-            @foreach ($salaryYears as $year)
-                <option value="{{ $year->salary_year }}">{{ $year->salary_year }}</option>
-            @endforeach
-        </select>
-    </div>
-    <canvas id="salaryChart" height="200"></canvas>
-</div>
+        <!-- Salary Report -->
+        <div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold">Salary Report</h3>
+                <select id="yearFilter" class="text-sm border rounded-lg px-3 py-1">
+                    @foreach ($salaryYears as $year)
+                        <option value="{{ $year->salary_year }}">{{ $year->salary_year }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <canvas id="salaryChart" height="200"></canvas>
+        </div>
 
-<!-- Chart.js Script -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const ctx = document.getElementById('salaryChart');
-    let salaryChart;
+        <!-- Chart.js Script -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx = document.getElementById('salaryChart');
+            let salaryChart;
 
-    async function loadSalaryChart(year) {
-        const response = await fetch(`{{ route('tutor.dashboard.report') }}?year=${year}`);
-        const result = await response.json();
+            async function loadSalaryChart(year) {
+                const response = await fetch(`{{ route('tutor.dashboard.report') }}?year=${year}`);
+                const result = await response.json();
 
-        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: `Total Salary (RM) for ${result.year}`,
-                data: result.data,
-                borderColor: '#16a34a',
-                backgroundColor: 'rgba(22,163,74,0.2)',
-                fill: true,
-                tension: 0.3
-            }]
-        };
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                        label: `Total Salary (RM) for ${result.year}`,
+                        data: result.data,
+                        borderColor: '#16a34a',
+                        backgroundColor: 'rgba(22,163,74,0.2)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                };
 
-        // Destroy previous chart if exists
-        if (salaryChart) {
-            salaryChart.destroy();
-        }
-        salaryChart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,   // pastikan graf mula dari 0
-                        min: 0,              // nilai minimum paksi Y
-                        ticks: {
-                            stepSize: 10,    // (optional) jarak antara nilai
+                // Destroy previous chart if exists
+                if (salaryChart) {
+                    salaryChart.destroy();
+                }
+                salaryChart = new Chart(ctx, {
+                    type: 'line',
+                    data: data,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,   // pastikan graf mula dari 0
+                                min: 0,              // nilai minimum paksi Y
+                                ticks: {
+                                    stepSize: 10,    // (optional) jarak antara nilai
+                                },
+                                grid: {
+                                    color: '#e5e7eb' // (optional) warna grid
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: '#f3f4f6' // (optional)
+                                }
+                            }
                         },
-                        grid: {
-                            color: '#e5e7eb' // (optional) warna grid
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: '#f3f4f6' // (optional)
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true,
-                        labels: {
-                            color: '#374151'
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return 'RM ' + context.parsed.y.toFixed(2);
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    color: '#374151'
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'RM ' + context.parsed.y.toFixed(2);
+                                    }
+                                }
                             }
                         }
                     }
-                }
+                });
             }
-        });
-    }
 
-    // Load current year by default
-    loadSalaryChart(new Date().getFullYear());
+            // Load current year by default
+            loadSalaryChart(new Date().getFullYear());
 
-    // Filter by year
-    document.getElementById('yearFilter').addEventListener('change', function() {
-        loadSalaryChart(this.value);
-    });
-</script>
-
+            // Filter by year
+            document.getElementById('yearFilter').addEventListener('change', function() {
+                loadSalaryChart(this.value);
+            });
+        </script>
 
         <!-- Upcoming Sessions Section -->
         <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
