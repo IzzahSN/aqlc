@@ -48,10 +48,6 @@
     <div class="flex items-center justify-between mb-4">
         <h3 class="font-semibold">Salary Report</h3>
         <select id="yearFilter" class="text-sm border rounded-lg px-3 py-1">
-            {{-- @for ($y = date('Y'); $y >= date('Y') - 4; $y--)
-                <option value="{{ $y }}">{{ $y }}</option>
-            @endfor --}}
-            {{-- get the unique salary_year --}}
             @foreach ($salaryYears as $year)
                 <option value="{{ $year->salary_year }}">{{ $year->salary_year }}</option>
             @endforeach
@@ -88,10 +84,43 @@
         if (salaryChart) {
             salaryChart.destroy();
         }
-
         salaryChart = new Chart(ctx, {
             type: 'line',
             data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,   // pastikan graf mula dari 0
+                        min: 0,              // nilai minimum paksi Y
+                        ticks: {
+                            stepSize: 10,    // (optional) jarak antara nilai
+                        },
+                        grid: {
+                            color: '#e5e7eb' // (optional) warna grid
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: '#f3f4f6' // (optional)
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#374151'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'RM ' + context.parsed.y.toFixed(2);
+                            }
+                        }
+                    }
+                }
+            }
         });
     }
 
@@ -161,25 +190,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Chart.js Script -->
-    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Sales Report Chart
-        new Chart(document.getElementById('salaryChart'), {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'Total Salary (RM)',
-                    data: [400, 420, 500, 650, 700, 750, 720, 760, 780, 800, 820, 880],
-                    borderColor: '#16a34a',
-                    backgroundColor: 'rgba(22,163,74,0.2)',
-                    fill: true,
-                    tension: 0.3
-                }]
-            }
-        });
-    </script> --}}
-
 </x-tutor-layout>
