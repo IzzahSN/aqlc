@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BillHistory;
 use App\Models\Guardian;
 use App\Models\JoinClass;
+use App\Models\SalaryRecord;
 use App\Models\Schedule;
 use App\Models\StudentProgress;
 use Illuminate\Http\Request;
@@ -133,6 +134,65 @@ class DashboardController extends Controller
             ->get();
         session(['schedules' => $schedules]);
 
-        return view('dashboard.tutor', compact('totalClasses', 'totalSchedules', 'unpaidSalary', 'schedules'));
+        // get unique salary_year from salary_records, check the fk in bill_histories table(salary_id) to get the salary_id and get the salary_year for the tutor_id
+        $salaryYears = SalaryRecord::select('salary_year')
+            ->whereIn('salary_id', function ($query) use ($tutorId) {
+                $query->select('salary_id')
+                    ->from('bill_histories')
+                    ->where('tutor_id', $tutorId);
+            })
+            ->distinct()
+            ->orderBy('salary_year', 'desc')
+            ->get();
+        session(['salary_years' => $salaryYears]);
+
+        return view('dashboard.tutor', compact('totalClasses', 'totalSchedules', 'unpaidSalary', 'schedules', 'salaryYears'));
+    }
+
+    public function getSalaryReport(Request $request)
+    {
+        $tutorId = session('user_id');
+        $year = $request->input('year', date('Y')); // default current year
+
+        // Initialize 12 months (Jan–Dec)
+        $months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ];
+        $monthlySalaries = array_fill(0, 12, 0);
+
+        // Ambil data berdasarkan tahun dan tutor
+        $salaryData = BillHistory::with('salary')
+            ->where('tutor_id', $tutorId)
+            ->whereHas('salary', function ($query) use ($year) {
+                $query->where('salary_year', $year);
+            })
+            ->get();
+
+        // Masukkan data ikut bulan
+        foreach ($salaryData as $record) {
+            if ($record->salary && $record->salary->salary_month) {
+                // Cari index bulan berdasarkan nama bulan
+                $monthIndex = array_search($record->salary->salary_month, $months);
+                if ($monthIndex !== false) {
+                    $monthlySalaries[$monthIndex] = (float) $record->bill_amount;
+                }
+            }
+        }
+
+        return response()->json([
+            'year' => $year,
+            'data' => $monthlySalaries,
+        ]);
     }
 }

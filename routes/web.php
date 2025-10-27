@@ -180,6 +180,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function () {
     // Dashboard
     Route::get('/', [DashboardController::class, 'tutorDashboard'])->name('dashboard');
+    Route::get('/tutor/salary-report', [DashboardController::class, 'getSalaryReport'])->name('dashboard.report');
 
     // Report
     Route::get('/report', [ReportController::class, 'tutorReportIndex'])->name('report.index');

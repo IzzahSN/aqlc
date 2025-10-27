@@ -43,18 +43,67 @@
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Salary Report -->
-        <div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">Salary Report</h3>
-                <select class="text-sm border rounded-lg px-3 py-1">
-                    <option>Select Year</option>
-                    <option>2024</option>
-                    <option>2025</option>
-                </select>
-            </div>
-            <canvas id="salaryChart" height="200"></canvas>
-        </div>
+<!-- Salary Report -->
+<div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold">Salary Report</h3>
+        <select id="yearFilter" class="text-sm border rounded-lg px-3 py-1">
+            {{-- @for ($y = date('Y'); $y >= date('Y') - 4; $y--)
+                <option value="{{ $y }}">{{ $y }}</option>
+            @endfor --}}
+            {{-- get the unique salary_year --}}
+            @foreach ($salaryYears as $year)
+                <option value="{{ $year->salary_year }}">{{ $year->salary_year }}</option>
+            @endforeach
+        </select>
+    </div>
+    <canvas id="salaryChart" height="200"></canvas>
+</div>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('salaryChart');
+    let salaryChart;
+
+    async function loadSalaryChart(year) {
+        const response = await fetch(`{{ route('tutor.dashboard.report') }}?year=${year}`);
+        const result = await response.json();
+
+        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: `Total Salary (RM) for ${result.year}`,
+                data: result.data,
+                borderColor: '#16a34a',
+                backgroundColor: 'rgba(22,163,74,0.2)',
+                fill: true,
+                tension: 0.3
+            }]
+        };
+
+        // Destroy previous chart if exists
+        if (salaryChart) {
+            salaryChart.destroy();
+        }
+
+        salaryChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+        });
+    }
+
+    // Load current year by default
+    loadSalaryChart(new Date().getFullYear());
+
+    // Filter by year
+    document.getElementById('yearFilter').addEventListener('change', function() {
+        loadSalaryChart(this.value);
+    });
+</script>
+
 
         <!-- Upcoming Sessions Section -->
         <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
@@ -114,7 +163,7 @@
     </div>
 
     <!-- Chart.js Script -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Sales Report Chart
         new Chart(document.getElementById('salaryChart'), {
@@ -131,6 +180,6 @@
                 }]
             }
         });
-    </script>
+    </script> --}}
 
 </x-tutor-layout>
