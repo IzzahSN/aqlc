@@ -123,6 +123,16 @@ class DashboardController extends Controller
         }
         session(['unpaid_salary' => $unpaidSalary]);
 
-        return view('dashboard.tutor', compact('totalClasses', 'totalSchedules', 'unpaidSalary'));
+        // list all schedules for this tutor for current month with class
+        $schedules = Schedule::where(function ($query) use ($tutorId) {
+            $query->where('tutor_id', $tutorId)->whereNull('relief');
+        })->orWhere('relief', $tutorId)->with('class.package')
+            ->whereMonth('date', date('m'))
+            ->whereYear('date', date('Y'))
+            ->orderBy('date', 'desc')
+            ->get();
+        session(['schedules' => $schedules]);
+
+        return view('dashboard.tutor', compact('totalClasses', 'totalSchedules', 'unpaidSalary', 'schedules'));
     }
 }
