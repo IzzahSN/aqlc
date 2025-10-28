@@ -16,7 +16,9 @@
 
     <!-- Personal Details -->
     <div class="bg-white rounded-lg shadow p-6">
-        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+        <form action="{{ route('admin.profile.update', $adminProfile->tutor_id) }}" method="POST" class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+            @csrf
+            @method('PUT')
 
             <!-- Left Section -->
             <div>
@@ -65,49 +67,48 @@
                 };
             </script>
 
-
             <!-- Right Section (Form) -->
-            <form id="tutorForm" class="lg:col-span-2">
+           <div class="lg:col-span-2">
                 <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6">
 
                     <div class="md:col-span-3">
                         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
-                        <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="text" id="first_name" name="first_name" placeholder="Muhammad Ali" value="{{ $adminProfile->first_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
-                        <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="text" id="last_name" name="last_name" placeholder="Ahmad" value="{{ $adminProfile->last_name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Ustaz Jazmy" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="text" id="username" name="username" placeholder="Ustaz Jazmy" value="{{ $adminProfile->username }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                        <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" value="{{ $adminProfile->email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
-                        <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" value="{{ $adminProfile->ic_number }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
-                        <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="number" id="age" name="age" placeholder="15" value="{{ $adminProfile->age }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
-                        <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="date" id="birth_date" name="birth_date" value="{{ $adminProfile->birth_date }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
-                        <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <select id="gender" name="gender" value="{{ $adminProfile->gender }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             <option value="">Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -116,7 +117,7 @@
 
                     <div class="md:col-span-3">
                         <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                        <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <select id="role" name="role" {{ $adminProfile->role }} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             <option value="">Select Role</option>
                             <option value="admin">Admin</option>
                             <option value="tutor">Tutor</option>
@@ -125,7 +126,7 @@
 
                     <div class="md:col-span-3">
                         <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                        <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <select id="status" name="status" {{ $adminProfile->status }} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                             <option value="">Select Status</option>
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
@@ -134,7 +135,7 @@
 
                     <div class="md:col-span-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" {{ $adminProfile->address }} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
                     </div>
 
                 </div>
@@ -143,8 +144,8 @@
                 <div class="md:col-span-5 text-right mt-4">
                     <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm py-2 px-4 text-center">Save Changes</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 
     <!-- Education Background -->
@@ -193,6 +194,12 @@
                     <div class="md:col-span-3">
                         <label for="resume" class="block mb-2 text-sm font-medium text-gray-900">Upload Resume (PDF)</label>
                         <input type="file" id="resume" name="resume" accept="application/pdf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                    </div>
+
+                    {{-- bg_description --}}
+                    <div class="md:col-span-6">
+                        <label for="bg_description" class="block mb-2 text-sm font-medium text-gray-900">Background Description</label>
+                        <textarea id="bg_description" name="bg_description" rows="4" placeholder="Describe your education background" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
                     </div>
                 </div>
 

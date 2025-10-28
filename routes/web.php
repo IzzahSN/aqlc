@@ -10,6 +10,7 @@ use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\JoinPackageController;
 use App\Http\Controllers\LessonPlanController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecitationModuleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryRecordController;
@@ -171,7 +172,8 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/notification', fn() => view('admin.notification.index'))->name('notification');
 
     // PROFILE
-    Route::get('/profile', fn() => view('admin.profile'))->name('profile');
+    Route::get('/profile', [ProfileController::class, 'showAdminProfile'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'updateAdminProfile'])->name('profile.update');
 });
 
 // =======================
