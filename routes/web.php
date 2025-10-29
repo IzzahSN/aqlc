@@ -174,6 +174,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     // PROFILE
     Route::get('/profile', [ProfileController::class, 'showAdminProfile'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'updateAdminProfile'])->name('profile.update');
+    Route::put('/profile/education', [ProfileController::class, 'updateAdminEducation'])->name('profile.education.update');
 });
 
 // =======================

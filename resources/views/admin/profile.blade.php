@@ -124,37 +124,45 @@
             </div>
 
             <!-- Right Section (Form) -->
-            <form id="tutorForm" class="lg:col-span-2">
+            <form action="{{ route('admin.profile.education.update', $adminProfile->tutor_id) }}" method="POST" class="lg:col-span-2" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
                 <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6">
 
                     <div class="md:col-span-3">
                         <label for="university" class="block mb-2 text-sm font-medium text-gray-900">University</label>
-                        <select id="university" name="university" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            <option value="">Select University</option>
-                            <option value="Universiti Malaya">Universiti Malaya</option>
-                            <option value="Universiti Kebangsaan Malaysia">Universiti Kebangsaan Malaysia</option>
-                        </select>
+                        <input type="text" id="university" name="university" placeholder="International Islamic University Malaysia" value="{{ $adminProfile->university }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="programme" class="block mb-2 text-sm font-medium text-gray-900">Programme</label>
-                        <input type="text" id="programme" name="programme" placeholder="Bachelor of Quran Sunnah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="text" id="programme" name="programme" placeholder="Bachelor of Quran Sunnah" value="{{ $adminProfile->programme }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
-                        <input type="email" id="grade" name="grade" placeholder="4.0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="number" id="grade" name="grade" placeholder="4.0" value="{{ $adminProfile->grade }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" min="0.00" max="4.00" step="0.01" required>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="resume" class="block mb-2 text-sm font-medium text-gray-900">Upload Resume (PDF)</label>
-                        <input type="file" id="resume" name="resume" accept="application/pdf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <input type="file" id="resume" name="resume" accept="application/pdf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                        {{-- link to preview upload resume --}}
+                        {{-- link preview resume --}}
+                        @if ($adminProfile->resume)
+                            <div class="mt-2">
+                                <a href="{{ asset('storage/' . $adminProfile->resume) }}" target="_blank"
+                                    class="text-green-600 hover:underline text-sm font-medium">
+                                    View Resume
+                                </a>
+                            </div>
+                        @endif
                     </div>
 
                     {{-- bg_description --}}
                     <div class="md:col-span-6">
                         <label for="bg_description" class="block mb-2 text-sm font-medium text-gray-900">Background Description</label>
-                        <textarea id="bg_description" name="bg_description" rows="4" placeholder="Describe your education background" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        <textarea id="bg_description" name="bg_description" rows="4" placeholder="Describe your education background" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5">{{ old('address', $adminProfile->bg_description) }}</textarea>
                     </div>
                 </div>
 

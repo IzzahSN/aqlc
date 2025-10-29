@@ -57,4 +57,33 @@ class ProfileController extends Controller
 
         return redirect()->back()->with('success', 'Admin updated personal details successfully!')->with('closeModalEdit', true);
     }
+
+    public function updateAdminEducation(Request $request)
+    {
+        // Logic to update user education background
+        $adminID = session('user_id');
+        $adminProfile = Tutor::find($adminID);
+
+        // Validate and update education background data
+        $request->validate([
+            'university' => 'required|string|max:255',
+            'programme' => 'required|string|max:255',
+            'grade' => 'required|numeric|between:0,4.00',
+            'resume' => 'nullable|mimes:pdf|max:2048', // max 2MB
+            'bg_description' => 'nullable|string',
+        ]);
+
+        $data = $request->except('resume');
+
+        if ($request->hasFile('resume')) {
+            $ext = $request->file('resume')->getClientOriginalExtension();
+            $fileName = 'resume_' . Str::slug($adminProfile->first_name) . '_' . time() . '.' . $ext;
+            $resumePath = $request->file('resume')->storeAs('resumes', $fileName, 'public');
+            $data['resume'] = $resumePath;
+        }
+
+        $adminProfile->update($data);
+
+        return redirect()->back()->with('success', 'Admin updated education background successfully!')->with('closeModalEdit', true);
+    }
 }

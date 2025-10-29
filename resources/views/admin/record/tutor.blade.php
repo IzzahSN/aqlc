@@ -540,7 +540,7 @@
                             {{-- grade --}}
                             <div>
                                 <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
-                                <input type="text" id="grade" name="grade" placeholder="CGPA 3.75" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" min="0.00" max="4.00" step="0.01" required>
+                                <input type="number" id="grade" name="grade" placeholder="CGPA 3.75" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" min="0.00" max="4.00" step="0.01" required>
                             </div>
                             {{-- resume --}}
                             <div>
