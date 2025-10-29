@@ -101,9 +101,8 @@
 
                     <div class="md:col-span-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" {{ $adminProfile->address }} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">{{ old('address', $adminProfile->address) }}</textarea>
                     </div>
-
                 </div>
 
                 <!-- Submit Button -->
