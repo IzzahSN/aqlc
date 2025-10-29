@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guardian;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -163,5 +164,48 @@ class ProfileController extends Controller
         $tutorProfile->update($data);
 
         return redirect()->back()->with('success', 'Tutor updated education background successfully!')->with('closeModalEdit', true);
+    }
+
+    public function showGuardianProfile()
+    {
+        $guardianID = session('user_id');
+        $guardianProfile = Guardian::find($guardianID);
+        return view('guardian.profile', compact('guardianProfile'));
+    }
+
+    public function updateGuardianProfile(Request $request)
+    {
+        $guardianID = session('user_id');
+        $guardianProfile = Guardian::find($guardianID);
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'birth_date' => 'required|date',
+            'age' => 'required|integer|min:18',
+            'address' => 'nullable|string',
+            'phone_number' => 'required|string|max:15',
+            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        $data = $request->except('profile');
+
+        if ($request->hasFile('profile')) {
+            $ext = $request->file('profile')->getClientOriginalExtension();
+            $fileName = 'profile_' . Str::slug($request->first_name) . '_' . time() . '.' . $ext;
+            $profilePath = $request->file('profile')->storeAs('profiles', $fileName, 'public');
+            $data['profile'] = $profilePath;
+
+            session(['profile' => $profilePath]);
+        }
+
+        session([
+            'username' => $request->first_name,
+            'fullname' => $request->first_name . ' ' . $request->last_name,
+        ]);
+
+        $guardianProfile->update($data);
+
+        return redirect()->back()->with('success', 'Guardian updated personal details successfully!')->with('closeModalEdit', true);
     }
 }

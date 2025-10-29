@@ -228,5 +228,6 @@ Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group
     // bill
     Route::get('/student-bill', [BillHistoryController::class, 'guardianBillView'])->name('bill.index');
     // profile
-    Route::get('/profile', fn() => view('guardian.profile'))->name('profile');
+    Route::get('/profile', [ProfileController::class, 'showGuardianProfile'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'updateGuardianProfile'])->name('profile.update');
 });
