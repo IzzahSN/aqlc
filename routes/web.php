@@ -200,7 +200,6 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
     Route::put('/report/{id}/grade', [StudentProgressController::class, 'tutorUpdate'])->name('report.grade.update');
     Route::delete('/report/{scheduleId}/grade/{id}', [StudentProgressController::class, 'tutorDestroy'])->name('report.grade.destroy');
 
-
     // Lesson Plan
     Route::get('/report/{id}/lesson-plan', [LessonPlanController::class, 'tutorIndex'])->name('report.lesson-plan.index');
     Route::put('/report/{id}/lesson-plan', [LessonPlanController::class, 'tutorUpdate'])->name('report.lesson-plan.update');
@@ -208,7 +207,9 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
     // Salary
     Route::get('/salary', [BillHistoryController::class, 'tutorViewSalary'])->name('salary.index');
     // Profile
-    Route::get('/profile', fn() => view('tutor.profile'))->name('profile');
+    Route::get('/profile', [ProfileController::class, 'showTutorProfile'])->name('profile');
+    Route::put('/profile', [ProfileController::class, 'updateTutorProfile'])->name('profile.update');
+    Route::put('/profile/education', [ProfileController::class, 'updateTutorEducation'])->name('profile.education.update');
 });
 
 // =======================
