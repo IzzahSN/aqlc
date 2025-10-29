@@ -33,6 +33,8 @@ class AuthController extends Controller
                 'profile' => $user->profile,
             ]);
 
+            session()->save();
+
             return response()->json([
                 'success' => true,
                 'redirect_url' => route('guardian.dashboard'),
@@ -54,6 +56,8 @@ class AuthController extends Controller
                 'username' => $user->username,
                 'profile' => $user->profile,
             ]);
+
+            session()->save();
 
             $redirectUrl = $user->role === 'Admin'
                 ? route('admin.dashboard')

@@ -42,7 +42,16 @@ class ProfileController extends Controller
             $fileName = 'profile_' . Str::slug($request->first_name) . '_' . time() . '.' . $ext;
             $profilePath = $request->file('profile')->storeAs('profiles', $fileName, 'public');
             $data['profile'] = $profilePath;
+
+            // 💡 Refresh session supaya navbar terus update tanpa relogin
+            session(['profile' => $profilePath]);
         }
+
+        session([
+            'username' => $request->first_name,
+            'fullname' => $request->first_name . ' ' . $request->last_name,
+        ]);
+
 
         $adminProfile->update($data);
 
