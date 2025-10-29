@@ -9,63 +9,33 @@
             <ol class="flex space-x-2">
                 <li><a href="{{ route('admin.dashboard') }}" class="hover:text-green-600">Dashboard</a></li>
                 <li>/</li>
-                <li>Profile</li>
+                <li class="text-green-600">Profile</li>
             </ol>
         </nav>
     </div>
 
     <!-- Personal Details -->
     <div class="bg-white rounded-lg shadow p-6">
-        <form action="{{ route('admin.profile.update', $adminProfile->tutor_id) }}" method="POST" class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+        <form action="{{ route('admin.profile.update', $adminProfile->tutor_id) }}" method="POST" class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <!-- Left Section -->
-            <div>
+            <div class="lg:col-span-1">
                 <h2 class="text-lg font-semibold">Personal Details</h2>
                 <p class="text-sm text-gray-500 mb-4">Please fill out all the fields.</p>
 
                 <!-- Upload Profile Picture -->
                 <div class="flex items-center gap-4">
                     <!-- Avatar Container -->
-                    <div class="relative w-30 h-30">
-                        <!-- Profile Picture -->
-                        <img id="profilePreview"
-                            src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                            class="w-30 h-30 rounded-full border-2 border-gray-200 object-cover"
-                            alt="User" />
-
-                        <!-- Edit Icon (Trigger File Upload) -->
-                        <label for="profileUpload" class="absolute bottom-0 right-0 bg-gray-500 text-white p-1.5 rounded-full shadow cursor-pointer hover:bg-gray-600">
-                            <!-- Heroicon pencil -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13l6.232-6.232a2.5 2.5 0 113.536 3.536L12.536 16.5H9v-3.5z" />
-                            </svg>
-                        </label>
-
-                        <!-- Hidden File Input -->
-                        <input id="profileUpload" type="file" name="profile_picture" accept="image/*" class="hidden" onchange="previewProfile(event)" />
+                    <div class="relative w-40 h-40">
+                        <img src="{{ $adminProfile->profile 
+                        ? asset('storage/'.$adminProfile->profile)
+                        : 'https://ui-avatars.com/api/?name='.urlencode($adminProfile->username).'&background=06B6D4&color=fff' }}" 
+                        class="w-40 h-40 rounded-full border-2 border-gray-200 object-cover cursor-pointer" for="profileUpload" alt="Avatar">
                     </div>
                 </div>
-
-                <script>
-                    function previewProfile(event) {
-                        const output = document.getElementById('profilePreview');
-                        output.src = URL.createObjectURL(event.target.files[0]);
-                        output.onload = () => URL.revokeObjectURL(output.src); // cleanup memory
-                    }
-                </script>
-
             </div>
-
-            <!-- Script for Preview -->
-            <script>
-                function previewProfile(event) {
-                    const output = document.getElementById('profilePreview');
-                    output.src = URL.createObjectURL(event.target.files[0]);
-                    output.onload = () => URL.revokeObjectURL(output.src); // free memory
-                };
-            </script>
 
             <!-- Right Section (Form) -->
            <div class="lg:col-span-2">
@@ -87,18 +57,19 @@
                     </div>
 
                     <div class="md:col-span-3">
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                        <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" value="{{ $adminProfile->email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                    </div>
-
-                    <div class="md:col-span-3">
                         <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
                         <input type="text" id="ic_number" name="ic_number" placeholder="990101-14-5678" value="{{ $adminProfile->ic_number }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
-                        <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
-                        <input type="number" id="age" name="age" placeholder="15" value="{{ $adminProfile->age }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                        <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" value="{{ $adminProfile->email }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
+                    </div>
+
+                    {{-- phone_number --}}
+                    <div class="md:col-span-3">
+                        <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                        <input type="text" id="phone_number" name="phone_number" placeholder="012-3456789" value="{{ $adminProfile->phone_number }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                     </div>
 
                     <div class="md:col-span-3">
@@ -107,35 +78,30 @@
                     </div>
 
                     <div class="md:col-span-3">
+                        <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                        <input type="number" id="age" name="age" placeholder="15" value="{{ $adminProfile->age }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                    </div>
+
+                    <div class="md:col-span-3">
                         <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
-                        <select id="gender" name="gender" value="{{ $adminProfile->gender }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
+                        {{-- show the curretn gender in the selection --}}
+                        <input type="text" id="gender" name="gender" value="{{ ucfirst($adminProfile->gender) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                     </div>
 
                     <div class="md:col-span-3">
                         <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                        <select id="role" name="role" {{ $adminProfile->role }} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            <option value="">Select Role</option>
-                            <option value="admin">Admin</option>
-                            <option value="tutor">Tutor</option>
-                        </select>
+                        <input type="text" id="role" name="role" value="{{ ucfirst($adminProfile->role) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                     </div>
 
                     <div class="md:col-span-3">
-                        <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                        <select id="status" name="status" {{ $adminProfile->status }} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            <option value="">Select Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
+                        {{-- profile only insert image--}}
+                        <label for="profile" class="block mb-2 text-sm font-medium text-gray-900">Profile Picture</label>
+                        <input type="file" id="profile" name="profile" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" >
                     </div>
 
                     <div class="md:col-span-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" {{ $adminProfile->address }} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required></textarea>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" {{ $adminProfile->address }} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
 
                 </div>
@@ -157,16 +123,6 @@
                 <h2 class="text-lg font-semibold">Education Background</h2>
                 <p class="text-sm text-gray-500 mb-4">Please fill out all the fields.</p>
             </div>
-
-            <!-- Script for Preview -->
-            <script>
-                function previewProfile(event) {
-                    const output = document.getElementById('profilePreview');
-                    output.src = URL.createObjectURL(event.target.files[0]);
-                    output.onload = () => URL.revokeObjectURL(output.src); // free memory
-                };
-            </script>
-
 
             <!-- Right Section (Form) -->
             <form id="tutorForm" class="lg:col-span-2">
