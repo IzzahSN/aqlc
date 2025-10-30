@@ -153,6 +153,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 
     // PAYMENT
     Route::get('/bill', [StudentBillRecordController::class, 'index'])->name('bill.index');
+    Route::get('/bill-report', [StudentBillRecordController::class, 'getBillReport'])->name('bill.report');
     Route::post('/bill', [StudentBillRecordController::class, 'store'])->name('bill.store');
 
     Route::get('/bill/{id}/report', [BillHistoryController::class, 'indexStudentBill'])->name('bill.report.index');
