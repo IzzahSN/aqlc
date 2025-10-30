@@ -18,7 +18,23 @@ class SalaryRecordController extends Controller
         $salaryRecords = SalaryRecord::orderBy('salary_year', 'desc')
             ->orderByRaw("FIELD(salary_month, 'December', 'November', 'October', 'September', 'August', 'July', 'June', 'May', 'April', 'March', 'February', 'January')")
             ->get();
-        return view('admin.payment.salary', compact('salaryRecords'));
+
+        // calculate total paid salary (only where salary_id not null)
+        $totalPaidSalary = BillHistory::whereNotNull('salary_id')
+            ->where('bill_status', 'Paid')
+            ->sum('bill_amount');
+
+        // calculate total Unpaid salary (only where salary_id not null)
+        $totalUnpaidSalary = BillHistory::whereNotNull('salary_id')
+            ->where('bill_status', 'Unpaid')
+            ->sum('bill_amount');
+
+        // calculate total Pending salary (only where salary_id not null)
+        $totalPendingSalary = BillHistory::whereNotNull('salary_id')
+            ->where('bill_status', 'Pending')
+            ->sum('bill_amount');
+
+        return view('admin.payment.salary', compact('salaryRecords', 'totalPaidSalary', 'totalUnpaidSalary', 'totalPendingSalary'));
     }
 
     /**
