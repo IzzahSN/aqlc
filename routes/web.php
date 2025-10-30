@@ -160,6 +160,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 
     // SALARY
     Route::get('/salary', [SalaryRecordController::class, 'index'])->name('salary.index');
+    Route::get('/salary-report', [SalaryRecordController::class, 'getSalaryReport'])->name('salary.report');
     Route::post('/salary', [SalaryRecordController::class, 'store'])->name('salary.store');
     Route::get('/salary/{id}/edit', [SalaryRecordController::class, 'edit'])->name('salary.edit');
     Route::put('/salary/{id}', [SalaryRecordController::class, 'update'])->name('salary.update');
@@ -183,7 +184,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function () {
     // Dashboard
     Route::get('/', [DashboardController::class, 'tutorDashboard'])->name('dashboard');
-    Route::get('/tutor/salary-report', [DashboardController::class, 'getSalaryReport'])->name('dashboard.report');
+    Route::get('/salary-report', [DashboardController::class, 'getSalaryReport'])->name('dashboard.report');
 
     // Report
     Route::get('/report', [ReportController::class, 'tutorReportIndex'])->name('report.index');

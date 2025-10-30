@@ -34,8 +34,64 @@ class SalaryRecordController extends Controller
             ->where('bill_status', 'Pending')
             ->sum('bill_amount');
 
-        return view('admin.payment.salary', compact('salaryRecords', 'totalPaidSalary', 'totalUnpaidSalary', 'totalPendingSalary'));
+        // get unique salary_year from salary_records, check the fk in bill_histories table(salary_id) to get the salary_id and get the salary_year
+        $salaryYears = SalaryRecord::join('bill_histories', 'salary_records.salary_id', '=', 'bill_histories.salary_id')
+            ->select('salary_records.salary_year')
+            ->distinct()
+            ->orderBy('salary_records.salary_year', 'desc')
+            ->get();
+        session(['salary_years' => $salaryYears]);
+
+        return view('admin.payment.salary', compact('salaryRecords', 'totalPaidSalary', 'totalUnpaidSalary', 'totalPendingSalary', 'salaryYears'));
     }
+
+    public function getSalaryReport(Request $request)
+    {
+        $year = $request->input('year', date('Y')); // default current year
+
+        // Senarai bulan
+        $months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ];
+        $monthlySalaries = array_fill(0, 12, 0);
+
+        // Ambil hanya rekod bill_status = 'Paid' dan ada salary_id
+        $salaryData = BillHistory::with('salary')
+            ->where('bill_status', 'Paid')
+            ->whereNotNull('salary_id')
+            ->whereHas('salary', function ($query) use ($year) {
+                $query->where('salary_year', $year);
+            })
+            ->get();
+
+        // Jumlahkan ikut bulan
+        foreach ($salaryData as $record) {
+            if ($record->salary && $record->salary->salary_month) {
+                $monthIndex = array_search($record->salary->salary_month, $months);
+                if ($monthIndex !== false) {
+                    // Tambah jumlah, bukan overwrite
+                    $monthlySalaries[$monthIndex] += (float) $record->bill_amount;
+                }
+            }
+        }
+
+        return response()->json([
+            'year' => $year,
+            'data' => $monthlySalaries,
+        ]);
+    }
+
 
     /**
      * Store a newly created resource in storage.
