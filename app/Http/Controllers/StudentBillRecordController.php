@@ -33,7 +33,62 @@ class StudentBillRecordController extends Controller
             ->where('bill_status', 'Pending')
             ->sum('bill_amount');
 
-        return view('admin.payment.bills', compact('studentBillRecords', 'totalPaidStudentBill', 'totalUnpaidStudentBill', 'totalPendingStudentBill'));
+        // get unique student_bill_year from student_bill_records, check the fk in bill_histories table(student_bill_id) to get the student_bill_id and get the student_bill_year
+        $studentBillYears = StudentBillRecord::join('bill_histories', 'student_bill_records.student_bill_id', '=', 'bill_histories.student_bill_id')
+            ->select('student_bill_records.student_bill_year')
+            ->distinct()
+            ->orderBy('student_bill_records.student_bill_year', 'desc')
+            ->get();
+        session(['student_bill_years' => $studentBillYears]);
+
+        return view('admin.payment.bills', compact('studentBillRecords', 'totalPaidStudentBill', 'totalUnpaidStudentBill', 'totalPendingStudentBill', 'studentBillYears'));
+    }
+
+    public function getBillReport(Request $request)
+    {
+        $year = $request->input('year', date('Y')); // default current year
+
+        // Senarai bulan
+        $months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
+
+        $billData = array_fill(0, 12, 0);
+
+        // Ambil hanya rekod bill_status = 'Paid' dan ada student_bill_id
+        $bills = BillHistory::whereNotNull('student_bill_id')
+            ->with('studentBill')
+            ->where('bill_status', 'Paid')
+            ->whereHas('studentBill', function ($query) use ($year) {
+                $query->where('student_bill_year', $year);
+            })
+            ->get();
+
+        // Kira jumlah bil bagi setiap bulan
+        foreach ($bills as $bill) {
+            if ($bill->studentBill && $bill->studentBill->student_bill_month) {
+                $monthIndex = array_search($bill->studentBill->student_bill_month, $months);
+                if ($monthIndex !== false) {
+                    $billData[$monthIndex] += $bill->bill_amount;
+                }
+            }
+        }
+
+        return response()->json([
+            'year' => $year,
+            'data' => $billData,
+        ]);
     }
 
     /**

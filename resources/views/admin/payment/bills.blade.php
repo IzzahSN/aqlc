@@ -1,15 +1,19 @@
 <x-admin-layout :title="'Bill'">
     <!-- Insight -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <div class="lg:col-span-1 space-y-4">
+    <!-- Insight -->
+    <div class="space-y-6 mb-6">
+        <!-- === 3 Summary Cards (1 row) === -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Total Paid Bill -->
             <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-lime-600 border-l-6 justify-between">
                 <div>
                     <p class="text-sm font-semibold text-lime-600 uppercase">Total Paid Bill</p>
                     <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($totalPaidStudentBill, 2) }}</h3>
                 </div>            
-                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-check w-8 h-8 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2c-.218 0 -.432 .002 -.642 .005l-.616 .017l-.299 .013l-.579 .034l-.553 .046c-4.785 .464 -6.732 2.411 -7.196 7.196l-.046 .553l-.034 .579c-.005 .098 -.01 .198 -.013 .299l-.017 .616l-.004 .318l-.001 .324c0 .218 .002 .432 .005 .642l.017 .616l.013 .299l.034 .579l.046 .553c.464 4.785 2.411 6.732 7.196 7.196l.553 .046l.579 .034c.098 .005 .198 .01 .299 .013l.616 .017l.642 .005l.642 -.005l.616 -.017l.299 -.013l.579 -.034l.553 -.046c4.785 -.464 6.732 -2.411 7.196 -7.196l.046 -.553l.034 -.579c.005 -.098 .01 -.198 .013 -.299l.017 -.616l.005 -.642l-.005 -.642l-.017 -.616l-.013 -.299l-.034 -.579l-.046 -.553c-.464 -4.785 -2.411 -6.732 -7.196 -7.196l-.553 -.046l-.579 -.034a28.058 28.058 0 0 0 -.299 -.013l-.616 -.017l-.318 -.004l-.324 -.001zm2.293 7.293a1 1 0 0 1 1.497 1.32l-.083 .094l-4 4a1 1 0 0 1 -1.32 .083l-.094 -.083l-2 -2a1 1 0 0 1 1.32 -1.497l.094 .083l1.293 1.292l3.293 -3.292z" fill="currentColor" stroke-width="0" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8 text-gray-300" viewBox="0 0 24 24"><path d="M12 2c-.218 0-.432.002-.642.005l-.616.017-.299.013-.579.034-.553.046c-4.785.464-6.732 2.411-7.196 7.196l-.046.553-.034.579-.013.299-.017.616-.004.318-.001.324c0 .218.002.432.005.642l.017.616.013.299.034.579.046.553c.464 4.785 2.411 6.732 7.196 7.196l.553.046.579.034.299.013.616.017.642.005.642-.005.616-.017.299-.013.579-.034.553-.046c4.785-.464 6.732-2.411 7.196-7.196l.046-.553.034-.579.013-.299.017-.616.005-.642-.005-.642-.017-.616-.013-.299-.034-.579-.046-.553c-.464-4.785-2.411-6.732-7.196-7.196l-.553-.046-.579-.034-.299-.013-.616-.017L12.642 2zM14.293 9.293a1 1 0 0 1 1.497 1.32l-.083.094-4 4a1 1 0 0 1-1.32.083l-.094-.083-2-2a1 1 0 0 1 1.32-1.497l.094.083L12 12.585l2.293-2.292z"/></svg>
             </div>
-            
+
+            <!-- Total Pending Bill -->
             <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-amber-400 border-l-6 justify-between">
                 <div>
                     <p class="text-sm font-semibold text-amber-600 uppercase">Total Pending Bill</p>
@@ -18,6 +22,7 @@
                 <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-x w-8 h-8 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" fill="currentColor" stroke-width="0" /></svg>   
             </div>
 
+            <!-- Total Unpaid Bill -->
             <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-red-600 border-l-6 justify-between">
                 <div>
                     <p class="text-sm font-semibold text-red-600 uppercase">Total Unpaid Bill</p>
@@ -26,37 +31,80 @@
                 <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-x w-8 h-8 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" fill="currentColor" stroke-width="0" /></svg>   
             </div>
         </div>
-        <!-- Bills Report -->
-        <div class="lg:col-span-2 bg-white rounded-2xl shadow p-4 flex flex-col">
-            <div class="flex items-center justify-between">
+
+        <!-- === Chart Section (below cards) === -->
+        <div class="bg-white p-4 rounded-xl shadow">
+            <div class="flex items-center justify-between mb-4">
                 <h3 class="font-semibold">Bill Report</h3>
-                <select class="text-sm border rounded-lg px-3 py-1">
-                    <option>Select Year</option>
-                    <option>2024</option>
-                    <option>2025</option>
+                <select id="yearFilter" class="text-sm border rounded-lg px-3 py-1">
+                    @foreach ($studentBillYears as $year)
+                        <option value="{{ $year->student_bill_year }}">{{ $year->student_bill_year }}</option>
+                    @endforeach
                 </select>
             </div>
-            <canvas id="salesChart" height="180"></canvas>
+            <canvas id="billChart" height="100"></canvas>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            // Sales Report Chart
-            new Chart(document.getElementById('salesChart'), {
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <script>
+        const ctx = document.getElementById('billChart');
+        let salaryChart;
+
+        async function loadSalaryChart(year) {
+            const response = await fetch(`{{ route('admin.bill.report') }}?year=${year}`);
+            const result = await response.json();
+
+            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: `Total Bill (RM) for ${result.year}`,
+                    data: result.data,
+                    borderColor: '#16a34a',
+                    backgroundColor: 'rgba(22,163,74,0.2)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            };
+
+            if (salaryChart) {
+                salaryChart.destroy();
+            }
+            salaryChart = new Chart(ctx, {
                 type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [{
-                        label: 'Total revenue (RM)',
-                        data: [400, 420, 500, 650, 700, 750, 720, 760, 780, 800, 820, 880],
-                        borderColor: '#16a34a',
-                        backgroundColor: 'rgba(22,163,74,0.2)',
-                        fill: true,
-                        tension: 0.5
-                    }]
+                data: data,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            min: 0,
+                            grid: { color: '#e5e7eb' }
+                        },
+                        x: {
+                            grid: { color: '#f3f4f6' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'RM ' + context.parsed.y.toFixed(2);
+                                }
+                            }
+                        }
+                    }
                 }
             });
-        </script>
-    </div>
+        }
+
+        // Auto-load current year
+        loadSalaryChart(new Date().getFullYear());
+        document.getElementById('yearFilter').addEventListener('change', function() {
+            loadSalaryChart(this.value);
+        });
+    </script>
 
     <!-- Bills List -->
     <div class="bg-white p-6 rounded-xl shadow">
