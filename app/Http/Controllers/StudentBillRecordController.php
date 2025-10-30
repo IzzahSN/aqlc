@@ -17,7 +17,23 @@ class StudentBillRecordController extends Controller
         $studentBillRecords = StudentBillRecord::orderBy('student_bill_year', 'desc')
             ->orderByRaw("FIELD(student_bill_month, 'December', 'November', 'October', 'September', 'August', 'July', 'June', 'May', 'April', 'March', 'February', 'January')")
             ->get();
-        return view('admin.payment.bills', compact('studentBillRecords'));
+
+        // calculate total paid stdent bill (only where student_bill_id not null)
+        $totalPaidStudentBill = BillHistory::whereNotNull('student_bill_id')
+            ->where('bill_status', 'Paid')
+            ->sum('bill_amount');
+
+        // calculate total Unpaid student bill (only where student_bill_id not null)
+        $totalUnpaidStudentBill = BillHistory::whereNotNull('student_bill_id')
+            ->where('bill_status', 'Unpaid')
+            ->sum('bill_amount');
+
+        // calculate total Pending student bill (only where student_bill_id not null)
+        $totalPendingStudentBill = BillHistory::whereNotNull('student_bill_id')
+            ->where('bill_status', 'Pending')
+            ->sum('bill_amount');
+
+        return view('admin.payment.bills', compact('studentBillRecords', 'totalPaidStudentBill', 'totalUnpaidStudentBill', 'totalPendingStudentBill'));
     }
 
     /**
