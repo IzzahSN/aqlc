@@ -66,11 +66,6 @@
         <div class="bg-white p-4 rounded-xl shadow flex flex-col">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="font-semibold">Student Progress</h3>
-                <select class="text-sm border rounded-lg px-3 py-1">
-                    <option>Select Year</option>
-                    <option>2024</option>
-                    <option>2025</option>
-                </select>
             </div>
 
             <!-- Chart & Legend -->
