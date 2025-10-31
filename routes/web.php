@@ -7,6 +7,7 @@ use App\Http\Controllers\BillHistoryController;
 use App\Http\Controllers\ClassModelController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuardianController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JoinPackageController;
 use App\Http\Controllers\LessonPlanController;
 use App\Http\Controllers\PackageController;
@@ -26,9 +27,9 @@ use Illuminate\Support\Facades\Route;
 // =======================
 // Public Routes
 // =======================
-Route::get('/', fn() => view('guest.home'))->name('home');
-Route::get('/profile', fn() => view('guest.profile'))->name('profile');
-Route::get('/contact', fn() => view('guest.contact'))->name('contact');
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 
 
 // =======================

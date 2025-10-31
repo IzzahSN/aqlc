@@ -86,167 +86,35 @@
             <!-- Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <!-- Card 1-->
+                @foreach ($tutors as $tutor)                    
                 <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-x-3 sm:gap-x-4">
-                        <img class="rounded-full size-16 sm:size-20 shadow"
-                            src="https://i.pravatar.cc/55"
-                            alt="Foto Ustazah Aisyah Karim">
+                        <img src="{{ $tutor->profile 
+                        ? asset('storage/'.$tutor->profile)
+                        : 'https://ui-avatars.com/api/?name='.urlencode($tutorProfile->username).'&background=F97316&color=fff' }}" 
+                        class="rounded-full size-16 sm:size-20 shadow" for="profileUpload" alt="Avatar">
                         <div class="grow">
                             <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
-                                Ustazah Aisyah Karim
+                                {{ $tutor->username }}
                             </h3>
                             <p class="text-xs tracking-wider text-gray-700">
-                                Universiti Malaya
+                                {{ $tutor->university }}
                             </p>
                         </div>
                     </div>
 
                     <div class="mt-3">
                         <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md bg-emerald-50 text-emerald-700 shadow-emerald-500">
-                            Ijazah Sarjana Muda Pengajian Islam
+                            {{ $tutor->programme }}
                         </span>
                         <p class="mt-3 text-xs sm:text-sm text-gray-600">
-                            • Johan Tilawah Al-Quran 2023<br>
-                            • Hafiz Quran
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 1 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-x-3 sm:gap-x-4">
-                        <img class="rounded-full size-16 sm:size-20 shadow"
-                            src="https://i.pravatar.cc/56"
-                            alt="Foto Ustaz Ahmad Zulkifli">
-                        <div class="grow">
-                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
-                                Ustaz Ahmad Zulkifli
-                            </h3>
-                            <p class="text-xs tracking-wider text-gray-700">
-                                Universiti Kebangsaan Malaysia
+                            <p class="mt-3 text-xs sm:text-sm text-gray-600">
+                                {!! nl2br(e($tutor->bg_description)) !!}
                             </p>
-                        </div>
-                    </div>
-
-                    <div class="mt-3">
-                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md bg-emerald-50 text-emerald-700 shadow-emerald-500">
-                            Ijazah Sarjana Muda Syariah & Undang-undang
-                        </span>
-                        <p class="mt-3 text-xs sm:text-sm text-gray-600">
-                            • Pakar Fiqh Kontemporari<br>
-                            • Pensyarah Jemputan di Masjid Negara
                         </p>
                     </div>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-x-3 sm:gap-x-4">
-                        <img class="rounded-full size-16 sm:size-20 shadow"
-                            src="https://i.pravatar.cc/57"
-                            alt="Foto Ustazah Nurul Huda">
-                        <div class="grow">
-                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
-                                Ustazah Nurul Huda
-                            </h3>
-                            <p class="text-xs tracking-wider text-gray-700">
-                                Universiti Islam Antarabangsa Malaysia
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="mt-3">
-                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md bg-emerald-50 text-emerald-700 shadow-emerald-500">
-                            Ijazah Sarjana Muda Bahasa Arab & Kesusasteraan
-                        </span>
-                        <p class="mt-3 text-xs sm:text-sm text-gray-600">
-                            • Penterjemah Kitab Klasik Arab<br>
-                            • Pakar Nahu & Balaghah
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-x-3 sm:gap-x-4">
-                        <img class="rounded-full size-16 sm:size-20 shadow"
-                            src="https://i.pravatar.cc/58"
-                            alt="Foto Ustaz Farid Hakim">
-                        <div class="grow">
-                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
-                                Ustaz Farid Hakim
-                            </h3>
-                            <p class="text-xs tracking-wider text-gray-700">
-                                Universiti Sains Islam Malaysia
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="mt-3">
-                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md bg-emerald-50 text-emerald-700 shadow-emerald-500">
-                            Ijazah Sarjana Muda Dakwah & Pengurusan Islam
-                        </span>
-                        <p class="mt-3 text-xs sm:text-sm text-gray-600">
-                            • Penceramah Motivasi Remaja<br>
-                            • Penulis Buku “Muda & Iman”
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-x-3 sm:gap-x-4">
-                        <img class="rounded-full size-16 sm:size-20 shadow"
-                            src="https://i.pravatar.cc/59"
-                            alt="Foto Ustazah Siti Mariam">
-                        <div class="grow">
-                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
-                                Ustazah Siti Mariam
-                            </h3>
-                            <p class="text-xs tracking-wider text-gray-700">
-                                Universiti Putra Malaysia
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="mt-3">
-                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md bg-emerald-50 text-emerald-700 shadow-emerald-500">
-                            Ijazah Sarjana Muda Pendidikan Islam
-                        </span>
-                        <p class="mt-3 text-xs sm:text-sm text-gray-600">
-                            • Guru Kelas Tahfiz<br>
-                            • Pakar Kaedah Pengajaran Al-Quran Kanak-kanak
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="flex flex-col rounded-2xl sm:rounded-4xl p-3 sm:p-4 md:p-6 bg-white border border-emerald-200/60 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-x-3 sm:gap-x-4">
-                        <img class="rounded-full size-16 sm:size-20 shadow"
-                            src="https://i.pravatar.cc/60"
-                            alt="Foto Ustaz Khairul Nizam">
-                        <div class="grow">
-                            <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
-                                Ustaz Khairul Nizam
-                            </h3>
-                            <p class="text-xs tracking-wider text-gray-700">
-                                Al-Azhar University, Mesir
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="mt-3">
-                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-md bg-emerald-50 text-emerald-700 shadow-emerald-500">
-                            Ijazah Sarjana Muda Usuluddin
-                        </span>
-                        <p class="mt-3 text-xs sm:text-sm text-gray-600">
-                            • Pakar Tafsir & Hadis<br>
-                            • 10 Tahun Pengalaman Mengajar Pondok
-                        </p>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </section>
