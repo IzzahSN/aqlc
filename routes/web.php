@@ -47,7 +47,7 @@ Route::post('/register', [AuthController::class, 'register']);
 // =======================
 Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
     // DASHBOARD
-    Route::get('/', fn() => view('dashboard.admin'))->name('dashboard');
+    Route::get('/', [DashboardController::class, 'adminDashboard'])->name('dashboard');
 
     //////////////////////
     // RECORD MANAGEMENT//

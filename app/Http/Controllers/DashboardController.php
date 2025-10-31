@@ -7,7 +7,9 @@ use App\Models\Guardian;
 use App\Models\JoinClass;
 use App\Models\SalaryRecord;
 use App\Models\Schedule;
+use App\Models\Student;
 use App\Models\StudentProgress;
+use App\Models\Tutor;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -194,5 +196,30 @@ class DashboardController extends Controller
             'year' => $year,
             'data' => $monthlySalaries,
         ]);
+    }
+
+    public function adminDashboard()
+    {
+        // count total students
+        $totalStudents = Student::count();
+        session(['total_students' => $totalStudents]);
+
+        // count total tutors
+        $totalTutors = Tutor::count();
+        session(['total_tutors' => $totalTutors]);
+
+        // count total guardians
+        $totalGuardians = Guardian::count();
+        session(['total_guardians' => $totalGuardians]);
+
+        // get all schedules for current month with class and tutor
+        $schedules = Schedule::with(['class.package', 'tutor'])
+            ->whereMonth('date', date('m'))
+            ->whereYear('date', date('Y'))
+            ->orderBy('date', 'desc')
+            ->get();
+        session(['schedules' => $schedules]);
+
+        return view('dashboard.admin', compact('totalStudents', 'totalTutors', 'totalGuardians', 'schedules'));
     }
 }

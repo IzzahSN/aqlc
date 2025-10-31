@@ -3,11 +3,11 @@
     <h2 class="text-xl font-bold mb-6">Welcome back, {{ session('username') }}!</h2>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-lime-600 border-l-6 justify-between">
                 <div>
                     <p class="text-sm font-semibold text-lime-600 uppercase">Total Students</p>
-                    <h3 class="text-xl font-bold text-gray-500">46</h3>
+                    <h3 class="text-xl font-bold text-gray-500">{{ $totalStudents }}</h3>
                 </div>
                 <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.4472 2.10557c-.2815-.14076-.6129-.14076-.8944 0L5.90482 4.92956l.37762.11119c.01131.00333.02257.00687.03376.0106L12 6.94594l5.6808-1.89361.3927-.13363-5.6263-2.81313ZM5 10V6.74803l.70053.20628L7 7.38747V10c0 .5523-.44772 1-1 1s-1-.4477-1-1Zm3-1c0-.42413.06601-.83285.18832-1.21643l3.49538 1.16514c.2053.06842.4272.06842.6325 0l3.4955-1.16514C15.934 8.16715 16 8.57587 16 9c0 2.2091-1.7909 4-4 4-2.20914 0-4-1.7909-4-4Z"/>
@@ -18,7 +18,7 @@
         <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-amber-400 border-l-6 justify-between">
                 <div>
                     <p class="text-sm font-semibold text-amber-600 uppercase">Total Teachers</p>
-                    <h3 class="text-xl font-bold text-gray-500">6</h3>
+                    <h3 class="text-xl font-bold text-gray-500">{{ $totalTutors }}</h3>
                 </div>
                 <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M16 10c0-.55228-.4477-1-1-1h-3v2h3c.5523 0 1-.4477 1-1Z"/>
@@ -29,47 +29,25 @@
 
         <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-cyan-600 border-l-6 justify-between">
                 <div>
-                    <p class="text-sm font-semibold text-cyan-600 uppercase">Total Revenues</p>
-                    <h3 class="text-xl font-bold text-gray-500">RM11,902</h3>
+                    <p class="text-sm font-semibold text-cyan-600 uppercase">Total Guardians</p>
+                    <h3 class="text-xl font-bold text-gray-500">{{ $totalGuardians }}</h3>
                 </div>
-                <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M7 6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2v-4a3 3 0 0 0-3-3H7V6Z" clip-rule="evenodd"/>
-                    <path fill-rule="evenodd" d="M2 11a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7Zm7.5 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z" clip-rule="evenodd"/>
-                    <path d="M10.5 14.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>
+                <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z" clip-rule="evenodd"/>
                 </svg>
         </div>
-
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-rose-600 border-l-6 justify-between">
-            <div>
-                <p class="text-sm font-semibold text-rose-600 uppercase">Unpaid Fees</p>
-                <h3 class="text-xl font-bold text-gray-500">RM739</h3>
-            </div>
-            <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-zoom-money w-10 h-10 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3.072a8 8 0 0 1 2.32 11.834l5.387 5.387a1 1 0 0 1 -1.414 1.414l-5.388 -5.387a8 8 0 0 1 -12.905 -6.32l.005 -.285a8 8 0 0 1 11.995 -6.643m-2 2.928h-2.5a2.5 2.5 0 0 0 0 5h1a.5 .5 0 1 1 0 1h-2.5a1 1 0 0 0 0 2h2.5a2.5 2.5 0 1 0 0 -5h-1a.5 .5 0 0 1 0 -1h2.5a1 1 0 0 0 0 -2" /></svg>        </div>
     </div>
 
     <!-- Charts Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Sales Report -->
-        <div class="bg-white p-4 rounded-xl shadow">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">Sales Report</h3>
-                <select class="text-sm border rounded-lg px-3 py-1">
-                    <option>Select Year</option>
-                    <option>2024</option>
-                    <option>2025</option>
-                </select>
-            </div>
-            <canvas id="salesChart" height="200"></canvas>
-        </div>
-
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Student Progress -->
-        <div class="bg-white p-4 rounded-xl shadow flex flex-col">
-            <div class="flex items-center justify-between mb-4">
+        <div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
+            <div class="flex items-center mb-4">
                 <h3 class="font-semibold">Student Progress</h3>
             </div>
 
             <!-- Chart & Legend -->
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-center">
                 <!-- Pie Chart -->
                 <div class="relative w-64 h-64">
                     <canvas id="progressChart"></canvas>
@@ -79,27 +57,67 @@
                 <div id="progressLegend" class="ml-6 space-y-2"></div>
             </div>
         </div>
+
+         <!-- Upcoming Sessions Section -->
+        <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold text-gray-800">Upcoming Sessions</h3>
+            </div>
+
+            <!-- Scrollable container -->
+            <div class="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+                @forelse ($schedules as $schedule)
+                    <a href="{{ route('admin.schedule.attendance.index', $schedule->schedule_id) }}"
+                        class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
+                        
+                        <div class="flex items-center gap-3">
+                            <!-- Calendar Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="currentColor"
+                                class="group-hover:text-white transition text-emerald-600">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M16 2c.183 0 .355 .05 .502 .135l.033 .02c.28 .177 .465 .49 .465 .845v1h1a3 3 0 0 1 2.995 2.824l.005 .176v12a3 3 0 0 1 -2.824 2.995l-.176 .005h-12a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-12a3 3 0 0 1 2.824 -2.995l.176 -.005h1v-1a1 1 0 0 1 .514 -.874l.093 -.046l.066 -.025l.1 -.029l.107 -.019l.12 -.007q .083 0 .161 .013l.122 .029l.04 .012l.06 .023c.328 .135 .568 .44 .61 .806l.007 .117v1h6v-1a1 1 0 0 1 1 -1m3 7h-14v9.625c0 .705 .386 1.286 .883 1.366l.117 .009h12c.513 0 .936 -.53 .993 -1.215l.007 -.16z" />
+                                <path d="M9.015 13a1 1 0 0 1 -1 1a1.001 1.001 0 1 1 -.005 -2c.557 0 1.005 .448 1.005 1" />
+                                <path d="M13.015 13a1 1 0 0 1 -1 1a1.001 1.001 0 1 1 -.005 -2c.557 0 1.005 .448 1.005 1" />
+                                <path d="M17.02 13a1 1 0 0 1 -1 1a1.001 1.001 0 1 1 -.005 -2c.557 0 1.005 .448 1.005 1" />
+                                <path d="M12.02 15a1 1 0 0 1 0 2a1.001 1.001 0 1 1 -.005 -2z" />
+                                <path d="M9.015 16a1 1 0 0 1 -1 1a1.001 1.001 0 1 1 -.005 -2c.557 0 1.005 .448 1.005 1" />
+                            </svg>
+
+                            <!-- Text -->
+                            <div>
+                                <p class="text-sm font-semibold text-gray-700 group-hover:text-white transition">
+                                    {{ $schedule->class->class_name }}
+                                </p>
+                                <p class="text-xs text-gray-500 group-hover:text-white transition">
+                                    {{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}<br>({{ $schedule->reliefTutor ? $schedule->reliefTutor->username : $schedule->class->tutor->username }})
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Chevron Right -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-gray-400 group-hover:text-white transition">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 6l6 6l-6 6" />
+                        </svg>
+                    </a>
+                @empty
+                    <div class="text-center py-6 text-gray-500 text-sm bg-gray-50 rounded-lg border border-dashed">
+                        <i class="fas fa-calendar-times text-2xl text-gray-400 mb-2"></i>
+                        <p>No upcoming sessions scheduled.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
     </div>
 
     <!-- Chart.js Script -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Sales Report Chart
-        new Chart(document.getElementById('salesChart'), {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                    label: 'Total revenue (RM)',
-                    data: [400, 420, 500, 650, 700, 750, 720, 760, 780, 800, 820, 880],
-                    borderColor: '#16a34a',
-                    backgroundColor: 'rgba(22,163,74,0.2)',
-                    fill: true,
-                    tension: 0.3
-                }]
-            }
-        });
-
         // Student Progress Chart
         const progressCtx = document.getElementById('progressChart');
         const progressChart = new Chart(progressCtx, {
