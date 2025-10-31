@@ -66,12 +66,42 @@
             // contoh: { "Iqra 1": 4, "Iqra 2": 6, "Juz 1": 3, "Juz 2": 5, "Iqra 6": 2 }
 
             const colors = [
-                '#9AD0EC', '#A7C7E7', '#B5EAEA', '#C7F9CC', '#F6D186', '#FFB4A2',
-                '#E5989B', '#CDB4DB', '#FFC8DD', '#BDE0FE', '#A2D2FF', '#D0F4DE',
-                '#FCF6BD', '#FFDAC1', '#E2F0CB', '#CBAACB', '#FFB5A7', '#B5EAD7',
-                '#E4C1F9', '#FEC5BB', '#D8E2DC', '#F8EDEB', '#CCE2CB', '#B6CFB6',
-                '#FFD6A5', '#FFADAD', '#FDFFB6', '#CAFFBF', '#9BF6FF', '#A0C4FF',
-                '#BDB2FF', '#FFC6FF', '#FFF1E6', '#E5F9DB', '#FDE2E4', '#E2ECE9'
+                // 🔴 Merah
+                '#FF2D2D', '#FF7A7A',
+                // 🟠 Jingga
+                '#FF7A00', '#FFB366',
+                // 🟡 Kuning
+                '#FFD60A', '#FFE680',
+                // 🟢 Hijau
+                '#00B050', '#66D19E',
+                // 🟢 Hijau kebiruan
+                '#00C49A', '#7BE495',
+                // 🔵 Biru muda
+                '#0096FF', '#7BC9FF',
+                // 🔵 Biru pekat
+                '#0056D2', '#668CFF',
+                // 🟣 Ungu kebiruan
+                '#7A00FF', '#B266FF',
+                // 🟣 Ungu lembut
+                '#A020F0', '#C58CFF',
+                // 💗 Merah jambu
+                '#FF1493', '#FF77C2',
+                // ❤️‍🔥 Merah coral
+                '#FF4D4D', '#FF9999',
+                // 🍑 Peach / oren lembut
+                '#FFA07A', '#FFD1B3',
+                // 💚 Mint & hijau terang
+                '#32CD32', '#98FB98',
+                // 💙 Cyan & aqua
+                '#00FFFF', '#99FFFF',
+                // 💜 Lavender & violet lembut
+                '#BA55D3', '#E0B0FF',
+                // 🧡 Amber & gold
+                '#FFBF00', '#FFD966',
+                // 🌊 Navy + turquoise
+                '#003366', '#33CCCC',
+                // 🌈 Pelengkap kontras neutral
+                '#FF5733', '#FFC300'
             ];
 
             const ctx = document.getElementById('progressChart');
