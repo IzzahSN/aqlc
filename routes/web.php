@@ -35,12 +35,12 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 // =======================
 // Auth Routes
 // =======================
-Route::get('/login', fn() => view('auth.login'))->name('login');
+Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/register', fn() => view('auth.register'))->name('register');
+Route::get('/register', [HomeController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
 // =======================
