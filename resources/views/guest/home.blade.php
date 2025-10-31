@@ -188,70 +188,25 @@
 
             <!-- Grid -->
             <div class="grid gap-6 sm:gap-8 md:grid-cols-2">
-
-                <!-- Annur Lite -->
+                @foreach ($packages as $package)
+                <!-- Package -->
                 <div class="relative bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition p-6 sm:p-8">
-                    <h3 class="text-lg sm:text-xl font-bold text-green-700">Annur Lite</h3>
-                    <p class="text-sm text-gray-500">Group Class</p>
-
-                    <div class="mt-4 sm:mt-6">
-                        <span class="text-3xl sm:text-4xl font-bold text-gray-800">RM100</span>
-                        <span class="text-gray-500 text-sm sm:text-base">/ month</span>
-                    </div>
-
-                    <ul class="mt-4 sm:mt-6 space-y-2 sm:space-y-3 text-gray-700 text-sm sm:text-base">
-                        <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> 3 classes per week
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> 1 hour per session
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> Recitation (Iqra & Quran)
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> Tajweed lessons
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> Lesson materials provided
-                        </li>
-                    </ul>
-
-                    <div class="mt-6 sm:mt-8">
-                        <button class="w-full py-2 sm:py-3 px-4 sm:px-5 rounded-xl bg-green-600 text-white font-medium hover:bg-green-700 transition text-sm sm:text-base">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Annur Plus -->
-                <div class="relative bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition p-6 sm:p-8">
-                    <span class="absolute top-0 right-0 bg-yellow-500 text-white text-xs sm:text-sm font-medium py-1 sm:py-2 px-3 sm:px-4 rounded-bl-xl rounded-tr-xl">
+                    {{-- if pcakge_name == highestPackge, show span --}}
+                    {{-- <span class="absolute top-0 right-0 bg-yellow-500 text-white text-xs sm:text-sm font-medium py-1 sm:py-2 px-3 sm:px-4 rounded-bl-xl rounded-tr-xl">
                         Most popular
-                    </span>
-                    <h3 class="text-lg sm:text-xl font-bold text-green-700">Annur Plus</h3>
-                    <p class="text-sm text-gray-500">Personal Class</p>
+                    </span> --}}
+
+                    <h3 class="text-lg sm:text-xl font-bold text-green-700">{{ $package->package_name }}</h3>
+                    <p class="text-sm text-gray-500">{{ ucfirst($package->package_type) }} Class</p>
 
                     <div class="mt-4 sm:mt-6">
-                        <span class="text-3xl sm:text-4xl font-bold text-gray-800">RM25.00</span>
-                        <span class="text-gray-500 text-sm sm:text-base">/ session</span>
+                        <span class="text-3xl sm:text-4xl font-bold text-gray-800">RM{{ number_format($package->package_rate, 2) }}</span>
+                        <span class="text-gray-500 text-sm sm:text-base">{{ $package->unit }}</span>
                     </div>
 
                     <ul class="mt-4 sm:mt-6 space-y-2 sm:space-y-3 text-gray-700 text-sm sm:text-base">
                         <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> 30 minutes per session
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> Flexible class session
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> Recitation (Iqra & Quran)
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> Tajweed lessons
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-green-600">✔</span> Lesson materials provided
+                            {!! nl2br(e($package->details)) !!}
                         </li>
                     </ul>
 
@@ -261,6 +216,7 @@
                         </button>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </section>
