@@ -35,7 +35,7 @@
         <div class="lg:col-span-3 bg-white rounded-sm shadow p-4 flex flex-col border-l-rose-600 border-l-6">
             <!-- Header -->
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-semibold text-gray-700">Student Progress Report</h2>
+                <h2 class="text-lg font-semibold text-gray-700">Student Achievement Progress Report</h2>
                 <div>
                     <!-- Styled Dropdown -->
                     <div class="relative inline-block w-full sm:w-auto lg:w-48">
