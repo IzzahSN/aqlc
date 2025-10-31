@@ -42,21 +42,99 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Student Progress -->
         <div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
-            <div class="flex items-center mb-4">
+            <div class="flex items-center justify-between mb-4">
                 <h3 class="font-semibold">Student Progress</h3>
+                <select id="progressFilter" class="border rounded-lg px-3 py-1 text-sm">
+                    <option value="all">All</option>
+                    <option value="iqra">Iqra</option>
+                    <option value="juz">Quran</option>
+                </select>
             </div>
 
-            <!-- Chart & Legend -->
             <div class="flex items-center justify-center">
-                <!-- Pie Chart -->
-                <div class="relative w-64 h-64">
+                <div class="relative w-80 h-80">
                     <canvas id="progressChart"></canvas>
                 </div>
-
-                <!-- Custom Legend -->
-                <div id="progressLegend" class="ml-6 space-y-2"></div>
+                <div id="progressLegend" class="ml-6 space-y-2 overflow-y-auto max-h-80 w-48"></div>
             </div>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // ====== Data Backend ======
+            const rawProgressCounts = @json($progressCounts); 
+            // contoh: { "Iqra 1": 4, "Iqra 2": 6, "Juz 1": 3, "Juz 2": 5, "Iqra 6": 2 }
+
+            const colors = [
+                '#9AD0EC', '#A7C7E7', '#B5EAEA', '#C7F9CC', '#F6D186', '#FFB4A2',
+                '#E5989B', '#CDB4DB', '#FFC8DD', '#BDE0FE', '#A2D2FF', '#D0F4DE',
+                '#FCF6BD', '#FFDAC1', '#E2F0CB', '#CBAACB', '#FFB5A7', '#B5EAD7',
+                '#E4C1F9', '#FEC5BB', '#D8E2DC', '#F8EDEB', '#CCE2CB', '#B6CFB6',
+                '#FFD6A5', '#FFADAD', '#FDFFB6', '#CAFFBF', '#9BF6FF', '#A0C4FF',
+                '#BDB2FF', '#FFC6FF', '#FFF1E6', '#E5F9DB', '#FDE2E4', '#E2ECE9'
+            ];
+
+            const ctx = document.getElementById('progressChart');
+            const legendContainer = document.getElementById('progressLegend');
+            const filterSelect = document.getElementById('progressFilter');
+
+            // ====== Fungsi untuk tapis dan paparkan ======
+            function updateProgressChart(filter) {
+                // tapis data ikut filter
+                const filtered = Object.entries(rawProgressCounts).filter(([label]) => {
+                    if (filter === 'iqra') return label.toLowerCase().includes('iqra');
+                    if (filter === 'juz') return label.toLowerCase().includes('juz');
+                    return true; // 'all'
+                });
+
+                const labels = filtered.map(([label]) => label);
+                const data = filtered.map(([_, value]) => value);
+
+                // kemas kini chart
+                progressChart.data.labels = labels;
+                progressChart.data.datasets[0].data = data;
+                progressChart.data.datasets[0].backgroundColor = colors.slice(0, labels.length);
+                progressChart.update();
+
+                // bina legend baru
+                legendContainer.innerHTML = '';
+                labels.forEach((label, i) => {
+                    const color = progressChart.data.datasets[0].backgroundColor[i];
+                    const value = data[i];
+                    const item = document.createElement('div');
+                    item.classList.add('flex', 'items-center', 'space-x-2', 'text-sm');
+                    item.innerHTML = `
+                        <span class="w-4 h-4 rounded-full" style="background-color:${color}"></span>
+                        <span class="font-medium text-gray-700">${label}</span>
+                        <span class="text-gray-500">(${value})</span>
+                    `;
+                    legendContainer.appendChild(item);
+                });
+            }
+
+            // ====== Inisialisasi Chart ======
+            const progressChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: []
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Default: paparkan semua
+            updateProgressChart('all');
+
+            // Tukar filter bila dropdown berubah
+            filterSelect.addEventListener('change', (e) => {
+                updateProgressChart(e.target.value);
+            });
+        </script>
 
          <!-- Upcoming Sessions Section -->
         <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
@@ -114,49 +192,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Chart.js Script -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Student Progress Chart
-        const progressCtx = document.getElementById('progressChart');
-        const progressChart = new Chart(progressCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Iqra’ 1', 'Iqra’ 2', 'Iqra’ 3', 'Iqra’ 4', 'Iqra’ 5', 'Iqra’ 6', 'Quran'],
-                datasets: [{
-                    data: [15, 10, 20, 10, 15, 10, 20],
-                    backgroundColor: [
-                        '#06b6d4', '#3b82f6', '#8b5cf6',
-                        '#ef4444', '#f97316', '#22c55e', '#eab308'
-                    ]
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    } // hide default legend
-                }
-            }
-        });
-
-        // Generate Custom Legend
-        const progressLegend = document.getElementById('progressLegend');
-        progressChart.data.labels.forEach((label, index) => {
-            const color = progressChart.data.datasets[0].backgroundColor[index];
-            const value = progressChart.data.datasets[0].data[index];
-
-            const item = document.createElement('div');
-            item.classList.add('flex', 'items-center', 'space-x-2', 'text-sm');
-
-            item.innerHTML = `
-            <span class="w-4 h-4 rounded-full" style="background-color:${color}"></span>
-            <span class="font-medium text-gray-700">${label}</span>
-            <span class="text-gray-500">(${value})</span>
-        `;
-            progressLegend.appendChild(item);
-        });
-    </script>
 
 </x-admin-layout>

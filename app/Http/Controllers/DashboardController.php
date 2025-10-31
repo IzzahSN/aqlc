@@ -220,6 +220,69 @@ class DashboardController extends Controller
             ->get();
         session(['schedules' => $schedules]);
 
-        return view('dashboard.admin', compact('totalStudents', 'totalTutors', 'totalGuardians', 'schedules'));
+        // Senarai lengkap modul bacaan
+        $recitations = [
+            'Iqra 1',
+            'Iqra 2',
+            'Iqra 3',
+            'Iqra 4',
+            'Iqra 5',
+            'Iqra 6',
+            'Juz 1',
+            'Juz 2',
+            'Juz 3',
+            'Juz 4',
+            'Juz 5',
+            'Juz 6',
+            'Juz 7',
+            'Juz 8',
+            'Juz 9',
+            'Juz 10',
+            'Juz 11',
+            'Juz 12',
+            'Juz 13',
+            'Juz 14',
+            'Juz 15',
+            'Juz 16',
+            'Juz 17',
+            'Juz 18',
+            'Juz 19',
+            'Juz 20',
+            'Juz 21',
+            'Juz 22',
+            'Juz 23',
+            'Juz 24',
+            'Juz 25',
+            'Juz 26',
+            'Juz 27',
+            'Juz 28',
+            'Juz 29',
+            'Juz 30'
+        ];
+
+        // Dapatkan semua pelajar dengan progress terkini dan modul bacaan
+        $students = Student::with(['latestProgress.recitationModule'])->get();
+
+        // Inisialisasi semua kepada 0 (supaya setiap modul ada walaupun tiada student)
+        $progressCounts = array_fill_keys($recitations, 0);
+
+        // Kira berdasarkan recitation terkini setiap student
+        foreach ($students as $student) {
+            $latestProgress = $student->latestProgress;
+
+            if ($latestProgress && $latestProgress->recitationModule) {
+                $recitationName = $latestProgress->recitationModule->recitation_name;
+
+                // Kalau nama modul valid dalam senarai, increment kiraan
+                if (isset($progressCounts[$recitationName])) {
+                    $progressCounts[$recitationName]++;
+                }
+            }
+        }
+
+        // Simpan dalam session (optional)
+        session(['progress_counts' => $progressCounts]);
+
+        return view('dashboard.admin', compact('totalStudents', 'totalTutors', 'totalGuardians', 'schedules', 'progressCounts'));
     }
 }
