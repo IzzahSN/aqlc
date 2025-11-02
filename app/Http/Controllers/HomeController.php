@@ -14,7 +14,7 @@ class HomeController extends Controller
         $packages = Package::where('status', 'active')->get();
 
         // Find the package with the highest enrollment
-        $highestEnrolledPackage = $packages->sortByDesc('join_packages_count')->first();
+        $highestEnrolledPackage = $packages->where('join_packages_count', $packages->max('join_packages_count'))->first();
 
         return view('guest.home', compact('packages', 'highestEnrolledPackage'));
     }
