@@ -91,7 +91,7 @@
                     <div class="flex items-center gap-x-3 sm:gap-x-4">
                         <img src="{{ $tutor->profile 
                         ? asset('storage/'.$tutor->profile)
-                        : 'https://ui-avatars.com/api/?name='.urlencode($tutorProfile->username).'&background=F97316&color=fff' }}" 
+                        : 'https://ui-avatars.com/api/?name='.urlencode($tutor->username).'&background=F97316&color=fff' }}" 
                         class="rounded-full size-16 sm:size-20 shadow" for="profileUpload" alt="Avatar">
                         <div class="grow">
                             <h3 class="font-semibold text-gray-900 text-sm sm:text-base">
