@@ -13,10 +13,10 @@ class HomeController extends Controller
         // show all packages active
         $packages = Package::where('status', 'active')->get();
 
-        // count which packge has the most students from joinPackages table and store the package_name in the highestPackage variable
+        // Find the package with the highest enrollment
+        $highestEnrolledPackage = $packages->sortByDesc('join_packages_count')->first();
 
-
-        return view('guest.home', compact('packages'));
+        return view('guest.home', compact('packages', 'highestEnrolledPackage'));
     }
 
     public function profile()

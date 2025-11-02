@@ -191,10 +191,11 @@
                 @foreach ($packages as $package)
                 <!-- Package -->
                 <div class="relative bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition p-6 sm:p-8">
-                    {{-- if pcakge_name == highestPackge, show span --}}
-                    {{-- <span class="absolute top-0 right-0 bg-yellow-500 text-white text-xs sm:text-sm font-medium py-1 sm:py-2 px-3 sm:px-4 rounded-bl-xl rounded-tr-xl">
-                        Most popular
-                    </span> --}}
+                    @if ($highestEnrolledPackage && $package->package_id == $highestEnrolledPackage->package_id)
+                        <span class="absolute top-0 right-0 bg-yellow-500 text-white text-xs sm:text-sm font-medium py-1 sm:py-2 px-3 sm:px-4 rounded-bl-xl rounded-tr-xl">
+                            Most popular
+                        </span>
+                    @endif
 
                     <h3 class="text-lg sm:text-xl font-bold text-green-700">{{ $package->package_name }}</h3>
                     <p class="text-sm text-gray-500">{{ ucfirst($package->package_type) }} Class</p>
