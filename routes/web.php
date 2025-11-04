@@ -20,6 +20,7 @@ use App\Http\Controllers\StudentBillRecordController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentGuardianController;
 use App\Http\Controllers\StudentProgressController;
+use App\Http\Controllers\ToyyibPayController;
 use App\Http\Controllers\TutorController;
 use App\Models\ClassModel;
 use Illuminate\Support\Facades\Route;
@@ -230,6 +231,10 @@ Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group
     Route::put('/report/{id}', [StudentController::class, 'guardianUpdateReport'])->name('report.update');
     // bill
     Route::get('/student-bill', [BillHistoryController::class, 'guardianBillView'])->name('bill.index');
+    Route::get('/student-bill/pay/{id}', [ToyyibPayController::class, 'createBill'])->name('bill.toyyibpay.create');
+    Route::get('/student-bill/toyyibpay/return', [ToyyibPayController::class, 'return'])->name('bill.toyyibpay.return');
+    Route::post('/student-bill/toyyibpay/callback', [ToyyibPayController::class, 'callback'])->name('bill.toyyibpay.callback');
+
     // profile
     Route::get('/profile', [ProfileController::class, 'showGuardianProfile'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'updateGuardianProfile'])->name('profile.update');

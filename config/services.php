@@ -35,4 +35,19 @@ return [
         ],
     ],
 
+    'toyyibpay' => [
+        'sandbox' => env('TOYYIBPAY_SANDBOX', true),
+        'secret' => env('TOYYIBPAY_SECRET'),
+        'category' => env('TOYYIBPAY_CATEGORY'),
+
+        'callback_url' => env('APP_ENV') === 'local'
+            ? env('TOYYIBPAY_CALLBACK_URL_LOCAL')
+            : env('TOYYIBPAY_CALLBACK_URL_PROD'),
+
+        'return_url' => env('APP_ENV') === 'local'
+            ? env('TOYYIBPAY_RETURN_URL_LOCAL')
+            : env('TOYYIBPAY_RETURN_URL_PROD'),
+    ],
+
+
 ];

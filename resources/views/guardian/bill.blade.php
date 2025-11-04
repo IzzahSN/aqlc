@@ -66,7 +66,7 @@
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             {{-- if bill_status == pending/paid, pay button disable --}}
                             @if ($billHistory->bill_status == 'Unpaid')
-                            <a href="{{ route('guardian.bill.pay', ['billHistoryId' => $billHistory->bill_id]) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Pay</a>
+                            <a href="{{ route('guardian.bill.toyyibpay.create', $billHistory->bill_id)}}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Pay</a>
                             @else
                             <button class="px-3 py-1 text-xs rounded bg-gray-300 text-white cursor-not-allowed" disabled>Pay</button>
                             @endif
