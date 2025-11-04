@@ -99,8 +99,10 @@ class BillHistoryController extends Controller
             $billYear = $salaryRecord->salary_year;
             $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth(); // Assuming bill is due at the end of the month
 
-            if ($currentDate->greaterThan($billDate)) {
+            if ($currentDate->greaterThan($billDate) && $billHistory->bill_status !== 'Paid') {
                 $billHistory->bill_status = 'Unpaid';
+            } else if ($billHistory->bill_status == 'Paid') {
+                $billHistory->bill_status = 'Paid';
             } else {
                 $billHistory->bill_status = 'Pending';
             }
@@ -262,8 +264,10 @@ class BillHistoryController extends Controller
                 $billYear = $studentBillRecord->student_bill_year;
                 $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
 
-                if ($currentDate->greaterThan($billDate)) {
+                if ($currentDate->greaterThan($billDate) && $billHistory->bill_status !== 'Paid') {
                     $billHistory->bill_status = 'Unpaid';
+                } else if ($billHistory->bill_status == 'Paid') {
+                    $billHistory->bill_status = 'Paid';
                 } else {
                     $billHistory->bill_status = 'Pending';
                 }
