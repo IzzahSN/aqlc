@@ -9,7 +9,7 @@
                 <p class="mt-4 text-sm md:text-base text-gray-600">Dibimbing oleh guru yang berpengalaman, pusat kami menyediakan program pembelajaran Al-Quran secara peribadi dan berkumpulan yang direka untuk memupuk ilmu, sahsiah, dan kecintaan terhadap Al-Quran.</p>
 
                 <div class="mt-6 flex flex-wrap gap-3 justify-center lg:justify-start">
-                    <a href="#daftar"
+                    <a href="#pakej"
                         class="inline-flex items-center justify-center px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
                         Daftar Sekarang
                         <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -18,6 +18,16 @@
                         </svg>
                     </a>
                 </div>
+
+                <script>
+                    document.querySelector('a[href="#pakej"]').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector('#pakej').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    });
+                </script>
+
             </div>
 
             <div class="relative flex flex-col items-center mt-8 lg:mt-0 intersect:motion-preset-slide-left">
@@ -163,7 +173,7 @@
     </section>
 
     <!-- Packages Section -->
-    <section class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6">
+    <section id="pakej" class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
             <!-- Title -->
             <div class="text-center mb-8 sm:mb-14">
@@ -302,10 +312,23 @@
                     <p class="text-white/90 text-sm max-w-md">
                         Bantu anak anda belajar Al-Quran dengan bimbingan guru yang penyayang dan berpengalaman.
                     </p>
-                    <a href="#"
-                        class="text-xs sm:text-sm font-semibold inline-block bg-emerald-900 text-white px-3 sm:px-4 py-2 rounded-full shadow-lg hover:bg-emerald-800 transition">
-                        Sertai Kami Sekarang
-                    </a>
+                    <a href="#pakej" class="text-xs sm:text-sm font-semibold inline-block bg-emerald-900 text-white px-3 sm:px-4 py-2 rounded-full shadow-lg hover:bg-emerald-800 transition">Sertai Kami Sekarang</a>
+
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const scrollLink = document.querySelector('a[href="#pakej"]');
+                        const target = document.querySelector('#pakej');
+
+                        if (scrollLink && target) {
+                            scrollLink.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                target.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+                            });
+                        }
+                    });
+                    </script>
                 </div>
             </div>
         </div>
