@@ -7,7 +7,7 @@
         </a>
 
         <!-- Nav Links -->
-        <div class="hidden md:flex items-center gap-6">
+        <div class="hidden md:flex items-center gap-10">
             <a href="{{ route('home') }}" class="text-base font-medium transition {{ request()->routeIs('home') ? 'text-green-600' : 'text-gray-700 hover:text-green-600 ' }}">
                 Home
             </a>

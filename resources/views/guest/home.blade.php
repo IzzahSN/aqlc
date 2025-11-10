@@ -1,45 +1,34 @@
 <x-app-layout :title="'Home'">
-    <!-- Hero Section -->
-    <section class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <!-- Text Section -->
-                <div class="">
-                    <h1 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
-                        Begin Your <span class="text-green-600">Quranic Journey</span> Today
-                    </h1>
-                    <p class="mt-4 text-sm md:text-base text-gray-600">
-                        Guided by experienced teachers, our centre provides personalized and group Quran learning programs designed to nurture knowledge, character, and love for the Quran.
-                    </p>
+<section class="relative bg-gray-50 py-10 px-4 sm:px-6 mt-12 lg:mt-16">
+    <div class="container mx-auto flex flex-col items-center lg:flex-row lg:justify-between">
+        <div class="max-w-2xl flex flex-col justify-center text-center lg:text-left">
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
+                Mulakan <span class="text-green-600">Pembelajaran Quran</span> Anda Hari Ini
+            </h1>
+            <p class="mt-4 text-sm md:text-base text-gray-600">Dibimbing oleh guru yang berpengalaman, pusat kami menyediakan program pembelajaran Al-Quran secara peribadi dan berkumpulan yang direka untuk memupuk ilmu, sahsiah, dan kecintaan terhadap Al-Quran.</p>
 
-                    <!-- Buttons -->
-                    <div class="mt-6 flex flex-wrap gap-3">
-                        <a href="#daftar"
-                            class="inline-flex items-center justify-center px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                            Register Now
-                            <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Image -->
-                <div class="relative flex justify-center">
-                    <!-- Boy Image -->
-                    <img class="relative z-10 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80" src="/images/budak-lelaki.svg" alt="Pelajar mengaji Al-Quran">
-                </div>
+            <div class="mt-6 flex flex-wrap gap-3 justify-center lg:justify-start">
+                <a href="#daftar"
+                    class="inline-flex items-center justify-center px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                    Daftar Sekarang
+                    <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
             </div>
         </div>
-    </section>
 
-   <!-- Statistic section -->
-    <section class="relative bg-gray-50 px-4 sm:px-6 md:px-20">
+        <div class="relative flex flex-col items-center mt-8 lg:mt-0">
+            <img class="relative z-10 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80" src="/images/budak-lelaki.svg" alt="Pelajar mengaji Al-Quran">
+        </div>
+    </div>
+</section>
+
+<section class="relative bg-gray-50 px-4 sm:px-6 md:px-20">
     <div class="p-6 sm:p-8 bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 rounded-2xl shadow-lg">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 text-center">
         
-        <!-- Stat 1 -->
         <div class="flex flex-col items-center">
             <div class="flex justify-center items-center">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -52,11 +41,10 @@
             </div>
             <div class="mt-3">
             <h3 class="text-2xl md:text-3xl font-bold text-white">10+</h3>
-            <p class="mt-1 text-sm md:text-base text-green-100">Qualified Tutors</p>
+            <p class="mt-1 text-sm md:text-base text-green-100">Guru Bertauliah</p>
             </div>
         </div>
 
-        <!-- Stat 2 -->
         <div class="flex flex-col items-center">
             <div class="flex justify-center items-center -space-x-4 sm:-space-x-6">
             <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg" src="https://images.unsplash.com/photo-1601935111741-ae98b2b230b0?auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
@@ -65,11 +53,10 @@
             </div>
             <div class="mt-3">
             <h3 class="text-2xl md:text-3xl font-bold text-white">50+</h3>
-            <p class="mt-1 text-sm md:text-base text-green-100">Students Enrolled</p>
+            <p class="mt-1 text-sm md:text-base text-green-100">Pelajar Berdaftar</p>
             </div>
         </div>
 
-        <!-- Stat 3 -->
         <div class="flex flex-col items-center">
             <div class="flex justify-center items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -86,13 +73,13 @@
             </div>
             <div class="mt-3">
             <h3 class="text-2xl md:text-3xl font-bold text-white">300+</h3>
-            <p class="mt-1 text-sm md:text-base text-green-100">Classes Conducted</p>
+            <p class="mt-1 text-sm md:text-base text-green-100">Kelas Dikendalikan</p>
             </div>
         </div>
 
         </div>
     </div>
-    </section>
+</section>
 
     <!-- Why Choose Us Section -->
     <section class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6">
@@ -121,11 +108,9 @@
                         <!-- Title -->
                         <div class="space-y-4">
                             <h2 class="font-bold text-2xl sm:text-3xl lg:text-4xl text-gray-900">
-                                Why Choose Us?
+                                Mengapa Pilih Kami?
                             </h2>
-                            <p class="text-gray-600 text-sm sm:text-base">
-                                We are committed to providing the best Quran learning experience, tailored for individuals and families.
-                            </p>
+                            <p class="text-gray-600 text-sm sm:text-base">Kami komited untuk menyediakan pengalaman pembelajaran Al-Quran yang terbaik, disesuaikan untuk individu dan keluarga.</p>
                         </div>
                         <!-- End Title -->
 
@@ -137,7 +122,7 @@
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </span>
-                                <span class="text-gray-700 text-sm sm:text-base">Flexible Schedule</span>
+                                <span class="text-gray-700 text-sm sm:text-base">Jadual Fleksibel</span>
                             </li>
 
                             <li class="flex gap-x-3">
@@ -146,7 +131,7 @@
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </span>
-                                <span class="text-gray-700 text-sm sm:text-base">Experienced Tutors</span>
+                                <span class="text-gray-700 text-sm sm:text-base">Guru Berpengalaman</span>
                             </li>
 
                             <li class="flex gap-x-3">
@@ -155,7 +140,7 @@
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </span>
-                                <span class="text-gray-700 text-sm sm:text-base">Conducive Learning Environment</span>
+                                <span class="text-gray-700 text-sm sm:text-base">Persekitaran Pembelajaran Kondusif</span>
                             </li>
 
                             <li class="flex gap-x-3">
@@ -164,7 +149,7 @@
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </span>
-                                <span class="text-gray-700 text-sm sm:text-base">Personalized Learning Plans</span>
+                                <span class="text-gray-700 text-sm sm:text-base">Pelan Pembelajaran Peribadi</span>
                             </li>
                         </ul>
                         <!-- End List -->
@@ -181,9 +166,9 @@
             <!-- Title -->
             <div class="text-center mb-8 sm:mb-14">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-                    Choose Your Learning Package
+                    Pilih Pakej Pembelajaran Anda
                 </h2>
-                <p class="mt-3 text-gray-500 text-sm sm:text-base">Flexible options designed for every student</p>
+                <p class="mt-3 text-gray-500 text-sm sm:text-base">Pilihan fleksibel yang direka untuk setiap pelajar</p>
             </div>
 
             <!-- Grid -->
@@ -193,7 +178,7 @@
                 <div class="relative bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition p-6 sm:p-8">
                     @if ($highestEnrolledPackage && $package->package_id == $highestEnrolledPackage->package_id)
                         <span class="absolute top-0 right-0 bg-yellow-500 text-white text-xs sm:text-sm font-medium py-1 sm:py-2 px-3 sm:px-4 rounded-bl-xl rounded-tr-xl">
-                            Most popular
+                            Paling popular
                         </span>
                     @endif
 
@@ -213,7 +198,7 @@
 
                     <div class="mt-6 sm:mt-8">
                         <button class="w-full py-2 sm:py-3 px-4 sm:px-5 rounded-xl bg-green-600 text-white font-medium hover:bg-green-700 transition text-sm sm:text-base">
-                            Get Started
+                            Daftar Sekarang
                         </button>
                     </div>
                 </div>
@@ -235,23 +220,21 @@
         
         <div class="relative max-w-6xl mx-auto text-center">
             <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10">
-            What Our Users Say
+            Apa Kata Pengguna Kami
             </h2>
 
             <div class="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 text-left">
             
             <!-- Card 1 -->
             <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-md p-5 sm:p-6 border border-green-200 hover:scale-[1.02] hover:shadow-xl transition-all duration-300 text-gray-800">
-                <p class="italic mb-4 text-sm sm:text-base">
-                "This platform really helped me organize my learning progress. The
-                reports are super clear and easy to understand!"
+                <p class="italic mb-4 text-sm sm:text-base">"Platform ini sangat membantu saya menyusun kemajuan pembelajaran saya. Laporannya sangat jelas dan mudah difahami!"
                 </p>
                 <div class="flex items-center gap-3 sm:gap-4">
                 <img src="https://i.pravatar.cc/50" alt="user"
                     class="w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md border border-green-300" />
                 <div>
-                    <h4 class="font-semibold text-sm sm:text-base">Sarah Johnson</h4>
-                    <span class="text-xs sm:text-sm text-gray-600">Student</span>
+                    <h4 class="font-semibold text-sm sm:text-base">Faiz Azhan</h4>
+                    <span class="text-xs sm:text-sm text-gray-600">Pelajar</span>
                 </div>
                 </div>
             </div>
@@ -259,15 +242,14 @@
             <!-- Card 2 -->
             <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-md p-5 sm:p-6 border border-green-200 hover:scale-[1.02] hover:shadow-xl transition-all duration-300 text-gray-800">
                 <p class="italic mb-4 text-sm sm:text-base">
-                "I love how simple and intuitive the design is. Even for tutors, it
-                makes tracking lessons much easier."
+                "Saya suka reka bentuk yang ringkas dan intuitif. Malah bagi guru, ia menjadikan penjejakan pelajaran lebih mudah."
                 </p>
                 <div class="flex items-center gap-3 sm:gap-4">
                 <img src="https://i.pravatar.cc/51" alt="user"
                     class="w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md border border-green-300" />
                 <div>
-                    <h4 class="font-semibold text-sm sm:text-base">Michael Lee</h4>
-                    <span class="text-xs sm:text-sm text-gray-600">Tutor</span>
+                    <h4 class="font-semibold text-sm sm:text-base">Ustaz Hareez</h4>
+                    <span class="text-xs sm:text-sm text-gray-600">Guru</span>
                 </div>
                 </div>
             </div>
@@ -275,15 +257,14 @@
             <!-- Card 3 -->
             <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-md p-5 sm:p-6 border border-green-200 hover:scale-[1.02] hover:shadow-xl transition-all duration-300 text-gray-800">
                 <p class="italic mb-4 text-sm sm:text-base">
-                "The SMS notifications are a game changer! I never miss any updates
-                about my child's progress anymore."
+                "Pemberitahuan SMS benar-benar mengubah keadaan! Saya tidak pernah terlepas sebarang kemas kini tentang kemajuan anak saya lagi."
                 </p>
                 <div class="flex items-center gap-3 sm:gap-4">
                 <img src="https://i.pravatar.cc/52" alt="user"
                     class="w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md border border-green-300" />
                 <div>
-                    <h4 class="font-semibold text-sm sm:text-base">Amina Yusuf</h4>
-                    <span class="text-xs sm:text-sm text-gray-600">Parent</span>
+                    <h4 class="font-semibold text-sm sm:text-base">Aminah Yusuf</h4>
+                    <span class="text-xs sm:text-sm text-gray-600">Ibu Bapa</span>
                 </div>
                 </div>
             </div>
@@ -302,8 +283,8 @@
 
                 <!-- Left Content -->
                 <div class="space-y-4 sm:space-y-6">
-                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-emerald-900 leading-tight">
-                        Enroll Your <br> <span class="text-gray-100">Child</span> Today
+                    <h2 class="text-3xl font-extrabold text-emerald-900 leading-tight">
+                        Daftarkan<span class="text-gray-200"> Anak Anda</span> Segera!
                     </h2>
                 </div>
 
@@ -316,12 +297,12 @@
 
                 <!-- Right Content -->
                 <div class="space-y-4 sm:space-y-6">
-                    <p class="text-white/90 text-sm sm:text-base max-w-md">
-                        Help your child learn the Quran with guidance from caring, experienced teachers.
+                    <p class="text-white/90 text-sm max-w-md">
+                        Bantu anak anda belajar Al-Quran dengan bimbingan guru yang penyayang dan berpengalaman.
                     </p>
                     <a href="#"
                         class="text-xs sm:text-sm font-semibold inline-block bg-emerald-900 text-white px-3 sm:px-4 py-2 rounded-full shadow-lg hover:bg-emerald-800 transition">
-                        Join Us Now
+                        Sertai Kami Sekarang
                     </a>
                 </div>
             </div>
