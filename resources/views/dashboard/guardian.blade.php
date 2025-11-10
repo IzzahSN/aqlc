@@ -1,22 +1,34 @@
 <x-guardian-layout :title="'Papan Pemuka'">
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-6">
-        <!-- Welcome -->
-        <h2 class="text-xl font-bold text-gray-800">Selamat Datang, {{ session('username') }}!</h2>
+    <!-- Welcome Banner -->
+    <div class="relative p-6 sm:p-8 rounded-xl shadow-lg 
+                bg-gradient-to-r from-green-600 to-emerald-700 mb-8 overflow-hidden">
+        
+        <div class="absolute inset-0 opacity-10 bg-[url('/img/pattern.svg')]"></div>
 
-        <!-- Link Child Button -->
-        <button data-modal-target="addChildModal" data-modal-toggle="addChildModal"
-            class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-green-500 text-white 
-               hover:bg-green-600 hover:shadow-md hover:scale-105 transition-all duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                class="w-5 h-5"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15l6 -6" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
-            </svg>
-            <span>Pautkan Anak</span>
-        </button>
+        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between">
+            
+            <div class="text-white mb-4 md:mb-0">
+                <h2 class="text-2xl sm:text-3xl font-bold leading-tight">Selamat Datang, {{ session('username') }}!</h2>
+                
+                <p class="mt-1 text-sm sm:text-base font-light opacity-90">
+                    Akses rekod kemajuan dan uruskan bil anak anda di sini.
+                </p>
+            </div>
+
+            <button data-modal-target="addChildModal" data-modal-toggle="addChildModal"
+                class="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-lg 
+                    bg-white text-green-700 shadow-md 
+                    hover:bg-gray-100 hover:scale-[1.03] transition-all duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 15l6 -6" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
+                </svg>
+                <span>Pautkan Anak</span>
+            </button>
+        </div>
     </div>
 
     <!-- Add Child Modal -->
@@ -67,37 +79,35 @@
         </div>
     </div>
 
-    <!-- Insight -->
+    <!-- Summary Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <!-- Children Reports -->
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-lime-600 border-l-6 justify-between">
-            <div>
-                <p class="text-sm font-semibold text-lime-600 uppercase">Jumlah Anak</p>
-                <h3 class="text-2xl font-bold text-gray-500">{{ $childrenCount }}</h3>
+        
+        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-lime-600">
+            <div class="flex-grow">
+                <p class="text-sm font-semibold text-lime-600 uppercase tracking-wider">Jumlah Anak</p>
+                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">{{ $childrenCount }}</h3>
             </div>
-            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-10 h-10 text-lime-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
             </svg>
         </div>
 
-        <!-- Upcoming Classes -->
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-amber-400 border-l-6 justify-between">
-            <div>
-                <p class="text-sm font-semibold text-amber-600 uppercase">Jumlah Bil Dibayar</p>
-                <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($paidBills, 2) }}</h3>
+        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-amber-600">
+            <div class="flex-grow">
+                <p class="text-sm font-semibold text-amber-600 uppercase tracking-wider">Jumlah Bil Dibayar</p>
+                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">RM{{ number_format($paidBills, 2) }}</h3>
             </div>
-            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-10 h-10 text-amber-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z" clip-rule="evenodd"/>
             </svg>
         </div>
 
-        <!-- Salary -->
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-red-600 border-l-6 justify-between">
-            <div>
-                <p class="text-sm font-semibold text-red-600 uppercase">Jumlah Bil Tertunggak</p>
-                <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($unpaidBills, 2) }}</h3>
+        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-red-600">
+            <div class="flex-grow">
+                <p class="text-sm font-semibold text-red-600 uppercase tracking-wider">Jumlah Bil Tertunggak</p>
+                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">RM{{ number_format($unpaidBills, 2) }}</h3>
             </div>
-            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-10 h-10 text-red-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M9 2a1 1 0 0 0-1 1H6a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a1 1 0 0 0-1-1H9Zm1 2h4v2h1a1 1 0 1 1 0 2H9a1 1 0 0 1 0-2h1V4Zm5.707 8.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
             </svg>
         </div>
@@ -230,8 +240,7 @@
                 // entries info
                 const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                 const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
-
+                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
                 // build pagination buttons
                 pagination.innerHTML = "";
 
