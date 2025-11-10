@@ -83,14 +83,14 @@ class StudentGuardianController extends Controller
         $guardianId = session('user_id');
 
         if (!$guardianId) {
-            return back()->with('error', 'You must be logged in to link a child.');
+            return back()->with('error', 'Anda tidak log masuk sebagai penjaga. Sila log masuk semula.');
         }
 
         // cari student ikut IC
         $student = Student::where('ic_number', $request->ic_number)->first();
 
         if (!$student) {
-            return back()->with('error', 'Student IC not found.');
+            return back()->with('error', 'Nombor Kad Pengenalan pelajar tidak dijumpai.');
         }
 
         // check kalau dah wujud
@@ -99,7 +99,7 @@ class StudentGuardianController extends Controller
             ->exists();
 
         if ($exists) {
-            return back()->with('error', 'This student is already linked to you.');
+            return back()->with('error', 'Pelajar ini telahpun dikaitkan dengan penjaga.');
         }
 
         // create record
@@ -109,6 +109,6 @@ class StudentGuardianController extends Controller
             'relationship_type' => $request->relationship_type,
         ]);
 
-        return redirect()->back()->with('success', 'Child added successfully.')->with('closemodalAddChildren', true);
+        return redirect()->back()->with('success', 'Anak berjaya ditambahkan.')->with('closemodalAddChildren', true);
     }
 }

@@ -4,8 +4,8 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Student Report</h2>
-                <p class="text-sm text-gray-500">Manage your report: search, or filter.</p>
+                <h2 class="text-lg font-semibold">Senarai Laporan Pelajar</h2>
+                <p class="text-sm text-gray-500">Urus laporan pelajar di sini menggunakan fungsi carian.</p>
             </div>
         </div>
 
@@ -29,11 +29,11 @@
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Childen Name</th>
-                        <th class="px-4 py-3">Relationship</th>
-                        <th class="px-4 py-3">Admission Date</th>
+                        <th class="px-4 py-3">Nama Pelajar</th>
+                        <th class="px-4 py-3">Hubungan</th>
+                        <th class="px-4 py-3">Tarikh Kemasukan</th>
                         <th class="px-4 py-3 text-center">Status</th>
-                        <th class="px-4 py-3 text-center">Action</th>
+                        <th class="px-4 py-3 text-center">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="reportBody">
@@ -41,24 +41,36 @@
                     <tr class="border-b">
                         <td class="px-4 py-3 row-index"></td>
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $student->first_name }} {{ $student->last_name }}</td>
-                        <td class="px-4 py-3">{{ $student->studentGuardians->first()->relationship_type ?? '-' }}</td>
+                        <td class="px-4 py-3">
+                            @if ($student->studentGuardians->first()->relationship_type == 'Father')
+                                Bapa
+                            @elseif ($student->studentGuardians->first()->relationship_type == 'Mother')
+                                Ibu
+                            @elseif ($student->studentGuardians->first()->relationship_type == 'Guardian')
+                                Penjaga
+                            @elseif ($student->studentGuardians->first()->relationship_type == 'Other')
+                                Lain-lain
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td class="px-4 py-3">{{ $student->admission_date ? \Carbon\Carbon::parse($student->admission_date)->format('d/m/Y') : '-' }}</td>
                         <td class="px-4 py-3 flex justify-center">
                             @if ($student->status == 'active')
-                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">Active</span>
+                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">Aktif</span>
                             @elseif ($student->status == 'inactive')
-                                <span class="px-3 py-1 text-xs rounded-full bg-red-100 text-red-800">Inactive</span>
+                                <span class="px-3 py-1 text-xs rounded-full bg-red-100 text-red-800">Tidak Aktif</span>
                             @endif
                         </td>
                         <td class="px-4 py-3 text-center">
-                            <a href="{{ route('guardian.report.view', ['id' => $student->student_id]) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">View Report</a>
+                            <a href="{{ route('guardian.report.view', ['id' => $student->student_id]) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lihat Laporan</a>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
             <!-- No Record Message -->
-            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumapai.</div>
         </div>
 
        <!-- Pagination (manual JS) -->
@@ -113,7 +125,7 @@
                 // entries info
                 const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                 const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                 // build pagination buttons
                 pagination.innerHTML = "";
