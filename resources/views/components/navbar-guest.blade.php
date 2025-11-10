@@ -9,13 +9,13 @@
         <!-- Nav Links -->
         <div class="hidden md:flex items-center gap-10">
             <a href="{{ route('home') }}" class="text-base font-medium transition {{ request()->routeIs('home') ? 'text-green-600' : 'text-gray-700 hover:text-green-600 ' }}">
-                Home
+                Utama
             </a>
             <a href="{{ route('profile') }}" class="text-base font-medium transition {{ request()->routeIs('profile') ? 'text-green-600' : 'text-gray-700 hover:text-green-600 ' }}">
-                Profile
+                Tentang Kami
             </a>
             <a href="{{ route('contact') }}" class="text-base font-medium transition {{ request()->routeIs('contact') ? 'text-green-600' : 'text-gray-700 hover:text-green-600 ' }}">
-                Contact
+                Hubungi Kami
             </a>
         </div>
 
@@ -25,13 +25,13 @@
                 class="px-4 py-2 text-sm font-medium rounded-xl border border-gray-300 
               text-gray-700 bg-white shadow-sm hover:bg-gray-100 hover:shadow-md
               transition-all duration-200 ease-in-out">
-                Sign In
+                Log Masuk
             </a>
             <a href="{{ route('register') }}"
                 class="px-4 py-2 text-sm font-medium rounded-xl bg-green-600 text-white 
               shadow-md hover:bg-green-700 hover:shadow-lg
               transition-all duration-200 ease-in-out">
-                Register
+                Daftar
             </a>
         </div>
 
