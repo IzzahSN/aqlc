@@ -1,85 +1,87 @@
 <x-app-layout :title="'Home'">
-<section class="relative bg-gray-50 py-10 px-4 sm:px-6 mt-12 lg:mt-16">
-    <div class="container mx-auto flex flex-col items-center lg:flex-row lg:justify-between">
-        <div class="max-w-2xl flex flex-col justify-center text-center lg:text-left">
-            <h1 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
-                Mulakan <span class="text-green-600">Pembelajaran Quran</span> Anda Hari Ini
-            </h1>
-            <p class="mt-4 text-sm md:text-base text-gray-600">Dibimbing oleh guru yang berpengalaman, pusat kami menyediakan program pembelajaran Al-Quran secara peribadi dan berkumpulan yang direka untuk memupuk ilmu, sahsiah, dan kecintaan terhadap Al-Quran.</p>
+    <!-- Hero Section -->
+    <section class="relative bg-gray-50 py-10 px-4 sm:px-6 mt-12 lg:mt-16">
+        <div class="container mx-auto flex flex-col items-center lg:flex-row lg:justify-between">
+            <div class="max-w-2xl flex flex-col justify-center text-center lg:text-left intersect:motion-preset-slide-right">
+                <h1 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
+                    Mulakan <span class="text-green-600">Pembelajaran Quran</span> Anda Hari Ini
+                </h1>
+                <p class="mt-4 text-sm md:text-base text-gray-600">Dibimbing oleh guru yang berpengalaman, pusat kami menyediakan program pembelajaran Al-Quran secara peribadi dan berkumpulan yang direka untuk memupuk ilmu, sahsiah, dan kecintaan terhadap Al-Quran.</p>
 
-            <div class="mt-6 flex flex-wrap gap-3 justify-center lg:justify-start">
-                <a href="#daftar"
-                    class="inline-flex items-center justify-center px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                    Daftar Sekarang
-                    <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                </a>
+                <div class="mt-6 flex flex-wrap gap-3 justify-center lg:justify-start">
+                    <a href="#daftar"
+                        class="inline-flex items-center justify-center px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                        Daftar Sekarang
+                        <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative flex flex-col items-center mt-8 lg:mt-0 intersect:motion-preset-slide-left">
+                <img class="relative z-10 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80" src="/images/budak-lelaki.svg" alt="Pelajar mengaji Al-Quran">
             </div>
         </div>
+    </section>
 
-        <div class="relative flex flex-col items-center mt-8 lg:mt-0">
-            <img class="relative z-10 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80" src="/images/budak-lelaki.svg" alt="Pelajar mengaji Al-Quran">
-        </div>
-    </div>
-</section>
+    <!-- Statistics Section -->
+    <section class="relative bg-gray-50 px-4 sm:px-6 md:px-20">
+        <div class="p-6 sm:p-8 bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 rounded-2xl shadow-lg motion-preset-pop motion-duration-1000">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 text-center">
+            
+            <div class="flex flex-col items-center">
+                <div class="flex justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-12 h-12 md:w-14 md:h-14 text-yellow-400"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l2 2l4 -4" />
+                </svg>
+                </div>
+                <div class="mt-3">
+                <h3 class="text-2xl md:text-3xl font-bold text-white">10+</h3>
+                <p class="mt-1 text-sm md:text-base text-green-100">Guru Bertauliah</p>
+                </div>
+            </div>
 
-<section class="relative bg-gray-50 px-4 sm:px-6 md:px-20">
-    <div class="p-6 sm:p-8 bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 rounded-2xl shadow-lg">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 text-center">
-        
-        <div class="flex flex-col items-center">
-            <div class="flex justify-center items-center">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                class="w-12 h-12 md:w-14 md:h-14 text-yellow-400"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 21v-2a4 4 0 0 1 4 -4h4" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l2 2l4 -4" />
-            </svg>
+            <div class="flex flex-col items-center">
+                <div class="flex justify-center items-center -space-x-4 sm:-space-x-6">
+                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg" src="https://images.unsplash.com/photo-1601935111741-ae98b2b230b0?auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
+                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg -mt-3 md:-mt-4" src="https://images.unsplash.com/photo-1570654639102-bdd95efeca7a?auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
+                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg" src="https://images.unsplash.com/photo-1679412330254-90cb240038c5?auto=format&fit=facearea&facepad=2.5&w=320&h=320&q=80" alt="Avatar">
+                </div>
+                <div class="mt-3">
+                <h3 class="text-2xl md:text-3xl font-bold text-white">50+</h3>
+                <p class="mt-1 text-sm md:text-base text-green-100">Pelajar Berdaftar</p>
+                </div>
             </div>
-            <div class="mt-3">
-            <h3 class="text-2xl md:text-3xl font-bold text-white">10+</h3>
-            <p class="mt-1 text-sm md:text-base text-green-100">Guru Bertauliah</p>
-            </div>
-        </div>
 
-        <div class="flex flex-col items-center">
-            <div class="flex justify-center items-center -space-x-4 sm:-space-x-6">
-            <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg" src="https://images.unsplash.com/photo-1601935111741-ae98b2b230b0?auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
-            <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg -mt-3 md:-mt-4" src="https://images.unsplash.com/photo-1570654639102-bdd95efeca7a?auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
-            <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg" src="https://images.unsplash.com/photo-1679412330254-90cb240038c5?auto=format&fit=facearea&facepad=2.5&w=320&h=320&q=80" alt="Avatar">
+            <div class="flex flex-col items-center">
+                <div class="flex justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                    class="w-12 h-12 md:w-14 md:h-14 text-yellow-400">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M10.5 21h-4.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3" />
+                    <path d="M16 3v4" />
+                    <path d="M8 3v4" />
+                    <path d="M4 11h10" />
+                    <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                    <path d="M18 16.5v1.5l.5 .5" />
+                </svg>
+                </div>
+                <div class="mt-3">
+                <h3 class="text-2xl md:text-3xl font-bold text-white">300+</h3>
+                <p class="mt-1 text-sm md:text-base text-green-100">Kelas Dikendalikan</p>
+                </div>
             </div>
-            <div class="mt-3">
-            <h3 class="text-2xl md:text-3xl font-bold text-white">50+</h3>
-            <p class="mt-1 text-sm md:text-base text-green-100">Pelajar Berdaftar</p>
-            </div>
-        </div>
 
-        <div class="flex flex-col items-center">
-            <div class="flex justify-center items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                class="w-12 h-12 md:w-14 md:h-14 text-yellow-400">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M10.5 21h-4.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3" />
-                <path d="M16 3v4" />
-                <path d="M8 3v4" />
-                <path d="M4 11h10" />
-                <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                <path d="M18 16.5v1.5l.5 .5" />
-            </svg>
-            </div>
-            <div class="mt-3">
-            <h3 class="text-2xl md:text-3xl font-bold text-white">300+</h3>
-            <p class="mt-1 text-sm md:text-base text-green-100">Kelas Dikendalikan</p>
             </div>
         </div>
-
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Why Choose Us Section -->
     <section class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6">
@@ -89,13 +91,13 @@
                 <!-- Left Image Grid -->
                 <div class="lg:col-span-7">
                     <div class="grid grid-cols-12 gap-2 sm:gap-4 md:gap-6 items-center">
-                        <div class="col-span-4">
+                        <div class="col-span-4 intersect:motion-preset-pop motion-duration-1000">
                             <img class="rounded-2xl shadow-lg w-full h-auto" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=920&q=80" alt="Teaching">
                         </div>
-                        <div class="col-span-3">
+                        <div class="col-span-3 intersect:motion-preset-pop motion-duration-1000 motion-delay-200">
                             <img class="rounded-2xl shadow-lg w-full h-auto" src="https://images.unsplash.com/photo-1605629921711-2f6b00c6bbf4?ixlib=rb-4.0.3&auto=format&fit=crop&w=920&q=80" alt="Learning">
                         </div>
-                        <div class="col-span-5">
+                        <div class="col-span-5 intersect:motion-preset-pop motion-duration-1000 motion-delay-400">
                             <img class="rounded-2xl shadow-lg w-full h-auto" src="https://images.unsplash.com/photo-1600194992440-50b26e0a0309?ixlib=rb-4.0.3&auto=format&fit=crop&w=920&q=80" alt="Environment">
                         </div>
                     </div>
@@ -175,7 +177,7 @@
             <div class="grid gap-6 sm:gap-8 md:grid-cols-2">
                 @foreach ($packages as $package)
                 <!-- Package -->
-                <div class="relative bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition p-6 sm:p-8">
+                <div class="relative bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition p-6 sm:p-8 intersect:motion-preset-pop motion-duration-1000">
                     @if ($highestEnrolledPackage && $package->package_id == $highestEnrolledPackage->package_id)
                         <span class="absolute top-0 right-0 bg-yellow-500 text-white text-xs sm:text-sm font-medium py-1 sm:py-2 px-3 sm:px-4 rounded-bl-xl rounded-tr-xl">
                             Paling popular
@@ -276,10 +278,10 @@
     </section>
 
     <!-- Encouragement Section -->
-    <section class="relative bg-gray-50 pt-12 sm:pt-20 pb-5 px-4 sm:px-6">
+    <section class="relative bg-gray-50 pt-12 pb-12 px-4 sm:px-6">
         <div class="max-w-4xl mx-auto">
             <!-- Banner -->
-            <div class="relative bg-gradient-to-bl from-amber-400 via-amber-500 to-amber-600 rounded-2xl px-4 sm:px-8 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center overflow-visible shadow-2xl">
+            <div class="relative bg-gradient-to-bl from-amber-400 via-amber-500 to-amber-600 rounded-2xl px-4 sm:px-8 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center overflow-visible shadow-2xl motion-preset-oscillate motion-duration-1500">
 
                 <!-- Left Content -->
                 <div class="space-y-4 sm:space-y-6">

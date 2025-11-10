@@ -57,8 +57,7 @@ Mencetus kecintaan Al-Quran melalui pengajaran bacaan tepat, pemahaman kukuh, da
                         </div>
                         <div>
                             <h3 class="text-base sm:text-lg font-bold text-gray-900">Visi Kami</h3>
-                            <p class="mt-1 text-xs sm:text-sm text-gray-600">
-Mencetus kecintaan Al-Quran melalui pengajaran bacaan tepat, pemahaman kukuh, dan penerapan nilai-nilai Islam dalam suasana yang kondusif.                            </p>
+                            <p class="mt-1 text-xs sm:text-sm text-gray-600">Mencetus kecintaan Al-Quran melalui pengajaran bacaan tepat, pemahaman kukuh, dan penerapan nilai-nilai Islam dalam suasana yang kondusif.</p>
                         </div>
                     </div>
                 </div>
