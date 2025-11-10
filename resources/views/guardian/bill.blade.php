@@ -4,8 +4,8 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Student Bill</h2>
-                <p class="text-sm text-gray-500">Manage your bill: search, or filter.</p>
+                <h2 class="text-lg font-semibold">Senarai Bill Pelajar</h2>
+                <p class="text-sm text-gray-500">Urus bil pelajar menggunakan fungsi carian dan tapisan.</p>
             </div>
         </div>
 
@@ -24,9 +24,9 @@
             <!-- Filter -->
             <select id="filterStatus" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
                 <option value="">Status</option>
-                <option value="Paid">Paid</option>
-                <option value="Unpaid">Unpaid</option>
-                <option value="Pending">Pending</option>
+                <option value="Sudah Bayar">Sudah Bayar</option>
+                <option value="Belum Bayar">Belum Bayar</option>
+                <option value="Sedang Proses">Sedang Proses</option>
             </select>
         </div>
 
@@ -35,13 +35,13 @@
             <table class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Bill Name</th>
-                        <th class="px-4 py-3">Student Name</th>
-                        <th class="px-4 py-3">Amount</th>
+                        <th class="px-4 py-3">Bil</th>
+                        <th class="px-4 py-3">Nama Bil</th>
+                        <th class="px-4 py-3">Nama Pelajar</th>
+                        <th class="px-4 py-3">Jumlah</th>
                         <th class="px-4 py-3 text-center">Status</th>
-                        <th class="px-4 py-3">Bill Date</th>
-                        <th class="px-4 py-3 text-center">Action</th>
+                        <th class="px-4 py-3">Tarikh Bill</th>
+                        <th class="px-4 py-3 text-center">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="billBody">
@@ -53,11 +53,11 @@
                         <td class="px-4 py-3">RM{{ number_format($billHistory->bill_amount, 2) }}</td>
                         <td class="flex justify-center">
                             @if ($billHistory->bill_status == 'Paid')
-                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">Paid</span>
+                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-800">Sudah Bayar</span>
                             @elseif ($billHistory->bill_status == 'Unpaid')
-                                <span class="px-3 py-1 text-xs rounded-full bg-red-100 text-red-800">Unpaid</span>
+                                <span class="px-3 py-1 text-xs rounded-full bg-red-100 text-red-800">Belum Bayar</span>
                             @elseif ($billHistory->bill_status == 'Pending')
-                                <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Sedang Proses</span>
                             @endif
                         </td>
                         <td class="px-4 py-3 text-center">
@@ -66,9 +66,9 @@
                         <td class="px-4 py-3 flex gap-2 justify-center">
                             {{-- if bill_status == pending/paid, pay button disable --}}
                             @if ($billHistory->bill_status == 'Unpaid')
-                            <a href="{{ route('guardian.bill.toyyibpay.create', $billHistory->bill_id)}}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Pay</a>
+                            <a href="{{ route('guardian.bill.toyyibpay.create', $billHistory->bill_id)}}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Bayar</a>
                             @else
-                            <button class="px-3 py-1 text-xs rounded bg-gray-300 text-white cursor-not-allowed" disabled>Pay</button>
+                            <button class="px-3 py-1 text-xs rounded bg-gray-300 text-white cursor-not-allowed" disabled>Bayar</button>
                             @endif
                         </td>
                     </tr>
@@ -76,7 +76,7 @@
                 </tbody>
             </table>
             <!-- No Record Message -->
-            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai.</div>
         </div>
 
        <!-- Pagination (manual JS) -->
@@ -135,7 +135,7 @@
                 // entries info
                 const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                 const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                 // build pagination buttons
                 pagination.innerHTML = "";
@@ -184,79 +184,5 @@
 
             renderTable();
         </script>
-    </div>
-
-    <div id="reportClassModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between px-6 py-4">
-                <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">List of Attendance</h3>
-                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="reportClassModal">✕</button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
-                <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                    <table class="min-w-full text-sm text-left text-gray-600">
-                        <thead class="bg-gray-100 text-xs uppercase text-gray-500">
-                            <tr>
-                                <th class="px-4 py-3">No</th>
-                                <th class="px-4 py-3">Class Name</th>
-                                <th class="px-4 py-3">Room</th>
-                                <th class="px-4 py-3">Duration</th>
-                                <th class="px-4 py-3">Day</th>
-                                <th class="px-4 py-3">Date</th>
-                                <th class="px-4 py-3">Remark</th>
-                                <th class="px-4 py-3">Attendance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b">
-                                <td class="px-4 py-3">1</td>
-                                <td class="px-4 py-3 font-medium text-gray-900">Mon-20-K1</td>
-                                <td class="px-4 py-3">Kelas 1</td>
-                                <td class="px-4 py-3">1 hour</td>
-                                <td class="px-4 py-3">Monday</td>
-                                <td class="px-4 py-3">12/09/2025</td>
-                                <td class="px-4 py-3">-</td>
-                                <td class="px-4 py-3">❌</td>
-                            </tr>
-
-                            <tr class="border-b">
-                                <td class="px-4 py-3">2</td>
-                                <td class="px-4 py-3 font-medium text-gray-900">Tue-21-K1</td>
-                                <td class="px-4 py-3">Bilik 2</td>
-                                <td class="px-4 py-3">30 minutes</td>
-                                <td class="px-4 py-3">Tueday</td>
-                                <td class="px-4 py-3">10/08/2025</td>
-                                <td class="px-4 py-3">Replacement Class</td>
-                                <td class="px-4 py-3">✅</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-                <!-- Pagination -->
-                <div class="flex items-center justify-between mt-4">
-                    <div class="flex items-center gap-2">
-                        <span class="text-sm text-gray-500">Result per page</span>
-                        <select class="border rounded px-2 py-1 text-sm">
-                            <option>10</option>
-                            <option>20</option>
-                            <option>50</option>
-                        </select>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                        <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                        <button class="px-3 py-1 border rounded text-sm">2</button>
-                        <button class="px-3 py-1 border rounded text-sm">3</button>
-                        <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 </x-guardian-layout>
