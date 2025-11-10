@@ -17,7 +17,7 @@
                 <h2 class="mt-2 text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 leading-snug">
                     Membimbing Hati <br> Melalui Al-Quran
                 </h2>
-                <p class="mt-4 text-gray-600 leading-relaxed text-sm sm:text-base">
+                <p class="mt-4 text-gray-600 leading-relaxed text-sm sm:text-base text-justify">
                     Di Pusat Pembelajaran Al-Quran kami, kami menyediakan ruang yang memupuk untuk kanak-kanak dan orang dewasa bagi mengukuhkan hubungan mereka dengan Al-Quran. Dengan guru yang berdedikasi, kami menumpukan pada bacaan yang betul, pemahaman, dan menanamkan kecintaan kepada Kitabullah.
                 </p>
 
@@ -39,8 +39,7 @@
                         <div>
                             <h3 class="text-base sm:text-lg font-bold text-gray-900">Misi Kami</h3>
                             <p class="mt-1 text-xs sm:text-sm text-gray-600">
-                                Untuk memberi inspirasi kecintaan terhadap Al-Quran dengan mengajar bacaan yang tepat, pemahaman yang kukuh, dan nilai-nilai Islam dalam persekitaran yang menyokong.
-                            </p>
+Mencetus kecintaan Al-Quran melalui pengajaran bacaan tepat, pemahaman kukuh, dan penerapan nilai-nilai Islam dalam suasana yang kondusif.                            </p>
                         </div>
                     </div>
 
@@ -59,8 +58,7 @@
                         <div>
                             <h3 class="text-base sm:text-lg font-bold text-gray-900">Visi Kami</h3>
                             <p class="mt-1 text-xs sm:text-sm text-gray-600">
-                                Untuk memupuk generasi akan datang dengan asas Al-Quran yang kukuh, membimbing mereka untuk hidup dengan keimanan, sahsiah, dan kecemerlangan.
-                            </p>
+Mencetus kecintaan Al-Quran melalui pengajaran bacaan tepat, pemahaman kukuh, dan penerapan nilai-nilai Islam dalam suasana yang kondusif.                            </p>
                         </div>
                     </div>
                 </div>
