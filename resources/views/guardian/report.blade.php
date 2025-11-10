@@ -1,4 +1,4 @@
-<x-guardian-layout :title="'Student Report'">
+<x-guardian-layout :title="'Laporan Pelajar'">
     <!-- Student Bill List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->

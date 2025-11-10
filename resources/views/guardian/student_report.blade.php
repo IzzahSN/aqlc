@@ -1,23 +1,23 @@
-<x-guardian-layout :title="'Report'">
+<x-guardian-layout :title="'Kad Laporan Pelajar'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
          <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Student Report Card</h2>
+        <h2 class="text-xl font-medium text-gray-800">Kad Laporan Pelajar</h2>
 
         <div class="flex items-center gap-6">
             <!-- Right: Breadcrumb -->
             <nav class="text-sm text-gray-500">
                 <ol class="flex space-x-2">
-                    <li><a href="{{ route('guardian.report.index') }}" class="hover:text-green-600">Student</a></li>
+                    <li><a href="{{ route('guardian.report.index') }}" class="hover:text-green-600">Senarai Laporan</a></li>
                     <li>/</li>
-                    <li>Report</li>
+                    <li class="text-green-600">Pelajar</li>
                 </ol>
             </nav>
 
             <!-- Left: Breadcrumb -->
             <button data-modal-target="editStudentModal" data-modal-toggle="editStudentModal" data-id="{{ $student->student_id }}"
                 class="px-4 py-2 text-sm rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 edit-student-button">
-                Edit Student
+                Kemaskini Pelajar
             </button>
         </div>
        
@@ -34,13 +34,15 @@
                     : 'https://ui-avatars.com/api/?name='.urlencode($student->first_name.' '.$student->last_name).'&background=D1FAE5&color=333' }}" 
                     class="w-28 h-28 rounded-full mb-4 object-cover border-4 border-emerald-50" alt="Student Avatar">
                 <h2 class="text-lg font-semibold mt-4">{{ $student->first_name }} {{ $student->last_name }}</h2>
-                <p class="text-sm opacity-80">Student Portfolio</p>
+                <p class="text-sm opacity-80">Portfolio Pelajar</p>
             </div>
 
              <div class="space-y-3 text-sm">
-                <p class="flex items-center gap-2"><i class="fas fa-user"></i> {{ $student->age }} years old</p>
+                <p class="flex items-center gap-2"><i class="fas fa-user"></i> {{ $student->age }} tahun</p>
                 <p class="flex items-center gap-2"><i class="fas fa-id-card"></i> {{ $student->ic_number }}</p>
-                <p class="flex items-center gap-2"><i class="fas fa-mars"></i> {{ $student->gender }}</p>
+                <p class="flex items-center gap-2"><i class="fas fa-mars"></i>
+                    {{ $student->gender == 'Male' ? 'Lelaki' : ($student->gender == 'Female' ? 'Perempuan' : 'N/A') }}
+                </p>
                 <p class="flex items-center gap-2"><i class="fas fa-calendar"></i> {{ $student->birth_date ? \Carbon\Carbon::parse($student->birth_date)->format('d F Y') : 'N/A' }}</p>
                 <p class="flex items-center gap-2"><i class="fas fa-home"></i> {{ $student->address ?? 'N/A' }}</p>
                 <p class="flex items-center gap-2"><i class="fas fa-building"></i> {{ $student->packages->first()->package_name ?? 'N/A' }}</p>
@@ -49,20 +51,20 @@
                     @if($student->classes->isNotEmpty())
                         {!! $student->classes->pluck('class_name')->map(fn($name) => e($name))->join('<br>') !!}
                     @else
-                        Class not assigned.
+                        Kelas belum diwujudkan lagi.
                     @endif
             </div>
 
             <!-- Guardian -->
-            <div class="pt-4 border-t border-green-700">
-                <h4 class="text-yellow-300 font-medium mb-2">Guardian Details</h4>
+            <div class="pt-4 border-t border-green-700 space-y-2">
+                <h4 class="text-yellow-300 font-semibold mb-2 text-sm">Maklumat Penjaga</h4>
                 @if($student->guardians->isNotEmpty())
                     @php $guardian = $student->guardians->first(); @endphp
                     <p class="flex items-center text-sm gap-2"><i class="fas fa-user-shield"></i> {{ $guardian->first_name }} {{ $guardian->last_name }}</p>
                     <p class="flex items-center text-sm gap-2"><i class="fas fa-phone"></i> {{ $guardian->phone_number ?? 'N/A' }}</p>
                     <p class="flex items-center text-sm gap-2"><i class="fas fa-envelope"></i> {{ $guardian->pivot->relationship_type ?? 'N/A' }}</p>
                 @else
-                    <p class="text-sm">No guardian assigned.</p>
+                    <p class="text-sm">Penjaga belum didaftarkan lagi.</p>
                 @endif
             </div>
         </div>
@@ -72,7 +74,7 @@
 
             <!-- Report Badges -->
             <div class="bg-white rounded-xl shadow p-6 flex-shrink-0">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Report Badges</h3>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Laporan Pencapaian</h3>
                 @if($achievements->isNotEmpty())
                     <div class="overflow-hidden relative">
                         <div id="badgeCarousel" class="flex space-x-4" data-count="{{ $achievements->count() }}">
@@ -101,7 +103,7 @@
                         </div>
                         </div>
                 @else
-                    <p class="text-gray-500">No badges earned yet.</p>
+                    <p class="text-gray-500">Tiada pencapaian didaftakan.</p>
                 @endif
             </div>
 
@@ -138,15 +140,15 @@
                 <!-- Header -->
                 <div class="flex items-center justify-between mb-4">
                     <div>
-                        <h2 class="text-lg font-semibold">List of Recitation Report</h2>
-                        <p class="text-sm text-gray-500">Manage your report: search or filter.</p>
+                        <h2 class="text-lg font-semibold">Senarai Laporan Bacaan</h2>
+                        <p class="text-sm text-gray-500">Urus laporan ini menggunakan fungsi carian dan tapisan</p>
                     </div>
                 </div>
                 <!-- Search + Filter -->
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                    <!-- Search -->
                     <div class="relative w-full sm:w-full">
-                        <input type="text" id="searchInput" placeholder="Search by name or ID"
+                        <input type="text" id="searchInput" placeholder="Taip untuk carian"
                             class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                         <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -156,7 +158,7 @@
                     </div>
                     <!-- Filter -->
                     <select id="filterGrade" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                        <option value="">Grade</option>
+                        <option value="">Gred</option>
                         <option value="Mumtaz">Mumtaz</option>
                         <option value="Jayyid Jiddan">Jayyid Jiddan</option>
                         <option value="Jayyid">Jayyid</option>
@@ -164,7 +166,7 @@
                         <option value="Rasib">Rasib</option>
                     </select>
                     <select id="filterRecitation" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                        <option value="">Recitation</option>
+                        <option value="">Bacaan</option>
                         {{-- all unique recitation name sort from the recitation_module_id iqra 1, iqra 2--}}
                         @php
                             $recitationNames = $progressRecords->map(function($progress) {
@@ -180,14 +182,14 @@
                     <table id="reportTable" class="min-w-full text-sm text-left text-gray-600">
                         <thead class="bg-gray-100 text-gray-700 text-xs uppercase">
                             <tr>
-                                <th class="px-4 py-3">No</th>
-                                <th class="px-4 py-3">Recitation</th>
-                                <th class="px-4 py-2">Page</th>
-                                <th class="px-4 py-2">Grade</th>
-                                <th class="px-4 py-2">Class Name</th>
-                                <th class="px-4 py-2">Tutor</th>
-                                <th class="px-4 py-2">Recitation Date</th>
-                                <th class="px-4 py-2">Remark</th>
+                                <th class="px-4 py-3">Bil</th>
+                                <th class="px-4 py-3">Bacaan</th>
+                                <th class="px-4 py-2">Muka Surat</th>
+                                <th class="px-4 py-2">Gred</th>
+                                <th class="px-4 py-2">Nama Kelas</th>
+                                <th class="px-4 py-2">Guru</th>
+                                <th class="px-4 py-2">Tarikh Bacaan</th>
+                                <th class="px-4 py-2">Catatan</th>
                             </tr>
                         </thead>
                         <tbody id="reportBody">
@@ -206,13 +208,13 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-4 py-2 text-center text-gray-500">No progress records found.</td>
+                                    <td colspan="7" class="px-4 py-2 text-center text-gray-500">Tiada rekod dijumpai.</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
                     <!-- No Record Message -->
-                    <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+                    <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
                 </div>
 
                 <!-- Pagination (manual JS) -->
@@ -277,7 +279,7 @@
                         // entries info
                         const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                         const end = Math.min(currentPage * rowsPerPage, totalRows);
-                        entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                        entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                         // build pagination buttons
                         pagination.innerHTML = "";
@@ -350,37 +352,37 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- First Name -->
                         <div>
-                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Awal</label>
                             <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Last Name -->
                         <div>
-                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Akhir</label>
                             <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- IC Number -->
                         <div>
-                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Kad Pengenalan</label>
                             <input type="text" id="ic_number" name="ic_number" placeholder="990101145678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
 
                         <!-- Age -->
                         <div>
-                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Umur</label>
                             <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Birth Date -->
                         <div>
-                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Tarikh Lahir</label>
                             <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Gender -->
                         <div>
-                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Jantina</label>
                             <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -389,13 +391,13 @@
 
                         {{-- profile --}}
                         <div>
-                            <label for="profile" class="block mb-2 text-sm font-medium text-gray-900">Profile Picture</label>
+                            <label for="profile" class="block mb-2 text-sm font-medium text-gray-900">Gambar Profil</label>
                             <input type="file" id="profile" name="profile" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
                     </div>
                     <!-- Address (full width) -->
                     <div class="mt-6">
-                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat Rumah</label>
                         <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
                 </div>
