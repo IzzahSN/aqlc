@@ -43,17 +43,17 @@
 
                 <!-- Company -->
                 <div>
-                    <h2 class="mb-4 text-sm font-bold uppercase tracking-wide text-white">Company</h2>
+                    <h2 class="mb-4 text-sm font-bold uppercase tracking-wide text-white">Pautan Pantas</h2>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#" class="hover:text-white">Home</a></li>
-                        <li><a href="#" class="hover:text-white">Profile</a></li>
-                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                        <li><a href="{{ route('home') }}" class="hover:text-white">Utama</a></li>
+                        <li><a href="{{ route('profile') }}" class="hover:text-white">Tentang Kami</a></li>
+                        <li><a href="{{ route('contact') }}" class="hover:text-white">Hubungi Kami</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact -->
                 <div>
-                    <h2 class="mb-4 text-sm font-bold uppercase tracking-wide text-white">Contact</h2>
+                    <h2 class="mb-4 text-sm font-bold uppercase tracking-wide text-white">Hubungi Kami</h2>
                     <ul class="space-y-3 text-sm">
                         <li><a href="tel:0123456789" class="hover:text-white">012-3456789</a></li>
                         <li><a href="mailto:as-siraaj@gmail.com" class="hover:text-white">as-siraaj@gmail.com</a></li>
@@ -69,7 +69,7 @@
 
                 <!-- Map -->
                 <div>
-                    <h2 class="mb-4 text-sm font-bold uppercase tracking-wide text-white">Find Us</h2>
+                    <h2 class="mb-4 text-sm font-bold uppercase tracking-wide text-white">Cari Kami</h2>
                     <div class="rounded-lg overflow-hidden shadow">
                         <iframe src="https://maps.google.com/maps?q=Kajang%20Selangor&t=&z=13&ie=UTF8&iwloc=&output=embed"
                             class="w-full h-32 border-0"></iframe>
@@ -83,8 +83,9 @@
         <hr class="my-8 border-emerald-600/50" />
 
         <!-- Bottom -->
-        <div class="text-center">
-            <span class="text-sm text-emerald-100">© {{ date('Y') }} Pusat Pengajian Quran As-Siraaj. All rights reserved.</span>
+        <div class="flex flex-col md:flex-row md:justify-between items-center gap-4">
+            <span class="text-sm text-emerald-100">© {{ date('Y') }} Pusat Pengajian Quran As-Siraaj. Hak Cipta Terpelihara.</span>
+            <span>Dasar Privasi |   Terma & Syarat</span>
         </div>
     </div>
 </footer>
