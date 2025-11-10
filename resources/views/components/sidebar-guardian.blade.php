@@ -30,7 +30,7 @@
                         <path d="M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" />
                         <path d="M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
                     </svg>
-                    <span class="ms-3 sidebar-text">Dashboard</span>
+                    <span class="ms-3 sidebar-text">Papan Pemuka</span>
                 </a>
             </li>
             <!-- Report Management -->
@@ -41,7 +41,7 @@
                         <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
                         <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
                     </svg>
-                    <span class="ms-3 sidebar-text">Report Management</span>
+                    <span class="ms-3 sidebar-text">Pengurusan Laporan</span>
                 </a>
             </li>
 
@@ -54,7 +54,7 @@
                         <path d="M7 9m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z" />
                         <path d="M12 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                     </svg>
-                    <span class="ms-3 sidebar-text">Student Bill</span>
+                    <span class="ms-3 sidebar-text">Bil Pelajar</span>
                 </a>
             </li>
         </ul>

@@ -284,7 +284,7 @@
         <!-- Children Summary Section -->
         <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold text-gray-800">Latest Recitation</h3>
+                <h3 class="font-semibold text-gray-800">Bacaan terkini</h3>
             </div>
 
             <div class="space-y-3">
