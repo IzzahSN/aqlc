@@ -21,7 +21,7 @@ class AuthController extends Controller
         if ($request->role === 'guardian') {
             $user = Guardian::where('email', $request->email)->first();
             if (!$user || !Hash::check($request->password, $user->password)) {
-                return response()->json(['success' => false, 'message' => 'Invalid guardian credentials']);
+                return response()->json(['success' => false, 'message' => 'Kredensial penjaga tidak sah']);
             }
 
             session([
@@ -38,14 +38,14 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'redirect_url' => route('guardian.dashboard'),
-                'message' => 'Welcome back, Guardian!'
+                'message' => 'Selamat kembali, Penjaga!'
             ]);
         }
 
         if ($request->role === 'tutor') {
             $user = Tutor::where('email', $request->email)->first();
             if (!$user || !Hash::check($request->password, $user->password)) {
-                return response()->json(['success' => false, 'message' => 'Invalid tutor credentials']);
+                return response()->json(['success' => false, 'message' => 'Kredensial guru tidak sah']);
             }
 
             session([
@@ -66,11 +66,11 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'redirect_url' => $redirectUrl,
-                'message' => 'Login successful!'
+                'message' => 'Log masuk berjaya!'
             ]);
         }
 
-        return response()->json(['success' => false, 'message' => 'Invalid role selected']);
+        return response()->json(['success' => false, 'message' => 'Peranan yang dipilih tidak sah']);
     }
 
     public function register(Request $request)
@@ -95,7 +95,7 @@ class AuthController extends Controller
             'password'     => $hashedPassword,
             'status'       => 'active',
         ]);
-        return redirect()->route('login')->with('success', 'Registration successful. Please login.');
+        return redirect()->route('login')->with('success', 'Pendaftaran berjaya. Sila log masuk.');
     }
 
     public function logout(Request $request)
@@ -105,7 +105,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'redirect_url' => route('home'),
-            'message' => 'You have been successfully logged out.'
+            'message' => 'Anda telah berjaya log keluar.'
         ]);
     }
 }

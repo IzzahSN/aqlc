@@ -116,7 +116,7 @@
                 if (data.success) {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Login Successful',
+                        title: 'Log Masuk Berjaya',
                         text: data.message,
                         timer: 2000,
                         timerProgressBar: true,
@@ -128,7 +128,7 @@
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Login Failed',
+                        title: 'Log Masuk Gagal',
                         text: data.message
                     });
                 }
@@ -137,7 +137,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Something went wrong!'
+                    text: 'Terdapat masalah semasa memproses permintaan anda. Sila cuba lagi kemudian.'
                 });
             });
         });

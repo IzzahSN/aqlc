@@ -80,7 +80,7 @@
                                     if (data.success) {
                                         Swal.fire({
                                             icon: 'success',
-                                            title: 'Logged Out',
+                                            title: 'Log Keluar Berjaya',
                                             text: data.message,
                                             timer: 2000,
                                             timerProgressBar: true,
