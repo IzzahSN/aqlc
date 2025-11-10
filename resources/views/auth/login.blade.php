@@ -8,11 +8,11 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to dashboard
+                Kembali ke Menu Utama
             </a>
 
-            <h2 class="text-3xl font-bold mb-2">Sign In</h2>
-            <p class="text-gray-500 mb-6">Enter your email and password to sign in!</p>
+            <h2 class="text-3xl font-bold mb-2">Log Masuk</h2>
+            <p class="text-gray-500 mb-6">Masukkan e-mel dan kata laluan anda untuk log masuk!</p>
 
             <!-- Login Form -->
             <form id="loginForm" class="space-y-4">
@@ -24,7 +24,7 @@
                         <input type="radio" name="role" value="guardian" checked required
                             class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300">
                         <span class="text-sm font-medium text-gray-700 group-has-[:checked]:text-green-700">
-                            Guardian
+                            Penjaga
                         </span>
                     </label>
 
@@ -33,32 +33,32 @@
                         <input type="radio" name="role" value="tutor" required
                             class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300">
                         <span class="text-sm font-medium text-gray-700 group-has-[:checked]:text-green-700">
-                            Tutor
+                            Guru
                         </span>
                     </label>
                 </div>
 
 
                 <div>
-                    <label for="email" class="text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" placeholder="info@gmail.com"
+                    <label for="email" class="text-sm font-medium text-gray-700">E-mel</label>
+                    <input type="email" id="email" name="email" placeholder="contoh@gmail.com"
                         class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg" required>
                 </div>
 
                 <div>
-                    <label for="password" class="text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password"
+                    <label for="password" class="text-sm font-medium text-gray-700">Kata Laluan</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan kata laluan anda"
                         class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg" required>
                 </div>
 
                 <button type="submit"
                     class="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition">
-                    Sign In
+                    Log Masuk
                 </button>
             </form>
 
-            <p class="mt-6 text-sm text-gray-500">
-                Don’t have an account? <a href="{{ route('register') }}" class="text-green-600 hover:underline">Sign Up</a>
+            <p class="mt-6 text-sm text-gray-500 text-center">
+                Tiada akaun? <a href="{{ route('register') }}" class="text-green-600 hover:underline">Daftar</a>
             </p>
         </div>
 
