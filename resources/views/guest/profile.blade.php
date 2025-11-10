@@ -1,6 +1,6 @@
 <x-app-layout :title="'Profile'">
     <!-- About Us Section -->
-    <section class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6">
+    <section class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6 mt-6">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center px-4 sm:px-6">
             <!-- Left: Images -->
             <div class="relative flex flex-col items-center">
@@ -13,14 +13,12 @@
 
             <!-- Right: Content -->
             <div>
-                <span class="text-emerald-600 font-semibold uppercase tracking-wide text-sm sm:text-base">About Us</span>
+                <span class="text-emerald-600 font-semibold uppercase tracking-wide text-sm sm:text-base">Tentang Kami</span>
                 <h2 class="mt-2 text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 leading-snug">
-                    Guiding Hearts <br> Through the Quran
+                    Membimbing Hati <br> Melalui Al-Quran
                 </h2>
                 <p class="mt-4 text-gray-600 leading-relaxed text-sm sm:text-base">
-                    At our Quran Learning Centre, we provide a nurturing space for children and adults
-                    to strengthen their connection with the Quran. With dedicated teachers, we focus
-                    on proper recitation, understanding, and instilling love for the Book of Allah.
+                    Di Pusat Pembelajaran Al-Quran kami, kami menyediakan ruang yang memupuk untuk kanak-kanak dan orang dewasa bagi mengukuhkan hubungan mereka dengan Al-Quran. Dengan guru yang berdedikasi, kami menumpukan pada bacaan yang betul, pemahaman, dan menanamkan kecintaan kepada Kitabullah.
                 </p>
 
                 <!-- Mission & Vision -->
@@ -39,10 +37,9 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-base sm:text-lg font-bold text-gray-900">Our Mission</h3>
+                            <h3 class="text-base sm:text-lg font-bold text-gray-900">Misi Kami</h3>
                             <p class="mt-1 text-xs sm:text-sm text-gray-600">
-                                To inspire a love for the Quran by teaching accurate recitation,
-                                strong understanding, and Islamic values in a supportive environment.
+                                Untuk memberi inspirasi kecintaan terhadap Al-Quran dengan mengajar bacaan yang tepat, pemahaman yang kukuh, dan nilai-nilai Islam dalam persekitaran yang menyokong.
                             </p>
                         </div>
                     </div>
@@ -60,10 +57,9 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-base sm:text-lg font-bold text-gray-900">Our Vision</h3>
+                            <h3 class="text-base sm:text-lg font-bold text-gray-900">Visi Kami</h3>
                             <p class="mt-1 text-xs sm:text-sm text-gray-600">
-                                To nurture future generations with strong Quranic foundations,
-                                guiding them to live with faith, character, and excellence.
+                                Untuk memupuk generasi akan datang dengan asas Al-Quran yang kukuh, membimbing mereka untuk hidup dengan keimanan, sahsiah, dan kecemerlangan.
                             </p>
                         </div>
                     </div>
@@ -78,9 +74,9 @@
             <!-- Title -->
             <div class="text-center mb-8 sm:mb-14">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-                    Our Tutors
+                    Guru Kami
                 </h2>
-                <p class="mt-3 text-gray-500 text-sm sm:text-base">Dedicated teachers guiding students in Quran recitation and understanding</p>
+                <p class="mt-3 text-gray-500 text-sm sm:text-base">Guru berdedikasi membimbing pelajar dalam bacaan dan pemahaman Al-Quran.</p>
             </div>
 
             <!-- Grid -->

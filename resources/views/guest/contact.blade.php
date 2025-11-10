@@ -1,13 +1,13 @@
 <x-app-layout :title="'Home'">
     <!-- Contact Section -->
-    <section class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6">
+    <section class="relative bg-gray-50 py-8 sm:py-16 px-4 sm:px-6 mt-12">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <!-- Title -->
             <div class="text-center mb-8 sm:mb-14">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-                    Get in Touch
+                    Hubungi Kami
                 </h2>
-                <p class="mt-3 text-gray-500 text-sm sm:text-base">Contact us for any inquiries or further information</p>
+                <p class="mt-3 text-gray-500 text-sm sm:text-base">Hubungi kami untuk sebarang pertanyaan atau maklumat lanjut.</p>
             </div>
             <!-- Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 items-center">
@@ -24,7 +24,7 @@
                     <!-- Address -->
                     <div>
                         <h3 class="text-lg sm:text-xl font-semibold text-gray-700 mb-4">
-                            Our Address
+                            Alamat Kami
                         </h3>
                         <div class="flex items-start gap-3 sm:gap-4">
                             <div>
@@ -47,7 +47,7 @@
                     <!-- Contacts -->
                     <div>
                         <h3 class="text-lg sm:text-xl font-semibold text-gray-700 mb-4">
-                            Contact Us
+                            Maklumat Hubungan
                         </h3>
                         <div class="space-y-4 sm:space-y-6 flex flex-col sm:flex-row justify-between w-full sm:w-fit gap-6 sm:gap-10">
                             <!-- Email -->
@@ -59,7 +59,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-gray-700 text-sm sm:text-base">Email us</p>
+                                    <p class="text-gray-700 text-sm sm:text-base">Emel Kami</p>
                                     <a href="mailto:hello@example.com" class="font-medium text-gray-900 hover:underline text-sm sm:text-base">
                                         assiraaj@gmail.com
                                     </a>
@@ -74,7 +74,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-gray-700 text-sm sm:text-base">Call us</p>
+                                    <p class="text-gray-700 text-sm sm:text-base">Hubungi Kami</p>
                                     <a href="tel:+60123456789" class="font-medium text-gray-900 hover:underline text-sm sm:text-base">
                                         +60 12-345 6789
                                     </a>
@@ -99,10 +99,10 @@
                 <div class="md:col-span-2 flex justify-center">
                     <div class="max-w-sm">
                         <h2 class="text-2xl sm:text-3xl font-bold md:text-4xl lg:text-5xl md:leading-tight text-gray-800">
-                            Frequently <span class="text-green-600">Asked</span> Questions
+                            Soalan <span class="text-green-600">Lazim</span> (FAQ)
                         </h2>
                         <p class="mt-4 text-gray-600 text-sm sm:text-base">
-                            Answers to the most common questions about our Quran learning programs.
+                            Jawapan kepada soalan yang paling lazim tentang program pembelajaran Al-Quran kami.
                         </p>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                         <!-- Q1 -->
                         <h2 id="accordion-collapse-heading-1">
                             <button type="button" class="flex items-center justify-between w-full p-4 sm:p-5 font-medium text-gray-800 border-b border-gray-200 hover:bg-gray-50 transition gap-3 text-sm sm:text-base" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
-                                <span>What courses are offered at the center?</span>
+                                <span>Apakah kursus yang ditawarkan di pusat ini?</span>
                                 <svg data-accordion-icon class="w-4 h-4 rotate-180 shrink-0 text-gray-500 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
                                 </svg>
@@ -125,7 +125,7 @@
                         <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
                             <div class="p-4 sm:p-5 bg-gray-50">
                                 <p class="text-gray-600 text-sm sm:text-base">
-                                    We provide Quran recitation (tajweed), memorization (hifz), tafsir studies, and Islamic knowledge classes for all age groups, both online and in-person.
+                                    Kami menyediakan kelas bacaan Al-Quran (tajwid), hafazan (hifz), pengajian tafsir, dan ilmu agama untuk semua peringkat umur, secara dalam talian dan bersemuka.
                                 </p>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                         <!-- Q2 -->
                         <h2 id="accordion-collapse-heading-2">
                             <button type="button" class="flex items-center justify-between w-full p-4 sm:p-5 font-medium text-gray-800 border-b border-gray-200 hover:bg-gray-50 transition gap-3 text-sm sm:text-base" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
-                                <span>Do you offer online classes?</span>
+                                <span>Adakah anda menawarkan kelas dalam talian?</span>
                                 <svg data-accordion-icon class="w-4 h-4 rotate-180 shrink-0 text-gray-500 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
                                 </svg>
@@ -142,7 +142,7 @@
                         <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
                             <div class="p-4 sm:p-5 bg-gray-50">
                                 <p class="text-gray-600 text-sm sm:text-base">
-                                    Yes, we offer flexible online Quran classes for students worldwide. Lessons are conducted via Zoom/Google Meet with experienced teachers.
+                                    Tidak, semua kelas dilaksanakan sepenuhnya di pusat pengajian secara bersemuka.
                                 </p>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                         <!-- Q3 -->
                         <h2 id="accordion-collapse-heading-3">
                             <button type="button" class="flex items-center justify-between w-full p-4 sm:p-5 font-medium text-gray-800 border-b-0 border-gray-200 hover:bg-gray-50 transition gap-3 text-sm sm:text-base" data-accordion-target="#accordion-collapse-body-3" aria-expanded="false" aria-controls="accordion-collapse-body-3">
-                                <span>What is the class schedule like?</span>
+                                <span>Bagaimanakah jadual kelas?</span>
                                 <svg data-accordion-icon class="w-4 h-4 rotate-180 shrink-0 text-gray-500 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
                                 </svg>
@@ -159,7 +159,7 @@
                         <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
                             <div class="p-4 sm:p-5 bg-gray-50">
                                 <p class="text-gray-600 text-sm sm:text-base">
-                                    We offer both weekday and weekend sessions, morning and evening slots, so students can choose a schedule that suits their lifestyle.
+                                    Kami menawarkan sesi hari bekerja dan hujung minggu, slot pagi dan malam, supaya pelajar boleh memilih jadual yang sesuai dengan gaya hidup mereka.
                                 </p>
                             </div>
                         </div>
