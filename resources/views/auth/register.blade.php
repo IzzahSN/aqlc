@@ -8,12 +8,12 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to dashboard
+                Kembali ke Menu Utama
             </a>
 
-            <h2 class="text-3xl font-bold mb-2">Sign Up</h2>
+            <h2 class="text-3xl font-bold mb-2">Daftar</h2>
             <!-- change the sentences, said register as parent -->
-            <p class="text-gray-500 mb-6">Fill in your details below to create your parent account.</p>
+            <p class="text-gray-500 mb-6">Sila isi butiran anda di bawah untuk mencipta akaun penjaga anda.</p>
 
             <!-- Register Form -->
             <form action="{{ route('register') }}" method="POST" class="space-y-6">
@@ -21,12 +21,12 @@
                 <!-- First & Last Name -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
-                        <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                        <label for="first_name" class="block text-sm font-medium text-gray-700">Nama Pertama</label>
                         <input type="text" id="first_name" name="first_name" placeholder="Muhammad Ali"
                             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" required>
                         </div>
                     <div>
-                        <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <label for="last_name" class="block text-sm font-medium text-gray-700">Nama Akhir</label>
                         <input type="text" id="last_name" name="last_name" placeholder="Bin Abu Bakar"
                             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" required>
                     </div>
@@ -35,12 +35,12 @@
                 <!-- Email & Phone Number -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" name="email" placeholder="info@gmail.com"
+                        <label for="email" class="block text-sm font-medium text-gray-700">E-mel</label>
+                        <input type="email" id="email" name="email" placeholder="contoh@gmail.com"
                             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" required>
                     </div>
                     <div>
-                        <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <label for="phone_number" class="block text-sm font-medium text-gray-700">Nombor Telefon</label>
                         <input type="text" id="phone_number" name="phone_number" placeholder="01328997872"
                             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" required>
                        </div>
@@ -48,7 +48,7 @@
 
                 <!-- IC -->
                 <div class="relative">
-                    <label for="ic_number" class="block text-sm font-medium text-gray-700">IC Number</label>
+                    <label for="ic_number" class="block text-sm font-medium text-gray-700">Nombor Kad Pengenalan</label>
                     <div class="relative mt-1">
                         <input type="text" id="ic_number" name="ic_number" placeholder="0908121018726" class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" required>
 
@@ -65,24 +65,21 @@
                         </button>
 
                         <!-- Tooltip Message -->
-                        <div id="tooltip-ic" role="tooltip"
-                            class="absolute z-10 invisible inline-block px-3 py-2 text-xs font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-lg opacity-0 tooltip">
-                            Use your IC number as the default password to sign in.
-                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        <div id="tooltip-ic" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-xs font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-lg opacity-0 tooltip">
+                            Gunakan nombor Kad Pengenalan anda sebagai kata laluan untuk log masuk.                            <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
                     </div>
                 </div>
 
 
                 <!-- Button -->
-                <button type="submit"
-                    class="w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold shadow-md transition">
-                    Register
+                <button type="submit" class="w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold shadow-md transition">
+                    Daftar
                 </button>
             </form>
 
-            <p class="mt-6 text-sm text-gray-500">
-                Already have an account? <a href="{{ route('login') }}" class="text-green-600 hover:underline">Sign In</a>
+            <p class="mt-6 text-sm text-gray-500 text-center">
+                Sudah mempunyai akaun? <a href="{{ route('login') }}" class="text-green-600 hover:underline">Log Masuk</a>
             </p>
         </div>
 
