@@ -185,184 +185,184 @@
             </div>
 
             <!-- Pagination Script -->
-        <script>
-            const searchInput = document.getElementById("searchInput");
-            const filterDate = document.getElementById("filterDate");
-            const tbody = document.getElementById("scheduleBody");
-            const rows = Array.from(tbody.getElementsByTagName("tr"));
-            const noRecord = document.getElementById("noRecord");
-            const pagination = document.getElementById("pagination");
-            const entriesInfo = document.getElementById("entriesInfo");
+            <script>
+                const searchInput = document.getElementById("searchInput");
+                const filterDate = document.getElementById("filterDate");
+                const tbody = document.getElementById("scheduleBody");
+                const rows = Array.from(tbody.getElementsByTagName("tr"));
+                const noRecord = document.getElementById("noRecord");
+                const pagination = document.getElementById("pagination");
+                const entriesInfo = document.getElementById("entriesInfo");
 
-            let currentPage = 1;
-            const rowsPerPage = 5;
+                let currentPage = 1;
+                const rowsPerPage = 5;
 
-            function renderTable() {
-                const searchValue = searchInput.value.toLowerCase();
-                const dateValue = filterDate.value;
+                function renderTable() {
+                    const searchValue = searchInput.value.toLowerCase();
+                    const dateValue = filterDate.value;
 
-                let filteredRows = rows.filter(row => {
-                    const name = row.cells[1].textContent.toLowerCase();
-                    const dateText = row.cells[5].textContent.trim();
-                    const id = row.cells[0].textContent.toLowerCase();
+                    let filteredRows = rows.filter(row => {
+                        const name = row.cells[1].textContent.toLowerCase();
+                        const dateText = row.cells[5].textContent.trim();
+                        const id = row.cells[0].textContent.toLowerCase();
 
-                    // Date matching logic
-                    let matchDate = true;
-                    if (dateValue !== "") {
-                        // Convert filter date (yyyy-mm-dd) to dd/mm/yyyy format for comparison
-                        const [year, month, day] = dateValue.split('-');
-                        const formattedFilterDate = `${day}/${month}/${year}`;
-                        matchDate = dateText === formattedFilterDate;
-                    }
+                        // Date matching logic
+                        let matchDate = true;
+                        if (dateValue !== "") {
+                            // Convert filter date (yyyy-mm-dd) to dd/mm/yyyy format for comparison
+                            const [year, month, day] = dateValue.split('-');
+                            const formattedFilterDate = `${day}/${month}/${year}`;
+                            matchDate = dateText === formattedFilterDate;
+                        }
 
-                    const matchSearch = name.includes(searchValue) || id.includes(searchValue);
-                    return matchSearch && matchDate;
-                });
-
-                const totalRows = filteredRows.length;
-                const totalPages = Math.ceil(totalRows / rowsPerPage);
-                if (currentPage > totalPages) currentPage = totalPages || 1;
-
-            // show only current page rows
-                rows.forEach(r => r.style.display = "none");
-
-                let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
-
-                pageRows.forEach((r, i) => {
-                    r.style.display = "";
-                    // update numbering semula
-                    r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
-                });
-
-                // show/hide "no records"
-                noRecord.classList.toggle("hidden", totalRows > 0);
-
-                // entries info
-                const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
-                const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
-                // build pagination buttons
-                pagination.innerHTML = "";
-
-                // prev button
-                const prevBtn = document.createElement("button");
-                prevBtn.textContent = "‹";
-                prevBtn.disabled = currentPage === 1;
-                prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
-                prevBtn.addEventListener("click", () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        renderTable();
-                    }
-                });
-                pagination.appendChild(prevBtn);
-
-                // page numbers
-                for (let i = 1; i <= totalPages; i++) {
-                    const btn = document.createElement("button");
-                    btn.textContent = i;
-                    btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
-                    btn.addEventListener("click", () => {
-                        currentPage = i;
-                        renderTable();
+                        const matchSearch = name.includes(searchValue) || id.includes(searchValue);
+                        return matchSearch && matchDate;
                     });
-                    pagination.appendChild(btn);
+
+                    const totalRows = filteredRows.length;
+                    const totalPages = Math.ceil(totalRows / rowsPerPage);
+                    if (currentPage > totalPages) currentPage = totalPages || 1;
+
+                // show only current page rows
+                    rows.forEach(r => r.style.display = "none");
+
+                    let pageRows = filteredRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+                    pageRows.forEach((r, i) => {
+                        r.style.display = "";
+                        // update numbering semula
+                        r.querySelector(".row-index").textContent = (currentPage - 1) * rowsPerPage + (i + 1);
+                    });
+
+                    // show/hide "no records"
+                    noRecord.classList.toggle("hidden", totalRows > 0);
+
+                    // entries info
+                    const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+                    const end = Math.min(currentPage * rowsPerPage, totalRows);
+                    entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
+                    // build pagination buttons
+                    pagination.innerHTML = "";
+
+                    // prev button
+                    const prevBtn = document.createElement("button");
+                    prevBtn.textContent = "‹";
+                    prevBtn.disabled = currentPage === 1;
+                    prevBtn.className = `px-3 py-1 rounded ${prevBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                    prevBtn.addEventListener("click", () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            renderTable();
+                        }
+                    });
+                    pagination.appendChild(prevBtn);
+
+                    // page numbers
+                    for (let i = 1; i <= totalPages; i++) {
+                        const btn = document.createElement("button");
+                        btn.textContent = i;
+                        btn.className = `px-3 py-1 rounded ${i === currentPage ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+                        btn.addEventListener("click", () => {
+                            currentPage = i;
+                            renderTable();
+                        });
+                        pagination.appendChild(btn);
+                    }
+
+                    // next button
+                    const nextBtn = document.createElement("button");
+                    nextBtn.textContent = "›";
+                    nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+                    nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
+                    nextBtn.addEventListener("click", () => {
+                        if (currentPage < totalPages) {
+                            currentPage++;
+                            renderTable();
+                        }
+                    });
+                    pagination.appendChild(nextBtn);
                 }
 
-                // next button
-                const nextBtn = document.createElement("button");
-                nextBtn.textContent = "›";
-                nextBtn.disabled = currentPage === totalPages || totalPages === 0;
-                nextBtn.className = `px-3 py-1 rounded ${nextBtn.disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-200 hover:bg-gray-300'}`;
-                nextBtn.addEventListener("click", () => {
-                    if (currentPage < totalPages) {
-                        currentPage++;
-                        renderTable();
-                    }
-                });
-                pagination.appendChild(nextBtn);
-            }
+                searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
+                filterDate.addEventListener("change", () => { currentPage = 1; renderTable(); });
 
-            searchInput.addEventListener("input", () => { currentPage = 1; renderTable(); });
-            filterDate.addEventListener("change", () => { currentPage = 1; renderTable(); });
-
-            renderTable();
-        </script>
-        </div>
-
-        <!-- Children Summary Section -->
-        <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold text-gray-800">Bacaan terkini</h3>
+                renderTable();
+            </script>
             </div>
 
-            <div class="space-y-3">
-                @forelse ($students as $student)
-                    <a href="{{ route('guardian.report.view', ['id' => $student->student_id]) }}" 
-                    class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
-                        <div class="flex items-center gap-3">
-                            <div>
-                                <p class="text-sm font-semibold text-gray-700 group-hover:text-white transition">
-                                    {{ $student->first_name }} {{ $student->last_name }}
-                                </p>
+            <!-- Children Summary Section -->
+            <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-semibold text-gray-800">Bacaan terkini</h3>
+                </div>
 
-                                <!-- Juz Info -->
-                                <div class="flex items-start gap-2 mt-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-4 h-4 text-emerald-600 group-hover:text-white transition mt-[2px]"
-                                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                                        <path d="M9 17l0 -5" />
-                                        <path d="M12 17l0 -1" />
-                                        <path d="M15 17l0 -3" />
-                                    </svg>
-                                    <div class="flex flex-col leading-tight">
+                <div class="space-y-3">
+                    @forelse ($students as $student)
+                        <a href="{{ route('guardian.report.view', ['id' => $student->student_id]) }}" 
+                        class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-gradient-to-r from-green-600 to-emerald-700 transition cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-700 group-hover:text-white transition">
+                                        {{ $student->first_name }} {{ $student->last_name }}
+                                    </p>
+
+                                    <!-- Juz Info -->
+                                    <div class="flex items-start gap-2 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-4 h-4 text-emerald-600 group-hover:text-white transition mt-[2px]"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                            <path d="M9 17l0 -5" />
+                                            <path d="M12 17l0 -1" />
+                                            <path d="M15 17l0 -3" />
+                                        </svg>
+                                        <div class="flex flex-col leading-tight">
+                                            <p class="text-xs text-gray-500 group-hover:text-white transition">
+                                                {{ $student->latestProgress?->recitationModule?->recitation_name ?? 'No Progress' }}, 
+                                                Muka Surat {{ $student->latestProgress?->page_number ?? 'N/A' }}
+                                            </p>
+                                            <p class="text-xs text-gray-500 group-hover:text-white transition">
+                                                ({{ $student->latestProgress?->grade ?? 'N/A' }})
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Date Info -->
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-4 h-4 text-emerald-600 group-hover:text-white transition"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+                                            <path d="M16 3v4" />
+                                            <path d="M8 3v4" />
+                                            <path d="M4 11h16" />
+                                            <path d="M11 15h1" />
+                                            <path d="M12 15v3" />
+                                        </svg>
                                         <p class="text-xs text-gray-500 group-hover:text-white transition">
-                                            {{ $student->latestProgress?->recitationModule?->recitation_name ?? 'No Progress' }}, 
-                                            Muka Surat {{ $student->latestProgress?->page_number ?? 'N/A' }}
-                                        </p>
-                                        <p class="text-xs text-gray-500 group-hover:text-white transition">
-                                            ({{ $student->latestProgress?->grade ?? 'N/A' }})
+                                            {{ $student->latestProgress ? \Carbon\Carbon::parse($student->latestProgress->schedule->date)->format('d/m/Y') : 'N/A' }}
                                         </p>
                                     </div>
                                 </div>
-
-                                <!-- Date Info -->
-                                <div class="flex items-center gap-2 mt-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-4 h-4 text-emerald-600 group-hover:text-white transition"
-                                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-                                        <path d="M16 3v4" />
-                                        <path d="M8 3v4" />
-                                        <path d="M4 11h16" />
-                                        <path d="M11 15h1" />
-                                        <path d="M12 15v3" />
-                                    </svg>
-                                    <p class="text-xs text-gray-500 group-hover:text-white transition">
-                                        {{ $student->latestProgress ? \Carbon\Carbon::parse($student->latestProgress->schedule->date)->format('d/m/Y') : 'N/A' }}
-                                    </p>
-                                </div>
                             </div>
-                        </div>
 
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 h-5 text-gray-400 group-hover:text-white transition"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 6l6 6l-6 6" />
-                        </svg>
-                    </a>
-                @empty
-                    <div class="p-4 text-center text-gray-500 bg-gray-50 rounded-lg border border-gray-200">
-                        Tiada rekod dijumpai.
-                    </div>
-                @endforelse
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-5 h-5 text-gray-400 group-hover:text-white transition"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M9 6l6 6l-6 6" />
+                            </svg>
+                        </a>
+                    @empty
+                        <div class="p-4 text-center text-gray-500 bg-gray-50 rounded-lg border border-gray-200">
+                            Tiada rekod dijumpai.
+                        </div>
+                    @endforelse
+                </div>
             </div>
         </div>
-    </div>
 
 </x-guardian-layout>
