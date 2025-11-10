@@ -1,8 +1,8 @@
-<x-guardian-layout :title="'Dashboard'">
+<x-guardian-layout :title="'Papan Pemuka'">
     <!-- Header -->
     <div class="flex items-center justify-between mb-6">
         <!-- Welcome -->
-        <h2 class="text-xl font-bold text-gray-800">Welcome back, {{ session('username') }}!</h2>
+        <h2 class="text-xl font-bold text-gray-800">Selamat Datang, {{ session('username') }}!</h2>
 
         <!-- Link Child Button -->
         <button data-modal-target="addChildModal" data-modal-toggle="addChildModal"
@@ -15,7 +15,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
             </svg>
-            <span>Link Child</span>
+            <span>Pautkan Anak</span>
         </button>
     </div>
 
@@ -25,7 +25,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Link Children</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Pautkan Anak</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" 
                         data-modal-hide="addChildModal">✕</button>
             </div>
@@ -34,31 +34,31 @@
             <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                 <form id="linkChildForm" action="{{ route('guardian.dashboard.addChild') }}" method="POST">
                 @csrf
-                    <div class="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-2">
+                    <div class="flex flex-col gap-4">
                         <!-- IC Number -->
-                        <div class="col-span-2 md:col-span-3 lg:col-span-4">
-                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Child IC Number</label>
+                        <div>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Kad Pengenalan Anak</label>
                             <input type="text" id="ic_number" name="ic_number" placeholder="030810101788" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Relationship type -->
-                        <div class="col-span-2 md:col-span-3 lg:col-span-4">
-                            <label for="relationship_type" class="block mb-2 text-sm font-medium text-gray-900">Relationship</label>
+                        <div>
+                            <label for="relationship_type" class="block mb-2 text-sm font-medium text-gray-900">Hubungan</label>
                             <select id="relationship_type" name="relationship_type" 
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Relationship</option>
-                                <option value="Father">Father</option>
-                                <option value="Mother">Mother</option>
-                                <option value="Guardian">Guardian</option>
-                                <option value="Other">Other</option>
+                                <option value="">Pilih Hubungan</option>
+                                <option value="Father">Bapa</option>
+                                <option value="Mother">Ibu</option>
+                                <option value="Guardian">Penjaga</option>
+                                <option value="Other">Lain-lain</option>
                             </select>
                         </div>
 
                         <!-- Submit -->
-                        <div class="flex items-end col-span-1 md:col-span-2 lg:col-span-2">
+                        <div class="mt-2">
                             <button type="submit" id="submitFormAddChild" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm py-2.5 text-center w-full">
-                                Submit
+                                Hantar
                             </button>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
         <!-- Children Reports -->
         <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-lime-600 border-l-6 justify-between">
             <div>
-                <p class="text-sm font-semibold text-lime-600 uppercase">Total Children</p>
+                <p class="text-sm font-semibold text-lime-600 uppercase">Jumlah Anak</p>
                 <h3 class="text-2xl font-bold text-gray-500">{{ $childrenCount }}</h3>
             </div>
             <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -83,7 +83,7 @@
         <!-- Upcoming Classes -->
         <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-amber-400 border-l-6 justify-between">
             <div>
-                <p class="text-sm font-semibold text-amber-600 uppercase">Total Bill Paid</p>
+                <p class="text-sm font-semibold text-amber-600 uppercase">Jumlah Bil Dibayar</p>
                 <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($paidBills, 2) }}</h3>
             </div>
             <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -94,7 +94,7 @@
         <!-- Salary -->
         <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-red-600 border-l-6 justify-between">
             <div>
-                <p class="text-sm font-semibold text-red-600 uppercase">Outstanding Bills</p>
+                <p class="text-sm font-semibold text-red-600 uppercase">Jumlah Bil Tertunggak</p>
                 <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($unpaidBills, 2) }}</h3>
             </div>
             <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -110,14 +110,14 @@
             <!-- Header -->
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h3 class="font-semibold text-gray-800">List of Schedule</h3>
+                    <h3 class="font-semibold text-gray-800">Senarai Jadual</h3>
                 </div>
             </div>
             <!-- Search + Filter -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                 <!-- Search -->
                 <div class="relative w-full sm:w-full">
-                    <input type="text" id="searchInput" placeholder="Search by name or ID"
+                    <input type="text" id="searchInput" placeholder="Cari mengikut nama pelajar"
                         class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                     <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -133,13 +133,13 @@
                 <table class="min-w-full text-sm text-left text-gray-600">
                     <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                         <tr>
-                            <th class="px-4 py-3">No</th>
-                            <th class="px-4 py-3">Student Name</th>
-                            <th class="px-4 py-3">Class Name</th>
-                            <th class="px-4 py-3">Start Time</th>
-                            <th class="px-4 py-3">End Time</th>
-                            <th class="px-4 py-3">Date</th>
-                            <th class="px-4 py-3">Tutor Name</th>
+                            <th class="px-4 py-3">Bil</th>
+                            <th class="px-4 py-3">Nama Pelajar</th>
+                            <th class="px-4 py-3">Nama Kelas</th>
+                            <th class="px-4 py-3">Jam Mula</th>
+                            <th class="px-4 py-3">Jam Akhir</th>
+                            <th class="px-4 py-3">Tarikh</th>
+                            <th class="px-4 py-3">Nama Guru</th>
                         </tr>
                     </thead>
                     <tbody id="scheduleBody">
@@ -156,14 +156,14 @@
                     @empty
                         <tr>
                             <td colspan="7" class="px-4 py-8 text-center text-gray-500">
-                                No schedules found. Please link a child first.
+                                Tiada rekod dijumpai. Sila pautkan anak dahulu.
                             </td>
                         </tr>
                     @endforelse
                     </tbody>
                 </table>
                 <!-- No Record Message -->
-                <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+                <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
             </div>
 
              <!-- Pagination (manual JS) -->
@@ -312,7 +312,7 @@
                                     <div class="flex flex-col leading-tight">
                                         <p class="text-xs text-gray-500 group-hover:text-white transition">
                                             {{ $student->latestProgress?->recitationModule?->recitation_name ?? 'No Progress' }}, 
-                                            Page {{ $student->latestProgress?->page_number ?? 'N/A' }}
+                                            Muka Surat {{ $student->latestProgress?->page_number ?? 'N/A' }}
                                         </p>
                                         <p class="text-xs text-gray-500 group-hover:text-white transition">
                                             ({{ $student->latestProgress?->grade ?? 'N/A' }})
@@ -349,7 +349,7 @@
                     </a>
                 @empty
                     <div class="p-4 text-center text-gray-500 bg-gray-50 rounded-lg border border-gray-200">
-                        No student record yet.
+                        Tiada rekod dijumpai.
                     </div>
                 @endforelse
             </div>
