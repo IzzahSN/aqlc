@@ -232,8 +232,8 @@ Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group
     // bill
     Route::get('/student-bill', [BillHistoryController::class, 'guardianBillView'])->name('bill.index');
     Route::get('/student-bill/pay/{id}', [ToyyibPayController::class, 'createBill'])->name('bill.toyyibpay.create');
-    Route::get('/student-bill/toyyibpay/return', [ToyyibPayController::class, 'return'])->name('bill.toyyibpay.return');
-    Route::post('/student-bill/toyyibpay/callback', [ToyyibPayController::class, 'callback'])->name('bill.toyyibpay.callback');
+    Route::any('/student-bill/toyyibpay/return', [ToyyibPayController::class, 'return'])->name('bill.toyyibpay.return');
+    // Route::any('/student-bill/toyyibpay/callback', [ToyyibPayController::class, 'callback'])->name('bill.toyyibpay.callback');
 
     // profile
     Route::get('/profile', [ProfileController::class, 'showGuardianProfile'])->name('profile');

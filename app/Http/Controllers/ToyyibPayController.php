@@ -17,7 +17,7 @@ class ToyyibPayController extends Controller
 
         $guardianId = session('user_id');
         $guardian = Guardian::find($guardianId);
-        $amount = 1;
+        $amount = $bill->bill_amount;
         $studentBill = $bill->studentBill;
 
         // Tentukan base URL bergantung pada environment
@@ -38,8 +38,8 @@ class ToyyibPayController extends Controller
             'billPriceSetting' => 1,
             'billPayorInfo' => 1,
             'billAmount' => $amount * 100, // must be in cents
-            'billReturnUrl' => $baseUrl . '/student-bill/toyyibpay/return',
-            'billCallbackUrl' => $baseUrl . '/student-bill/toyyibpay/callback',
+            'billReturnUrl' => $baseUrl . '/guardian/student-bill/toyyibpay/return',
+            'billCallbackUrl' => $baseUrl . '/guardian/student-bill/toyyibpay/callback',
             'billExternalReferenceNo' => $bill->bill_id,
             'billTo' => $guardian->first_name . ' ' . $guardian->last_name,
             'billEmail' => $guardian->email,
@@ -75,43 +75,49 @@ class ToyyibPayController extends Controller
         $billcode = $request->input('billcode');
         $msg = $request->input('msg');
 
-        // Optional: cari bill untuk display mesej
+        // Cari bill berdasarkan transaction_id (BillCode)
         $bill = BillHistory::where('transaction_id', $billcode)->first();
 
+        if (!$bill) {
+            return redirect()->route('guardian.bill.index')->with('error', 'Bil tidak ditemui.');
+        }
+
+        // Update DB berdasarkan status
         if ($status_id == 1) {
-            // Redirect ke page bil dengan mesej berjaya
             $bill->bill_status = 'Paid';
-            $bill->bill_date = Carbon::now();
+            $bill->bill_date = now();
             $bill->save();
 
             return redirect()->route('guardian.bill.index')->with('success', 'Pembayaran berjaya!');
         } else {
+            $bill->bill_status = 'Unpaid'; // atau Pending ikut keperluan
+            $bill->save();
+
             return redirect()->route('guardian.bill.index')->with('error', 'Pembayaran gagal atau dibatalkan.');
         }
     }
 
-
     // Callback (ToyyibPay notifies your system)
-    public function callback(Request $request)
-    {
-        $transactionId = $request->billcode;
-        $status = $request->status; // 1 = success, 2 = failed, 3 = pending
+    // public function callback(Request $request)
+    // {
+    //     $transactionId = $request->billcode;
+    //     $status = $request->status; // 1 = success, 2 = failed, 3 = pending
 
-        $bill = BillHistory::where('transaction_id', $transactionId)->first();
+    //     $bill = BillHistory::where('transaction_id', $transactionId)->first();
 
-        if ($bill) {
-            if ($status == 1) {
-                $bill->bill_status = 'Paid';
-                $bill->bill_date = Carbon::now();
-            } elseif ($status == 2) {
-                $bill->bill_status = 'Unpaid';
-            } else {
-                $bill->bill_status = 'Pending';
-            }
+    //     if ($bill) {
+    //         if ($status == 1) {
+    //             $bill->bill_status = 'Paid';
+    //             $bill->bill_date = Carbon::now();
+    //         } elseif ($status == 2) {
+    //             $bill->bill_status = 'Unpaid';
+    //         } else {
+    //             $bill->bill_status = 'Pending';
+    //         }
 
-            $bill->save();
-        }
+    //         $bill->save();
+    //     }
 
-        return response()->json(['status' => 'ok']);
-    }
+    //     return response()->json(['status' => 'ok']);
+    // }
 }
