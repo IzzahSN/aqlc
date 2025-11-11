@@ -26,7 +26,7 @@ class ToyyibPayController extends Controller
             : 'https://assiraaj.amirul-hub.com';
 
         // Call ToyyibPay API to create bill
-        $response = Http::asForm()->post('https://toyyibpay.com/index.php/api/createBill', [
+        $response = Http::asForm()->post('https://dev.toyyibpay.com/index.php/api/createBill', [
             'userSecretKey' => env('TOYYIBPAY_SECRET'),
             'categoryCode' => env('TOYYIBPAY_CATEGORY'),
             'billName' => Str::limit(
@@ -60,7 +60,7 @@ class ToyyibPayController extends Controller
             $bill->guardian_id = $guardianId;
             $bill->save();
 
-            return redirect('https://toyyibpay.com/' . $billCode);
+            return redirect('https://dev.toyyibpay.com/' . $billCode);
         } else {
             // dd($data);
             return back()->with('error', 'Unable to create ToyyibPay bill.');
