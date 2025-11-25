@@ -1,4 +1,4 @@
-<x-tutor-layout :title="'Profile'">
+<x-tutor-layout :title="'Kemaskini Profil'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->

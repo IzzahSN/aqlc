@@ -1,4 +1,4 @@
-<x-tutor-layout :title="'Dashboard'">
+<x-tutor-layout :title="'Papan Pemuka'">
     <!-- Welcome Banner -->
     <div class="relative p-6 sm:p-8 rounded-xl shadow-lg 
                 bg-gradient-to-r from-green-600 to-emerald-700 mb-8 overflow-hidden">

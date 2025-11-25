@@ -1,15 +1,15 @@
-<x-tutor-layout :title="'Schedule'">
+<x-tutor-layout :title="'Kehadiran'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Attendance Report</h2>
+        <h2 class="text-xl font-medium text-gray-800">Laporan Kehadiran</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Schedule</a></li>
+                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Jadual</a></li>
                 <li>/</li>
-                <li>Attendance</li>
+                <li>Kehadiran</li>
             </ol>
         </nav>
     </div>
@@ -24,20 +24,20 @@
             <!-- Header -->
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h2 class="text-lg font-semibold">List of Report</h2>
-                    <p class="text-sm text-gray-500">Manage your report: search, filter and update.</p>
+                    <h2 class="text-lg font-semibold">Senarai Kehadiran</h2>
+                    <p class="text-sm text-gray-500">Urus laporan kehadiran anda: cari, tapis dan kemas kini.</p>
                 </div>
                 <div>
                     <!-- if student ganti kelas -->
                     <button type="button"
                         class="px-4 py-2 text-sm rounded-lg bg-yellow-400 text-white hover:bg-yellow-500"
                         data-modal-target="addStudentModal" data-modal-toggle="addStudentModal">
-                        + Add Student
+                        + Tambah Pelajar
                     </button>
 
                     <button type="submit"
                         class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                        Allocate Attendance
+                        Kemas Kini Kehadiran
                     </button>
                 </div>
             </div>
@@ -60,11 +60,11 @@
                 <table id="attendanceTable" class="min-w-full text-sm text-left text-gray-600">
                     <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                         <tr>
-                            <th class="px-4 py-3">No</th>
-                            <th class="px-4 py-3">Student Name</th>
-                            <th class="px-4 py-3">Remark</th>
-                            <th class="px-4 py-3 text-center">Attendance</th>
-                            <th class="px-4 py-3 text-center">Action</th>
+                            <th class="px-4 py-3">Bil</th>
+                            <th class="px-4 py-3">Nama Pelajar</th>
+                            <th class="px-4 py-3">Catatan</th>
+                            <th class="px-4 py-3 text-center">Kehadiran</th>
+                            <th class="px-4 py-3 text-center">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody id="attendanceBody">
@@ -107,7 +107,7 @@
                                     data-id="{{ $attendance->attendance_id }}"
                                     data-schedule-id="{{ $attendance->schedule_id }}"
                                     @if ($attendance->status == 1) disabled @endif>
-                                    Delete
+                                    Padam
                                 </button>
                             </td>
                             </tr>
@@ -126,17 +126,17 @@
                             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
                             Swal.fire({
-                                title: "Are you sure?",
-                                text: "This attendance record will be deleted.",
+                                title: "Adakah anda pasti?",
+                                text: "Rekod kehadiran ini akan dipadamkan.",
                                 icon: "warning",
                                 showCancelButton: true,
                                 confirmButtonColor: "#3085d6",
                                 cancelButtonColor: "#d33",
-                                confirmButtonText: "Yes, delete it!",
-                                cancelButtonText: "Cancel"
+                                confirmButtonText: "Padam",
+                                cancelButtonText: "Batal"
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    fetch(`/admin/schedule/${scheduleId}/attendance/${attendanceId}`, {
+                                    fetch(`/tutor/report/${scheduleId}/attendance/${attendanceId}`, {
                                         method: 'DELETE',
                                         headers: {
                                             'X-CSRF-TOKEN': token,
@@ -146,16 +146,16 @@
                                     })
                                     .then(response => {
                                         if (!response.ok) {
-                                            throw new Error("Network response was not ok");
+                                            throw new Error("Rangkaian tidak berfungsi");
                                         }
                                         return response.text(); // handle redirect or JSON
                                     })
                                     .then(data => {
-                                        Swal.fire("Deleted!", "Attendance record deleted successfully.", "success");
+                                        Swal.fire("Berjaya!", "Rekod kehadiran telah dipadamkan.", "success");
                                         setTimeout(() => location.reload(), 1000);
                                     })
                                     .catch(err => {
-                                        Swal.fire("Error!", "Failed to delete attendance.", "error");
+                                        Swal.fire("Ralat!",  "Gagal memadam kehadiran. Sila cuba lagi.", "error");
                                         console.error(err);
                                     });
                                 }
@@ -165,7 +165,7 @@
                 });
                 </script>
 
-                <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+                <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
             </div>
 
             <!-- Pagination Info -->
@@ -212,7 +212,7 @@
 
             const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
             const end = Math.min(currentPage * rowsPerPage, totalRows);
-            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+            entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
             pagination.innerHTML = "";
 
@@ -273,7 +273,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add Student</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Tambah Pelajar</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addStudentModal">✕</button>
             </div>
 
@@ -282,9 +282,9 @@
                 @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div>
-                        <label for="student_id" class="block mb-2 text-sm font-medium text-gray-900">Select Student</label>
+                        <label for="student_id" class="block mb-2 text-sm font-medium text-gray-900">Pilih Nama Pelajar</label>
                         <select id="student_id" name="student_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            <option value="">Select Student</option>
+                            <option value="">Pilih Pelajar</option>
                             @foreach($students as $student)
                                 <option value="{{ $student->student_id }}">{{ $student->first_name }} {{ $student->last_name }} (ID: {{ $student->student_id }})</option>
                             @endforeach
@@ -294,9 +294,9 @@
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addStudentModal">Cancel</button>
+                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addStudentModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Hantar</button>
                 </div>
             </form>
         </div>

@@ -1,15 +1,15 @@
-<x-tutor-layout :title="'Report'">
+<x-tutor-layout :title="'Laporan Prestasi Pelajar'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Grade Report</h2>
+        <h2 class="text-xl font-medium text-gray-800">Laporan Prestasi</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Report</a></li>
+                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Jadual</a></li>
                 <li>/</li>
-                <li>Grade</li>
+                <li>Laporan Prestasi</li>
             </ol>
         </nav>
     </div>
@@ -23,17 +23,17 @@
             <!-- Header -->
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h2 class="text-lg font-semibold">List of Grade</h2>
-                    <p class="text-sm text-gray-500">Manage your grade: search, filter and update.</p>
+                    <h2 class="text-lg font-semibold">Senarai Laporan</h2>
+                    <p class="text-sm text-gray-500">Uruskan prestasi pelajar anda: cari, tapis dan kemaskini.</p>
                 </div>
-                <button type="submit" class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">Allocate Grade</button>
+                <button type="submit" class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">Kemaskini Prestasi</button>
             </div>
 
             <!-- Search + Filter -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                 <!-- Search -->
                 <div class="relative w-full sm:w-full">
-                    <input type="text" id="searchInput" placeholder="Search by name or ID"
+                    <input type="text" id="searchInput" placeholder="Cari pelajar..."
                         class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                     <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -43,7 +43,7 @@
                 </div>
                 <!-- Filter by Grade -->
                 <select id="filterGrade" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                    <option value="">All Grades</option>
+                    <option value="">Semua Gred</option>
                     <option value="Mumtaz">Mumtaz</option>
                     <option value="Jayyid Jiddan">Jayyid Jiddan</option>
                     <option value="Jayyid">Jayyid</option>
@@ -56,15 +56,15 @@
                 <table id="gradeTable" class="min-w-full text-sm text-left text-gray-600">
                     <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                         <tr>
-                            <th class="px-4 py-3">No</th>
-                            <th class="px-4 py-3">Student Name</th>
-                            <th class="px-4 py-3">Past Recitation</th>
-                            <th class="px-4 py-3">Level</th>
-                            <th class="px-4 py-3">Recitation</th>
-                            <th class="px-4 py-3">Page</th>
-                            <th class="px-4 py-3">Grade</th>
-                            <th class="px-4 py-3">Remark</th>
-                            <th class="px-4 py-3">Action</th>
+                            <th class="px-4 py-3">Bil</th>
+                            <th class="px-4 py-3">Nama Pelajar</th>
+                            <th class="px-4 py-3">Bacaan Terkini</th>
+                            <th class="px-4 py-3">Pangkat</th>
+                            <th class="px-4 py-3">Bacaan</th>
+                            <th class="px-4 py-3">Muka Surat</th>
+                            <th class="px-4 py-3">Gred</th>
+                            <th class="px-4 py-3">Catatan</th>
+                            <th class="px-4 py-3">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody id="gradeBody">
@@ -104,9 +104,9 @@
                                         @endphp
                                         
                                         @if ($pastProgress && $pastProgress->recitationModule)
-                                            {{ $pastProgress->recitationModule->recitation_name }}, Page: {{ $pastProgress->page_number }}
+                                            {{ $pastProgress->recitationModule->recitation_name }}, m/s: {{ $pastProgress->page_number }}
                                         @else
-                                            No Past Recitation
+                                            Tiada Bacaan Terkini
                                         @endif
                                     @else
                                         -
@@ -128,7 +128,7 @@
                                      <select name="level_type[]" 
                                         class="level-select border rounded-lg px-3 py-1 text-sm w-full"
                                         data-index="{{ $loop->index }}">
-                                        <option value="">Select Level</option>
+                                        <option value="">Pilih Pangkat</option>
                                         @foreach ($modules->pluck('level_type')->unique() as $level)
                                             <option value="{{ $level }}" 
                                                 {{ $studentProgress->recitationModule && $studentProgress->recitationModule->level_type == $level ? 'selected' : '' }}>
@@ -147,7 +147,7 @@
                                         <select name="recitation_module_id[]" 
                                             class="recitation-select border rounded-lg px-3 py-1 text-sm w-full"
                                             data-index="{{ $loop->index }}">
-                                            <option value="">Select Recitation</option>
+                                            <option value="">Pilih Bacaan</option>
                                             @foreach ($modules as $module)
                                                 <option value="{{ $module->recitation_module_id }}"
                                                     data-level="{{ $module->level_type }}"
@@ -180,7 +180,7 @@
                                         <span>{{ $studentProgress->grade ?? '-' }}</span>
                                     @else
                                         <select name="grade[]" class="border rounded-lg px-3 py-1 text-sm w-full">
-                                            <option value="">Select Grade</option>
+                                            <option value="">Pilih Gred</option>
                                             <option value="Mumtaz" {{ $studentProgress->grade == 'Mumtaz' ? 'selected' : '' }}>Mumtaz</option>
                                             <option value="Jayyid Jiddan" {{ $studentProgress->grade == 'Jayyid Jiddan' ? 'selected' : '' }}>Jayyid Jiddan</option>
                                             <option value="Jayyid" {{ $studentProgress->grade == 'Jayyid' ? 'selected' : '' }}>Jayyid</option>
@@ -227,7 +227,7 @@
                     </tbody>
                 </table>
                 <!-- No Record Message -->
-                <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+                <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod ditemui</div>
             </div>
              <!-- Pagination (manual JS) -->
             <div class="flex flex-col sm:flex-row items-center justify-between mt-4 text-sm text-gray-600">
@@ -289,7 +289,7 @@
             // entries info
             const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
             const end = Math.min(currentPage * rowsPerPage, totalRows);
-            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+            entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
             // build pagination buttons
             pagination.innerHTML = "";
@@ -351,8 +351,10 @@
                     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
                     Swal.fire({
-                        title: "Are you sure?",
-                        text: "This progress record will be deleted.",
+                        // title: "Are you sure?",
+                        title: "Adakah anda pasti?",
+                        // text: "This progress record will be deleted.",
+                        text: "Rekod kemajuan ini akan dipadamkan.",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#3085d6",
@@ -372,14 +374,17 @@
                             .then(response => response.json())
                             .then(data => {
                                 if (data.status === 'success') {
-                                    Swal.fire("Deleted!", data.message, "success");
+                                    // Swal.fire("Deleted!", data.message, "success");
+                                    Swal.fire("Berjaya!", data.message, "success");
                                     setTimeout(() => location.reload(), 1000);
                                 } else {
-                                    Swal.fire("Error!", data.message, "error");
+                                    // Swal.fire("Error!", data.message, "error");
+                                    Swal.fire("Ralat!", data.message, "error");
                                 }
                             })
                             .catch(err => {
-                                Swal.fire("Error!", "Failed to delete progress record.", "error");
+                                // Swal.fire("Error!", "Failed to delete progress record.", "error");
+                                Swal.fire("Ralat!", "Gagal memadam rekod kemajuan.", "error");
                                 console.error(err);
                             });
                         }
@@ -460,8 +465,10 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Invalid Page Number',
-                            text: `Page number must be between ${min} and ${max}.`,
+                            // title: 'Invalid Page Number',
+                            title: 'Nombor Muka Surat Tidak Sah',
+                            // text: `Page number must be between ${min} and ${max}.`,
+                            text: `Nombor muka surat mesti antara ${min} dan ${max}.`,
                             confirmButtonColor: '#16a34a',
                             confirmButtonText: 'Okay',
                             timer: 2500
@@ -498,7 +505,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Module</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Tambah Bacaan</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200"
                     data-modal-hide="addStudentModal">✕</button>
             </div>
@@ -515,7 +522,7 @@
 
                         {{-- Student Name (readonly) --}}
                         <div>
-                            <label class="block mb-2 text-sm font-medium text-gray-900">Student Name</label>
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Nama Pelajar</label>
                             <input type="text" id="modal_student_name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                 readonly />
@@ -524,10 +531,10 @@
                         {{-- Level --}}
                         <div>
                             <label for="modal_level_type"
-                                class="block mb-2 text-sm font-medium text-gray-900">Level</label>
+                                class="block mb-2 text-sm font-medium text-gray-900">Pangkat</label>
                             <select name="level_type" id="modal_level_type"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
-                                <option value="">Select Level</option>
+                                <option value="">Pilih Pangkat</option>
                                 @foreach ($modules->pluck('level_type')->unique() as $level)
                                     <option value="{{ $level }}">{{ $level }}</option>
                                 @endforeach
@@ -537,10 +544,10 @@
                         {{-- Recitation --}}
                         <div>
                             <label for="modal_recitation_module_id"
-                                class="block mb-2 text-sm font-medium text-gray-900">Recitation</label>
+                                class="block mb-2 text-sm font-medium text-gray-900">Bacaan</label>
                             <select name="recitation_module_id" id="modal_recitation_module_id"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
-                                <option value="">Select Recitation</option>
+                                <option value="">Pilih Bacaan</option>
                                 @foreach ($modules as $module)
                                     <option value="{{ $module->recitation_module_id }}"
                                         data-level="{{ $module->level_type }}"
@@ -555,7 +562,7 @@
                         {{-- Page --}}
                         <div>
                             <label for="modal_page_number"
-                                class="block mb-2 text-sm font-medium text-gray-900">Page</label>
+                                class="block mb-2 text-sm font-medium text-gray-900">Muka Surat</label>
                             <input type="number" name="page_number" id="modal_page_number"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                 placeholder="Page..." />
@@ -564,10 +571,10 @@
 
                         {{-- Grade --}}
                         <div>
-                            <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Grade</label>
+                            <label for="grade" class="block mb-2 text-sm font-medium text-gray-900">Gred</label>
                             <select name="grade" id="grade"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
-                                <option value="">Select Grade</option>
+                                <option value="">Pilih Gred</option>
                                 <option value="Mumtaz">Mumtaz</option>
                                 <option value="Jayyid Jiddan">Jayyid Jiddan</option>
                                 <option value="Jayyid">Jayyid</option>
@@ -578,7 +585,7 @@
 
                         {{-- Remark --}}
                         <div>
-                            <label for="remark" class="block mb-2 text-sm font-medium text-gray-900">Remark</label>
+                            <label for="remark" class="block mb-2 text-sm font-medium text-gray-900">Catatan</label>
                             <input type="text" name="remark" id="remark"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                 placeholder="Remark..." />
@@ -590,11 +597,11 @@
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
                     <button type="button"
                         class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300"
-                        data-modal-hide="addStudentModal">Cancel</button>
+                        data-modal-hide="addStudentModal">Batal</button>
 
                     <button type="submit" id="submitForm"
                         class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">
-                        Submit
+                        Hantar
                     </button>
                 </div>
             </form>
@@ -652,7 +659,8 @@
                     pageInput.min = min;
                     pageInput.max = max;
                     pageInput.placeholder = `${min}-${max}`;
-                    pageHint.textContent = `Allowed pages: ${min} — ${max}`;
+                    // pageHint.textContent = `Allowed pages: ${min} — ${max}`;
+                    pageHint.textContent = `Muka surat dibenarkan: ${min} — ${max}`;
                     pageInput.value = '';
                 } else {
                     pageInput.removeAttribute('min');
@@ -672,8 +680,10 @@
                     this.value = '';
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Invalid Page Number',
-                        text: `Page number must be between ${min} and ${max}.`,
+                        // title: 'Invalid Page Number',
+                        title: 'Nombor Muka Surat Tidak Sah',
+                        // text: `Page number must be between ${min} and ${max}.`,
+                        text: `Nombor muka surat mesti antara ${min} dan ${max}.`,
                         confirmButtonColor: '#16a34a',
                         timer: 2500
                     });

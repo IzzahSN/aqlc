@@ -2,7 +2,7 @@
     <!-- Navbar Component -->
     <div class="flex items-center justify-between px-6 py-2 bg-white shadow-sm">
         <!-- Left: Title -->
-        <h1 class="text-xl font-bold">{{ $title ?? 'Dashboard' }}</h1>
+        <h1 class="text-xl font-bold">{{ $title ?? 'Papan Pemuka' }}</h1>
 
         <!-- Right: Search, Notification, Profile -->
         <div class="flex items-center gap-4">
@@ -53,7 +53,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15" />
                                 </svg>
-                                <span>Edit Profile</span>
+                                <span>Kemaskini Profil</span>
                             </a>
                         </li>
                          <li>
@@ -63,7 +63,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
                                 </svg>
-                                <span>Sign Out</span>
+                                <span>Log Keluar</span>
                             </a>
                         </li>
                         <script>

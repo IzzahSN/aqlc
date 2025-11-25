@@ -1,11 +1,11 @@
-<x-tutor-layout :title="'Report'">
+<x-tutor-layout :title="'Laporan Prestasi'">
     <!-- Report List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Report</h2>
-                <p class="text-sm text-gray-500">Manage your report: search, filter and update.</p>
+                <h2 class="text-lg font-semibold">Senarai Laporan</h2>
+                <p class="text-sm text-gray-500">Urus laporan anda: cari, tapis dan kemaskini.</p>
             </div>
         </div>
 
@@ -13,7 +13,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
              <!-- Search -->
             <div class="relative w-full sm:w-full">
-                <input type="text" id="searchInput" placeholder="Search by name or ID"
+                <input type="text" id="searchInput" placeholder="Cari mengikut nama kelas"
                     class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
                 <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
@@ -25,18 +25,21 @@
             <input type="date" id="filterDate" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto" placeholder="Filter by date">
         </div>
 
+        <!-- Pilih Kelas -->
+        {{-- caraousel selection mengikut nama kelas yang unique --}}
+
         <!-- Table -->
         <div class="overflow-x-auto">
             <table class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Class Name</th>
-                        <th class="px-4 py-3">Package Type</th>
-                        <th class="px-4 py-3">Start Time</th>
-                        <th class="px-4 py-3">End Time</th>
-                        <th class="px-4 py-3">Date</th>
-                        <th class="px-4 py-3 text-center">Action</th>
+                        <th class="px-4 py-3">Bil</th>
+                        <th class="px-4 py-3">Nama Kelas</th>
+                        <th class="px-4 py-3">Jenis Pakej</th>
+                        <th class="px-4 py-3">Masa Mula</th>
+                        <th class="px-4 py-3">Masa Tamat</th>
+                        <th class="px-4 py-3">Tarikh</th>
+                        <th class="px-4 py-3 text-center">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="reportBody">
@@ -50,16 +53,16 @@
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->class->end_time)->format('H:i:i') }}</td>
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <a href="{{ route('tutor.report.attendance.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Attendance</a>
-                            <a href="{{ route('tutor.report.grade.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>
-                            <a href="{{ route('tutor.report.lesson-plan.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>
+                            <a href="{{ route('tutor.report.attendance.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300">Kehadiran</a>
+                            <a href="{{ route('tutor.report.grade.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-500 text-white hover:bg-yellow-600">Laporan Prestasi</a>
+                            <a href="{{ route('tutor.report.lesson-plan.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Pelan Pengajian</a>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
             <!-- No Records Message -->
-            <div id="noRecord" class="hidden text-center py-4 text-gray-500">No records found.</div>
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
         </div>
 
          <!-- Pagination (manual JS) -->
@@ -126,7 +129,7 @@
                 // entries info
                 const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                 const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                 // build pagination buttons
                 pagination.innerHTML = "";
