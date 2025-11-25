@@ -41,7 +41,7 @@
 
                 <div>
                     <label for="email" class="text-sm font-medium text-gray-700">E-mel</label>
-                    <input type="email" id="email" name="email" placeholder="contoh@gmail.com"
+                    <input type="email" id="email" name="email" placeholder="nama@gmail.com"
                         class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg" required>
                 </div>
 

@@ -37,7 +37,7 @@ class StudentGuardianController extends Controller
         $student = Student::where('ic_number', $request->ic_number)->first();
 
         if (!$student) {
-            return back()->with('error', 'Student IC not found.');
+            return back()->with('error', 'Nombor Kad Pengenalan pelajar tidak dijumpai.');
         }
 
         // check kalau dah wujud
@@ -46,7 +46,7 @@ class StudentGuardianController extends Controller
             ->exists();
 
         if ($exists) {
-            return back()->with('error', 'This student is already linked to the guardian.');
+            return back()->with('error', 'Pelajar ini telahpun dikaitkan dengan penjaga.');
         }
 
         // create record
@@ -56,7 +56,7 @@ class StudentGuardianController extends Controller
             'relationship_type' => $request->relationship_type,
         ]);
 
-        return redirect()->back()->with('success', 'Child added successfully.')->with('closemodalAddChildren', true);
+        return redirect()->back()->with('success', 'Anak berjaya ditambahkan.')->with('closemodalAddChildren', true);
     }
 
     // Delete child link
@@ -69,7 +69,7 @@ class StudentGuardianController extends Controller
 
         $studentGuardian->delete(); // soft delete
 
-        return redirect()->route('admin.guardian.index')->with('success', 'Child removed successfully.');
+        return redirect()->route('admin.guardian.index')->with('success', 'Anak berjaya dibuang.');
     }
 
     public function guardianAddChild(Request $request)

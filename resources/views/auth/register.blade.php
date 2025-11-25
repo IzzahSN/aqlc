@@ -36,7 +36,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">E-mel</label>
-                        <input type="email" id="email" name="email" placeholder="contoh@gmail.com"
+                        <input type="email" id="email" name="email" placeholder="nama@gmail.com"
                             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" required>
                     </div>
                     <div>
