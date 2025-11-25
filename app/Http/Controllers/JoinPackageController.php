@@ -24,7 +24,8 @@ class JoinPackageController extends Controller
             return redirect()->route('admin.student.package.edit', [
                 'studentId' => $student->student_id,
                 'id' => $student->joinPackage->package_id
-            ])->with('warning', 'Student already has a package. Redirected to edit.');
+                // ])->with('warning', 'Student already has a package. Redirected to edit.');
+            ])->with('warning', 'Pelajar telahpun mempunyai pakej. Dialihkan ke halaman sunting.');
         }
         $packages = Package::with('classes')->get();
         return view('admin.record.student_create_package', compact('packages', 'student'));
@@ -40,7 +41,8 @@ class JoinPackageController extends Controller
             return redirect()->route('admin.student.package.edit', [
                 'studentId' => $student->student_id,
                 'id' => $student->joinPackage->package_id
-            ])->with('warning', 'Student already has a package. Redirected to edit.');
+                // ])->with('warning', 'Student already has a package. Redirected to edit.');
+            ])->with('warning', 'Pelajar telahpun mempunyai pakej. Dialihkan ke halaman sunting.');
         }
 
         $request->validate([
@@ -53,7 +55,8 @@ class JoinPackageController extends Controller
         // validate jumlah class ikut session_per_week
         if (count($request->class_ids) > $package->session_per_week) {
             return back()->withErrors([
-                'class_ids' => "You can only select {$package->session_per_week} classes for this package."
+                // 'class_ids' => "You can only select {$package->session_per_week} classes for this package."
+                'class_ids' => "Anda hanya boleh memilih {$package->session_per_week} kelas untuk pakej ini."
             ])->withInput();
         }
 
@@ -84,7 +87,8 @@ class JoinPackageController extends Controller
         }
 
         return redirect()->route('admin.student.index')
-            ->with('success', 'Package and classes added successfully!');
+            // ->with('success', 'Package and classes added successfully!');
+            ->with('success', 'Pakej dan kelas berjaya ditambahkan!');
     }
 
     /**
@@ -133,7 +137,8 @@ class JoinPackageController extends Controller
 
         return redirect()
             ->route('admin.student.index')
-            ->with('success', 'Student package classes updated successfully.');
+            // ->with('success', 'Student package classes updated successfully.');
+            ->with('success', 'Kelas pakej pelajar berjaya dikemaskini.');
     }
 
 
@@ -153,6 +158,7 @@ class JoinPackageController extends Controller
 
         return redirect()
             ->route('admin.student.index')
-            ->with('success', 'Student package and associated classes removed successfully.');
+            // ->with('success', 'Student package and associated classes removed successfully.');
+            ->with('success', 'Pakej pelajar dan kelas berkaitan berjaya dibuang.');
     }
 }

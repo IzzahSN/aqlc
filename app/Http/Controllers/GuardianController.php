@@ -57,7 +57,8 @@ class GuardianController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->back()->with('success', 'Guardian added successfully!')->with('closeModalAdd', true);
+        // return redirect()->back()->with('success', 'Guardian added successfully!')->with('closeModalAdd', true);
+        return redirect()->back()->with('success', 'Penjaga berjaya ditambahkan!')->with('closeModalAdd', true);
     }
 
     /**
@@ -88,7 +89,8 @@ class GuardianController extends Controller
         ]);
 
         $guardian->update($request->all());
-        return redirect()->back()->with('success', 'Guardiab updated successfullly!')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Guardian updated successfullly!')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Penjaga berjaya dikemaskini!')->with('closeModalEdit', true);
     }
 
     /**
@@ -99,9 +101,11 @@ class GuardianController extends Controller
         $guardian = Guardian::find($id);
         // cannot delete guardian if has student guardians
         if ($guardian->studentGuardians()->count() > 0) {
-            return redirect()->route('admin.guardian.index')->with('error', 'Cannot delete guardian with associated students.');
+            // return redirect()->route('admin.guardian.index')->with('error', 'Cannot delete guardian with associated students.');
+            return redirect()->route('admin.guardian.index')->with('error', 'Tidak boleh membuang penjaga yang mempunyai pelajar berkaitan.');
         }
         $guardian->delete();
-        return redirect()->route('admin.guardian.index')->with('success', 'Guardian deleted successfully.');
+        // return redirect()->route('admin.guardian.index')->with('success', 'Guardian deleted successfully.');
+        return redirect()->route('admin.guardian.index')->with('success', 'Penjaga berjaya dibuang.');
     }
 }
