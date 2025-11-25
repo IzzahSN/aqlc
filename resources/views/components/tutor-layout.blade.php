@@ -38,7 +38,8 @@
     <script>
         Swal.fire({
             icon: 'success',
-            title: 'Success',
+            // title: 'Success',
+            title: 'Berjaya',
             text: "{{ session('success') }}",
             showConfirmButton: false,
             timer: 2000
@@ -50,7 +51,8 @@
     <script>
         Swal.fire({
             icon: 'error',
-            title: 'Validation Error',
+            // title: 'Validation Error',
+            title: 'Ralat Pengesahan',
             html: `{!! implode('<br>', $errors->all()) !!}`,
         });
     </script>
@@ -60,7 +62,8 @@
     <script>
         Swal.fire({
             icon: 'error',
-            title: 'Error',
+            // title: 'Error',
+            title: 'Ralat',
             text: "{{ session('error') }}",
             showConfirmButton: true,
         });

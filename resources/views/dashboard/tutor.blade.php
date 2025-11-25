@@ -1,41 +1,56 @@
 <x-tutor-layout :title="'Dashboard'">
-    <!-- Welcome -->
-    <h2 class="text-xl font-bold mb-6">Welcome back, {{ session('username') }}!</h2>
+    <!-- Welcome Banner -->
+    <div class="relative p-6 sm:p-8 rounded-xl shadow-lg 
+                bg-gradient-to-r from-green-600 to-emerald-700 mb-8 overflow-hidden">
+        
+        <div class="absolute inset-0 opacity-10 bg-[url('/img/pattern.svg')]"></div>
+
+        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between">
+            
+            <div class="text-white mb-4 md:mb-0">
+                <h2 class="text-2xl sm:text-3xl font-bold leading-tight">Selamat Datang, {{ session('username') }}!</h2>
+                
+                <p class="mt-1 text-sm sm:text-base font-light opacity-90">
+                    Berikut adalah ringkasan aktiviti anda sebagai tutor hari ini.
+                </p>
+            </div>
+        </div>
+    </div>
 
     <!-- Tutor Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <!-- Schedule Attendance -->
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-lime-600 border-l-6 justify-between">
-            <div>
-                <p class="text-sm font-semibold text-lime-600 uppercase">Total Schedule</p>
+         <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-lime-600">
+            <div class="flex-grow">
+                <p class="text-sm font-semibold text-lime-600 uppercase tracking-wider">Jumlah Sesi Kelas</p>
                 <div class="flex items-end gap-2">
-                    <h3 class="text-2xl font-bold text-gray-500">{{ $totalSchedules }}</h3>
-                    <p class="text-xs text-gray-400 mb-1">This month</p>
+                    <h3 class="text-3xl font-extrabold text-gray-900 mt-1">{{ $totalSchedules }}</h3>
+                    <p class="text-xs text-gray-400 mb-1">Bulan ini</p>
                 </div>
             </div>
-            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-10 h-10 text-lime-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
             </svg>
         </div>
 
         <!-- Assign Class -->
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-amber-400 border-l-6 justify-between">
-            <div>
-                <p class="text-sm font-semibold text-amber-600 uppercase">Total Assigned Class</p>
-                <h3 class="text-2xl font-bold text-gray-500">{{ $totalClasses }}</h3>
+        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-amber-600">
+            <div class="flex-grow">
+                <p class="text-sm font-semibold text-amber-600 uppercase tracking-wider">Jumlah Kelas yang ditetapkan</p>
+                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">{{ $totalClasses }}</h3>
             </div>
-            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-10 h-10 text-amber-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z" clip-rule="evenodd"/>
             </svg>
         </div>
 
         <!-- Salary -->
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-red-600 border-l-6 justify-between">
-            <div>
-                <p class="text-sm font-semibold text-red-600 uppercase">Outstanding Salary</p>
-                <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($unpaidSalary, 2) }}</h3>
+        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-red-600">
+            <div class="flex-grow">
+                <p class="text-sm font-semibold text-red-600 uppercase tracking-wider">Jumlah Gaji Tertunggak</p>
+                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">RM{{ number_format($unpaidSalary, 2) }}</h3>
             </div>
-            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-10 h-10 text-red-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M9 2a1 1 0 0 0-1 1H6a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a1 1 0 0 0-1-1H9Zm1 2h4v2h1a1 1 0 1 1 0 2H9a1 1 0 0 1 0-2h1V4Zm5.707 8.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
             </svg>
         </div>
@@ -46,7 +61,8 @@
         <!-- Salary Report -->
         <div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">Salary Report</h3>
+                {{-- <h3 class="font-semibold">Salary Report</h3> --}}
+                <h3 class="font-semibold text-gray-800">Laporan Gaji Bulanan</h3>
                 <select id="yearFilter" class="text-sm border rounded-lg px-3 py-1">
                     @foreach ($salaryYears as $year)
                         <option value="{{ $year->salary_year }}">{{ $year->salary_year }}</option>
@@ -71,7 +87,8 @@
                 const data = {
                     labels: labels,
                     datasets: [{
-                        label: `Total Salary (RM) for ${result.year}`,
+                        // label: `Total Salary (RM) for ${result.year}`,
+                        label: `Jumlah Gaji (RM) untuk Tahun ${result.year}`,
                         data: result.data,
                         borderColor: '#16a34a',
                         backgroundColor: 'rgba(22,163,74,0.2)',
@@ -136,14 +153,15 @@
         <!-- Upcoming Sessions Section -->
         <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold text-gray-800">Upcoming Sessions</h3>
+                {{-- <h3 class="font-semibold text-gray-800">Upcoming Sessions</h3> --}}
+                <h3 class="font-semibold text-gray-800">Sesi Akan Datang</h3>
             </div>
 
             <!-- Scrollable container -->
             <div class="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
                 @forelse ($schedules as $schedule)
                     <a href="{{ route('tutor.report.attendance.index', $schedule->schedule_id) }}"
-                        class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
+                        class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-gradient-to-r from-green-600 to-emerald-700 transition cursor-pointer">
                         
                         <div class="flex items-center gap-3">
                             <!-- Calendar Icon -->
@@ -183,7 +201,8 @@
                 @empty
                     <div class="text-center py-6 text-gray-500 text-sm bg-gray-50 rounded-lg border border-dashed">
                         <i class="fas fa-calendar-times text-2xl text-gray-400 mb-2"></i>
-                        <p>No upcoming sessions scheduled.</p>
+                        {{-- <p>No upcoming sessions scheduled.</p> --}}
+                        <p>Tiada sesi akan datang yang dijadualkan.</p>
                     </div>
                 @endforelse
             </div>
