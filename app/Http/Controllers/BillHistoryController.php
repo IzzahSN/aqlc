@@ -150,7 +150,7 @@ class BillHistoryController extends Controller
             $billHistory->save();
         }
 
-        return redirect()->back()->with('success', 'Bill histories updated successfully.');
+        return redirect()->back()->with('success', 'Rekod bil gaji berjaya dikemaskini.');
     }
 
     public function indexStudentBill($id)
@@ -320,7 +320,7 @@ class BillHistoryController extends Controller
             $billHistory->save();
         }
 
-        return redirect()->back()->with('success', 'Bill histories updated successfully.');
+        return redirect()->back()->with('success', 'Rekod bil pelajar berjaya dikemaskini.');
     }
 
     public function guardianBillView()

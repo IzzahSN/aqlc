@@ -33,7 +33,7 @@ class AttendanceController extends Controller
         $schedule = Schedule::find($id);
 
         if (!$schedule) {
-            return redirect()->back()->with('error', 'Schedule not found.')->with('openModalAdd', true);
+            return redirect()->back()->with('error', 'Jadual tidak dijumpai.')->with('openModalAdd', true);
         }
 
         $exists = Attendance::where('schedule_id', $id)
@@ -41,7 +41,7 @@ class AttendanceController extends Controller
             ->exists();
 
         if ($exists) {
-            return redirect()->back()->with('error', 'Student already added to this schedule.')->with('openModalAdd', true);
+            return redirect()->back()->with('error', 'Pelajar telahpun ditambahkan ke dalam jadual ini.')->with('openModalAdd', true);
         }
 
         Attendance::create([
@@ -52,7 +52,7 @@ class AttendanceController extends Controller
             'remark' => null,
         ]);
 
-        return redirect()->back()->with('success', 'Student added successfully!')->with('closeModalAdd', true);
+        return redirect()->back()->with('success', 'Pelajar berjaya ditambahkan!')->with('closeModalAdd', true);
     }
 
     /**
@@ -92,7 +92,7 @@ class AttendanceController extends Controller
             }
         }
 
-        return back()->with('success', 'Attendance records updated successfully.');
+        return back()->with('success', 'Rekod kehadiran berjaya dikemaskini.');
     }
 
     /**
@@ -105,16 +105,16 @@ class AttendanceController extends Controller
             ->first();
 
         if (!$attendance) {
-            return response()->json(['status' => 'error', 'message' => 'Attendance record not found.'], 404);
+            return response()->json(['status' => 'error', 'message' => 'Rekod kehadiran tidak dijumpai.'], 404);
         }
 
         if ($attendance->status == 1) {
-            return response()->json(['status' => 'error', 'message' => 'Cannot delete attendance record. Student already marked as present.'], 400);
+            return response()->json(['status' => 'error', 'message' => 'Tidak boleh membuang rekod kehadiran. Pelajar telahpun ditanda hadir.'], 400);
         }
 
         $attendance->delete();
 
-        return response()->json(['status' => 'success', 'message' => 'Attendance record deleted successfully.']);
+        return response()->json(['status' => 'success', 'message' => 'Rekod kehadiran berjaya dibuang.']);
     }
 
     public function tutorIndex($id)
@@ -134,7 +134,7 @@ class AttendanceController extends Controller
         $schedule = Schedule::find($id);
 
         if (!$schedule) {
-            return redirect()->back()->with('error', 'Schedule not found.')->with('openModalAdd', true);
+            return redirect()->back()->with('error', 'Jadual tidak dijumpai.')->with('openModalAdd', true);
         }
 
         $exists = Attendance::where('schedule_id', $id)
@@ -142,7 +142,7 @@ class AttendanceController extends Controller
             ->exists();
 
         if ($exists) {
-            return redirect()->back()->with('error', 'Student already added to this schedule.')->with('openModalAdd', true);
+            return redirect()->back()->with('error', 'Pelajar telahpun ditambahkan ke dalam jadual ini.')->with('openModalAdd', true);
         }
 
         Attendance::create([
@@ -153,7 +153,7 @@ class AttendanceController extends Controller
             'remark' => null,
         ]);
 
-        return redirect()->back()->with('success', 'Student added successfully!')->with('closeModalAdd', true);
+        return redirect()->back()->with('success', 'Pelajar berjaya ditambahkan!')->with('closeModalAdd', true);
     }
 
     public function tutorUpdate(Request $request, $id)
@@ -190,7 +190,7 @@ class AttendanceController extends Controller
             }
         }
 
-        return back()->with('success', 'Attendance records updated successfully.');
+        return back()->with('success', 'Rekod kehadiran berjaya dikemaskini.');
     }
 
     /**
@@ -203,15 +203,15 @@ class AttendanceController extends Controller
             ->first();
 
         if (!$attendance) {
-            return response()->json(['status' => 'error', 'message' => 'Attendance record not found.'], 404);
+            return response()->json(['status' => 'error', 'message' => 'Rekod kehadiran tidak dijumpai.'], 404);
         }
 
         if ($attendance->status == 1) {
-            return response()->json(['status' => 'error', 'message' => 'Cannot delete attendance record. Student already marked as present.'], 400);
+            return response()->json(['status' => 'error', 'message' => 'Tidak boleh membuang rekod kehadiran. Pelajar telahpun ditanda hadir.'], 400);
         }
 
         $attendance->delete();
 
-        return response()->json(['status' => 'success', 'message' => 'Attendance record deleted successfully.']);
+        return response()->json(['status' => 'success', 'message' => 'Rekod kehadiran berjaya dibuang.']);
     }
 }

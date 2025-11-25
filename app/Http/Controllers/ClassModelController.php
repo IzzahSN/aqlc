@@ -100,7 +100,7 @@ class ClassModelController extends Controller
             ->exists();
 
         if ($conflict) {
-            return redirect()->back()->withErrors(['conflict' => 'Class conflict detected: Room or Tutor already assigned at this time.'])->withInput();
+            return redirect()->back()->withErrors(['conflict' => 'Konflik kelas dikesan: Bilik atau Tutor telahpun ditugaskan pada masa ini.'])->withInput();
         }
 
         // If no conflict, create class
@@ -116,7 +116,7 @@ class ClassModelController extends Controller
             'package_id' => $request->package_id,
         ]);
 
-        return redirect()->back()->with('success', 'Class created successfully!')->with('closeModalAdd', true);
+        return redirect()->back()->with('success', 'Kelas berjaya ditambah!')->with('closeModalAdd', true);
     }
 
 
@@ -180,7 +180,7 @@ class ClassModelController extends Controller
             })
             ->exists();
         if ($conflict) {
-            return redirect()->back()->withErrors(['conflict' => 'Class conflict detected: Room or Tutor already assigned at this time.'])->withInput();
+            return redirect()->back()->withErrors(['conflict' => 'Konflik kelas dikesan: Bilik atau Tutor telahpun ditugaskan pada masa ini.'])->withInput();
         }
         // If no conflict, update class
         $class->update([
@@ -196,7 +196,7 @@ class ClassModelController extends Controller
         ]);
 
         return redirect()->back()
-            ->with('success', 'Class updated successfully!')
+            ->with('success', 'Kelas berjaya dikemaskini!')
             ->with('closeModalEdit', true);
     }
 
@@ -209,6 +209,6 @@ class ClassModelController extends Controller
         $class->delete();
 
         return redirect()->route('admin.class.index')
-            ->with('success', 'Class deleted successfully.');
+            ->with('success', 'Kelas berjaya dibuang.');
     }
 }
