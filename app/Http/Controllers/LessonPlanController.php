@@ -58,7 +58,8 @@ class LessonPlanController extends Controller
         // Update record
         $lessonPlan->update($data);
 
-        return redirect()->back()->with('success', 'Lesson plan updated successfully!');
+        // return redirect()->back()->with('success', 'Lesson plan updated successfully!');
+        return redirect()->back()->with('success', 'Rancangan pelajaran berjaya dikemaskini!');
     }
 
     public function index($id)
@@ -107,6 +108,7 @@ class LessonPlanController extends Controller
         // Update record
         $lessonPlan->update($data);
 
-        return redirect()->back()->with('success', 'Lesson plan updated successfully!');
+        // return redirect()->back()->with('success', 'Lesson plan updated successfully!');
+        return redirect()->back()->with('success', 'Rancangan pelajaran berjaya dikemaskini!');
     }
 }

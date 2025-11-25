@@ -122,7 +122,8 @@ class ScheduleController extends Controller
             ->exists();
 
         if ($exists) {
-            return back()->with('error', 'This class already has a schedule on the selected date.')
+            // return back()->with('error', 'This class already has a schedule on the selected date.')
+            return back()->with('error', 'Kelas ini telahpun mempunyai jadual pada tarikh yang dipilih.')
                 ->withInput();
         }
 
@@ -130,7 +131,8 @@ class ScheduleController extends Controller
 
         // Relief tak boleh sama dengan tutor asal
         if (!empty($request->relief) && $request->relief == $class->tutor_id) {
-            return back()->with('error', 'Relief tutor cannot be the same as the main tutor.')
+            // return back()->with('error', 'Relief tutor cannot be the same as the main tutor.')
+            return back()->with('error', 'Tutor ganti tidak boleh sama dengan tutor utama.')
                 ->withInput();
         }
 
@@ -147,7 +149,8 @@ class ScheduleController extends Controller
                 ->exists();
 
             if ($teachingConflict) {
-                return back()->with('error', 'Relief tutor has a conflict with their own class schedule.')
+                // return back()->with('error', 'Relief tutor has a conflict with their own class schedule.')
+                return back()->with('error', 'Tutor ganti mempunyai konflik dengan jadual kelasnya sendiri.')
                     ->withInput();
             }
 
@@ -164,7 +167,8 @@ class ScheduleController extends Controller
                 ->exists();
 
             if ($reliefConflict) {
-                return back()->with('error', 'Relief tutor already assigned to another relief class that overlaps in time.')
+                // return back()->with('error', 'Relief tutor already assigned to another relief class that overlaps in time.')
+                return back()->with('error', 'Tutor ganti telahpun ditugaskan ke kelas ganti lain yang bertembung masa.')
                     ->withInput();
             }
         }
@@ -198,7 +202,8 @@ class ScheduleController extends Controller
             'descriptioon' => null,
         ]);
 
-        return back()->with('success', 'Class schedule created successfully.')
+        // return back()->with('success', 'Class schedule created successfully.')
+        return back()->with('success', 'Jadual kelas berjaya ditambah.')
             ->with('closeModalAdd', true);
     }
 
@@ -244,13 +249,15 @@ class ScheduleController extends Controller
             ->exists();
 
         if ($exists) {
-            return back()->with('error', 'This class already has a schedule on the selected date.')
+            // return back()->with('error', 'This class already has a schedule on the selected date.')
+            return back()->with('error', 'Kelas ini telahpun mempunyai jadual pada tarikh yang dipilih.')
                 ->withInput();
         }
 
         // 2️ Relief tak boleh sama dengan tutor asal
         if (!empty($validated['relief']) && $validated['relief'] == $class->tutor_id) {
-            return back()->with('error', 'Relief tutor cannot be the same as the main tutor.')
+            // return back()->with('error', 'Relief tutor cannot be the same as the main tutor.')
+            return back()->with('error', 'Tutor ganti tidak boleh sama dengan tutor utama.')
                 ->withInput();
         }
 
@@ -269,7 +276,8 @@ class ScheduleController extends Controller
                 ->exists();
 
             if ($teachingConflict) {
-                return back()->with('error', 'Relief tutor has a conflict with their own class schedule.')
+                // return back()->with('error', 'Relief tutor has a conflict with their own class schedule.')
+                return back()->with('error', 'Tutor ganti mempunyai konflik dengan jadual kelasnya sendiri.')
                     ->withInput();
             }
 
@@ -287,7 +295,8 @@ class ScheduleController extends Controller
                 ->exists();
 
             if ($reliefConflict) {
-                return back()->with('error', 'Relief tutor already assigned to another relief class that overlaps in time.')
+                // return back()->with('error', 'Relief tutor already assigned to another relief class that overlaps in time.')
+                return back()->with('error', 'Tutor ganti telahpun ditugaskan ke kelas ganti lain yang bertembung masa.')
                     ->withInput();
             }
         }
@@ -296,7 +305,8 @@ class ScheduleController extends Controller
         $schedule->update($validated);
 
         return redirect()->back()
-            ->with('success', 'Schedule updated successfully!')
+            // ->with('success', 'Schedule updated successfully!')
+            ->with('success', 'Jadual berjaya dikemaskini!')
             ->with('closeModalEdit', true);
     }
 

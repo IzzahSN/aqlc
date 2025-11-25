@@ -48,7 +48,8 @@ class RecitationModuleController extends Controller
             'badge' => $badgePath ?? null,
         ]);
 
-        return redirect()->back()->with('success', 'Recitation Module created successfully.')->with('closeModalAdd', true);
+        // return redirect()->back()->with('success', 'Recitation Module created successfully.')->with('closeModalAdd', true);
+        return redirect()->back()->with('success', 'Modul Bacaan berjaya ditambah.')->with('closeModalAdd', true);
     }
 
     /**
@@ -89,7 +90,8 @@ class RecitationModuleController extends Controller
         $module->end_page = $request->end_page;
         $module->save();
 
-        return redirect()->back()->with('success', 'Recitation Module updated successfully.')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Recitation Module updated successfully.')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Modul Bacaan berjaya dikemaskini.')->with('closeModalEdit', true);
     }
 
     /**
@@ -100,6 +102,7 @@ class RecitationModuleController extends Controller
         $module = RecitationModule::findOrFail($id);
         $module->delete();
 
-        return redirect()->back()->with('success', 'Recitation Module deleted successfully.');
+        // return redirect()->back()->with('success', 'Recitation Module deleted successfully.');
+        return redirect()->back()->with('success', 'Modul Bacaan berjaya dipadam.');
     }
 }

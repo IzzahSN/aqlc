@@ -63,7 +63,8 @@ class ToyyibPayController extends Controller
             return redirect('https://dev.toyyibpay.com/' . $billCode);
         } else {
             // dd($data);
-            return back()->with('error', 'Unable to create ToyyibPay bill.');
+            // return back()->with('error', 'Unable to create ToyyibPay bill.');
+            return back()->with('error', 'Tidak dapat mencipta bil ToyyibPay.');
         }
     }
 

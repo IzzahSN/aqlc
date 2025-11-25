@@ -86,7 +86,8 @@ class TutorController extends Controller
             'profile' => $profile,
         ]);
 
-        return redirect()->back()->with('success', 'Tutor added successfully!')->with('closeModalAdd', true);
+        // return redirect()->back()->with('success', 'Tutor added successfully!')->with('closeModalAdd', true);
+        return redirect()->back()->with('success', 'Tutor berjaya ditambahkan!')->with('closeModalAdd', true);
     }
 
     /**
@@ -125,7 +126,8 @@ class TutorController extends Controller
 
         if ($request->status === 'inactive' && $tutor->classes()->exists()) {
             return back()
-                ->withErrors(['status' => 'Tutor cannot be set to inactive because there are still assigned classes.'])
+                // ->withErrors(['status' => 'Tutor cannot be set to inactive because there are still assigned classes.'])
+                ->withErrors(['status' => 'Tutor tidak boleh ditetapkan kepada tidak aktif kerana masih terdapat kelas yang ditugaskan.'])
                 ->withInput();
         }
 
@@ -143,7 +145,8 @@ class TutorController extends Controller
 
         $tutor->update($data);
 
-        return redirect()->back()->with('success', 'Tutor updated successfully')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Tutor updated successfully')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Tutor berjaya dikemaskini')->with('closeModalEdit', true);
     }
 
     /**

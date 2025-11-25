@@ -61,7 +61,8 @@ class PackageController extends Controller
             'details'              => $request->details,
         ]);
 
-        return redirect()->back()->with('success', 'Package added successfully!')->with('closeModalAdd', true);
+        // return redirect()->back()->with('success', 'Package added successfully!')->with('closeModalAdd', true);
+        return redirect()->back()->with('success', 'Pakej berjaya ditambahkan!')->with('closeModalAdd', true);
     }
 
     /**
@@ -94,7 +95,8 @@ class PackageController extends Controller
         $package->update($request->all());
 
         return redirect()->back()
-            ->with('success', 'Package updated successfully!')
+            // ->with('success', 'Package updated successfully!')
+            ->with('success', 'Pakej berjaya dikemaskini!')
             ->with('closeModalEdit', true);
     }
 
@@ -107,10 +109,12 @@ class PackageController extends Controller
         // jika package ada student, tak boleh delete
         if ($package->joinPackages()->exists()) {
             return redirect()->route('admin.package.index')
-                ->withErrors(['error' => 'Cannot delete package with enrolled students.']);
+                // ->withErrors(['error' => 'Cannot delete package with enrolled students.']);
+                ->withErrors(['error' => 'Tidak boleh memadam pakej dengan pelajar yang berdaftar.']);
         }
         $package->delete();
         return redirect()->route('admin.package.index')
-            ->with('success', 'Package deleted successfully.');
+            // ->with('success', 'Package deleted successfully.');
+            ->with('success', 'Pakej berjaya dipadam.');
     }
 }

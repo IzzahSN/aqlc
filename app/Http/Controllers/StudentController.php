@@ -66,7 +66,8 @@ class StudentController extends Controller
             'status' => $request->status,
             'admission_date' => $admission_date,
         ]);
-        return redirect()->back()->with('success', 'Student added successfully!')->with('closeModalAdd', true);
+        // return redirect()->back()->with('success', 'Student added successfully!')->with('closeModalAdd', true);
+        return redirect()->back()->with('success', 'Pelajar berjaya ditambahkan!')->with('closeModalAdd', true);
     }
 
     /**
@@ -97,7 +98,8 @@ class StudentController extends Controller
         ]);
 
         $student->update($request->all());
-        return redirect()->back()->with('success', 'Student updated successfully!')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Student updated successfully!')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Pelajar berjaya dikemaskini!')->with('closeModalEdit', true);
     }
 
     /**
@@ -108,10 +110,12 @@ class StudentController extends Controller
         // cannot delete student if linked to guardian or class
         $student = Student::findOrFail($id);
         if ($student->guardians()->exists() || $student->classes()->exists()) {
-            return redirect()->back()->with('error', 'Cannot delete student linked to guardian or class.');
+            // return redirect()->back()->with('error', 'Cannot delete student linked to guardian or class.');
+            return redirect()->back()->with('error', 'Tidak boleh memadam pelajar yang dihubungkan dengan penjaga atau kelas.');
         }
         $student->delete();
-        return redirect()->route('admin.student.index')->with('success', 'Student deleted successfully.');
+        // return redirect()->route('admin.student.index')->with('success', 'Student deleted successfully.');
+        return redirect()->route('admin.student.index')->with('success', 'Pelajar berjaya dipadam.');
     }
 
     public function report($id)
@@ -188,6 +192,7 @@ class StudentController extends Controller
 
         $student->update($data);
 
-        return redirect()->back()->with('success', 'Student updated successfully!')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Student updated successfully!')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Pelajar berjaya dikemaskini!')->with('closeModalEdit', true);
     }
 }

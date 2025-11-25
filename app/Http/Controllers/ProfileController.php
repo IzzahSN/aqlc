@@ -56,7 +56,8 @@ class ProfileController extends Controller
 
         $adminProfile->update($data);
 
-        return redirect()->back()->with('success', 'Admin updated personal details successfully!')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Admin updated personal details successfully!')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Admin berjaya mengemaskini butiran peribadi!')->with('closeModalEdit', true);
     }
 
     public function updateAdminEducation(Request $request)
@@ -85,7 +86,8 @@ class ProfileController extends Controller
 
         $adminProfile->update($data);
 
-        return redirect()->back()->with('success', 'Admin updated education background successfully!')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Admin updated education background successfully!')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Admin berjaya mengemaskini latar belakang pendidikan!')->with('closeModalEdit', true);
     }
 
     public function showTutorProfile()
@@ -134,7 +136,8 @@ class ProfileController extends Controller
 
         $tutorProfile->update($data);
 
-        return redirect()->back()->with('success', 'Tutor updated personal details successfully!')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Tutor updated personal details successfully!')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Tutor berjaya mengemaskini butiran peribadi!')->with('closeModalEdit', true);
     }
 
     public function updateTutorEducation(Request $request)
@@ -163,7 +166,8 @@ class ProfileController extends Controller
 
         $tutorProfile->update($data);
 
-        return redirect()->back()->with('success', 'Tutor updated education background successfully!')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Tutor updated education background successfully!')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Tutor berjaya mengemaskini latar belakang pendidikan!')->with('closeModalEdit', true);
     }
 
     public function showGuardianProfile()
@@ -206,6 +210,7 @@ class ProfileController extends Controller
 
         $guardianProfile->update($data);
 
-        return redirect()->back()->with('success', 'Guardian updated personal details successfully!')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Guardian updated personal details successfully!')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Penjaga berjaya mengemaskini butiran peribadi!')->with('closeModalEdit', true);
     }
 }

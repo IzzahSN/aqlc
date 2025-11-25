@@ -59,7 +59,8 @@ class StudentProgressController extends Controller
         $module = RecitationModule::find($validated['recitation_module_id']);
         if ($module && ($validated['page_number'] < $module->start_page || $validated['page_number'] > $module->end_page)) {
             return redirect()->back()
-                ->withErrors(['page_number' => "Page must be between {$module->start_page} and {$module->end_page}"])
+                // ->withErrors(['page_number' => "Page must be between {$module->start_page} and {$module->end_page}"])
+                ->withErrors(['page_number' => "Muka surat mesti antara {$module->start_page} dan {$module->end_page}"])
                 ->withInput();
         }
 
@@ -129,7 +130,8 @@ class StudentProgressController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Student progress added successfully.');
+        // return redirect()->back()->with('success', 'Student progress added successfully.');
+        return redirect()->back()->with('success', 'Kemajuan pelajar berjaya ditambah.');
     }
 
 
@@ -221,7 +223,8 @@ class StudentProgressController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Student grades updated successfully.');
+        // return redirect()->back()->with('success', 'Student grades updated successfully.');
+        return redirect()->back()->with('success', 'Gred pelajar berjaya dikemaskini.');
     }
 
 
@@ -240,7 +243,8 @@ class StudentProgressController extends Controller
             if (!$studentProgress) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Student progress not found.'
+                    // 'message' => 'Student progress not found.'
+                    'message' => 'Kemajuan pelajar tidak dijumpai.'
                 ], 404);
             }
 
@@ -305,12 +309,14 @@ class StudentProgressController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Student progress deleted successfully.'
+                // 'message' => 'Student progress deleted successfully.'
+                'message' => 'Kemajuan pelajar berjaya dibuang.'
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to delete student progress: ' . $e->getMessage()
+                // 'message' => 'Failed to delete student progress: ' . $e->getMessage()
+                'message' => 'Gagal membuang kemajuan pelajar: ' . $e->getMessage()
             ], 500);
         }
     }
@@ -360,7 +366,8 @@ class StudentProgressController extends Controller
         $module = RecitationModule::find($validated['recitation_module_id']);
         if ($module && ($validated['page_number'] < $module->start_page || $validated['page_number'] > $module->end_page)) {
             return redirect()->back()
-                ->withErrors(['page_number' => "Page must be between {$module->start_page} and {$module->end_page}"])
+                // ->withErrors(['page_number' => "Page must be between {$module->start_page} and {$module->end_page}"])
+                ->withErrors(['page_number' => "Muka surat mesti antara {$module->start_page} dan {$module->end_page}"])
                 ->withInput();
         }
 
@@ -430,7 +437,8 @@ class StudentProgressController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Student progress added successfully.');
+        // return redirect()->back()->with('success', 'Student progress added successfully.');
+        return redirect()->back()->with('success', 'Kemajuan pelajar berjaya ditambah.');
     }
 
 
@@ -522,7 +530,8 @@ class StudentProgressController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Student grades updated successfully.');
+        // return redirect()->back()->with('success', 'Student grades updated successfully.');
+        return redirect()->back()->with('success', 'Gred pelajar berjaya dikemaskini.');
     }
 
 
@@ -541,7 +550,8 @@ class StudentProgressController extends Controller
             if (!$studentProgress) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Student progress not found.'
+                    // 'message' => 'Student progress not found.'
+                    'message' => 'Kemajuan pelajar tidak dijumpai.'
                 ], 404);
             }
 
@@ -606,12 +616,14 @@ class StudentProgressController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Student progress deleted successfully.'
+                // 'message' => 'Student progress deleted successfully.'
+                'message' => 'Kemajuan pelajar berjaya dibuang.'
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to delete student progress: ' . $e->getMessage()
+                // 'message' => 'Failed to delete student progress: ' . $e->getMessage()
+                'message' => 'Gagal membuang kemajuan pelajar: ' . $e->getMessage()
             ], 500);
         }
     }

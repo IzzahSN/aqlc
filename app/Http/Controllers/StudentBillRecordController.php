@@ -110,7 +110,8 @@ class StudentBillRecordController extends Controller
             ->first();
 
         if ($existingRecord) {
-            return redirect()->back()->with('error', 'Student bill record for ' . $request->student_bill_month . ' ' . $request->student_bill_year . ' already exists.');
+            // return redirect()->back()->with('error', 'Student bill record for ' . $request->student_bill_month . ' ' . $request->student_bill_year . ' already exists.');
+            return redirect()->back()->with('error', 'Rekod bil pelajar untuk ' . $request->student_bill_month . ' ' . $request->student_bill_year . ' telahpun wujud.');
         }
 
         // Create the new student bill record
@@ -121,6 +122,7 @@ class StudentBillRecordController extends Controller
             'student_bill_date' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Student bill record for ' . $request->student_bill_month . ' ' . $request->student_bill_year . ' has been created successfully.');
+        // return redirect()->back()->with('success', 'Student bill record for ' . $request->student_bill_month . ' ' . $request->student_bill_year . ' has been created successfully.');
+        return redirect()->back()->with('success', 'Rekod bil pelajar untuk ' . $request->student_bill_month . ' ' . $request->student_bill_year . ' telah berjaya ditambahkan.');
     }
 }

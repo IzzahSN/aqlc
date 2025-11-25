@@ -113,7 +113,8 @@ class SalaryRecordController extends Controller
             ->first();
 
         if ($existingRecord) {
-            return redirect()->back()->with('error', 'Salary record for ' . $request->salary_month . ' ' . $request->salary_year . ' already exists.');
+            // return redirect()->back()->with('error', 'Salary record for ' . $request->salary_month . ' ' . $request->salary_year . ' already exists.');
+            return redirect()->back()->with('error', 'Rekod gaji untuk ' . $request->salary_month . ' ' . $request->salary_year . ' telahpun wujud.');
         }
 
         // Create the new salary record
@@ -128,7 +129,8 @@ class SalaryRecordController extends Controller
         // Auto create bill_histories for tutors who taught in that month and year
         $this->createBillHistoriesForSalary($salaryRecord);
 
-        return redirect()->back()->with('success', 'Salary record for ' . $request->salary_month . ' ' . $request->salary_year . ' has been created successfully.');
+        // return redirect()->back()->with('success', 'Salary record for ' . $request->salary_month . ' ' . $request->salary_year . ' has been created successfully.');
+        return redirect()->back()->with('success', 'Rekod gaji untuk ' . $request->salary_month . ' ' . $request->salary_year . ' berjaya ditambahkan.');
     }
 
     /**
@@ -156,7 +158,8 @@ class SalaryRecordController extends Controller
         $salaryRecord->update([
             'salary_rate' => $request->salary_rate,
         ]);
-        return redirect()->back()->with('success', 'Salary record updated successfully!')->with('closeModalEdit', true);
+        // return redirect()->back()->with('success', 'Salary record updated successfully!')->with('closeModalEdit', true);
+        return redirect()->back()->with('success', 'Rekod gaji berjaya dikemaskini!')->with('closeModalEdit', true);
     }
 
     /**
@@ -166,7 +169,8 @@ class SalaryRecordController extends Controller
     {
         $salaryRecord = SalaryRecord::findOrFail($id);
         $salaryRecord->delete();
-        return redirect()->back()->with('success', 'Salary record deleted successfully!');
+        // return redirect()->back()->with('success', 'Salary record deleted successfully!');
+        return redirect()->back()->with('success', 'Rekod gaji berjaya dipadam!');
     }
 
     /**
