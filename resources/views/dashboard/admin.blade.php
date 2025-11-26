@@ -1,6 +1,21 @@
-<x-admin-layout :title="'Dashboard'">
-    <!-- Welcome -->
-    <h2 class="text-xl font-bold mb-6">Welcome back, {{ session('username') }}!</h2>
+<x-admin-layout :title="'Papan Pemuka'">
+    <!-- Welcome Banner -->
+    <div class="relative p-6 sm:p-8 rounded-xl shadow-lg 
+                bg-gradient-to-r from-green-600 to-emerald-700 mb-8 overflow-hidden">
+        
+        <div class="absolute inset-0 opacity-10 bg-[url('/img/pattern.svg')]"></div>
+
+        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between">
+            
+            <div class="text-white mb-4 md:mb-0">
+                <h2 class="text-2xl sm:text-3xl font-bold leading-tight">Selamat Datang, {{ session('username') }}!</h2>
+                
+                <p class="mt-1 text-sm sm:text-base font-light opacity-90">
+                    Berikut adalah ringkasan aktiviti terkini di pusat pembelajaran anda.
+                </p>
+            </div>
+        </div>
+    </div>
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
