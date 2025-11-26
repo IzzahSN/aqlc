@@ -126,15 +126,18 @@ class DashboardController extends Controller
         }
         session(['unpaid_salary' => $unpaidSalary]);
 
-        // list all schedules for this tutor for current month with class
-        $schedules = Schedule::where(function ($query) use ($tutorId) {
-            $query->where('tutor_id', $tutorId)->whereNull('relief');
-        })->orWhere('relief', $tutorId)->with('class.package')
+        $schedules = Schedule::with(['class.package', 'tutor'])
+            ->where(function ($query) use ($tutorId) {
+                $query->where('tutor_id', $tutorId)
+                    ->orWhere('relief', $tutorId);
+            })
             ->whereMonth('date', date('m'))
             ->whereYear('date', date('Y'))
             ->orderBy('date', 'desc')
             ->get();
+
         session(['schedules' => $schedules]);
+
 
         // get unique salary_year from salary_records, check the fk in bill_histories table(salary_id) to get the salary_id and get the salary_year for the tutor_id
         $salaryYears = SalaryRecord::select('salary_year')
