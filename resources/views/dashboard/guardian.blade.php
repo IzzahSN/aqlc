@@ -3,8 +3,6 @@
     <div class="relative p-6 sm:p-8 rounded-xl shadow-lg 
                 bg-gradient-to-r from-green-600 to-emerald-700 mb-8 overflow-hidden">
         
-        <div class="absolute inset-0 opacity-10 bg-[url('/img/pattern.svg')]"></div>
-
         <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between">
             
             <div class="text-white mb-4 md:mb-0">
