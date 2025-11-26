@@ -20,7 +20,8 @@ class RoleMiddleware
 
         if (!$userRole || !in_array($userRole, $roles)) {
             return redirect()->route('login')->withErrors([
-                'access' => 'You are not authorized to access this page.'
+                // 'access' => 'You are not authorized to access this page.'
+                'access' => 'Anda tidak memiliki hak akses untuk halaman ini.'
             ]);
         }
 
