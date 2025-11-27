@@ -1,29 +1,46 @@
-<x-admin-layout :title="'Guardian'">
+<x-admin-layout :title="'Rekod Penjaga'">
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-lime-600 border-l-6 justify-between">
+    
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
             <div>
-                <p class="text-sm font-semibold text-lime-600 uppercase">Total Active Guardians</p>
-                <h3 class="text-2xl font-bold text-gray-500">{{ $activeGuardians  }}</h3>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Jumlah Penjaga Aktif</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">{{ $activeGuardians }}</h3>
             </div>
-            <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-check w-8 h-8 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2c-.218 0 -.432 .002 -.642 .005l-.616 .017l-.299 .013l-.579 .034l-.553 .046c-4.785 .464 -6.732 2.411 -7.196 7.196l-.046 .553l-.034 .579c-.005 .098 -.01 .198 -.013 .299l-.017 .616l-.004 .318l-.001 .324c0 .218 .002 .432 .005 .642l.017 .616l.013 .299l.034 .579l.046 .553c.464 4.785 2.411 6.732 7.196 7.196l.553 .046l.579 .034c.098 .005 .198 .01 .299 .013l.616 .017l.642 .005l.642 -.005l.616 -.017l.299 -.013l.579 -.034l.553 -.046c4.785 -.464 6.732 -2.411 7.196 -7.196l.046 -.553l.034 -.579c.005 -.098 .01 -.198 .013 -.299l.017 -.616l.005 -.642l-.005 -.642l-.017 -.616l-.013 -.299l-.034 -.579l-.046 -.553c-.464 -4.785 -2.411 -6.732 -7.196 -7.196l-.553 -.046l-.579 -.034a28.058 28.058 0 0 0 -.299 -.013l-.616 -.017l-.318 -.004l-.324 -.001zm2.293 7.293a1 1 0 0 1 1.497 1.32l-.083 .094l-4 4a1 1 0 0 1 -1.32 .083l-.094 -.083l-2 -2a1 1 0 0 1 1.32 -1.497l.094 .083l1.293 1.292l3.293 -3.292z" fill="currentColor" stroke-width="0" /></svg>
+            <div class="flex items-center justify-center p-3 bg-lime-100 rounded-full text-lime-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 2c-.218 0 -.432 .002 -.642 .005l-.616 .017l-.299 .013l-.579 .034l-.553 .046c-4.785 .464 -6.732 2.411 -7.196 7.196l-.046 .553l-.034 .579c-.005 .098 -.01 .198 -.013 .299l-.017 .616l-.004 .318l-.001 .324c0 .218 .002 .432 .005 .642l.017 .616l.013 .299l.034 .579l.046 .553c.464 4.785 2.411 6.732 7.196 7.196l.553 .046l.579 .034c.098 .005 .198 .01 .299 .013l.616 .017l.642 .005l.642 -.005l.616 -.017l.299 -.013l.579 -.034l.553 -.046c4.785 -.464 6.732 -2.411 7.196 -7.196l.046 -.553l.034 -.579c.005 -.098 .01 -.198 .013 -.299l.017 -.616l.005 -.642l-.005 -.642l-.017 -.616l-.013 -.299l-.034 -.579l-.046 -.553c-.464 -4.785 -2.411 -6.732 -7.196 -7.196l-.553 -.046l-.579 -.034a28.058 28.058 0 0 0 -.299 -.013l-.616 -.017l-.318 -.004l-.324 -.001zm2.293 7.293a1 1 0 0 1 1.497 1.32l-.083 .094l-4 4a1 1 0 0 1 -1.32 .083l-.094 -.083l-2 -2a1 1 0 0 1 1.32 -1.497l.094 .083l1.293 1.292l3.293 -3.292z" />
+                </svg>
+            </div>
         </div>
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-amber-400 border-l-6 justify-between">
+
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
             <div>
-                <p class="text-sm font-semibold text-amber-600 uppercase">Total Inactive Guardians</p>
-                <h3 class="text-2xl font-bold text-gray-500">{{ $inactiveGuardians  }}</h3>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Penjaga Tidak Aktif</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">{{ $inactiveGuardians }}</h3>
             </div>
-            <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-x w-8 h-8 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" fill="currentColor" stroke-width="0" /></svg>   
+            <div class="flex items-center justify-center p-3 bg-amber-100 rounded-full text-amber-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" />
+                </svg>
+            </div>
         </div>
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-cyan-600 border-l-6 justify-between">
+
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
             <div>
-                <p class="text-sm font-semibold text-cyan-600 uppercase">Total Guardians</p>
-                <h3 class="text-2xl font-bold text-gray-500">{{ $totalGuardians }}</h3>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Jumlah Penjaga</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">{{ $totalGuardians }}</h3>
             </div>
-            <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z" clip-rule="evenodd"/>
-            </svg>
+            <div class="flex items-center justify-center p-3 bg-cyan-100 rounded-full text-cyan-600">
+                <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.4472 2.10557c-.2815-.14076-.6129-.14076-.8944 0L5.90482 4.92956l.37762.11119c.01131.00333.02257.00687.03376.0106L12 6.94594l5.6808-1.89361.3927-.13363-5.6263-2.81313ZM5 10V6.74803l.70053.20628L7 7.38747V10c0 .5523-.44772 1-1 1s-1-.4477-1-1Zm3-1c0-.42413.06601-.83285.18832-1.21643l3.49538 1.16514c.2053.06842.4272.06842.6325 0l3.4955-1.16514C15.934 8.16715 16 8.57587 16 9c0 2.2091-1.7909 4-4 4-2.20914 0-4-1.7909-4-4Z"/>
+                    <path d="M14.2996 13.2767c.2332-.2289.5636-.3294.8847-.2692C17.379 13.4191 19 15.4884 19 17.6488v2.1525c0 1.2289-1.0315 2.1428-2.2 2.1428H7.2c-1.16849 0-2.2-.9139-2.2-2.1428v-2.1525c0-2.1409 1.59079-4.1893 3.75163-4.6288.32214-.0655.65589.0315.89274.2595l2.34883 2.2606 2.3064-2.2634Z"/>
+                </svg>
+            </div>
         </div>
+
     </div>
 
     <!-- Guardians List -->
@@ -31,48 +48,62 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Guardians</h2>
-                <p class="text-sm text-gray-500">Manage your guardians: add new, search, filter, edit, or delete.</p>
+                <h2 class="text-lg font-semibold">Senarai Penjaga</h2>
+                <p class="text-sm text-gray-500">Uruskan penjaga anda: tambah baru, cari, tapis, kemaskini, atau padam.</p>
             </div>
-            <button data-modal-target="addGuardianModal" data-modal-toggle="addGuardianModal"
-                class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                + Add New Guardian
+             <button data-modal-target="addGuardianModal" data-modal-toggle="addGuardianModal"
+                class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-green-600 shadow-sm hover:bg-green-700 transition-colors duration-200 focus:ring-2 focus:ring-green-400 focus:ring-offset-1">
+                + Tambah Penjaga
             </button>
-
         </div>
 
         <!-- Search + Filter -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <!-- Search -->
-            <div class="relative w-full sm:w-full">
-                <input type="text" id="searchInput" placeholder="Search by name or ID"
-                    class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                </svg>
+            <div class="relative w-full sm:flex-1">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="text" 
+                    id="searchInput" 
+                    placeholder="Cari mengikut Nama atau ID..." 
+                    class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
             </div>
             <!-- Filter -->
-            <select id="filterStatus" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Status</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-            </select>
+            <div class="relative w-full sm:w-40">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 2.25a.75.75 0 0 1 .75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054a8.25 8.25 0 0 0 5.58.652l3.109-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.158l-.108-.054a8.25 8.25 0 0 0-5.89-.538l-2.25.54A.75.75 0 0 1 3 15.6V3a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <select id="filterStatus" 
+                        class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                    <option value="">Semua Status</option>
+                    <option value="Aktif">Aktif</option>
+                    <option value="Tidak Aktif">Tidak Aktif</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+            </div>
         </div>
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table id="guardianTable" class="min-w-full text-sm text-left text-gray-600">
+            <table id="guardianTable" class="min-w-max text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">First Name</th>
-                        <th class="px-4 py-3">Phone Number</th>
-                        <th class="px-4 py-3">Email</th>
-                        <th class="px-4 py-3">No. of Children</th>
+                        <th class="px-4 py-3">Bil</th>
+                        <th class="px-4 py-3">Nama Pertama</th>
+                        <th class="px-4 py-3">Nombor Telefon</th>
+                        <th class="px-4 py-3">E-mel</th>
+                        <th class="px-4 py-3">Bil. Anak</th>
                         <th class="px-4 py-3">Status</th>
-                        <th class="px-4 py-3 text-center">Action</th>
+                        <th class="px-4 py-3 text-center">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="guardianBody">
@@ -85,9 +116,9 @@
                         <td class="px-4 py-3 text-center">{{ $guardian->student_guardians_count }}</td>
                         <td class="px-4 py-3">
                             @if($guardian->status == 'active')
-                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Active</span>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Aktif</span>
                             @else
-                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Inactive</span>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">Tidak Aktif</span>
                             @endif 
                         </td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
@@ -95,21 +126,21 @@
                                 class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
                                 data-id="{{ $guardian->guardian_id }}" 
                                 data-modal-target="editGuardianModal"
-                                data-modal-toggle="editGuardianModal">Edit</button>
+                                data-modal-toggle="editGuardianModal">Kemaskini</button>
                             <form id="delete-form-{{ $guardian->guardian_id }}" action="{{ route('admin.guardian.destroy', $guardian->guardian_id) }}" method="POST" class="delete-form">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" 
                                     class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
                                     data-id="{{ $guardian->guardian_id }}">
-                                    Delete
+                                    Padam
                                 </button>
                             </form>
                             <button type="button"
                                 class="px-3 py-1 text-xs rounded text-white bg-cyan-500 hover:bg-cyan-600 link-child-button"
                                 data-id="{{ $guardian->guardian_id }}" 
                                 data-modal-target="addChildModal"
-                                data-modal-toggle="addChildModal">Link Child</button>
+                                data-modal-toggle="addChildModal">Pautkan Anak</button>
                         </td>
                     </tr>
                     @endforeach
@@ -117,7 +148,7 @@
             </table>
 
             <!-- No Record Message -->
-            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
         </div>
 
         <!-- Pagination (manual JS) -->
@@ -176,7 +207,7 @@
                 // entries info
                 const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                 const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                 // build pagination buttons
                 pagination.innerHTML = "";
@@ -245,7 +276,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Guardian</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Tambah Penjaga</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addGuardianModal">✕</button>
             </div>
 
@@ -256,77 +287,77 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- First Name -->
                         <div>
-                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
-                            <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Pertama</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="Muhammad Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Last Name -->
                         <div>
-                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
-                            <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Akhir</label>
+                            <input type="text" id="last_name" name="last_name" placeholder="Bin Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Email -->
                         <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                            <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">E-mel</label>
+                            <input type="email" id="email" name="email" placeholder="nama@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Phone Number -->
                         <div>
-                            <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
-                            <input type="text" id="phone_number" name="phone_number" placeholder="012-2039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Telefon</label>
+                            <input type="text" id="phone_number" name="phone_number" placeholder="0122039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- IC Number -->
                         <div>
-                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Kad Pengenalan</label>
                             <input type="text" id="ic_number" name="ic_number" placeholder="990101145678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Age -->
                         <div>
-                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Umur</label>
                             <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Birth Date -->
                         <div>
-                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Tarikh Lahir</label>
                             <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Gender -->
                         <div>
-                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Jantina</label>
                             <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="">Pilih Jantina</option>
+                                <option value="male">Lelaki</option>
+                                <option value="female">Perempuan</option>
                             </select>
                         </div>
                         <!-- Status -->
                         <div>
                             <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
                             <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="">Pilih Status</option>
+                                <option value="active">Aktif</option>
+                                <option value="inactive">Tidak Aktif</option>
                             </select>
                         </div>
                     </div>
                     <!-- Address (full width) -->
                     <div class="mt-6">
-                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat Rumah</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Masukkan alamat penuh" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addGuardianModal">Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addGuardianModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Hantar</button>
                 </div>
             </form>
         </div>
@@ -338,7 +369,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Guardian</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Kemaskini Maklumat Penjaga</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editGuardianModal">✕</button>
             </div>
 
@@ -350,77 +381,77 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- First Name -->
                         <div>
-                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
-                            <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Pertama</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="Muhammad Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Last Name -->
                         <div>
-                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
-                            <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Akhir</label>
+                            <input type="text" id="last_name" name="last_name" placeholder="Bin Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Email -->
                         <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                            <input type="email" id="email" name="email" placeholder="jazmy@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">E-mel</label>
+                            <input type="email" id="email" name="email" placeholder="nama@gmail.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
 
                         <!-- Phone Number -->
                         <div>
-                            <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
-                            <input type="text" id="phone_number" name="phone_number" placeholder="012-2039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Telefon</label>
+                            <input type="text" id="phone_number" name="phone_number" placeholder="0122039478" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- IC Number -->
                         <div>
-                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">IC Number</label>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Kad Pengenalan</label>
                             <input type="text" id="ic_number" name="ic_number" placeholder="990101145678" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
 
                         <!-- Age -->
                         <div>
-                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Age</label>
+                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900">Umur</label>
                             <input type="number" id="age" name="age" placeholder="15" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Birth Date -->
                         <div>
-                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Birth Date</label>
+                            <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Tarikh Lahir</label>
                             <input type="date" id="birth_date" name="birth_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
 
                         <!-- Gender -->
                         <div>
-                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
+                            <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Jantina</label>
                             <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="">Pili Jantina</option>
+                                <option value="male">Lelaki</option>
+                                <option value="female">Perempuan</option>
                             </select>
                         </div>
                         <!-- Status -->
                         <div>
                             <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
                             <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="">Pilih Status</option>
+                                <option value="active">Aktif</option>
+                                <option value="inactive">Tidak Aktif</option>
                             </select>
                         </div>
                     </div>
                     <!-- Address (full width) -->
                     <div class="mt-6">
-                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat Penuh</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Masukkan alamat penuh" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editGuardianModal">Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editGuardianModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Kemaskini</button>
                 </div>
             </form>
         </div>
@@ -432,7 +463,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Link Children</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Pautkan Anak</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" 
                         data-modal-hide="addChildModal">✕</button>
             </div>
@@ -444,28 +475,28 @@
                     <div class="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-2">
                         <!-- IC Number -->
                         <div class="col-span-2 md:col-span-3 lg:col-span-4">
-                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Child IC Number</label>
+                            <label for="ic_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Kad Pengenalan Anak</label>
                             <input type="text" id="ic_number" name="ic_number" placeholder="030810101788" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Relationship type -->
                         <div class="col-span-2 md:col-span-3 lg:col-span-4">
-                            <label for="relationship_type" class="block mb-2 text-sm font-medium text-gray-900">Relationship</label>
+                            <label for="relationship_type" class="block mb-2 text-sm font-medium text-gray-900">Hubungan</label>
                             <select id="relationship_type" name="relationship_type" 
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Relationship</option>
-                                <option value="Father">Father</option>
-                                <option value="Mother">Mother</option>
-                                <option value="Guardian">Guardian</option>
-                                <option value="Other">Other</option>
+                                <option value="">Pilih Hubungan</option>
+                                <option value="Father">Bapa</option>
+                                <option value="Mother">Ibu</option>
+                                <option value="Guardian">Penjaga</option>
+                                <option value="Other">Lain-lain</option>
                             </select>
                         </div>
 
                         <!-- Submit -->
                         <div class="flex items-end col-span-1 md:col-span-2 lg:col-span-2">
                             <button type="submit" id="submitFormAddChild" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm py-2.5 text-center w-full">
-                                Submit
+                                Hantar
                             </button>
                         </div>
                     </div>
@@ -477,10 +508,10 @@
                         <table id="linkChildrenTable" class="min-w-full text-sm text-left text-gray-600">
                            <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                                 <tr>
-                                    <th class="px-4 py-3">No</th>
-                                    <th class="px-4 py-3">Full Name</th>
-                                    <th class="px-4 py-3">Relationship</th>
-                                    <th class="px-4 py-3 text-center">Action</th>
+                                    <th class="px-4 py-3">Bil</th>
+                                    <th class="px-4 py-3">Nama Penuh</th>
+                                    <th class="px-4 py-3">Hubungan</th>
+                                    <th class="px-4 py-3 text-center">Tindakan</th>
                                 </tr>
                                 </thead>
                                 <tbody id="linkChildrenBody">
@@ -522,7 +553,7 @@
                                                                                     @method('DELETE')
                                                                                     <button type="submit" 
                                                                                             class="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600">
-                                                                                        Delete
+                                                                                        Padam
                                                                                     </button>
                                                                                 </form>
                                                                             </td>
@@ -530,12 +561,12 @@
                                                                     `;
                                                                 });
                                                             } else {
-                                                                tableBody.innerHTML = `<tr><td colspan="3" class="text-center text-gray-500 py-4">No records found</td></tr>`;
+                                                                tableBody.innerHTML = `<tr><td colspan="4" class="text-center text-gray-500 py-4">Tiada rekod dijumpai</td></tr>`;
                                                             }
                                                         })
                                                         .catch(error => {
-                                                            console.error("Error fetching children:", error);
-                                                            tableBody.innerHTML = `<tr><td colspan="3" class="text-center text-red-500 py-4">Failed to load data</td></tr>`;
+                                                            console.error("Ralat semasa memuatkan anak-anak yang dipautkan:", error);
+                                                            tableBody.innerHTML = `<tr><td colspan="4" class="text-center text-red-500 py-4">Gagal memuatkan data</td></tr>`;
                                                     });
                                                 });
                                             });
@@ -613,7 +644,7 @@
                             editForm.address.value = data.address || '';
                         })
                         .catch(error => {
-                            console.error('Error fetching package data:', error);
+                            console.error('Ralat berlaku semasa memuatkan data penjaga.');
                         });
                 });
             });
@@ -652,13 +683,14 @@
                     let form = document.getElementById("delete-form-" + id);
 
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: "This guardian will be deleted!",
+                        title: 'Adakah anda pasti?',
+                        text: "Penjaga ini akan dipadamkan!",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
                         cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: 'Ya, padamkan!',
+                        cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             form.submit();
@@ -676,13 +708,14 @@
                 e.preventDefault();
                 let form = e.target.closest("form");
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "This linked child will be deleted!",
+                    title: 'Adakah anda pasti?',
+                    text: "Anak yang dipautkan ini akan dipadamkan!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Ya, padamkan!',
+                    cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
