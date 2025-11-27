@@ -1,54 +1,68 @@
-<x-admin-layout :title="'Module Report'">
+<x-admin-layout :title="'Laporan Modul Pembelajaran'">
     <!-- Report List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Module</h2>
-                <p class="text-sm text-gray-500">Manage your module: search, filter and update.</p>
+                <h2 class="text-lg font-semibold">Senarai Modul Pembelajaran</h2>
+                <p class="text-sm text-gray-500">Urus modul pembelajaran anda: carian, tapis dan kemaskini.</p>
             </div>
             <div>
-                <button type="button" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-                    data-modal-target="addModuleModal" data-modal-toggle="addModuleModal">
-                    Add New Module
-                </button>
+                <button data-modal-target="addModuleModal" data-modal-toggle="addModuleModal"
+                class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-green-600 shadow-sm hover:bg-green-700 transition-colors duration-200 focus:ring-2 focus:ring-green-400 focus:ring-offset-1">
+                + Tambah Modul Baru
+            </button>
             </div>
         </div>
 
         <!-- Search + Filter -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <!-- Search -->
-            <div class="relative w-full sm:w-full">
-                <input type="text" id="searchInput" placeholder="Search by name or ID"
-                    class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                </svg>
+             <!-- Search -->
+            <div class="relative w-full sm:flex-1">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="text" 
+                    id="searchInput" 
+                    placeholder="Cari mengikut Nama atau ID..." 
+                    class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
             </div>
             <!-- Filter -->
-            <select id="leveltype" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Level</option>
-                {{-- unique level_type from all modules --}}
-                @foreach ($modules->pluck('level_type')->unique() as $level)
-                    <option value="{{ $level }}">{{ $level }}</option>
-                @endforeach
-            </select>
+            <div class="relative w-full sm:w-40">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 2.25a.75.75 0 0 1 .75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054a8.25 8.25 0 0 0 5.58.652l3.109-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.158l-.108-.054a8.25 8.25 0 0 0-5.89-.538l-2.25.54A.75.75 0 0 1 3 15.6V3a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <select id="leveltype" 
+                        class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                    <option value="">Jenis Bacaan</option>
+                    @foreach ($modules->pluck('level_type')->unique() as $level)
+                        <option value="{{ $level }}">{{ $level }}</option>
+                    @endforeach
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+            </div>
         </div>
 
         <!-- Table -->
-        <div class="overflow-x-auto">
-            <table id="moduleTable" class="min-w-full text-sm text-left text-gray-600">
+        <div class="w-full overflow-x-auto">
+            <table id="moduleTable" class="w-full min-w-max text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Recitation</th>
-                        <th class="px-4 py-3">First Page</th>
-                        <th class="px-4 py-3">End page</th>
-                        <th class="px-4 py-3">Level Type</th>
-                        <th class="px-4 py-3">Badge</th>
-                        <th class="px-4 py-3 text-center">Action</th>
+                        <th class="px-4 py-3">Bil</th>
+                        <th class="px-4 py-3">Bacaan</th>
+                        <th class="px-4 py-3">M/S Awal</th>
+                        <th class="px-4 py-3">M/S Akhir</th>
+                        <th class="px-4 py-3">Jenis Bacaan</th>
+                        <th class="px-4 py-3">Lencana</th>
+                        <th class="px-4 py-3 text-center">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="moduleBody">
@@ -71,7 +85,7 @@
                                 class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
                                 data-id="{{ $module->recitation_module_id }}" 
                                 data-modal-target="editModuleModal"
-                                data-modal-toggle="editModuleModal">Edit</button>
+                                data-modal-toggle="editModuleModal">Kemaskini</button>
                             <form id="delete-form-{{ $module->recitation_module_id }}" 
                                 action="{{ route('admin.module.destroy', $module->recitation_module_id) }}" 
                                 method="POST" class="delete-form">
@@ -80,7 +94,7 @@
                                 <button type="button" 
                                     class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
                                     data-id="{{ $module->recitation_module_id }}">
-                                    Delete
+                                    Padam
                                 </button>
                             </form>
                         </td>
@@ -90,7 +104,7 @@
             </table>
 
             <!-- No Record Message -->
-            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
         </div>
 
          <!-- Pagination (manual JS) -->
@@ -149,7 +163,7 @@
                 // entries info
                 const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                 const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                 // build pagination buttons
                 pagination.innerHTML = "";
@@ -217,7 +231,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Module</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Tambah Modul</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addModuleModal">✕</button>
             </div>
 
@@ -228,41 +242,54 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                        {{-- recitation_name --}}
                        <div>
-                            <label for="recitation_name" class="block mb-2 text-sm font-medium text-gray-900">Recitation Name</label>
+                            <label for="recitation_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Bacaan</label>
                             <input type="text" name="recitation_name" id="recitation_name" placeholder="Juz 1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required/>
                        </div>
 
                         {{-- level_type --}}
                         <div>
-                            <label for="level_type" class="block mb-2 text-sm font-medium text-gray-900">Level Type</label>
+                            <label for="level_type" class="block mb-2 text-sm font-medium text-gray-900">Jenis Bacaan</label>
                             <input type="text" name="level_type" id="level_type" placeholder="Quran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         {{-- first_page --}}
                         <div>
-                            <label for="first_page" class="block mb-2 text-sm font-medium text-gray-900">First Page</label>
+                            <label for="first_page" class="block mb-2 text-sm font-medium text-gray-900">Muka Surat Awal</label>
                             <input type="number" name="first_page" id="first_page" placeholder="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required/>
                         </div>
 
                         {{-- end_page --}}
                         <div>
-                            <label for="end_page" class="block mb-2 text-sm font-medium text-gray-900">End Page</label>
+                            <label for="end_page" class="block mb-2 text-sm font-medium text-gray-900">Muka Surat Akhir</label>
                             <input type="number" name="end_page" id="end_page" placeholder="20" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         {{-- badge --}}
                         <div>
-                            <label for="badge" class="block mb-2 text-sm font-medium text-gray-900">Badge (optional)</label>
+                            <label for="badge" class="block mb-2 text-sm font-medium text-gray-900">Lencana (pilihan)</label>
                             <input type="file" name="badge" id="badge" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
+
+                        {{-- is_complete_series, yes=1, no=0 --}}
+                        <div>
+                            <label for="is_complete_series" class="block mb-2 text-sm font-medium text-gray-900">Tandakan Sebagai Lengkap?</label>
+                            <select id="is_complete_series" name="is_complete_series"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="">Pilih</option>
+                                <option value="0">Tidak</option>
+                                <option value="1">Ya</option>
+                            </select>
+                        </div>
+                        
                     </div>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addModuleModal">Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addModuleModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Hantar</button>
                 </div>
             </form>
         </div>
@@ -274,7 +301,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Module</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Kemaskini Maklumat Modul</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editModuleModal">✕</button>
             </div>
 
@@ -286,41 +313,53 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                        {{-- recitation_name --}}
                        <div>
-                            <label for="recitation_name" class="block mb-2 text-sm font-medium text-gray-900">Recitation Name</label>
+                            <label for="recitation_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Bacaan</label>
                             <input type="text" name="recitation_name" id="recitation_name" placeholder="Juz 1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required/>
                        </div>
 
                         {{-- level_type --}}
                         <div>
-                            <label for="level_type" class="block mb-2 text-sm font-medium text-gray-900">Level Type</label>
+                            <label for="level_type" class="block mb-2 text-sm font-medium text-gray-900">Jenis Bacaan</label>
                             <input type="text" name="level_type" id="level_type" placeholder="Quran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         {{-- first_page --}}
                         <div>
-                            <label for="first_page" class="block mb-2 text-sm font-medium text-gray-900">First Page</label>
+                            <label for="first_page" class="block mb-2 text-sm font-medium text-gray-900">Muka Surat Awal</label>
                             <input type="number" name="first_page" id="first_page" placeholder="1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required/>
                         </div>
 
                         {{-- end_page --}}
                         <div>
-                            <label for="end_page" class="block mb-2 text-sm font-medium text-gray-900">End Page</label>
+                            <label for="end_page" class="block mb-2 text-sm font-medium text-gray-900">Muka Surat Akhir</label>
                             <input type="number" name="end_page" id="end_page" placeholder="20" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         {{-- badge --}}
                         <div>
-                            <label for="badge" class="block mb-2 text-sm font-medium text-gray-900">Badge (optional)</label>
+                            <label for="badge" class="block mb-2 text-sm font-medium text-gray-900">Lencana (pilihan)</label>
                             <input type="file" name="badge" id="badge" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
                         </div>
+
+                        {{-- is_complete_series, yes=1, no=0 --}}
+                        <div>
+                            <label for="is_complete_series" class="block mb-2 text-sm font-medium text-gray-900">Tandakan Sebagai Lengkap?</label>
+                            <select id="is_complete_series" name="is_complete_series"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                    focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                <option value="0">Tidak</option>
+                                <option value="1">Ya</option>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editModuleModal">Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editModuleModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Kemaskini Maklumat</button>
                 </div>
             </form>
         </div>
@@ -335,13 +374,14 @@
                     let form = document.getElementById("delete-form-" + id);
 
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: "This module will be deleted!",
+                        title: 'Adakah anda pasti?',
+                        text: "Modul ini akan dipadamkan!",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
                         cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: 'Ya, padamkan!',
+                        cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             form.submit();
@@ -370,6 +410,7 @@
                             editForm.level_type.value = data.level_type;
                             editForm.first_page.value = data.first_page;
                             editForm.end_page.value = data.end_page;
+                            editForm.is_complete_series.value = data.is_complete_series ? '1' : '0';
 
                             // Resume upload tak boleh auto isi (security reason)
                             // Kalau nak, boleh letak link preview badge lama

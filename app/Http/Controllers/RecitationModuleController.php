@@ -30,6 +30,7 @@ class RecitationModuleController extends Controller
             'first_page' => 'required|integer|min:1',
             'end_page' => 'required|integer|min:1|gte:first_page',
             'badge' => 'nullable|file|mimes:jpeg,png,jpg,svg|max:2048', // max 2MB
+            'is_complete_series' => 'required|boolean',
         ]);
 
         // Handle file upload
@@ -46,6 +47,7 @@ class RecitationModuleController extends Controller
             'first_page' => $request->first_page,
             'end_page' => $request->end_page,
             'badge' => $badgePath ?? null,
+            'is_complete_series' => $request->is_complete_series,
         ]);
 
         // return redirect()->back()->with('success', 'Recitation Module created successfully.')->with('closeModalAdd', true);
@@ -74,6 +76,7 @@ class RecitationModuleController extends Controller
             'first_page' => 'required|integer|min:1',
             'end_page' => 'required|integer|min:1|gte:first_page',
             'badge' => 'nullable|file|mimes:jpeg,png,jpg,svg|max:2048', // max 2MB
+            'is_complete_series' => 'required|boolean',
         ]);
 
         // Handle file upload
@@ -88,6 +91,7 @@ class RecitationModuleController extends Controller
         $module->level_type = $request->level_type;
         $module->first_page = $request->first_page;
         $module->end_page = $request->end_page;
+        $module->is_complete_series = $request->is_complete_series;
         $module->save();
 
         // return redirect()->back()->with('success', 'Recitation Module updated successfully.')->with('closeModalEdit', true);
