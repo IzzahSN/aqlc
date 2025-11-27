@@ -1,15 +1,15 @@
-<x-admin-layout :title="'Student Report'">
+<x-admin-layout :title="'Laporan Pelajar'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Student Report Card</h2>
+        <h2 class="text-xl font-medium text-gray-800">Kad Laporan Pelajar</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('admin.student.index') }}" class="hover:text-green-600">Student</a></li>
+                <li><a href="{{ route('admin.student.index') }}" class="hover:text-green-600">Senarai Pelajar</a></li>
                 <li>/</li>
-                <li>Report</li>
+                <li class="text-green-600">Laporan Pelajar</li>
             </ol>
         </nav>
     </div>
@@ -24,11 +24,11 @@
                     : 'https://ui-avatars.com/api/?name='.urlencode($student->first_name.' '.$student->last_name).'&background=D1FAE5&color=333' }}" 
                     class="w-28 h-28 rounded-full mb-4 object-cover border-4 border-emerald-50" alt="Student Avatar">
                 <h2 class="text-lg font-semibold mt-4">{{ $student->first_name }} {{ $student->last_name }}</h2>
-                <p class="text-sm opacity-80">Student Portfolio</p>
+                <p class="text-sm opacity-80">Profil Pelajar</p>
             </div>
 
             <div class="space-y-3 text-sm">
-                <p class="flex items-center gap-2"><i class="fas fa-user"></i> {{ $student->age }} years old</p>
+                <p class="flex items-center gap-2"><i class="fas fa-user"></i> {{ $student->age }} tahun</p>
                 <p class="flex items-center gap-2"><i class="fas fa-id-card"></i> {{ $student->ic_number }}</p>
                 <p class="flex items-center gap-2"><i class="fas fa-mars"></i> {{ $student->gender }}</p>
                 <p class="flex items-center gap-2"><i class="fas fa-calendar"></i> {{ $student->birth_date ? \Carbon\Carbon::parse($student->birth_date)->format('d F Y') : 'N/A' }}</p>
@@ -39,20 +39,20 @@
                     @if($student->classes->isNotEmpty())
                         {!! $student->classes->pluck('class_name')->map(fn($name) => e($name))->join('<br>') !!}
                     @else
-                        Class not assigned.
+                        Kelas belum ditetapkan.
                     @endif
             </div>
 
             <!-- Guardian -->
             <div class="pt-4 border-t border-green-700">
-                <h4 class="text-yellow-300 font-medium mb-2">Guardian Details</h4>
+                <h4 class="text-yellow-300 font-medium mb-2">Maklumat Penjaga</h4>
                 @if($student->guardians->isNotEmpty())
                     @php $guardian = $student->guardians->first(); @endphp
                     <p class="flex items-center text-sm gap-2"><i class="fas fa-user-shield"></i> {{ $guardian->first_name }} {{ $guardian->last_name }}</p>
                     <p class="flex items-center text-sm gap-2"><i class="fas fa-phone"></i> {{ $guardian->phone_number ?? 'N/A' }}</p>
                     <p class="flex items-center text-sm gap-2"><i class="fas fa-envelope"></i> {{ $guardian->pivot->relationship_type ?? 'N/A' }}</p>
                 @else
-                    <p class="text-sm">No guardian assigned.</p>
+                    <p class="text-sm">Penjaga belum ditetapkan.</p>
                 @endif
             </div>
         </div>
@@ -62,7 +62,7 @@
 
             <!-- Report Badges -->
             <div class="bg-white rounded-xl shadow p-6 flex-shrink-0">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Report Badges</h3>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Lencana Pencapaian</h3>
                 @if($achievements->isNotEmpty())
                     <div class="overflow-hidden relative">
                         <div id="badgeCarousel" class="flex space-x-4" data-count="{{ $achievements->count() }}">
@@ -91,7 +91,7 @@
                         </div>
                         </div>
                 @else
-                    <p class="text-gray-500">No badges earned yet.</p>
+                    <p class="text-gray-500">Tiada lencana diperoleh lagi.</p>
                 @endif
             </div>
 
@@ -128,55 +128,89 @@
                 <!-- Header -->
                 <div class="flex items-center justify-between mb-4">
                     <div>
-                        <h2 class="text-lg font-semibold">List of Recitation Report</h2>
-                        <p class="text-sm text-gray-500">Manage your report: search or filter.</p>
+                        <h2 class="text-lg font-semibold">Senarai Laporan Bacaan</h2>
+                        <p class="text-sm text-gray-500">Urus laporan anda: cari atau tapis.</p>
                     </div>
                 </div>
-                <!-- Search + Filter -->
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                   <!-- Search -->
-                    <div class="relative w-full sm:w-full">
-                        <input type="text" id="searchInput" placeholder="Search by name or ID"
-                            class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                        <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                        </svg>
+                <!-- Search & Filters -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                    <div class="relative w-full sm:flex-1">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                        </div>
+                        <input type="text" 
+                            id="searchInput" 
+                            placeholder="Taip carian anda..." 
+                            class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
                     </div>
-                    <!-- Filter -->
-                    <select id="filterGrade" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                        <option value="">Grade</option>
-                        <option value="Mumtaz">Mumtaz</option>
-                        <option value="Jayyid Jiddan">Jayyid Jiddan</option>
-                        <option value="Jayyid">Jayyid</option>
-                        <option value="Maqbul">Maqbul</option>
-                        <option value="Rasib">Rasib</option>
-                    </select>
-                    <select id="filterRecitation" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">                        <option value="">Recitation</option>
-                        {{-- all unique recitation name sort from the recitation_module_id iqra 1, iqra 2--}}
-                        @php
-                            $recitationNames = $progressRecords->map(function($progress) {
-                                return $progress->recitationModule->recitation_name ?? null;
-                            })->filter()->unique()->sort();
-                        @endphp
-                        @foreach($recitationNames as $name)
-                            <option value="{{ strtolower($name) }}">{{ $name }}</option>
-                        @endforeach
-                    </select>
+
+                    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                        
+                        <div class="relative w-full sm:w-40">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <select id="filterGrade" 
+                                    class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                                <option value="">Semua Gred</option>
+                                <option value="Mumtaz">Mumtaz</option>
+                                <option value="Jayyid Jiddan">Jayyid Jiddan</option>
+                                <option value="Jayyid">Jayyid</option>
+                                <option value="Maqbul">Maqbul</option>
+                                <option value="Rasib">Rasib</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="relative w-full sm:w-48">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
+                                </svg>
+                            </div>
+                            <select id="filterRecitation" 
+                                    class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                                <option value="">Semua Bacaan</option>
+                                {{-- Logic PHP dikekalkan --}}
+                                @php
+                                    $recitationNames = $progressRecords->map(function($progress) {
+                                        return $progress->recitationModule->recitation_name ?? null;
+                                    })->filter()->unique()->sort();
+                                @endphp
+                                @foreach($recitationNames as $name)
+                                    <option value="{{ strtolower($name) }}">{{ $name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
                 <div class="overflow-x-auto overflow-y-auto flex-1">
-                    <table id="reportTable" class="min-w-full text-sm text-left text-gray-600">
+                    <table id="reportTable" class="min-w-max text-sm text-left text-gray-600">
                         <thead class="bg-gray-100 text-gray-700 text-xs uppercase">
                             <tr>
-                                <th class="px-4 py-3">No</th>
-                                <th class="px-4 py-3">Recitation</th>
-                                <th class="px-4 py-2">Page</th>
-                                <th class="px-4 py-2">Grade</th>
-                                <th class="px-4 py-2">Class Name</th>
+                                <th class="px-4 py-3">Bil</th>
+                                <th class="px-4 py-3">Bacaan</th>
+                                <th class="px-4 py-2">M/S</th>
+                                <th class="px-4 py-2">Gred</th>
+                                <th class="px-4 py-2">Kelas</th>
                                 <th class="px-4 py-2">Tutor</th>
-                                <th class="px-4 py-2">Recitation Date</th>
-                                <th class="px-4 py-2">Remark</th>
+                                <th class="px-4 py-2">Tarikh Bacaan</th>
+                                <th class="px-4 py-2">Catatan</th>
                             </tr>
                         </thead>
                         <tbody id="reportBody">
@@ -195,13 +229,14 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-4 py-2 text-center text-gray-500">No progress records found.</td>
+                                    <td colspan="8" class="px-4 py-2 text-center text-gray-500">Tiada rekod kemajuan ditemui.</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
                     <!-- No Record Message -->
-                    <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+                    {{-- <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div> --}}
+                    <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod ditemui</div>
                 </div>
 
                 <!-- Pagination (manual JS) -->
@@ -266,7 +301,8 @@
                         // entries info
                         const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                         const end = Math.min(currentPage * rowsPerPage, totalRows);
-                        entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                        // entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                        entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                         // build pagination buttons
                         pagination.innerHTML = "";

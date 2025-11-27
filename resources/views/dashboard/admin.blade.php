@@ -17,37 +17,46 @@
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-lime-600 border-l-6 justify-between">
-                <div>
-                    <p class="text-sm font-semibold text-lime-600 uppercase">Total Students</p>
-                    <h3 class="text-xl font-bold text-gray-500">{{ $totalStudents }}</h3>
-                </div>
-                <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+       <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Jumlah Pelajar</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">{{ $totalStudents }}</h3>
+            </div>
+            
+            <div class="flex items-center justify-center p-3 bg-lime-100 rounded-full text-lime-600">
+                <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.4472 2.10557c-.2815-.14076-.6129-.14076-.8944 0L5.90482 4.92956l.37762.11119c.01131.00333.02257.00687.03376.0106L12 6.94594l5.6808-1.89361.3927-.13363-5.6263-2.81313ZM5 10V6.74803l.70053.20628L7 7.38747V10c0 .5523-.44772 1-1 1s-1-.4477-1-1Zm3-1c0-.42413.06601-.83285.18832-1.21643l3.49538 1.16514c.2053.06842.4272.06842.6325 0l3.4955-1.16514C15.934 8.16715 16 8.57587 16 9c0 2.2091-1.7909 4-4 4-2.20914 0-4-1.7909-4-4Z"/>
                     <path d="M14.2996 13.2767c.2332-.2289.5636-.3294.8847-.2692C17.379 13.4191 19 15.4884 19 17.6488v2.1525c0 1.2289-1.0315 2.1428-2.2 2.1428H7.2c-1.16849 0-2.2-.9139-2.2-2.1428v-2.1525c0-2.1409 1.59079-4.1893 3.75163-4.6288.32214-.0655.65589.0315.89274.2595l2.34883 2.2606 2.3064-2.2634Z"/>
                 </svg>
+            </div>
         </div>
 
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-amber-400 border-l-6 justify-between">
-                <div>
-                    <p class="text-sm font-semibold text-amber-600 uppercase">Total Teachers</p>
-                    <h3 class="text-xl font-bold text-gray-500">{{ $totalTutors }}</h3>
-                </div>
-                <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+       <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Jumlah Tutor</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">{{ $totalTutors }}</h3>
+            </div>
+            
+            <div class="flex items-center justify-center p-3 bg-amber-100 rounded-full text-amber-600">
+                <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M16 10c0-.55228-.4477-1-1-1h-3v2h3c.5523 0 1-.4477 1-1Z"/>
                     <path d="M13 15v-2h2c1.6569 0 3-1.3431 3-3 0-1.65685-1.3431-3-3-3h-2.256c.1658-.46917.256-.97405.256-1.5 0-.51464-.0864-1.0091-.2454-1.46967C12.8331 4.01052 12.9153 4 13 4h7c.5523 0 1 .44772 1 1v9c0 .5523-.4477 1-1 1h-2.5l1.9231 4.6154c.2124.5098-.0287 1.0953-.5385 1.3077-.5098.2124-1.0953-.0287-1.3077-.5385L15.75 16l-1.827 4.3846c-.1825.438-.6403.6776-1.0889.6018.1075-.3089.1659-.6408.1659-.9864v-2.6002L14 15h-1ZM6 5.5C6 4.11929 7.11929 3 8.5 3S11 4.11929 11 5.5 9.88071 8 8.5 8 6 6.88071 6 5.5Z"/>
                     <path d="M15 11h-4v9c0 .5523-.4477 1-1 1-.55228 0-1-.4477-1-1v-4H8v4c0 .5523-.44772 1-1 1s-1-.4477-1-1v-6.6973l-1.16797 1.752c-.30635.4595-.92722.5837-1.38675.2773-.45952-.3063-.5837-.9272-.27735-1.3867l2.99228-4.48843c.09402-.14507.2246-.26423.37869-.34445.11427-.05949.24148-.09755.3763-.10887.03364-.00289.06747-.00408.10134-.00355H15c.5523 0 1 .44772 1 1 0 .5523-.4477 1-1 1Z"/>
                 </svg>
+            </div>
         </div>
 
-        <div class="bg-white p-4 rounded-sm shadow flex items-center gap-1 border-l-cyan-600 border-l-6 justify-between">
-                <div>
-                    <p class="text-sm font-semibold text-cyan-600 uppercase">Total Guardians</p>
-                    <h3 class="text-xl font-bold text-gray-500">{{ $totalGuardians }}</h3>
-                </div>
-                <svg class="w-10 h-10 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Jumlah Penjaga</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">{{ $totalGuardians }}</h3>
+            </div>
+            
+            <div class="flex items-center justify-center p-3 bg-cyan-100 rounded-full text-cyan-600">
+                <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fill-rule="evenodd" d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z" clip-rule="evenodd"/>
                 </svg>
+            </div>
         </div>
     </div>
 
@@ -56,9 +65,9 @@
         <!-- Student Progress -->
         <div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">Student Progress</h3>
+                <h3 class="font-semibold text-gray-800">Kemajuan Pelajar</h3>
                 <select id="progressFilter" class="border rounded-lg px-3 py-1 text-sm">
-                    <option value="all">All</option>
+                    <option value="all">Semua</option>
                     <option value="iqra">Iqra</option>
                     <option value="juz">Quran</option>
                 </select>
@@ -182,14 +191,14 @@
          <!-- Upcoming Sessions Section -->
         <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold text-gray-800">Upcoming Sessions</h3>
+                <h3 class="font-semibold text-gray-800">Sesi Akan Datang</h3>
             </div>
 
             <!-- Scrollable container -->
             <div class="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
                 @forelse ($schedules as $schedule)
                     <a href="{{ route('admin.schedule.attendance.index', $schedule->schedule_id) }}"
-                        class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-green-700 transition cursor-pointer">
+                        class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-gradient-to-r from-green-600 to-emerald-700 transition cursor-pointer">
                         
                         <div class="flex items-center gap-3">
                             <!-- Calendar Icon -->
