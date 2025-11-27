@@ -1,15 +1,15 @@
-<x-admin-layout :title="'Class Report'">
+<x-admin-layout :title="'Laporan Kelas'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Class Report</h2>
+        <h2 class="text-xl font-medium text-gray-800">Laporan Kelas</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('admin.class.index') }}" class="hover:text-green-600">Class</a></li>
+                <li><a href="{{ route('admin.class.index') }}" class="hover:text-green-600">Senarai Kelas</a></li>
                 <li>/</li>
-                <li>Report</li>
+                <li class="text-green-600">Laporan Kelas</li>
             </ol>
         </nav>
     </div>
@@ -19,34 +19,36 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Report</h2>
-                <p class="text-sm text-gray-500">Manage your report: search, filter and udpate.</p>
+                <h2 class="text-lg font-semibold">Senarai Laporan</h2>
+                <p class="text-sm text-gray-500">Urus laporan anda: carian, tapis dan kemaskini.</p>
             </div>
         </div>
 
         <!-- Search -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
            <!-- Search -->
-            <div class="relative w-full sm:w-full">
-                <input id="searchInput" type="text" placeholder="Search by name or recitation"
-                    class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                </svg>
+            <div class="relative w-full sm:flex-1">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="text" 
+                    id="searchInput" 
+                    placeholder="Cari mengikut Nama atau ID..." 
+                    class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
             </div>
         </div>
 
         <!-- Table -->
-        <div class="overflow-x-auto">
-            <table class="min-w-full text-sm text-left text-gray-600">
+        <div class="w-full overflow-x-auto">
+            <table class="w-full min-w-max text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Schedule</th>
-                        <th class="px-4 py-3">Total Attend</th>
-                        <th class="px-4 py-3">Total Absent</th>
+                        <th class="px-4 py-3">Bil</th>
+                        <th class="px-4 py-3">Tarikh Kelas</th>
+                        <th class="px-4 py-3">Jumlah Hadir</th>
+                        <th class="px-4 py-3">Jumlah Tidak Hadir</th>
                         <th class="px-4 py-3">Tutor</th>
                     </tr>
                 </thead>
@@ -66,7 +68,7 @@
         </div>
 
         <!-- No record row -->
-        <p id="noRecord" class="text-center text-gray-500 py-3 hidden">No records found</p>
+        <div id="noRecord" class="text-center text-gray-500 py-3 hidden">Tiada rekod dijumpai</div>
 
         <!-- Pagination -->
         <div class="flex items-center justify-between mt-4">
@@ -118,7 +120,7 @@
             // entries info
             const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
             const end = Math.min(currentPage * rowsPerPage, totalRows);
-            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+            entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
             // pagination
             pagination.innerHTML = "";
@@ -166,78 +168,4 @@
 
         renderTable();
     </script>
-
-    <!-- Add Class Modal -->
-    <div id="reportClassModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
-        <div class="relative w-full max-w-2xl mx-auto my-8 bg-white rounded-lg shadow-lg">
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between px-6 py-4">
-                <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">List of Attendance</h3>
-                <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="reportClassModal">✕</button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
-                <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-                    <table class="w-full text-sm text-left text-gray-700">
-                        <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-semibold">
-                            <tr>
-                                <th class="px-4 py-3">No</th>
-                                <th class="px-4 py-3">Recitation</th>
-                                <th class="px-4 py-2">Page</th>
-                                <th class="px-4 py-2">Grade</th>
-                                <th class="px-4 py-2">Date</th>
-                                <th class="px-4 py-3">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-4 py-3">1</td>
-                                <td class="px-4 py-3">Quran</td>
-                                <td class="px-4 py-3">10</td>
-                                <td class="px-4 py-3">Mumtaz</td>
-                                <td class="px-4 py-3">12/11/2023</td>
-                                <td class="px-4 py-3">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">Attend</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3">2</td>
-                                <td class="px-4 py-3">-</td>
-                                <td class="px-4 py-3">-</td>
-                                <td class="px-4 py-3">-</td>
-                                <td class="px-4 py-3">17/11/2023</td>
-                                <td class="px-4 py-3">
-                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-700">Absent</span>
-                                </td>
-                            </tr>
-                            <!-- Repeat rows here -->
-                        </tbody>
-                    </table>
-
-                </div>
-                <!-- Pagination -->
-                <div class="flex items-center justify-between mt-4">
-                    <div class="flex items-center gap-2">
-                        <span class="text-sm text-gray-500">Result per page</span>
-                        <select class="border rounded px-2 py-1 text-sm">
-                            <option>10</option>
-                            <option>20</option>
-                            <option>50</option>
-                        </select>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button class="px-3 py-1 border rounded text-sm text-gray-500 hover:bg-gray-100">&lt; Back</button>
-                        <button class="px-3 py-1 border rounded text-sm bg-green-600 text-white">1</button>
-                        <button class="px-3 py-1 border rounded text-sm">2</button>
-                        <button class="px-3 py-1 border rounded text-sm">3</button>
-                        <button class="px-3 py-1 border rounded text-sm">Next &gt;</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
 </x-admin-layout>

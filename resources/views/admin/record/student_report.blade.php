@@ -199,8 +199,8 @@
                     </div>
                 </div>
 
-                <div class="overflow-x-auto overflow-y-auto flex-1">
-                    <table id="reportTable" class="min-w-max text-sm text-left text-gray-600">
+                <div class="w-full overflow-x-auto overflow-y-auto flex-1">
+                    <table id="reportTable" class="w-full min-w-max text-sm text-left text-gray-600">
                         <thead class="bg-gray-100 text-gray-700 text-xs uppercase">
                             <tr>
                                 <th class="px-4 py-3">Bil</th>
