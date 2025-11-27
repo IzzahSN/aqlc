@@ -1,15 +1,15 @@
-<x-admin-layout :title="'Student'">
+<x-admin-layout :title="'Kemaskini Pakej Pelajar'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Student Edit Package</h2>
+        <h2 class="text-xl font-medium text-gray-800">Kemaskini Pakej Pelajar</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('admin.student.index') }}" class="hover:text-green-600">Student</a></li>
+                <li><a href="{{ route('admin.student.index') }}" class="hover:text-green-600">Senarai Pelajar</a></li>
                 <li>/</li>
-                <li>Package</li>
+                <li class="text-green-600">Kemaskini Pakej Pelajar</li>
             </ol>
         </nav>
     </div>
@@ -20,8 +20,12 @@
             method="POST">
             @csrf
             @method('DELETE')
-            <button type="button" id="disjoinBtn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-                Disjoin Package
+            <button type="button" id="disjoinBtn" 
+                    class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-red-600 rounded-lg shadow-sm hover:bg-red-700 hover:shadow transition-all duration-200 focus:ring-4 focus:ring-red-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                </svg>
+                Keluar Pakej
             </button>
         </form>
     </div>
@@ -29,14 +33,14 @@
     <script>
         document.getElementById("disjoinBtn").addEventListener("click", function () {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "This action will remove the student from this package and related classes.",
+                title: 'Adakah anda pasti?',
+                text: "Tindakan ini akan mengeluarkan pelajar daripada pakej dan kelas berkaitan.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
+                confirmButtonText: 'Ya, keluarkan!',
+                cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById("disjoinForm").submit();
@@ -53,15 +57,15 @@
             <!-- Package Info (read-only) -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Package Name</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Nama Pakej</label>
                     <input type="text" id="package_name" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ $student->joinPackage->package->package_name }}" readonly>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Package Type</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Jenis Pakej</label>
                     <input type="text" id="package_type" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ ucwords($student->joinPackage->package->package_type) }}" readonly>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Package Rate</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Kadar Pakej</label>
                     <input type="text" id="package_rate" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="RM {{ $student->joinPackage->package->package_rate }}" readonly>
                 </div>
                 <div>
@@ -69,29 +73,29 @@
                     <input type="text" id="unit" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ ucwords($student->joinPackage->package->unit) }}" readonly>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Duration per Session</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Tempoh setiap Sesi</label>
                     <input type="text" id="duration_per_sessions" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ $student->joinPackage->package->duration_per_sessions }}" readonly>
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Sessions per Week</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Sesi setiap Minggu</label>
                     <input type="text" id="session_per_week" class="form-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" value="{{ $student->joinPackage->package->session_per_week }}" readonly>
                 </div>
             </div>
             
              <!-- Available Classes Table -->
             <div class="mt-4">
-                <h5 class="font-semibold text-gray-800 mb-3">List of Available Classes</h5>
+                <h5 class="font-semibold text-gray-800 mb-3">Senarai Kelas Tersedia (Pilih tepat {{ $joinPackage->package->session_per_week }} kelas)</h5>
                 <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
                     <!-- Classes Table -->
                     <table class="w-full text-sm text-left text-gray-700">
                         <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-semibold">
                             <tr>
                                 <th class="px-4 py-3"></th>
-                                <th class="px-4 py-3">Class Name</th>
-                                <th class="px-4 py-3">Room</th>
-                                <th class="px-4 py-3">Day</th>
-                                <th class="px-4 py-3">Start</th>
-                                <th class="px-4 py-3">End</th>
+                                <th class="px-4 py-3">Nama Kelas</th>
+                                <th class="px-4 py-3">Bilik</th>
+                                <th class="px-4 py-3">Hari</th>
+                                <th class="px-4 py-3">Jam Mula</th>
+                                <th class="px-4 py-3">Jam Tamat</th>
                                 <th class="px-4 py-3">Status</th>
                             </tr>
                         </thead>
@@ -103,8 +107,8 @@
             </div>
 
             <div class="mt-6 flex justify-between space-x-3">
-                <a href="{{ route('admin.student.index') }}" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Cancel</a>
-                <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Update Classes</button>
+                <a href="{{ route('admin.student.index') }}" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Batal</a>
+                <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Kemaskini Kelas</button>
             </div>
         </form>
     </div>
@@ -190,8 +194,10 @@
                     e.preventDefault();
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Invalid Selection',
-                        text: `You must select exactly ${sessionLimit} classes.`,
+                        // title: 'Invalid Selection',
+                        title: 'Pemilihan Tidak Sah',
+                        // text: `You must select exactly ${sessionLimit} classes.`,
+                        text: `Anda mesti memilih tepat ${sessionLimit} kelas.`,
                         confirmButtonText: 'Okay'
                     });
                 }
