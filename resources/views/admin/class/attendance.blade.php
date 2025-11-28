@@ -1,15 +1,15 @@
-<x-admin-layout :title="'Attendance Report'">
+<x-admin-layout :title="'Laporan Kehadiran Kelas'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Attendance Report</h2>
+        <h2 class="text-xl font-medium text-gray-800">Laporan Kehadiran Kelas</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('admin.schedule.index') }}" class="hover:text-green-600">Schedule</a></li>
+                <li><a href="{{ route('admin.schedule.index') }}" class="hover:text-green-600">Senarai Borang Kehadiran</a></li>
                 <li>/</li>
-                <li>Attendance</li>
+                <li class="text-green-600">Laporan Kehadiran</li>
             </ol>
         </nav>
     </div>
@@ -24,34 +24,34 @@
             <!-- Header -->
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h2 class="text-lg font-semibold">List of Report</h2>
-                    <p class="text-sm text-gray-500">Manage your report: search, filter and update.</p>
+                    <h2 class="text-lg font-semibold">Senarai Kehadiran</h2>
+                    <p class="text-sm text-gray-500">Urus laporan anda: carian, tapis dan kemaskini.</p>
                 </div>
                 <div>
                     <!-- if student ganti kelas -->
-                    <button type="button"
-                        class="px-4 py-2 text-sm rounded-lg bg-yellow-400 text-white hover:bg-yellow-500"
-                        data-modal-target="addStudentModal" data-modal-toggle="addStudentModal">
-                        + Add Student
+                    <button data-modal-target="addStudentModal" data-modal-toggle="addStudentModal" type="button"
+                        class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-yellow-500 shadow-sm hover:bg-yellow-600 transition-colors duration-200 focus:ring-2 focus:ring-yellow-400 focus:ring-offset-1">
+                        + Tambah Pelajar
                     </button>
-
                     <button type="submit"
-                        class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                        Allocate Attendance
+                        class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-green-600 shadow-sm hover:bg-green-700 transition-colors duration-200 focus:ring-2 focus:ring-green-400 focus:ring-offset-1">
+                        Kemaskini Kehadiran
                     </button>
                 </div>
             </div>
 
             <!-- Search -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                <div class="relative w-full sm:w-full">
-                    <input type="text" id="searchInput" placeholder="Search by name or ID"
-                        class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                    <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                    </svg>
+                <div class="relative w-full sm:flex-1">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="text" 
+                        id="searchInput" 
+                        placeholder="Cari mengikut Nama atau ID..." 
+                        class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
                 </div>
             </div>
 
@@ -60,11 +60,11 @@
                 <table id="attendanceTable" class="min-w-full text-sm text-left text-gray-600">
                     <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                         <tr>
-                            <th class="px-4 py-3">No</th>
-                            <th class="px-4 py-3">Student Name</th>
-                            <th class="px-4 py-3">Remark</th>
-                            <th class="px-4 py-3 text-center">Attendance</th>
-                            <th class="px-4 py-3 text-center">Action</th>
+                            <th class="px-4 py-3">Bil</th>
+                            <th class="px-4 py-3">Nama Pelajar</th>
+                            <th class="px-4 py-3">Catatan</th>
+                            <th class="px-4 py-3 text-center">Kehadiran</th>
+                            <th class="px-4 py-3 text-center">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody id="attendanceBody">
@@ -86,7 +86,7 @@
                                         <input type="text"
                                             name="attendances[{{ $index }}][remark]" 
                                             value="{{ $attendance->remark }}"
-                                            placeholder="Enter remark..."
+                                            placeholder="Masukkan catatan..."
                                             @if($attendance->status == 1) disabled @endif
                                             class="w-full px-2 py-1 text-sm border rounded-lg focus:ring focus:ring-green-200 focus:border-green-500" />
                                     @endif
@@ -107,7 +107,7 @@
                                     data-id="{{ $attendance->attendance_id }}"
                                     data-schedule-id="{{ $attendance->schedule_id }}"
                                     @if ($attendance->status == 1) disabled @endif>
-                                    Delete
+                                    Padam
                                 </button>
                             </td>
                             </tr>
@@ -126,14 +126,14 @@
                             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
                             Swal.fire({
-                                title: "Are you sure?",
-                                text: "This attendance record will be deleted.",
+                                title: "Adakah anda pasti?",
+                                text: "Rekod kehadiran ini akan dipadamkan.",
                                 icon: "warning",
                                 showCancelButton: true,
                                 confirmButtonColor: "#3085d6",
                                 cancelButtonColor: "#d33",
-                                confirmButtonText: "Yes, delete it!",
-                                cancelButtonText: "Cancel"
+                                confirmButtonText: "Ya, padamkan!",
+                                cancelButtonText: "Batal"
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     fetch(`/admin/schedule/${scheduleId}/attendance/${attendanceId}`, {
@@ -151,11 +151,13 @@
                                         return response.text(); // handle redirect or JSON
                                     })
                                     .then(data => {
-                                        Swal.fire("Deleted!", "Attendance record deleted successfully.", "success");
+                                        // Swal.fire("Deleted!", "Attendance record deleted successfully.", "success");
+                                        Swal.fire("Dipadam!", "Rekod kehadiran berjaya dipadam.", "success");
                                         setTimeout(() => location.reload(), 1000);
                                     })
                                     .catch(err => {
-                                        Swal.fire("Error!", "Failed to delete attendance.", "error");
+                                        // Swal.fire("Error!", "Failed to delete attendance.", "error");
+                                        Swal.fire("Ralat!", "Gagal memadam rekod kehadiran.", "error");
                                         console.error(err);
                                     });
                                 }
@@ -165,7 +167,8 @@
                 });
                 </script>
 
-                <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+                {{-- <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div> --}}
+                <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
             </div>
 
             <!-- Pagination Info -->
@@ -212,7 +215,7 @@
 
             const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
             const end = Math.min(currentPage * rowsPerPage, totalRows);
-            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+            entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
             pagination.innerHTML = "";
 
@@ -273,7 +276,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add Student</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Tambah Pelajar</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addStudentModal">✕</button>
             </div>
 
@@ -282,9 +285,9 @@
                 @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div>
-                        <label for="student_id" class="block mb-2 text-sm font-medium text-gray-900">Select Student</label>
+                        <label for="student_id" class="block mb-2 text-sm font-medium text-gray-900">Nama Pelajar</label>
                         <select id="student_id" name="student_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                            <option value="">Select Student</option>
+                            <option value="">Pilih Pelajar</option>
                             @foreach($students as $student)
                                 <option value="{{ $student->student_id }}">{{ $student->first_name }} {{ $student->last_name }} (ID: {{ $student->student_id }})</option>
                             @endforeach
@@ -294,9 +297,9 @@
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addStudentModal">Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addStudentModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Hantar</button>
                 </div>
             </form>
         </div>

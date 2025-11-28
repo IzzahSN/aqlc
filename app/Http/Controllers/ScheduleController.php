@@ -203,7 +203,7 @@ class ScheduleController extends Controller
         ]);
 
         // return back()->with('success', 'Class schedule created successfully.')
-        return back()->with('success', 'Jadual kelas berjaya ditambah.')
+        return back()->with('success', 'Borang Kehadiran berjaya ditambah.')
             ->with('closeModalAdd', true);
     }
 
@@ -306,7 +306,7 @@ class ScheduleController extends Controller
 
         return redirect()->back()
             // ->with('success', 'Schedule updated successfully!')
-            ->with('success', 'Jadual berjaya dikemaskini!')
+            ->with('success', 'Borang Kehadiran berjaya dikemaskini!')
             ->with('closeModalEdit', true);
     }
 

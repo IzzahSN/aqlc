@@ -1,41 +1,54 @@
-<x-admin-layout :title="'Schedule'">
+<x-admin-layout :title="'Borang Kehadiran Pelajar'">
     <!-- Class Timetable -->
-    <div class="bg-white p-4 rounded-sm shadow mb-6 border-l-lime-600 border-l-6">
+    <div class="bg-white p-4 rounded-sm shadow mb-6">
         <!-- Header -->
-            <div class="flex items-center justify-between mb-4">
-                {{-- Title & description --}}
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div class="flex items-start gap-3">
+                <div class="p-2.5 bg-green-50 rounded-lg text-green-600 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                        <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
                 <div>
-                    <h2 class="text-lg font-semibold">Class Timetable</h2>
-                    <p class="text-sm text-gray-500">Overview of class schedules for the week.</p>
+                    <h2 class="text-lg font-bold text-gray-800">Jadual Kelas</h2>
+                    <p class="text-sm text-gray-500">Gambaran keseluruhan jadual kelas mingguan.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 justify-start md:justify-end">
+                
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-800"></span>
+                    <span class="text-xs font-medium text-gray-600">Kelas 1</span>
                 </div>
 
-                <!-- Legend -->
-                <div class="flex gap-4 mt-4 justify-center flex-wrap">
-                    <div class="flex items-center gap-1">
-                        <span class="w-3 h-3 rounded-full bg-green-800"></span>
-                        <span class="text-sm text-gray-700">Kelas 1</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <span class="w-3 h-3 rounded-full bg-orange-500"></span>
-                        <span class="text-sm text-gray-700">Kelas 2</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <span class="w-3 h-3 rounded-full bg-red-500"></span>
-                        <span class="text-sm text-gray-700">Kelas 3</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <span class="w-3 h-3 rounded-full bg-blue-500"></span>
-                        <span class="text-sm text-gray-700">Kelas 4</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <span class="w-3 h-3 rounded-full bg-purple-500"></span>
-                        <span class="text-sm text-gray-700">Bilik 1</span>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <span class="w-3 h-3 rounded-full bg-pink-500"></span>
-                        <span class="text-sm text-gray-700">Bilik 2</span>
-                    </div>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Kelas 2</span>
                 </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Kelas 3</span>
+                </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Kelas 4</span>
+                </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Bilik 1</span>
+                </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Bilik 2</span>
+                </div>
+
+            </div>
         </div>
 
         <!-- Class timetable -->
@@ -87,49 +100,92 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Schedules</h2>
-                <p class="text-sm text-gray-500">Manage your schedules: add new, search, filter, edit, or delete.</p>
+                <h2 class="text-lg font-semibold">Senarai Borang Kehadiran</h2>
+                <p class="text-sm text-gray-500">Urus borang kehadiran : tambah baru, cari, tapis, sunting, atau padam.</p>
             </div>
             <button data-modal-target="addScheduleModal" data-modal-toggle="addScheduleModal"
-                class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                + Add New Schedule
+                class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-green-600 shadow-sm hover:bg-green-700 transition-colors duration-200 focus:ring-2 focus:ring-green-400 focus:ring-offset-1">
+                + Tambah Borang Kehadiran
             </button>
-
         </div>
 
-        <!-- Search + Filter -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <!-- Search -->
-            <div class="relative w-full sm:w-full">
-                <input type="text" id="searchInput" placeholder="Search by name or ID"
-                    class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                </svg>
+        <!-- Filters -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            <div class="relative w-full sm:flex-1">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="text" 
+                    id="searchInput" 
+                    placeholder="Cari mengikut Nama atau ID..." 
+                    class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
             </div>
-            <!-- Filter -->
-            <select id="filterDay" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Days</option>
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <option value="wednesday">Wednesday</option>
-                <option value="thursday">Thursday</option>
-                <option value="friday">Friday</option>
-                <option value="saturday">Saturday</option>
-                <option value="sunday">Sunday</option>
-            </select>
-            <select id="filterRoom" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Rooms</option>
-                <option value="Kelas 1">Kelas 1</option>
-                <option value="Kelas 2">Kelas 2</option>
-                <option value="Kelas 3">Kelas 3</option>
-                <option value="Kelas 4">Kelas 4</option>
-                <option value="Bilik 1">Bilik 1</option>
-                <option value="Bilik 2">Bilik 2</option>
-            </select>
-            <input type="date" id="filterDate" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto" placeholder="Filter by date">
+
+            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                
+                <div class="relative w-full sm:w-40">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                            <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <select id="filterDay" 
+                            class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                        <option value="">Hari</option>
+                        <option value="Isnin">Isnin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Khamis">Khamis</option>
+                        <option value="Jumaat">Jumaat</option>
+                        <option value="Sabtu">Sabtu</option>
+                        <option value="Ahad">Ahad</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="relative w-full sm:w-40">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 2.25a.75.75 0 0 0-.75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054a8.25 8.25 0 0 0 5.58.652l3.109-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.158l-.108-.054a8.25 8.25 0 0 0-5.89-.538l-2.25.54A.75.75 0 0 0 3 6v9.75a.75.75 0 0 0 .75.75h16.5a.75.75 0 0 0 .75-.75V6a.75.75 0 0 0-.75-.75H12a.75.75 0 0 0-.75.75v.75a.75.75 0 0 1-1.5 0V6A.75.75 0 0 0 9 5.25H3.75V3A.75.75 0 0 0 3 2.25Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <select id="filterRoom" 
+                            class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                        <option value="">Bilik</option>
+                        <option value="Kelas 1">Kelas 1</option>
+                        <option value="Kelas 2">Kelas 2</option>
+                        <option value="Kelas 3">Kelas 3</option>
+                        <option value="Kelas 4">Kelas 4</option>
+                        <option value="Bilik 1">Bilik 1</option>
+                        <option value="Bilik 2">Bilik 2</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="relative w-full sm:w-auto">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input type="date" 
+                        id="filterDate" 
+                        class="block w-full p-2.5 pl-10 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all cursor-pointer" 
+                        placeholder="Filter by date">
+                </div>
+
+            </div>
         </div>
 
         <!-- Table -->
@@ -137,14 +193,14 @@
             <table id="scheduleTable" class="min-w-full text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Class Name</th>
-                        <th class="px-4 py-3">Package Type</th>
-                        <th class="px-4 py-3">Day</th>
-                        <th class="px-4 py-3">Room</th>
-                        <th class="px-4 py-3">Tutor Name</th>
-                        <th class="px-4 py-3">Date</th>
-                        <th class="px-4 py-3 text-center">Action</th>
+                        <th class="px-4 py-3">Bil</th>
+                        <th class="px-4 py-3">Nama Kelas</th>
+                        <th class="px-4 py-3">Jenis Pakej</th>
+                        <th class="px-4 py-3">Hari</th>
+                        <th class="px-4 py-3">Bilik</th>
+                        <th class="px-4 py-3">Tutor</th>
+                        <th class="px-4 py-3">Tarikh</th>
+                        <th class="px-4 py-3 text-center">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="scheduleBody">
@@ -152,8 +208,26 @@
                     <tr class="border-b">
                         <td class="px-4 py-3 row-index"></td>
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $schedule->class->class_name }}</td>
-                        <td class="px-4 py-3">{{ ucfirst($schedule->class->package->package_type) }}</td>
-                        <td class="px-4 py-3">{{ $schedule->class->day }}</td>
+                        {{-- <td class="px-4 py-3">{{ ucfirst($schedule->class->package->package_type) }}</td> --}}
+                        <td class="px-4 py-3">
+                            {{ $schedule->class->package->package_type == 'personal' ? 'Persendirian' : 'Berkumpulan' }}
+                        </td>
+                        {{-- <td class="px-4 py-3">{{ $schedule->class->day }}</td> --}}
+                        {{-- tukar monday->Isnin --}}
+                        <td class="px-4 py-3">
+                            @php
+                                $daysMap = [
+                                    'monday' => 'Isnin',
+                                    'tuesday' => 'Selasa',
+                                    'wednesday' => 'Rabu',
+                                    'thursday' => 'Khamis',
+                                    'friday' => 'Jumaat',
+                                    'saturday' => 'Sabtu',
+                                    'sunday' => 'Ahad',
+                                ];
+                            @endphp
+                            {{ $daysMap[strtolower($schedule->class->day)] ?? $schedule->class->day }}
+                        </td>
                         <td class="px-4 py-3">{{ $schedule->class->room }}</td>
                         {{-- if relief null display $schedule->class->tutor->username, if ada value $schedule->relief->tutor->username--}}
                         <td class="px-4 py-3">
@@ -165,8 +239,8 @@
                                 class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
                                 data-id="{{ $schedule->schedule_id }}" 
                                 data-modal-target="editScheduleModal"
-                                data-modal-toggle="editScheduleModal">Edit</button>
-                            <a href="{{ route('admin.schedule.attendance.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Attendance</a>                                                        
+                                data-modal-toggle="editScheduleModal">Kemaskini</button>
+                            <a href="{{ route('admin.schedule.attendance.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-500 text-white hover:bg-yellow-600">Kehadiran</a>                                                        
                         </td>
                     </tr>
                     @endforeach
@@ -174,7 +248,7 @@
             </table>
 
              <!-- No Record Message -->
-            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
         </div>
 
          <!-- Pagination (manual JS) -->
@@ -250,7 +324,7 @@
                 // entries info
                 const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                 const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                 // build pagination buttons
                 pagination.innerHTML = "";
@@ -312,7 +386,7 @@
 
             renderTable();
         </script>
-    </div>
+        </div>
 
     <!-- Add Schedule Modal -->
     <div id="addScheduleModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center w-full h-full bg-gray-900/50">
@@ -320,7 +394,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Schedule</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Tambah Borang Kehadiran</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addScheduleModal">✕</button>
             </div>
 
@@ -331,17 +405,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- Date -->
                         <div>
-                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Schedule Date</label>
+                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tarikh</label>
                             <input type="date" id="date" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Class -->
                         <div>
-                            <label for="class_id" class="block mb-2 text-sm font-medium text-gray-900">Select Class</label>
+                            <label for="class_id" class="block mb-2 text-sm font-medium text-gray-900">Nama Kelas</label>
                             <select id="class_id" name="class_id"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                     focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>                                
-                                <option value="">Select Class</option>
+                                <option value="">Pilih Kelas</option>
                                 @foreach($classes as $class)
                                     <option value="{{ $class->class_id }}" data-tutor="{{ $class->tutor->tutor_id }}" data-tutorname="{{ $class->tutor->username }}">
                                         {{ $class->class_name }}
@@ -352,7 +426,7 @@
 
                        <!-- Tutor Assign -->
                         <div>
-                            <label for="tutor_display" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
+                            <label for="tutor_display" class="block mb-2 text-sm font-medium text-gray-900">Tutor</label>
                             <!-- Papar username tutor -->
                             <input type="text" id="tutor_display" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                 focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
@@ -376,11 +450,11 @@
 
                         <!-- Relief Assign -->
                         <div>
-                            <label for="relief" class="block mb-2 text-sm font-medium text-gray-900">Relief Tutor</label>
+                            <label for="relief" class="block mb-2 text-sm font-medium text-gray-900">Tutor Ganti</label>
                              <select id="relief" name="relief"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                     focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
-                                <option value="">Select Tutor</option>
+                                <option value="">Pilih Tutor</option>
                                 @foreach($tutors as $tutor)
                                     <option value="{{ $tutor->tutor_id }}">{{ $tutor->username }}</option>
                                 @endforeach
@@ -391,9 +465,9 @@
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addScheduleModal">Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addScheduleModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Hantar</button>
                 </div>
             </form>
         </div>
@@ -405,7 +479,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Schedule</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Kemaskini Borang Kehadiran</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editScheduleModal">✕</button>
             </div>
 
@@ -417,17 +491,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- Date -->
                         <div>
-                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Schedule Date</label>
+                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Tarikh</label>
                             <input type="date" id="date" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Class -->
                         <div>
-                            <label for="class_id" class="block mb-2 text-sm font-medium text-gray-900">Select Class</label>
+                            <label for="class_id" class="block mb-2 text-sm font-medium text-gray-900">Nama Kelas</label>
                             <select id="class_id" name="class_id"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                     focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>                                
-                                <option value="">Select Class</option>
+                                <option value="">Pilih Kelas</option>
                                 @foreach($classes as $class)
                                     <option value="{{ $class->class_id }}" data-tutor="{{ $class->tutor->tutor_id }}" data-tutorname="{{ $class->tutor->username }}">
                                         {{ $class->class_name }}
@@ -438,7 +512,7 @@
 
                        <!-- Tutor Assign -->
                         <div>
-                            <label for="tutor_display" class="block mb-2 text-sm font-medium text-gray-900">Assign Tutor</label>
+                            <label for="tutor_display" class="block mb-2 text-sm font-medium text-gray-900">Tutor</label>
                             <!-- Papar username tutor -->
                             <input type="text" id="tutor_display" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                 focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
@@ -462,11 +536,11 @@
 
                         <!-- Relief Assign -->
                         <div>
-                            <label for="relief" class="block mb-2 text-sm font-medium text-gray-900">Relief Tutor</label>
+                            <label for="relief" class="block mb-2 text-sm font-medium text-gray-900">Tutor Ganti</label>
                              <select id="relief" name="relief"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                     focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
-                                <option value="">Select Tutor</option>
+                                <option value="">Pilih Tutor</option>
                                 @foreach($tutors as $tutor)
                                     <option value="{{ $tutor->tutor_id }}">{{ $tutor->username }}</option>
                                 @endforeach
@@ -477,9 +551,9 @@
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editScheduleModal">Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editScheduleModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Kemaskini Maklumat</button>
                 </div>
             </form>
         </div>
