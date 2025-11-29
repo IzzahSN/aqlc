@@ -1,23 +1,23 @@
 <aside id="sidebar-multi-level-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-all duration-300 -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
         <div class="flex items-center justify-center mb-6 px-3">
-    <a href="{{ route('admin.dashboard') }}" 
-       class="flex items-center gap-3 p-3 w-full bg-white border border-green-100 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group">
-        
-        <img src="/images/logo-1.svg" 
-             class="h-10 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300" 
-             alt="AQLC Logo" />
-        
-        <div class="flex flex-col sidebar-text">
-            <span class="text-[10px] font-bold text-gray-600 uppercase tracking-wider leading-none mb-0.5">
-                Pusat Pengajian 
-            </span>
-            <span class="text-[10px] font-bold text-gray-600 uppercase tracking-wider leading-none mb-0.5">
-                Quran As-Siraaj
-            </span>
+            <a href="{{ route('admin.dashboard') }}" 
+            class="flex items-center gap-3 p-3 w-full bg-white border border-green-100 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group">
+                
+                <img src="/images/logo-1.svg" 
+                    class="h-10 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300" 
+                    alt="AQLC Logo" />
+                
+                <div class="flex flex-col sidebar-text">
+                    <span class="text-[10px] font-bold text-gray-600 uppercase tracking-wider leading-none mb-0.5">
+                        Pusat Pengajian 
+                    </span>
+                    <span class="text-[10px] font-bold text-gray-600 uppercase tracking-wider leading-none mb-0.5">
+                        Quran As-Siraaj
+                    </span>
+                </div>
+            </a>
         </div>
-    </a>
-</div>
         <ul class="space-y-2 font-semibold">
             <!-- Dashboard & Profil-->
             <li>
