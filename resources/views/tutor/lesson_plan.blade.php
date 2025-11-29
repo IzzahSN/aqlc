@@ -44,7 +44,7 @@
                 @if($lessonPlan->learning_materials)
                     <div class="mt-3">
                         @if(Str::endsWith($lessonPlan->learning_materials, '.pdf'))
-                            <a href="{{ asset('storage/' . $lessonPlan->learning_materials) }}" target="_blank" class="text-green-600 underline text-sm">View Existing PDF</a>
+                            <a href="{{ asset('storage/' . $lessonPlan->learning_materials) }}" target="_blank" class="text-green-600 underline text-sm">Lihat PDF Sedia Ada</a>
                         @else
                             <img src="{{ asset('storage/' . $lessonPlan->learning_materials) }}" class="w-24 h-24 object-cover rounded-lg border mt-2">
                         @endif
@@ -64,7 +64,7 @@
             <div class="flex justify-end">
                 <button type="submit"
                         class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                    Simpan Pelan Pengajian
+                    Kemaskini Maklumat
                 </button>
             </div>
         </form>

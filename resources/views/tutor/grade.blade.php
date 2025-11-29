@@ -30,26 +30,45 @@
             </div>
 
             <!-- Search + Filter -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                <!-- Search -->
-                <div class="relative w-full sm:w-full">
-                    <input type="text" id="searchInput" placeholder="Cari pelajar..."
-                        class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                    <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                    </svg>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                
+                <div class="relative w-full sm:flex-1">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="text" 
+                        id="searchInput" 
+                        placeholder="Cari pelajar mengikut Nama atau ID..." 
+                        class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
                 </div>
-                <!-- Filter by Grade -->
-                <select id="filterGrade" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                    <option value="">Semua Gred</option>
-                    <option value="Mumtaz">Mumtaz</option>
-                    <option value="Jayyid Jiddan">Jayyid Jiddan</option>
-                    <option value="Jayyid">Jayyid</option>
-                    <option value="Maqbul">Maqbul</option>
-                    <option value="Rasib">Rasib</option>
-                </select>
+
+                <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                    
+                    <div class="relative w-full sm:w-48">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <select id="filterGrade" 
+                                class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                            <option value="">Semua Gred</option>
+                            <option value="Mumtaz">Mumtaz</option>
+                            <option value="Jayyid Jiddan">Jayyid Jiddan</option>
+                            <option value="Jayyid">Jayyid</option>
+                            <option value="Maqbul">Maqbul</option>
+                            <option value="Rasib">Rasib</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <div class="overflow-x-auto">
@@ -596,11 +615,11 @@
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
                     <button type="button"
-                        class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300"
+                        class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300"
                         data-modal-hide="addStudentModal">Batal</button>
 
                     <button type="submit" id="submitForm"
-                        class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">
+                        class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">
                         Hantar
                     </button>
                 </div>

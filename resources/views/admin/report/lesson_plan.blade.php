@@ -1,15 +1,15 @@
-<x-admin-layout :title="'Schedule'">
+<x-admin-layout :title="'Laporan Pelan Pengajian'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Lesson Plan Report</h2>
+        <h2 class="text-xl font-medium text-gray-800">Laporan Pelan Pengajian</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('admin.report.index') }}" class="hover:text-green-600">Report</a></li>
+                <li><a href="{{ route('admin.report.index') }}" class="hover:text-green-600">Senarai Prestasi Pelajar</a></li>
                 <li>/</li>
-                <li>Lesson Plan</li>
+                <li class="text-green-600">Pelan Pengajian</li>
             </ol>
         </nav>
     </div>
@@ -25,7 +25,7 @@
 
             <!-- Title -->
             <div>
-                <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Title</label>
+                <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Tajuk</label>
                 <input type="text" id="title" name="title"
                     placeholder="Hukum Mad Silah Qasirah"
                     value="{{ $lessonPlan->title }}"
@@ -34,17 +34,17 @@
 
             <!-- Upload Materials -->
             <div>
-                <label for="materials" class="block mb-2 text-sm font-medium text-gray-900">Upload Learning Material</label>
+                <label for="materials" class="block mb-2 text-sm font-medium text-gray-900">Muat Naik Bahan Pengajaran</label>
                 <input type="file" id="materials" name="materials"
                     accept=".pdf,image/*"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
 
-                <p class="mt-1 text-xs text-gray-500">You can upload one file only (image or PDF).</p>
+                <p class="mt-1 text-xs text-gray-500">Anda boleh memuat naik satu fail sahaja (imej atau PDF).</p>
 
                 @if($lessonPlan->learning_materials)
                     <div class="mt-3">
                         @if(Str::endsWith($lessonPlan->learning_materials, '.pdf'))
-                            <a href="{{ asset('storage/' . $lessonPlan->learning_materials) }}" target="_blank" class="text-green-600 underline text-sm">View Existing PDF</a>
+                            <a href="{{ asset('storage/' . $lessonPlan->learning_materials) }}" target="_blank" class="text-green-600 underline text-sm">Lihat PDF Sedia Ada</a>
                         @else
                             <img src="{{ asset('storage/' . $lessonPlan->learning_materials) }}" class="w-24 h-24 object-cover rounded-lg border mt-2">
                         @endif
@@ -54,9 +54,9 @@
 
             <!-- Description -->
             <div>
-                <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Keterangan</label>
                 <textarea id="description" name="description" rows="3"
-                        placeholder="Write a brief description about the lesson plan..."
+                        placeholder="Tulis keterangan ringkas mengenai pelan pengajian..."
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5">{{ $lessonPlan->description }}</textarea>
             </div>
 
@@ -64,7 +64,7 @@
             <div class="flex justify-end">
                 <button type="submit"
                         class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                    Save Lesson Plan
+                    Kemaskini Maklumat
                 </button>
             </div>
         </form>

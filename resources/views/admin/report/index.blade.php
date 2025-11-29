@@ -1,62 +1,107 @@
-<x-admin-layout :title="'Grade & Lesson Plan Report'">
+<x-admin-layout :title="'Prestasi Pelajar'">
     <!-- Report List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Report</h2>
-                <p class="text-sm text-gray-500">Manage your report: search, filter and update.</p>
+                <h2 class="text-lg font-semibold">Senarai Rekod Prestasi Pelajar</h2>
+                <p class="text-sm text-gray-500">Urus laporan anda: cari, tapis dan kemaskini.</p>
             </div>
         </div>
 
-        <!-- Search + Filter -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <!-- Search -->
-            <div class="relative w-full sm:w-full">
-                <input type="text" id="searchInput" placeholder="Search by name or ID"
-                    class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                </svg>
+        <!-- Filters -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            
+            <div class="relative w-full sm:flex-1">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="text" 
+                    id="searchInput" 
+                    placeholder="Cari mengikut Nama atau ID..." 
+                    class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
             </div>
-            <!-- Filter -->
-            <select id="filterDay" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Days</option>
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <option value="wednesday">Wednesday</option>
-                <option value="thursday">Thursday</option>
-                <option value="friday">Friday</option>
-                <option value="saturday">Saturday</option>
-                <option value="sunday">Sunday</option>
-            </select>
-            <select id="filterRoom" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Rooms</option>
-                <option value="Kelas 1">Kelas 1</option>
-                <option value="Kelas 2">Kelas 2</option>
-                <option value="Kelas 3">Kelas 3</option>
-                <option value="Kelas 4">Kelas 4</option>
-                <option value="Bilik 1">Bilik 1</option>
-                <option value="Bilik 2">Bilik 2</option>
-            </select>
-            <input type="date" id="filterDate" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto" placeholder="Filter by date">
+
+            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                
+                <div class="relative w-full sm:w-40">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                            <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <select id="filterDay" 
+                            class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                        <option value="">Semua Hari</option>
+                        <option value="Isnin">Isnin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Khamis">Khamis</option>
+                        <option value="Jumaat">Jumaat</option>
+                        <option value="Sabtu">Sabtu</option>
+                        <option value="Ahad">Ahad</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="relative w-full sm:w-40">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 2.25a.75.75 0 0 0-.75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054a8.25 8.25 0 0 0 5.58.652l3.109-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.158l-.108-.054a8.25 8.25 0 0 0-5.89-.538l-2.25.54A.75.75 0 0 0 3 6v9.75a.75.75 0 0 0 .75.75h16.5a.75.75 0 0 0 .75-.75V6a.75.75 0 0 0-.75-.75H12a.75.75 0 0 0-.75.75v.75a.75.75 0 0 1-1.5 0V6A.75.75 0 0 0 9 5.25H3.75V3A.75.75 0 0 0 3 2.25Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <select id="filterRoom" 
+                            class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                        <option value="">Semua Bilik</option>
+                        <option value="Kelas 1">Kelas 1</option>
+                        <option value="Kelas 2">Kelas 2</option>
+                        <option value="Kelas 3">Kelas 3</option>
+                        <option value="Kelas 4">Kelas 4</option>
+                        <option value="Bilik 1">Bilik 1</option>
+                        <option value="Bilik 2">Bilik 2</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="relative w-full sm:w-auto">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input type="date" 
+                        id="filterDate" 
+                        class="block w-full p-2.5 pl-10 text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all cursor-pointer" 
+                        placeholder="Filter by date">
+                </div>
+
+            </div>
         </div>
 
         <!-- Table -->
-        <div class="overflow-x-auto">
-            <table id="reportTable" class="min-w-full text-sm text-left text-gray-600">
+        <div class="w-full overflow-x-auto">
+            <table id="reportTable" class="w-full min-w-max text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Class Name</th>
-                        <th class="px-4 py-3">Package Type</th>
-                        <th class="px-4 py-3">Day</th>
-                        <th class="px-4 py-3">Room</th>
-                        <th class="px-4 py-3">Tutor Name</th>
-                        <th class="px-4 py-3">Date</th>
-                        <th class="px-4 py-3 text-center">Action</th>
+                        <th class="px-4 py-3">Bil</th>
+                        <th class="px-4 py-3">Nama Kelas</th>
+                        <th class="px-4 py-3">Jenis Pakej</th>
+                        <th class="px-4 py-3">Hari</th>
+                        <th class="px-4 py-3">Bilik</th>
+                        <th class="px-4 py-3">Tutor</th>
+                        <th class="px-4 py-3">Tarikh</th>
+                        <th class="px-4 py-3 text-center">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="reportBody">
@@ -64,8 +109,23 @@
                     <tr class="border-b">
                         <td class="px-4 py-3 row-index"></td>
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $schedule->class->class_name }}</td>
-                        <td class="px-4 py-3">{{ ucfirst($schedule->class->package->package_type) }}</td>
-                        <td class="px-4 py-3">{{ $schedule->class->day }}</td>
+                        {{-- <td class="px-4 py-3">{{ ucfirst($schedule->class->package->package_type) }}</td> --}}
+                        <td class="px-4 py-3">{{ $schedule->class->package->package_type == 'group' ? 'Berkumpulan' : 'Persendirian' }}</td>
+                        {{-- <td class="px-4 py-3">{{ $schedule->class->day }}</td> --}}
+                        <td class="px-4 py-3">
+                            @php
+                                $days = [
+                                    'Monday' => 'Isnin',
+                                    'Tuesday' => 'Selasa',
+                                    'Wednesday' => 'Rabu',
+                                    'Thursday' => 'Khamis',
+                                    'Friday' => 'Jumaat',
+                                    'Saturday' => 'Sabtu',
+                                    'Sunday' => 'Ahad',
+                                ];
+                            @endphp
+                            {{ $days[$schedule->class->day] ?? $schedule->class->day }}
+                        </td>
                         <td class="px-4 py-3">{{ $schedule->class->room }}</td>
                         {{-- if relief null display $schedule->class->tutor->username, if ada value $schedule->relief->tutor->username--}}
                         <td class="px-4 py-3">
@@ -73,8 +133,8 @@
                         </td>
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <a href="{{ route('admin.report.grade.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">Grade</a>                                                        
-                            <a href="{{ route('admin.report.lesson-plan.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Lesson Plan</a>                                                        
+                            <a href="{{ route('admin.report.grade.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-500 text-white hover:bg-yellow-600">Laporan Prestasi</a>                                                        
+                            <a href="{{ route('admin.report.lesson-plan.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Pelan Pengajian</a>                                                        
                         </td>
                     </tr>
                     @endforeach
@@ -82,7 +142,7 @@
             </table>
 
             <!-- No Record Message -->
-            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
         </div>
 
          <!-- Pagination (manual JS) -->
@@ -158,7 +218,7 @@
                 // entries info
                 const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                 const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                 // build pagination buttons
                 pagination.innerHTML = "";
