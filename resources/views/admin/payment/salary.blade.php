@@ -1,45 +1,72 @@
-<x-admin-layout :title="'Salary'">
-    <!-- Insight -->
+<x-admin-layout :title="'Senarai Gaji Tutor'">
+    <!-- Summary Cards + Chart -->
     <div class="space-y-6 mb-6">
         <!-- === 3 Summary Cards (1 row) === -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Total Paid Salary -->
-            <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-lime-600 border-l-6 justify-between">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
                 <div>
-                    <p class="text-sm font-semibold text-lime-600 uppercase">Total Paid Salary</p>
-                    <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($totalPaidSalary, 2) }}</h3>
-                </div>            
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8 text-gray-300" viewBox="0 0 24 24"><path d="M12 2c-.218 0-.432.002-.642.005l-.616.017-.299.013-.579.034-.553.046c-4.785.464-6.732 2.411-7.196 7.196l-.046.553-.034.579-.013.299-.017.616-.004.318-.001.324c0 .218.002.432.005.642l.017.616.013.299.034.579.046.553c.464 4.785 2.411 6.732 7.196 7.196l.553.046.579.034.299.013.616.017.642.005.642-.005.616-.017.299-.013.579-.034.553-.046c4.785-.464 6.732-2.411 7.196-7.196l.046-.553.034-.579.013-.299.017-.616.005-.642-.005-.642-.017-.616-.013-.299-.034-.579-.046-.553c-.464-4.785-2.411-6.732-7.196-7.196l-.553-.046-.579-.034-.299-.013-.616-.017L12.642 2zM14.293 9.293a1 1 0 0 1 1.497 1.32l-.083.094-4 4a1 1 0 0 1-1.32.083l-.094-.083-2-2a1 1 0 0 1 1.32-1.497l.094.083L12 12.585l2.293-2.292z"/></svg>
+                    <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Jumlah Gaji Dibayar</p>
+                    <h3 class="text-3xl font-extrabold text-gray-900">RM{{ number_format($totalPaidSalary, 2) }}</h3>
+                </div>
+                <div class="flex items-center justify-center p-3 bg-lime-100 rounded-full text-lime-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                        <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
             </div>
 
-            <!-- Total Pending Salary -->
-            <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-amber-400 border-l-6 justify-between">
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
                 <div>
-                    <p class="text-sm font-semibold text-amber-600 uppercase">Total Pending Salary</p>
-                    <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($totalPendingSalary, 2) }}</h3>
+                    <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Jumlah Gaji Sedang Di Proses</p>
+                    <h3 class="text-3xl font-extrabold text-gray-900">RM{{ number_format($totalPendingSalary, 2) }}</h3>
                 </div>
-                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-x w-8 h-8 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" fill="currentColor" stroke-width="0" /></svg>   
+                <div class="flex items-center justify-center p-3 bg-amber-100 rounded-full text-amber-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
             </div>
 
-            <!-- Total Unpaid Salary -->
-            <div class="bg-white p-4 rounded-sm shadow flex items-center gap-3 border-l-red-600 border-l-6 justify-between">
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
                 <div>
-                    <p class="text-sm font-semibold text-red-600 uppercase">Total Unpaid Salary</p>
-                    <h3 class="text-2xl font-bold text-gray-500">RM{{ number_format($totalUnpaidSalary, 2) }}</h3>                
+                    <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Jumlah Gaji Belum Dibayar</p>
+                    <h3 class="text-3xl font-extrabold text-gray-900">RM{{ number_format($totalUnpaidSalary, 2) }}</h3>
                 </div>
-                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-square-rounded-x w-8 h-8 text-gray-300"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" fill="currentColor" stroke-width="0" /></svg>   
+                <div class="flex items-center justify-center p-3 bg-red-100 rounded-full text-red-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
             </div>
+
         </div>
 
         <!-- === Chart Section (below cards) === -->
         <div class="bg-white p-4 rounded-xl shadow">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">Salary Report</h3>
-                <select id="yearFilter" class="text-sm border rounded-lg px-3 py-1">
-                    @foreach ($salaryYears as $year)
-                        <option value="{{ $year->salary_year }}">{{ $year->salary_year }}</option>
-                    @endforeach
-                </select>
+                <h3 class="font-semibold">Laporan Tahunan Gaji Tutor</h3>
+                <div class="relative w-full sm:w-32">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                            <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+
+                    <select id="yearFilter" 
+                            class="appearance-none cursor-pointer w-full py-2 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all hover:bg-white">
+                        @foreach ($salaryYears as $year)
+                            <option value="{{ $year->salary_year }}">{{ $year->salary_year }}</option>
+                        @endforeach
+                    </select>
+
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
             </div>
             <canvas id="salaryChart" height="100"></canvas>
         </div>
@@ -60,7 +87,7 @@
             const data = {
                 labels: labels,
                 datasets: [{
-                    label: `Total Salary (RM) for ${result.year}`,
+                    label: `Jumlah Gaji (RM) untuk Tahun ${result.year}`,
                     data: result.data,
                     borderColor: '#16a34a',
                     backgroundColor: 'rgba(22,163,74,0.2)',
@@ -112,64 +139,96 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">List of Salary</h2>
-                <p class="text-sm text-gray-500">Manage your salary: add new, search, filter, edit, or delete.</p>
+                <h2 class="text-lg font-semibold">Senarai Rekod Gaji Tutor</h2>
+                <p class="text-sm text-gray-500">Uruskan gaji tutor anda: tambah baru, cari, tapis, sunting, atau padam.</p>
             </div>
             <button data-modal-target="addSalaryModal" data-modal-toggle="addSalaryModal"
-                class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">
-                + Add New Salary
+                class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-green-600 shadow-sm hover:bg-green-700 transition-colors duration-200 focus:ring-2 focus:ring-green-400 focus:ring-offset-1">
+                + Tambah Gaji Tutor
             </button>
-
         </div>
 
         <!-- Search + Filter -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <!-- Search -->
-            <div class="relative w-full sm:w-full">
-                <input type="text" id="searchInput" placeholder="Search by name or ID"
-                    class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                </svg>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            
+            <div class="relative w-full sm:flex-1">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="text" 
+                    id="searchInput" 
+                    placeholder="Cari mengikut Nama atau ID..." 
+                    class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
             </div>
-            <!-- Filter -->
-            <select id="filterMonth" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Months</option>
-                <option value="January">January</option>
-                <option value="February">February</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
-                <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">September</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
-            </select>
-            <select id="filterYear" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">All Years</option>
-                {{-- filter unique salary_year from salary records table--}}
-                @foreach ($salaryRecords as $salaryRecord)
-                    <option value="{{ $salaryRecord->salary_year }}">{{ $salaryRecord->salary_year }}</option>
-                @endforeach
-            </select>
+
+            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                
+                <div class="relative w-full sm:w-40">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                            <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <select id="filterMonth" 
+                            class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                        <option value="">Bulan</option>
+                        <option value="Januari">Januari</option>
+                        <option value="Februari">Februari</option>
+                        <option value="Mac">Mac</option>
+                        <option value="April">April</option>
+                        <option value="Mei">Mei</option>
+                        <option value="Jun">Jun</option>
+                        <option value="Julai">Julai</option>
+                        <option value="Ogos">Ogos</option>
+                        <option value="September">September</option>
+                        <option value="Oktober">Oktober</option>
+                        <option value="November">November</option>
+                        <option value="Disember">Disember</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="relative w-full sm:w-32">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <select id="filterYear" 
+                            class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                        <option value="">Tahun</option>
+                        @foreach ($salaryRecords as $salaryRecord)
+                            <option value="{{ $salaryRecord->salary_year }}">{{ $salaryRecord->salary_year }}</option>
+                        @endforeach
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <!-- Table -->
-        <div class="overflow-x-auto">
-            <table id="salaryTable" class="min-w-full text-sm text-left text-gray-600">
+        <div class="w-full overflow-x-auto">
+            <table id="salaryTable" class="w-full min-w-max text-sm text-left text-gray-600">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
-                        <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Record Name</th>
-                        <th class="px-4 py-3">Month</th>
-                        <th class="px-4 py-3">Year</th>
-                        <th class="px-4 py-3">Allocation Date</th>
-                        <th class="px-4 py-3 text-center">Action</th>
+                        <th class="px-4 py-3">Bil</th>
+                        <th class="px-4 py-3">Nama Rekod</th>
+                        <th class="px-4 py-3">Bulan</th>
+                        <th class="px-4 py-3">Tahun</th>
+                        <th class="px-4 py-3">Tarikh Ditetapkan</th>
+                        <th class="px-4 py-3 text-center">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="salaryBody">
@@ -177,7 +236,26 @@
                     <tr class="border-b">
                         <td class="px-4 py-3 row-index"></td>
                         <td class="px-4 py-3 font-medium text-gray-900">{{ $salaryRecord->salary_name }}</td>
-                        <td class="px-4 py-3">{{ $salaryRecord->salary_month }}</td>
+                        {{-- <td class="px-4 py-3">{{ $salaryRecord->salary_month }}</td> --}}
+                        <td class="px-4 py-3">
+                            @php
+                                $months = [
+                                    'January' => 'Januari',
+                                    'February' => 'Februari',
+                                    'March' => 'Mac',
+                                    'April' => 'April',
+                                    'May' => 'Mei',
+                                    'June' => 'Jun',
+                                    'July' => 'Julai',
+                                    'August' => 'Ogos',
+                                    'September' => 'September',
+                                    'October' => 'Oktober',
+                                    'November' => 'November',
+                                    'December' => 'Disember',
+                                ];
+                            @endphp
+                            {{ $months[$salaryRecord->salary_month] ?? $salaryRecord->salary_month }}
+                        </td>
                         <td class="px-4 py-3">{{ $salaryRecord->salary_year }}</td>
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($salaryRecord->salary_date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
@@ -185,10 +263,10 @@
                                 class="px-3 py-1 text-xs rounded bg-gray-200 hover:bg-gray-300 edit-button"
                                 data-id="{{ $salaryRecord->salary_id }}" 
                                 data-modal-target="editSalaryModal"
-                                data-modal-toggle="editSalaryModal">Edit</button>
+                                data-modal-toggle="editSalaryModal">Kemaskini</button>
                             <a href="{{ route('admin.salary.report.index', $salaryRecord->salary_id) }}" 
                             class="px-3 py-1 text-xs rounded bg-yellow-400 text-white hover:bg-yellow-500">
-                            Report
+                            Leporan
                             </a>
                             <form id="delete-form-{{ $salaryRecord->salary_id }}" 
                                 action="{{ route('admin.salary.destroy', $salaryRecord->salary_id) }}" 
@@ -198,7 +276,7 @@
                                 <button type="button" 
                                     class="delete-button px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
                                     data-id="{{ $salaryRecord->salary_id }}">
-                                    Delete
+                                    Padam
                                 </button>
                             </form>
                         </td>
@@ -207,7 +285,7 @@
                 </tbody>
             </table>
              <!-- No Record Message -->
-            <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+            <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
         </div>
 
         <!-- Pagination (manual JS) -->
@@ -270,7 +348,7 @@
                 // entries info
                 const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
                 const end = Math.min(currentPage * rowsPerPage, totalRows);
-                entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+                entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
                 // build pagination buttons
                 pagination.innerHTML = "";
@@ -339,7 +417,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Add New Salary Report</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Tambah Gaji Tutor</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="addSalaryModal">✕</button>
             </div>
 
@@ -350,29 +428,29 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- Month -->
                         <div>
-                            <label for="salary_month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
+                            <label for="salary_month" class="block mb-2 text-sm font-medium text-gray-900">Bulan</label>
                             <select id="salary_month" name="salary_month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Month</option>
-                                <option value="January">January</option>
-                                <option value="February">February</option>
-                                <option value="March">March</option>
+                                <option value="">Pilih Bulan</option>
+                                <option value="January">Januari</option>
+                                <option value="February">Februari</option>
+                                <option value="March">Mac</option>
                                 <option value="April">April</option>
-                                <option value="May">May</option>
-                                <option value="June">June</option>
-                                <option value="july">July</option>
-                                <option value="August">August</option>
+                                <option value="May">Mei</option>
+                                <option value="June">Jun</option>
+                                <option value="july">Julai</option>
+                                <option value="August">Ogos</option>
                                 <option value="September">September</option>
-                                <option value="October">October</option>
+                                <option value="October">Oktober</option>
                                 <option value="November">November</option>
-                                <option value="December">December</option>
+                                <option value="December">Disember</option>
                             </select>
                         </div>
 
                         <!-- Year -->
                         <div>
-                            <label for="salary_year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
+                            <label for="salary_year" class="block mb-2 text-sm font-medium text-gray-900">Tahun</label>
                             <select id="salary_year" name="salary_year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Select Year</option>
+                                <option value="">Pilih Tahun</option>
                                 <option value="2024">2024</option>
                                 <option value="2025">2025</option>
                                 <option value="2026">2026</option>
@@ -382,7 +460,7 @@
 
                          {{-- salary_rate --}}
                         <div>
-                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Salary Rate Per Hour(RM)</label>
+                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Kadar Gaji Per Jam(RM)</label>
                             <input type="number" step="0.01" id="salary_rate" name="salary_rate" placeholder="20.00" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
                     </div>
@@ -390,9 +468,9 @@
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addSalaryModal">Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="addSalaryModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Hantar</button>
                 </div>
             </form>
         </div>
@@ -404,7 +482,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Salary Report</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Kemaskini Gaji Tutor</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editSalaryModal">✕</button>
             </div>
 
@@ -416,13 +494,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         {{-- show salary_name, read only --}}
                         <div>
-                            <label for="salary_name" class="block mb-2 text-sm font-medium text-gray-900">Record Name</label>
+                            <label for="salary_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Rekod</label>
                             <input type="text" id="salary_name" name="salary_name" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                         </div>
 
                         {{-- salary_rate --}}
                         <div>
-                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Salary Rate Per Hour(RM)</label>
+                            <label for="salary_rate" class="block mb-2 text-sm font-medium text-gray-900">Kadar Gaji Per Jam (RM)</label>
                             <input type="number" step="0.01" id="salary_rate" name="salary_rate" placeholder="20.00" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
                     </div>
@@ -430,9 +508,9 @@
 
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editSalaryModal">Cancel</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editSalaryModal">Batal</button>
 
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Save Changes</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Kemaskini Maklumat</button>
                 </div>
             </form>
         </div>
@@ -474,13 +552,14 @@
                     let form = document.getElementById("delete-form-" + id);
 
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: "This package will be deleted!",
+                        title: 'Adakah anda pasti?',
+                        text: "Rekod gaji tutor ini akan dipadam!",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
                         cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: 'Ya, padamkan!',
+                        cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             form.submit();

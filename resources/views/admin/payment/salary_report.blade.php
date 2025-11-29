@@ -1,15 +1,15 @@
-<x-admin-layout :title="'Salary'">
+<x-admin-layout :title="'Laporan Gaji Tutor'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Salary Report</h2>
+        <h2 class="text-xl font-medium text-gray-800">Laporan Gaji Tutor</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('admin.salary.index') }}" class="hover:text-green-600">Salary</a></li>
+                <li><a href="{{ route('admin.salary.index') }}" class="hover:text-green-600">Senarai Gaji Tutor</a></li>
                 <li>/</li>
-                <li>Report</li>
+                <li class="text-green-600">Laporan Gaji Tutor</li>
             </ol>
         </nav>
     </div>
@@ -23,41 +23,40 @@
             <!-- Header -->
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h2 class="text-lg font-semibold">List of Report</h2>
-                    <p class="text-sm text-gray-500">Manage your report: search, filter and update.</p>
+                    <h2 class="text-lg font-semibold">Senarai Laporan Gaji Tutor</h2>
+                    <p class="text-sm text-gray-500">Urus laporan anda: carian, tapis dan kemaskini.</p>
                 </div>
-                <button type="submit"
-                    class="px-4 py-2 text-sm rounded-sm bg-green-600 text-white hover:bg-green-700">
-                    Allocate Payment
-                </button>
+                <button type="submit" class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-green-600 shadow-sm hover:bg-green-700 transition-colors duration-200 focus:ring-2 focus:ring-green-400 focus:ring-offset-1">Kemaskini Laporan</button>
             </div>
 
             <!-- Search -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                <div class="relative w-full sm:w-full">
-                    <input type="text" id="searchInput" placeholder="Search by name or ID"
-                        class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                    <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                    </svg>
+                <div class="relative w-full sm:flex-1">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="text" 
+                        id="searchInput" 
+                        placeholder="Cari mengikut Nama atau ID..." 
+                        class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
                 </div>
             </div>
 
             <!-- Table -->
-            <div class="overflow-x-auto">
-                <table id="salaryTable" class="min-w-full text-sm text-left text-gray-600">
+            <div class="w-full overflow-x-auto">
+                <table id="salaryTable" class="w-full min-w-max text-sm text-left text-gray-600">
                     <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                         <tr>
-                            <th class="px-4 py-3">No</th>
-                            <th class="px-4 py-3">Tutor Name</th>
-                            <th class="px-4 py-3">Amount</th>
-                            <th class="px-4 py-3">Type</th>
-                            <th class="px-4 py-3">Proof</th>
+                            <th class="px-4 py-3">Bil</th>
+                            <th class="px-4 py-3">Tutor</th>
+                            <th class="px-4 py-3">Jumlah</th>
+                            <th class="px-4 py-3">Jenis Pembayaran</th>
+                            <th class="px-4 py-3">Bukti (Pilihan)</th>
                             <th class="px-4 py-3 text-center">Status</th>
-                            <th class="px-4 py-3 text-center">Date</th>
-                            <th class="px-4 py-3">Total Hours</th>
+                            <th class="px-4 py-3 text-center">Tarikh Bayaran</th>
+                            <th class="px-4 py-3">Jumlah Jam Mengajar</th>
                         </tr>
                     </thead>
                     <tbody id="salaryBody">
@@ -76,7 +75,7 @@
                                     {{-- selection input --}}
                                     <input type="hidden" name="billHistories[{{ $index }}][bill_id]" value="{{ $billHistory->bill_id }}" />
                                     <select name="billHistories[{{ $index }}][bill_type]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-1.5">
-                                        <option value="">Select Type</option>
+                                        <option value="">Pilih</option>
                                         <option value="Cash" >Cash</option>
                                         <option value="Online Banking" >Online Banking</option>
                                     </select>                 
@@ -98,11 +97,11 @@
                             <td class="px-4 py-3 text-center">
                                 {{-- if pending status in yellow badge, if Unpaid in red and Paid in green --}}
                                 @if ($billHistory->bill_status == 'Paid')
-                                    <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Paid</span>
+                                    <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Sudah Bayar</span>
                                 @elseif ($billHistory->bill_status == 'Unpaid')
-                                    <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Unpaid</span>
+                                    <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Belum Bayar</span>
                                 @else
-                                    <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                    <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Sedang Proses</span>
                                 @endif
                             </td>
                             <td class="px-4 py-3">
@@ -111,13 +110,13 @@
                             </td>
                             <td class="px-4 py-3">
                                 {{-- display total hours --}}
-                                {{ $totalHours[$index] }} Hours
+                                {{ $totalHours[$index] }} Jam
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <div id="noRecord" class="hidden text-center text-gray-500 py-4">No records found</div>
+                <div id="noRecord" class="hidden text-center text-gray-500 py-4">Tiada rekod dijumpai</div>
             </div>
 
              <!-- Pagination Info -->
@@ -164,7 +163,7 @@
 
             const start = totalRows === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
             const end = Math.min(currentPage * rowsPerPage, totalRows);
-            entriesInfo.textContent = `Showing ${start} to ${end} of ${totalRows} entries`;
+            entriesInfo.textContent = `Memaparkan ${start} hingga ${end} daripada ${totalRows} rekod`;
 
             pagination.innerHTML = "";
 
