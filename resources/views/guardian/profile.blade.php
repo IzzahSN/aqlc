@@ -1,4 +1,4 @@
-<x-guardian-layout :title="'Profile Setting'">
+<x-guardian-layout :title="'Kemaskini Profil'">
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->

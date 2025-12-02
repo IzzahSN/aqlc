@@ -8,15 +8,23 @@
             <!-- Right: Breadcrumb -->
             <nav class="text-sm text-gray-500">
                 <ol class="flex space-x-2">
-                    <li><a href="{{ route('guardian.report.index') }}" class="hover:text-green-600">Senarai Laporan</a></li>
+                    <li><a href="{{ route('guardian.report.index') }}" class="hover:text-green-600">Senarai Laporan Prestasi Pelajar</a></li>
                     <li>/</li>
-                    <li class="text-green-600">Pelajar</li>
+                    <li class="text-green-600">Kad Laporan Pelajar</li>
                 </ol>
             </nav>
 
             <!-- Left: Breadcrumb -->
-            <button data-modal-target="editStudentModal" data-modal-toggle="editStudentModal" data-id="{{ $student->student_id }}"
-                class="px-4 py-2 text-sm rounded-lg bg-yellow-500 text-white hover:bg-yellow-600 edit-student-button">
+            <button type="button" 
+                    data-modal-target="editStudentModal" 
+                    data-modal-toggle="editStudentModal" 
+                    data-id="{{ $student->student_id }}"
+                    class="edit-student-button inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-yellow-500 rounded-lg shadow-sm hover:bg-yellow-600 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-1">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                    <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                </svg>
+
                 Kemaskini Pelajar
             </button>
         </div>
@@ -34,7 +42,7 @@
                     : 'https://ui-avatars.com/api/?name='.urlencode($student->first_name.' '.$student->last_name).'&background=D1FAE5&color=333' }}" 
                     class="w-28 h-28 rounded-full mb-4 object-cover border-4 border-emerald-50" alt="Student Avatar">
                 <h2 class="text-lg font-semibold mt-4">{{ $student->first_name }} {{ $student->last_name }}</h2>
-                <p class="text-sm opacity-80">Portfolio Pelajar</p>
+                <p class="text-sm opacity-80">Profil Pelajar</p>
             </div>
 
              <div class="space-y-3 text-sm">
@@ -74,7 +82,7 @@
 
             <!-- Report Badges -->
             <div class="bg-white rounded-xl shadow p-6 flex-shrink-0">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Laporan Pencapaian</h3>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Lencana Pencapaian</h3>
                 @if($achievements->isNotEmpty())
                     <div class="overflow-hidden relative">
                         <div id="badgeCarousel" class="flex space-x-4" data-count="{{ $achievements->count() }}">
@@ -103,7 +111,7 @@
                         </div>
                         </div>
                 @else
-                    <p class="text-gray-500">Tiada pencapaian didaftakan.</p>
+                    <p class="text-gray-500">Tiada lencana diperoleh lagi.</p>
                 @endif
             </div>
 
@@ -141,45 +149,77 @@
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h2 class="text-lg font-semibold">Senarai Laporan Bacaan</h2>
-                        <p class="text-sm text-gray-500">Urus laporan ini menggunakan fungsi carian dan tapisan</p>
+                        <p class="text-sm text-gray-500">Urus laporan anda: cari atau tapis.</p>
                     </div>
                 </div>
-                <!-- Search + Filter -->
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                   <!-- Search -->
-                    <div class="relative w-full sm:w-full">
-                        <input type="text" id="searchInput" placeholder="Taip untuk carian"
-                            class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                        <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                        </svg>
+                <!-- Search & Filters -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                    <div class="relative w-full sm:flex-1">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                        </div>
+                        <input type="text" 
+                            id="searchInput" 
+                            placeholder="Taip carian anda..." 
+                            class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
                     </div>
-                    <!-- Filter -->
-                    <select id="filterGrade" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                        <option value="">Gred</option>
-                        <option value="Mumtaz">Mumtaz</option>
-                        <option value="Jayyid Jiddan">Jayyid Jiddan</option>
-                        <option value="Jayyid">Jayyid</option>
-                        <option value="Maqbul">Maqbul</option>
-                        <option value="Rasib">Rasib</option>
-                    </select>
-                    <select id="filterRecitation" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                        <option value="">Bacaan</option>
-                        {{-- all unique recitation name sort from the recitation_module_id iqra 1, iqra 2--}}
-                        @php
-                            $recitationNames = $progressRecords->map(function($progress) {
-                                return $progress->recitationModule->recitation_name ?? null;
-                            })->filter()->unique()->sort();
-                        @endphp
-                        @foreach($recitationNames as $name)
-                            <option value="{{ strtolower($name) }}">{{ $name }}</option>
-                        @endforeach
-                    </select>
+
+                    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                        
+                        <div class="relative w-full sm:w-40">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <select id="filterGrade" 
+                                    class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                                <option value="">Semua Gred</option>
+                                <option value="Mumtaz">Mumtaz</option>
+                                <option value="Jayyid Jiddan">Jayyid Jiddan</option>
+                                <option value="Jayyid">Jayyid</option>
+                                <option value="Maqbul">Maqbul</option>
+                                <option value="Rasib">Rasib</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="relative w-full sm:w-48">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
+                                </svg>
+                            </div>
+                            <select id="filterRecitation" 
+                                    class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                                <option value="">Semua Bacaan</option>
+                                {{-- Logic PHP dikekalkan --}}
+                                @php
+                                    $recitationNames = $progressRecords->map(function($progress) {
+                                        return $progress->recitationModule->recitation_name ?? null;
+                                    })->filter()->unique()->sort();
+                                @endphp
+                                @foreach($recitationNames as $name)
+                                    <option value="{{ strtolower($name) }}">{{ $name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="overflow-x-auto overflow-y-auto flex-1">
-                    <table id="reportTable" class="min-w-full text-sm text-left text-gray-600">
+                <div class="w-full overflow-x-auto overflow-y-auto flex-1">
+                    <table id="reportTable" class="w-full min-w-max text-sm text-left text-gray-600">
                         <thead class="bg-gray-100 text-gray-700 text-xs uppercase">
                             <tr>
                                 <th class="px-4 py-3">Bil</th>
@@ -237,7 +277,7 @@
                     const entriesInfo = document.getElementById("entriesInfo");
 
                     let currentPage = 1;
-                    const rowsPerPage = 5;
+                    const rowsPerPage = 10;
 
                     function renderTable() {
                         const searchValue = searchInput.value.toLowerCase();
@@ -340,7 +380,7 @@
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-4">
                 <div class="w-6"></div>
-                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Edit Student</h3>
+                <h3 class="text-xl font-bold text-gray-800 tracking-wide text-center flex-1">Kemaskini Pelajar</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" data-modal-hide="editStudentModal">✕</button>
             </div>
 
@@ -352,14 +392,14 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         <!-- First Name -->
                         <div>
-                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Awal</label>
-                            <input type="text" id="first_name" name="first_name" placeholder="Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Pertama</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="Muhammad Ali" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- Last Name -->
                         <div>
                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Akhir</label>
-                            <input type="text" id="last_name" name="last_name" placeholder="Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            <input type="text" id="last_name" name="last_name" placeholder="Bin Ahmad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
                         </div>
 
                         <!-- IC Number -->
@@ -398,13 +438,13 @@
                     <!-- Address (full width) -->
                     <div class="mt-6">
                         <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat Rumah</label>
-                        <textarea id="address" name="address" rows="3" placeholder="Enter full address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
+                        <textarea id="address" name="address" rows="3" placeholder="Masukkan alamat penuh" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"></textarea>
                     </div>
                 </div>
                 <!-- Modal Footer -->
                 <div class="flex justify-between px-6 py-4 rounded-b-lg">
-                    <button type="button" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editStudentModal">Cancel</button>
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-6 py-2.5 text-center">Submit</button>
+                    <button type="button" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm text-center hover:bg-gray-300" data-modal-hide="editStudentModal">Batal</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 text-center">Kemaskini Maklumat</button>
                 </div>
             </form>
         </div>

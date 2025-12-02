@@ -1,34 +1,51 @@
-<x-guardian-layout :title="'Student Bill'">
+<x-guardian-layout :title="'Yuran Pengajian'">
     <!-- Student Bill List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div>
-                <h2 class="text-lg font-semibold">Senarai Bill Pelajar</h2>
-                <p class="text-sm text-gray-500">Urus bil pelajar menggunakan fungsi carian dan tapisan.</p>
+                <h2 class="text-lg font-semibold">Senarai Yuran Pengajian</h2>
+                <p class="text-sm text-gray-500">Urus yuran pengajian pelajar menggunakan fungsi carian dan tapisan.</p>
             </div>
         </div>
 
         <!-- Search + Filter -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <!-- Search -->
-                <div class="relative w-full sm:w-full">
-                    <input type="text" id="searchInput" placeholder="Search by name or ID"
-                        class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                    <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                    </svg>
-                </div>
-            <!-- Filter -->
-            <select id="filterStatus" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
-                <option value="">Status</option>
-                <option value="Sudah Bayar">Sudah Bayar</option>
-                <option value="Belum Bayar">Belum Bayar</option>
-                <option value="Sedang Proses">Sedang Proses</option>
-            </select>
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+    
+    <div class="relative w-full sm:flex-1">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
         </div>
+        <input type="text" 
+               id="searchInput" 
+               placeholder="Cari mengikut Nama atau ID..." 
+               class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
+    </div>
+
+    <div class="relative w-full sm:w-48">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.25 2.25a3 3 0 0 0-3 3v4.318a3 3 0 0 0 .879 2.121l9.58 9.581a3 3 0 0 0 4.242 0l4.318-4.318a3 3 0 0 0 0-4.242l-9.58-9.581A3 3 0 0 0 9.568 2.25H5.25ZM7.5 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <select id="filterStatus" 
+                class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+            <option value="">Semua Status</option>
+            <option value="Sudah Bayar">Sudah Bayar</option>
+            <option value="Belum Bayar">Belum Bayar</option>
+            <option value="Sedang Proses">Sedang Proses</option>
+        </select>
+        
+        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </div>
+    </div>
+
+</div>
 
         <!-- Table -->
         <div class="overflow-x-auto">
@@ -36,7 +53,7 @@
                 <thead class="bg-gray-100 text-xs uppercase text-gray-500">
                     <tr>
                         <th class="px-4 py-3">Bil</th>
-                        <th class="px-4 py-3">Nama Bil</th>
+                        <th class="px-4 py-3">Nama Rekod</th>
                         <th class="px-4 py-3">Nama Pelajar</th>
                         <th class="px-4 py-3">Jumlah</th>
                         <th class="px-4 py-3 text-center">Status</th>
