@@ -63,21 +63,52 @@
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Student Progress -->
-        <div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold text-gray-800">Kemajuan Pelajar</h3>
-                <select id="progressFilter" class="border rounded-lg px-3 py-1 text-sm">
-                    <option value="all">Semua</option>
-                    <option value="iqra">Iqra</option>
-                    <option value="juz">Quran</option>
-                </select>
+       <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col">
+    
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-green-100 rounded-lg text-green-600 shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 0 1 8.25-8.25.75.75 0 0 1 .75.75v6.75H18a.75.75 0 0 1 .75.75 8.25 8.25 0 0 1-16.5 0Z" clip-rule="evenodd" />
+                            <path fill-rule="evenodd" d="M12.75 3a.75.75 0 0 1 .75-.75 8.25 8.25 0 0 1 8.25 8.25.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75V3Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800">Kemajuan Pelajar</h3>
+                        <p class="text-sm text-gray-500">Analisis pecahan mengikut tahap.</p>
+                    </div>
+                </div>
+
+                <div class="relative w-full sm:w-40">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.75 12.75h1.5a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5ZM12 6a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 12 6ZM12 18a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 12 18ZM3.75 6.75h1.5a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5ZM5.25 18.75h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 0 1.5ZM3 12a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 3 12ZM9 3.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM12.75 12a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0ZM9 15.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
+                        </svg>
+                    </div>
+                    <select id="progressFilter" 
+                            class="appearance-none cursor-pointer w-full py-2 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all hover:bg-white">
+                        <option value="all">Semua</option>
+                        <option value="iqra">Iqra'</option>
+                        <option value="juz">Quran</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
             </div>
 
-            <div class="flex items-center justify-center">
-                <div class="relative w-80 h-80">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 flex-grow">
+                
+                <div class="relative w-64 h-64 flex-shrink-0">
                     <canvas id="progressChart"></canvas>
-                </div>
-                <div id="progressLegend" class="ml-6 space-y-2 overflow-y-auto max-h-80 w-48"></div>
+                    
+                    </div>
+
+                <div id="progressLegend" class="w-full md:w-56 max-h-64 overflow-y-auto space-y-3 pr-2 custom-scrollbar">
+                    </div>
             </div>
         </div>
 
