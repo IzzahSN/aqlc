@@ -1,4 +1,4 @@
-<x-guardian-layout :title="'Papan Pemuka'">
+<x-guardian-layout :title="'Dashboard'">
     <!-- Welcome Banner -->
     <div class="relative p-6 sm:p-8 rounded-xl shadow-lg 
                 bg-gradient-to-r from-green-600 to-emerald-700 mb-8 overflow-hidden">
@@ -80,35 +80,42 @@
     <!-- Summary Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         
-        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-lime-600">
-            <div class="flex-grow">
-                <p class="text-sm font-semibold text-lime-600 uppercase tracking-wider">Jumlah Anak</p>
-                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">{{ $childrenCount }}</h3>
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Jumlah Anak</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">{{ $childrenCount }}</h3>
             </div>
-            <svg class="w-10 h-10 text-lime-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
-            </svg>
+            <div class="flex items-center justify-center p-3 bg-lime-100 rounded-full text-lime-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+                </svg>
+            </div>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-amber-600">
-            <div class="flex-grow">
-                <p class="text-sm font-semibold text-amber-600 uppercase tracking-wider">Jumlah Bil Dibayar</p>
-                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">RM{{ number_format($paidBills, 2) }}</h3>
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Bil Dibayar</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">RM{{ number_format($paidBills, 2) }}</h3>
             </div>
-            <svg class="w-10 h-10 text-amber-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z" clip-rule="evenodd"/>
-            </svg>
+            <div class="flex items-center justify-center p-3 bg-amber-100 rounded-full text-amber-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z" clip-rule="evenodd" />
+                </svg>
+            </div>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-red-600">
-            <div class="flex-grow">
-                <p class="text-sm font-semibold text-red-600 uppercase tracking-wider">Jumlah Bil Tertunggak</p>
-                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">RM{{ number_format($unpaidBills, 2) }}</h3>
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Bil Tertunggak</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">RM{{ number_format($unpaidBills, 2) }}</h3>
             </div>
-            <svg class="w-10 h-10 text-red-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M9 2a1 1 0 0 0-1 1H6a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a1 1 0 0 0-1-1H9Zm1 2h4v2h1a1 1 0 1 1 0 2H9a1 1 0 0 1 0-2h1V4Zm5.707 8.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
-            </svg>
+            <div class="flex items-center justify-center p-3 bg-red-100 rounded-full text-red-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                </svg>
+            </div>
         </div>
+
     </div>
 
     <!-- Schedule -->
@@ -118,23 +125,36 @@
             <!-- Header -->
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h3 class="font-semibold text-gray-800">Senarai Jadual</h3>
+                    <h3 class="font-semibold text-gray-800">Jadual Kelas Bulanan</h3>
                 </div>
             </div>
             <!-- Search + Filter -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                <!-- Search -->
-                <div class="relative w-full sm:w-full">
-                    <input type="text" id="searchInput" placeholder="Cari mengikut nama pelajar"
-                        class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:ring focus:ring-green-200" />
-                    <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
-                    </svg>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                
+                <div class="relative w-full sm:flex-1">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="text" 
+                        id="searchInput" 
+                        placeholder="Cari mengikut nama pelajar..." 
+                        class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
                 </div>
-                <!-- Filter -->
-                <input type="date" id="filterDate" class="border rounded-lg px-3 py-2 text-sm w-full sm:w-auto" placeholder="Filter by date">
+
+                <div class="relative w-full sm:w-auto">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input type="date" 
+                        id="filterDate" 
+                        class="block w-full p-2.5 pl-10 text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all cursor-pointer" 
+                        placeholder="Filter by date">
+                </div>
+
             </div>
             <!-- Table -->
             <div class="overflow-x-auto">
