@@ -2,14 +2,14 @@
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Tetapan Profil</h2>
+        <h2 class="text-xl font-medium text-gray-800">Kemaskini Profil</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('tutor.dashboard') }}" class="hover:text-green-600">Papan Pemuka</a></li>
+                <li><a href="{{ route('tutor.dashboard') }}" class="hover:text-green-600">Dashboard</a></li>
                 <li>/</li>
-                <li class="text-green-600">Profil</li>
+                <li class="text-green-600">Kemaskini Profil</li>
             </ol>
         </nav>
     </div>
@@ -108,7 +108,7 @@
 
                 <!-- Submit Button -->
                 <div class="md:col-span-5 text-right mt-4">
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm py-2 px-4 text-center">Simpan Maklumat</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm py-2 px-4 text-center">Kemaskini Maklumat</button>
                 </div>
             </div>
         </form>
@@ -169,7 +169,7 @@
 
                 <!-- Submit Button -->
                 <div class="md:col-span-5 text-right mt-4">
-                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm py-2 px-4 text-center">Simpan Maklumat</button>
+                    <button type="submit" id="submitForm" class="text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm py-2 px-4 text-center">Kemaskini Maklumat</button>
                 </div>
             </form>
         </div>

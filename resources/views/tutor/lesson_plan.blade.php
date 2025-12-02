@@ -7,9 +7,9 @@
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Jadual</a></li>
+                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Senarai Prestasi Pelajar</a></li>
                 <li>/</li>
-                <li>Laporan Pelan Pengajian</li>
+                <li class="text-green-600">Pelan Pengajian</li>
             </ol>
         </nav>
     </div>

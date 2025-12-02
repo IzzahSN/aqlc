@@ -2,14 +2,14 @@
     <!-- Header with Title (left) and Breadcrumb (right) -->
     <div class="flex items-center justify-between mb-4">
         <!-- Left: Page Title -->
-        <h2 class="text-xl font-medium text-gray-800">Laporan Prestasi</h2>
+        <h2 class="text-xl font-medium text-gray-800">Laporan Prestasi Pelajar</h2>
 
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Jadual</a></li>
+                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Senarai Prestasi Pelajar</a></li>
                 <li>/</li>
-                <li>Laporan Prestasi</li>
+                <li class="text-green-600">Laporan Prestasi Pelajar</li>
             </ol>
         </nav>
     </div>
@@ -23,10 +23,10 @@
             <!-- Header -->
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h2 class="text-lg font-semibold">Senarai Laporan</h2>
-                    <p class="text-sm text-gray-500">Uruskan prestasi pelajar anda: cari, tapis dan kemaskini.</p>
+                    <h2 class="text-lg font-semibold">Senarai Laporan Prestasi Pelajar</h2>
+                    <p class="text-sm text-gray-500">Urus laporan prestasi anda: cari, tapis dan kemaskini.</p>
                 </div>
-                <button type="submit" class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white hover:bg-green-700">Kemaskini Prestasi</button>
+                <button type="submit" class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-green-600 shadow-sm hover:bg-green-700 transition-colors duration-200 focus:ring-2 focus:ring-green-400 focus:ring-offset-1">Kemaskini Prestasi Pelajar</button>
             </div>
 
             <!-- Search + Filter -->
@@ -607,7 +607,7 @@
                             <label for="remark" class="block mb-2 text-sm font-medium text-gray-900">Catatan</label>
                             <input type="text" name="remark" id="remark"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                                placeholder="Remark..." />
+                                placeholder="Catatan..." />
                         </div>
                     </div>
                 </div>

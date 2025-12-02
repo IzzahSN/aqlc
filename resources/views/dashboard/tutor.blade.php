@@ -17,57 +17,92 @@
 
     <!-- Tutor Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <!-- Schedule Attendance -->
-         <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-lime-600">
-            <div class="flex-grow">
-                <p class="text-sm font-semibold text-lime-600 uppercase tracking-wider">Jumlah Sesi Kelas</p>
-                <div class="flex items-end gap-2">
-                    <h3 class="text-3xl font-extrabold text-gray-900 mt-1">{{ $totalSchedules }}</h3>
-                    <p class="text-xs text-gray-400 mb-1">Bulan ini</p>
+        
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Sesi Kelas</p>
+                <div class="flex items-baseline gap-2">
+                    <h3 class="text-3xl font-extrabold text-gray-900">{{ $totalSchedules }}</h3>
+                    <span class="text-[10px] font-medium text-lime-600 bg-lime-50 px-2 py-0.5 rounded-full">Bulan ini</span>
                 </div>
             </div>
-            <svg class="w-10 h-10 text-lime-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
-            </svg>
+            <div class="flex items-center justify-center p-3 bg-lime-100 rounded-full text-lime-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                </svg>
+            </div>
         </div>
 
-        <!-- Assign Class -->
-        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-amber-600">
-            <div class="flex-grow">
-                <p class="text-sm font-semibold text-amber-600 uppercase tracking-wider">Jumlah Kelas yang ditetapkan</p>
-                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">{{ $totalClasses }}</h3>
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Kelas Ditetapkan</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">{{ $totalClasses }}</h3>
             </div>
-            <svg class="w-10 h-10 text-amber-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z" clip-rule="evenodd"/>
-            </svg>
+            <div class="flex items-center justify-center p-3 bg-amber-100 rounded-full text-amber-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z" clip-rule="evenodd" />
+                </svg>
+            </div>
         </div>
 
-        <!-- Salary -->
-        <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between border-l-4 border-red-600">
-            <div class="flex-grow">
-                <p class="text-sm font-semibold text-red-600 uppercase tracking-wider">Jumlah Gaji Tertunggak</p>
-                <h3 class="text-3xl font-extrabold text-gray-900 mt-1">RM{{ number_format($unpaidSalary, 2) }}</h3>
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Gaji Tertunggak</p>
+                <h3 class="text-3xl font-extrabold text-gray-900">RM{{ number_format($unpaidSalary, 2) }}</h3>
             </div>
-            <svg class="w-10 h-10 text-red-400 opacity-70" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M9 2a1 1 0 0 0-1 1H6a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2a1 1 0 0 0-1-1H9Zm1 2h4v2h1a1 1 0 1 1 0 2H9a1 1 0 0 1 0-2h1V4Zm5.707 8.707a1 1 0 0 0-1.414-1.414L11 14.586l-1.293-1.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
-            </svg>
+            <div class="flex items-center justify-center p-3 bg-red-100 rounded-full text-red-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                </svg>
+            </div>
         </div>
+
     </div>
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Salary Report -->
-        <div class="bg-white p-4 rounded-xl shadow lg:col-span-2">
-            <div class="flex items-center justify-between mb-4">
-                {{-- <h3 class="font-semibold">Salary Report</h3> --}}
-                <h3 class="font-semibold text-gray-800">Laporan Gaji Bulanan</h3>
-                <select id="yearFilter" class="text-sm border rounded-lg px-3 py-1">
-                    @foreach ($salaryYears as $year)
-                        <option value="{{ $year->salary_year }}">{{ $year->salary_year }}</option>
-                    @endforeach
-                </select>
+        <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-emerald-100 rounded-lg text-emerald-600 shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800">Laporan Gaji Bulanan</h3>
+                        <p class="text-sm text-gray-500">Analisis pendapatan mengikut tahun.</p>
+                    </div>
+                </div>
+
+                <div class="relative w-full sm:w-40">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                            <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <select id="yearFilter" 
+                            class="appearance-none cursor-pointer w-full py-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 outline-none shadow-sm transition-all hover:bg-white">
+                        @foreach ($salaryYears as $year)
+                            <option value="{{ $year->salary_year }}">{{ $year->salary_year }}</option>
+                        @endforeach
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
             </div>
-            <canvas id="salaryChart" height="200"></canvas>
+
+            <div class="relative w-full h-72">
+                <canvas id="salaryChart" class="w-full h-full"></canvas>
+            </div>
+
         </div>
 
         <!-- Chart.js Script -->
