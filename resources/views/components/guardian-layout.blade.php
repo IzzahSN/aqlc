@@ -17,7 +17,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-100 font-poppins">
+<body class="bg-gray-100">
 
     {{-- Sidebar --}}
     @include('components.sidebar-guardian')
@@ -25,9 +25,8 @@
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="sm:ml-64">
         <!-- Navbar -->
-        <div class="bg-gray-100 py-2 px-2">
+        <div class="sticky top-0 z-30 bg-gray-100 py-2 px-2">
             @include('components.navbar-guardian')
-
         </div>
         <!-- Main Content -->
         <main class="p-4 bg-gray-100 min-h-screen">
