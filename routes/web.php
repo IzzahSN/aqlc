@@ -185,18 +185,24 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 // Tutor Routes
 // =======================
 Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function () {
-    // Dashboard
+    // DASHBOARD
     Route::get('/', [DashboardController::class, 'tutorDashboard'])->name('dashboard');
     Route::get('/salary-report', [DashboardController::class, 'getSalaryReport'])->name('dashboard.report');
 
-    // Report
-    Route::get('/report', [ReportController::class, 'tutorReportIndex'])->name('report.index');
+    // SCHEDULE
+    Route::get('/schedule', [ScheduleController::class, 'tutorReportIndex'])->name('schedule.index');
+    Route::post('/schedule', [ScheduleController::class, 'tutorStore'])->name('schedule.store');
+    Route::get('/schedule/{id}/edit', [ScheduleController::class, 'tutorEdit'])->name('schedule.edit');
+    Route::put('/schedule/{id}', [ScheduleController::class, 'tutorUpdate'])->name('schedule.update');
 
     // Attendance
-    Route::get('/report/{id}/attendance', [AttendanceController::class, 'tutorIndex'])->name('report.attendance.index');
-    Route::post('/report/{id}/attendance', [AttendanceController::class, 'tutorStore'])->name('report.attendance.store');
-    Route::put('/report/{id}/attendance', [AttendanceController::class, 'tutorUpdate'])->name('report.attendance.update');
-    Route::delete('/report/{scheduleId}/attendance/{id}', [AttendanceController::class, 'tutorDestroy'])->name('report.attendance.destroy');
+    Route::get('/schedule/{id}/attendance', [AttendanceController::class, 'tutorIndex'])->name('schedule.attendance.index');
+    Route::post('/schedule/{id}/attendance', [AttendanceController::class, 'tutorStore'])->name('schedule.attendance.store');
+    Route::put('/schedule/{id}/attendance', [AttendanceController::class, 'tutorUpdate'])->name('schedule.attendance.update');
+    Route::delete('/schedule/{scheduleId}/attendance/{id}', [AttendanceController::class, 'tutorDestroy'])->name('schedule.attendance.destroy');
+
+    // REPORT
+    Route::get('/report', [ReportController::class, 'tutorReportIndex'])->name('report.index');
 
     // Grade
     Route::get('/report/{id}/grade', [StudentProgressController::class, 'tutorIndex'])->name('report.grade.index');

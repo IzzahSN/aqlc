@@ -7,7 +7,7 @@
         <!-- Right: Breadcrumb -->
         <nav class="text-sm text-gray-500">
             <ol class="flex space-x-2">
-                <li><a href="{{ route('tutor.report.index') }}" class="hover:text-green-600">Senarai Borang Kehadiran</a></li>
+                <li><a href="{{ route('tutor.schedule.index') }}" class="hover:text-green-600">Senarai Borang Kehadiran</a></li>
                 <li>/</li>
                 <li class="text-green-600">Laporan Kehadiran</li>
             </ol>
@@ -15,7 +15,7 @@
     </div>
 
     <!-- Attendance Form -->
-    <form action="{{ route('tutor.report.attendance.update', $id) }}" method="POST">
+    <form action="{{ route('tutor.schedule.attendance.update', $id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -136,7 +136,7 @@
                                 cancelButtonText: "Batal"
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    fetch(`/tutor/report/${scheduleId}/attendance/${attendanceId}`, {
+                                    fetch(`/tutor/schedule/${scheduleId}/attendance/${attendanceId}`, {
                                         method: 'DELETE',
                                         headers: {
                                             'X-CSRF-TOKEN': token,
@@ -278,7 +278,7 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="studentForm" action="{{ route('tutor.report.attendance.store', $id) }}" method="POST">
+            <form id="studentForm" action="{{ route('tutor.schedule.attendance.store', $id) }}" method="POST">
                 @csrf
                 <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                     <div>

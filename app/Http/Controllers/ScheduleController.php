@@ -311,10 +311,96 @@ class ScheduleController extends Controller
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Schedule $schedule)
+    // TUTOR FUNCTIONS
+    public function tutorReportIndex()
+    {
+        $query = ClassModel::with('tutor');
+
+        // Expand setiap kelas jadi slot 30 minit
+        $classes = $query->get()->flatMap(function ($c) {
+            $slots = [];
+
+            $start = \Carbon\Carbon::parse($c->start_time);
+            $end   = \Carbon\Carbon::parse($c->end_time);
+
+            while ($start < $end) {
+                $next = $start->copy()->addMinutes(30);
+
+                $cCopy = clone $c; // salin object asal
+                $cCopy->slot = $start->format('H:i') . '-' . $next->format('H:i');
+                $slots[] = $cCopy;
+
+                $start = $next;
+            }
+
+            return $slots;
+        });
+
+        // kalau tiada kelas, terus return view kosong
+        if ($classes->isEmpty()) {
+            $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            return view('admin.class.schedule', [
+                'timetable' => [],
+                'days' => $days,
+                'timeSlots' => [],
+                'schedules' => collect(),
+                'classes' => collect(),
+                'tutors' => collect()
+            ]);
+        }
+
+        // Ambil min & max masa ikut semua kelas
+        $minStart = $classes->min(function ($c) {
+            return \Carbon\Carbon::createFromFormat('H:i', explode('-', $c->slot)[0]);
+        });
+        $maxEnd = $classes->max(function ($c) {
+            return \Carbon\Carbon::createFromFormat('H:i', explode('-', $c->slot)[1]);
+        });
+
+        // Generate slot dari min → max
+        $timeSlots = [];
+        $current = $minStart->copy();
+        while ($current < $maxEnd) {
+            $next = $current->copy()->addMinutes(30);
+            $timeSlots[] = $current->format('H:i') . '-' . $next->format('H:i');
+            $current = $next;
+        }
+
+        // Susun ikut hari & slot masa
+        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        $timetable = [];
+        foreach ($days as $day) {
+            foreach ($timeSlots as $slot) {
+                $timetable[$day][$slot] = $classes->filter(function ($c) use ($day, $slot) {
+                    return $c->day == $day && $c->slot == $slot;
+                });
+            }
+        }
+
+        $tutorId = session('user_id');
+        $tutor = Tutor::with('classes')->findOrFail($tutorId);
+        // show all class tutor has attend and relief, if in table schedules relief is not null then get the id as tutor_id, if relief is null, get tutor_id from tutor_id field
+        $schedules = Schedule::where(function ($query) use ($tutorId) {
+            $query->where('tutor_id', $tutorId)->whereNull('relief');
+        })->orWhere('relief', $tutorId)->with('class.package')
+            // sort by date
+            ->orderByDesc('date')
+            ->get();
+
+        return view('tutor.schedule', compact('schedules', 'tutor', 'timetable', 'days', 'timeSlots'));
+    }
+
+    public function tutorStore(Request $request)
+    {
+        //
+    }
+
+    public function tutorUpdate(Request $request, $id)
+    {
+        //
+    }
+
+    public function tutorEdit($id)
     {
         //
     }

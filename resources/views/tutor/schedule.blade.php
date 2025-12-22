@@ -1,4 +1,100 @@
-<x-tutor-layout :title="'Laporan Prestasi Pelajar'">
+<x-tutor-layout :title="'Borang Kehadiran Pelajar'">
+    <!-- Class Timetable -->
+    <div class="bg-white p-4 rounded-sm shadow mb-6">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div class="flex items-start gap-3">
+                <div class="p-2.5 bg-green-50 rounded-lg text-green-600 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                        <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-gray-800">Jadual Kelas</h2>
+                    <p class="text-sm text-gray-500">Gambaran keseluruhan jadual kelas mingguan.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 justify-start md:justify-end">
+                
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-800"></span>
+                    <span class="text-xs font-medium text-gray-600">Kelas 1</span>
+                </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Kelas 2</span>
+                </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Kelas 3</span>
+                </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Kelas 4</span>
+                </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Bilik 1</span>
+                </div>
+
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+                    <span class="text-xs font-medium text-gray-600">Bilik 2</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Class timetable -->
+        <div class="overflow-x-auto mb-6">
+            <table class="w-max min-w-full border-collapse text-xs">
+                <!-- Table Head -->
+               <thead class="bg-gray-50 sticky top-0 z-10">
+                    <tr class="text-gray-600">
+                        <th class="border border-gray-200 p-2 text-left min-w-[80px]">Day</th>
+                        @foreach($timeSlots as $slot)
+                            <th class="border border-gray-200 p-2 text-center">{{ $slot }}</th>
+                        @endforeach
+                    </tr>
+                </thead>
+
+                <!-- Table Body -->
+               <tbody class="divide-y divide-gray-100 border border-gray-200">
+                @foreach($days as $day)
+                    <tr class="hover:bg-gray-50 border border-gray-200">
+                        <td class="p-2 font-medium text-gray-700 border border-gray-200">{{ $day }}</td>
+                        @foreach($timeSlots as $slot)
+                            <td class="text-center space-y-1 py-1">
+                                @forelse($timetable[$day][$slot] as $class)
+                                    <span class="block m-1 px-3 py-1 text-xs rounded-sm 
+                                        {{ $class->room == 'Kelas 1' ? 'bg-green-100 text-green-800' : '' }}
+                                        {{ $class->room == 'Kelas 2' ? 'bg-orange-100 text-orange-800' : '' }}
+                                        {{ $class->room == 'Kelas 3' ? 'bg-red-100 text-red-800' : '' }}
+                                        {{ $class->room == 'Kelas 4' ? 'bg-blue-100 text-blue-800' : '' }}
+                                        {{ $class->room == 'Bilik 1' ? 'bg-purple-100 text-purple-800' : '' }}
+                                        {{ $class->room == 'Bilik 2' ? 'bg-pink-100 text-pink-800' : '' }}
+                                        font-medium">
+                                        {{ $class->tutor->username }}
+                                    </span>
+                                @empty
+                                    {{-- row dan column yang kosong letak dash --}}
+                                    <span class="text-gray-300">-</span>
+                                @endforelse
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <!-- Report List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
@@ -66,8 +162,7 @@
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->class->end_time)->format('H:i:i') }}</td>
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($schedule->date)->format('d/m/Y') }}</td>
                         <td class="px-4 py-3 flex gap-2 justify-center">
-                            <a href="{{ route('tutor.report.grade.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-500 text-white hover:bg-yellow-600">Laporan Prestasi</a>
-                            <a href="{{ route('tutor.report.lesson-plan.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Pelan Pengajian</a>
+                            <a href="{{ route('tutor.schedule.attendance.index', $schedule->schedule_id) }}" class="px-3 py-1 text-xs rounded bg-yellow-500 text-white hover:bg-yellow-600">Kehadiran</a>
                         </td>
                     </tr>
                     @endforeach
