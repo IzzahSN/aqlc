@@ -25,7 +25,7 @@
     @endif
 
 
-    <main>
+    <main class="bg-white">
         {{ $slot }}
     </main>
 

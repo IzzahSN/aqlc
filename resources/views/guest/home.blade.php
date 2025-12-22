@@ -1,7 +1,7 @@
 <x-app-layout :title="'Home'">
     <!-- Hero Section -->
     <section class="relative bg-gray-50 py-10 px-4 sm:px-6 mt-12 lg:mt-16">
-        <div class="container mx-auto flex flex-col items-center lg:flex-row lg:justify-between">
+        <div class="container max-w-7xl mx-auto flex flex-col items-center lg:flex-row lg:justify-between">
             <div class="max-w-2xl flex flex-col justify-center text-center lg:text-left intersect:motion-preset-slide-right">
                 <h1 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
                     Mulakan <span class="text-green-600">Pembelajaran Quran</span> Anda Hari Ini
@@ -37,7 +37,7 @@
     </section>
 
     <!-- Statistics Section -->
-    <section class="relative bg-gray-50 px-4 sm:px-6 md:px-20">
+    <section class="relative max-w-7xl mx-auto bg-gray-50 px-4 sm:px-6 md:px-20">
         <div class="p-6 sm:p-8 bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 rounded-2xl shadow-lg motion-preset-pop motion-duration-1000">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 text-center">
             
