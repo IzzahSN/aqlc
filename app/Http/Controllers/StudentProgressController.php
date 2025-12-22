@@ -88,7 +88,7 @@ class StudentProgressController extends Controller
                 Achievement::create([
                     'student_id' => $validated['student_id'],
                     'recitation_module_id' => $module->recitation_module_id,
-                    'title' => 'Finished ' . $module->recitation_name,
+                    'title' => 'Selesai ' . $module->recitation_name,
                     'certificate' => null,
                     'completion_date' => $schedule ? $schedule->date : now(),
                 ]);
@@ -175,7 +175,7 @@ class StudentProgressController extends Controller
                         Achievement::create([
                             'student_id' => $progress->student_id,
                             'recitation_module_id' => $module->recitation_module_id,
-                            'title' => 'Finished ' . $module->recitation_name,
+                            'title' => 'Selesai ' . $module->recitation_name,
                             'certificate' => null,
                             'completion_date' => $schedule ? $schedule->date : now(),
                         ]);
@@ -395,7 +395,7 @@ class StudentProgressController extends Controller
                 Achievement::create([
                     'student_id' => $validated['student_id'],
                     'recitation_module_id' => $module->recitation_module_id,
-                    'title' => 'Finished ' . $module->recitation_name,
+                    'title' => 'Selesai ' . $module->recitation_name,
                     'certificate' => null,
                     'completion_date' => $schedule ? $schedule->date : now(),
                 ]);
@@ -482,7 +482,7 @@ class StudentProgressController extends Controller
                         Achievement::create([
                             'student_id' => $progress->student_id,
                             'recitation_module_id' => $module->recitation_module_id,
-                            'title' => 'Finished ' . $module->recitation_name,
+                            'title' => 'Selesai ' . $module->recitation_name,
                             'certificate' => null,
                             'completion_date' => $schedule ? $schedule->date : now(),
                         ]);
