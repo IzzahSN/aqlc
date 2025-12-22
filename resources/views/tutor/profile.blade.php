@@ -94,6 +94,23 @@
                         <input type="text" id="role" name="role" value="{{ ucfirst($tutorProfile->role) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" readonly>
                     </div>
 
+                    {{-- bank name --}}
+                    <div class="md:col-span-3">
+                        <label for="bank_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Bank</label>
+                        <select id="bank_name" name="bank_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5">
+                            <option value="">-- Pilih Bank --</option>
+                            @foreach($banks as $bank)
+                                <option value="{{ $bank }}" {{ $tutorProfile->bank_name == $bank ? 'selected' : '' }}>{{ $bank }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    {{-- acc number --}}
+                    <div class="md:col-span-3">
+                        <label for="acc_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Akaun</label>
+                        <input type="text" id="acc_number" name="acc_number" placeholder="1234567890" value="{{ $tutorProfile->acc_number }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" >
+                    </div>
+
                     <div class="md:col-span-3">
                         {{-- profile only insert image--}}
                         <label for="profile" class="block mb-2 text-sm font-medium text-gray-900">Gambar Profil</label>

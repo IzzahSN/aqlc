@@ -19,8 +19,9 @@ class TutorController extends Controller
         $totalTutors = Tutor::count();
         $activeTutors = Tutor::where('status', 'active')->count();
         $inactiveTutors = Tutor::where('status', 'inactive')->count();
+        $banks = config('banks.list');
 
-        return view('admin.record.tutor', compact('tutors', 'totalTutors', 'activeTutors', 'inactiveTutors'));
+        return view('admin.record.tutor', compact('tutors', 'totalTutors', 'activeTutors', 'inactiveTutors', 'banks'));
     }
 
     /**
@@ -39,6 +40,8 @@ class TutorController extends Controller
             'address' => 'nullable|string',
             'email' => 'required|email|unique:tutors,email',
             'phone_number' => 'required|string|max:15',
+            'bank_name' => 'nullable|string|max:255',
+            'acc_number' => 'nullable|string|max:20',
             'university' => 'required|string|max:255',
             'programme' => 'required|string|max:255',
             'grade' => 'required|numeric|between:0,4.00',
@@ -75,6 +78,8 @@ class TutorController extends Controller
             'address' => $request->address,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
+            'bank_name' => $request->bank_name,
+            'acc_number' => $request->acc_number,
             'university' => $request->university,
             'programme' => $request->programme,
             'grade' => $request->grade,
@@ -115,6 +120,8 @@ class TutorController extends Controller
             'gender' => 'required|in:male,female',
             'address' => 'nullable|string',
             'phone_number' => 'required|string|max:15',
+            'bank_name' => 'nullable|string|max:255',
+            'acc_number' => 'nullable|string|max:20',
             'university' => 'required|string|max:255',
             'programme' => 'required|string|max:255',
             'grade' => 'required|numeric|between:0,4.00',

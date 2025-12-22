@@ -140,7 +140,7 @@
                                     data-id="{{ $tutor->tutor_id }}">
                                     Delete
                                 </button>
-                            </form>                         --}}
+                            </form>--}}
                         </td>
                     </tr>
                     @endforeach
@@ -370,6 +370,25 @@
                                     <option value="Tutor">Tutor</option>
                                 </select>
                             </div>
+
+                            <!-- Bank Name -->
+                            <div>
+                                <label for="bank_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Bank</label>
+                                <select name="bank_name" id="bank_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Pilih Bank</option>
+                                    @foreach ($banks as $bank)
+                                        <option value="{{ $bank }}">{{ $bank }}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+
+                            <!-- Account Number -->
+                            <div>
+                                <label for="acc_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Akaun Bank</label>
+                                <input type="text" id="acc_number" name="acc_number" placeholder="1234567890" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
                             <!-- Status -->
                             <div>
                                 <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
@@ -535,6 +554,25 @@
                                     <option value="Tutor">Tutor</option>
                                 </select>
                             </div>
+
+                            <!-- Bank Name -->
+                            <div>
+                                <label for="bank_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Bank</label>
+                                <select name="bank_name" id="bank_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                                    <option value="">Pilih Bank</option>
+                                    @foreach ($banks as $bank)
+                                        <option value="{{ $bank }}">{{ $bank }}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+
+                            <!-- Account Number -->
+                            <div>
+                                <label for="acc_number" class="block mb-2 text-sm font-medium text-gray-900">Nombor Akaun Bank</label>
+                                <input type="text" id="acc_number" name="acc_number" placeholder="1234567890" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
+                            </div>
+
                             <!-- Status -->
                             <div>
                                 <label for="status" class="block mb-2 text-sm font-medium text-gray-900">Status</label>
@@ -881,6 +919,8 @@
                             editForm.birth_date.value = data.birth_date || '';
                             editForm.gender.value = data.gender || '';
                             editForm.role.value = data.role || '';
+                            editForm.bank_name.value = data.bank_name || '';
+                            editForm.acc_number.value = data.acc_number || '';
                             editForm.status.value = data.status || '';
                             editForm.address.value = data.address || '';
 

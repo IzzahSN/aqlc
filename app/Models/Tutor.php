@@ -25,6 +25,8 @@ class Tutor extends Model
         'address',
         'email',
         'phone_number',
+        'bank_name',
+        'acc_number',
         'university',
         'programme',
         'grade',

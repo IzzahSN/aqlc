@@ -15,7 +15,8 @@ class ProfileController extends Controller
         $adminID = session('user_id');
         // Retrieve admin profile data using $adminID
         $adminProfile = Tutor::find($adminID);
-        return view('admin.profile', compact('adminProfile'));
+        $banks = config('banks.list');
+        return view('admin.profile', compact('adminProfile', 'banks'));
     }
 
     public function updateAdminProfile(Request $request)
@@ -33,6 +34,8 @@ class ProfileController extends Controller
             'age' => 'required|integer|min:18',
             'address' => 'nullable|string',
             'phone_number' => 'required|string|max:15',
+            'bank_name' => 'nullable|string|max:255',
+            'acc_number' => 'nullable|string|max:20',
             'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -96,7 +99,8 @@ class ProfileController extends Controller
         $tutorID = session('user_id');
         // Retrieve tutor profile data using $tutorID
         $tutorProfile = Tutor::find($tutorID);
-        return view('tutor.profile', compact('tutorProfile'));
+        $banks = config('banks.list');
+        return view('tutor.profile', compact('tutorProfile', 'banks'));
     }
 
     public function updateTutorProfile(Request $request)
@@ -114,6 +118,8 @@ class ProfileController extends Controller
             'age' => 'required|integer|min:18',
             'address' => 'nullable|string',
             'phone_number' => 'required|string|max:15',
+            'bank_name' => 'nullable|string|max:255',
+            'acc_number' => 'nullable|string|max:20',
             'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
