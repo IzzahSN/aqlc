@@ -583,32 +583,32 @@
 
     {{-- Edit form --}}
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const editButtons = document.querySelectorAll('.edit-button');
-        const editForm = document.getElementById('editScheduleForm');
+        document.addEventListener("DOMContentLoaded", function() {
+            const editButtons = document.querySelectorAll('.edit-button');
+            const editForm = document.getElementById('editScheduleForm');
 
-        editButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const scheduleId = this.getAttribute('data-id');
-                fetch(`/admin/schedule/${scheduleId}/edit`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Set form action
-                        editForm.action = `/admin/schedule/${scheduleId}`;
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const scheduleId = this.getAttribute('data-id');
+                    fetch(`/admin/schedule/${scheduleId}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Set form action
+                            editForm.action = `/admin/schedule/${scheduleId}`;
 
-                        // Populate form fields
-                        editForm.date.value = data.date || '';
-                        editForm.class_id.value = data.class_id || '';
-                        editForm.tutor_id.value = data.tutor_id || '';
-                        editForm.tutor_display.value = data.tutor_name || '';
-                        editForm.relief.value = data.relief || '';
-                    })
-                    .catch(error => {
-                        console.error('Error fetching schedule data:', error);
-                    });
+                            // Populate form fields
+                            editForm.date.value = data.date || '';
+                            editForm.class_id.value = data.class_id || '';
+                            editForm.tutor_id.value = data.tutor_id || '';
+                            editForm.tutor_display.value = data.tutor_name || '';
+                            editForm.relief.value = data.relief || '';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching schedule data:', error);
+                        });
+                });
             });
         });
-    });
-</script>
+    </script>
 
 </x-admin-layout>

@@ -193,7 +193,7 @@
             <!-- Scrollable container -->
             <div class="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
                 @forelse ($schedules as $schedule)
-                    <a href="{{ route('tutor.report.attendance.index', $schedule->schedule_id) }}"
+                    <a href="{{ route('tutor.schedule.attendance.index', $schedule->schedule_id) }}"
                         class="group flex items-center justify-between p-4 rounded-lg shadow bg-gray-100 hover:bg-gradient-to-r from-green-600 to-emerald-700 transition cursor-pointer">
                         
                         <div class="flex items-center gap-3">
