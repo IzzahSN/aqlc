@@ -209,7 +209,13 @@ class BillHistoryController extends Controller
                     $billYear = $studentBillRecord->student_bill_year;
                     $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
 
-                    $billStatus = $currentDate->greaterThan($billDate) ? 'Unpaid' : 'Pending';
+                    // 🔥 NEW LOGIC
+                    if ($package->unit === 'per month') {
+                        $billStatus = 'Unpaid';
+                    } else { // per session
+                        $billStatus = $currentDate->greaterThan($billDate) ? 'Unpaid' : 'Pending';
+                    }
+
 
                     // Create new bill history
                     BillHistory::create([
@@ -264,12 +270,17 @@ class BillHistoryController extends Controller
                 $billYear = $studentBillRecord->student_bill_year;
                 $billDate = Carbon::create($billYear, $billMonth, 1)->endOfMonth();
 
-                if ($currentDate->greaterThan($billDate) && $billHistory->bill_status !== 'Paid') {
-                    $billHistory->bill_status = 'Unpaid';
-                } else if ($billHistory->bill_status == 'Paid') {
-                    $billHistory->bill_status = 'Paid';
-                } else {
-                    $billHistory->bill_status = 'Pending';
+                if ($billHistory->bill_status !== 'Paid') {
+
+                    if ($package->unit === 'per month') {
+                        // 🔥 Per month: sentiasa unpaid (kecuali dah paid)
+                        $billHistory->bill_status = 'Unpaid';
+                    } else {
+                        // 🔥 Per session: ikut tarikh
+                        $billHistory->bill_status = $currentDate->greaterThan($billDate)
+                            ? 'Unpaid'
+                            : 'Pending';
+                    }
                 }
 
                 $billHistory->save();
