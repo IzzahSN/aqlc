@@ -14,14 +14,26 @@
             
             <div class="relative w-full sm:flex-1">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M2.25 6.75c0-1.242 1.008-2.25 2.25-2.25h3.375c.621 0 1.192.243 1.613.675l.343.342c.15.15.354.233.567.233H19.5c1.242 0 2.25 1.008 2.25 2.25v10.5c0 1.242-1.008 2.25-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75Z" />
                     </svg>
                 </div>
-                <input type="text" 
-                    id="searchInput" 
-                    placeholder="Cari mengikut Nama atau ID..." 
-                    class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 focus:bg-white transition-all duration-200 outline-none shadow-sm" />
+
+                <select id="classFilter"
+                        class="appearance-none cursor-pointer block w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
+                    
+                    <option value="">Semua Kelas</option>
+                    
+                    @foreach ($classes->pluck('class_name')->unique() as $class)
+                        <option value="{{ $class }}">{{ $class }}</option>
+                    @endforeach
+                </select>
+
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
@@ -155,7 +167,7 @@
 
          <!-- Pagination Script -->
         <script>
-            const searchInput = document.getElementById("searchInput");
+            const searchInput = document.getElementById("classFilter");
             const filterDay = document.getElementById("filterDay");
             const filterRoom = document.getElementById("filterRoom");
             const filterDate = document.getElementById("filterDate");
@@ -166,7 +178,7 @@
             const entriesInfo = document.getElementById("entriesInfo");
 
             let currentPage = 1;
-            const rowsPerPage = 5;
+            const rowsPerPage = 10;
 
             function renderTable() {
                 const searchValue = searchInput.value.toLowerCase();
@@ -176,12 +188,11 @@
 
                 let filteredRows = rows.filter(row => {
                     const name = row.cells[1].textContent.toLowerCase();
-                    const id = row.cells[0].textContent.toLowerCase();
                     const day = row.cells[3].textContent.toLowerCase(); // 👈 ambil day
                     const room = row.cells[4].textContent.toLowerCase(); // 👈 ambil room
                     const dateText = row.cells[6].textContent.trim();
 
-                    const matchSearch = name.includes(searchValue) || id.includes(searchValue);
+                    const matchSearch = name.includes(searchValue);
                     const matchDay = dayValue === "" || day.includes(dayValue);
                     const matchRoom = roomValue === "" || room.includes(roomValue);
 
