@@ -137,15 +137,18 @@ class BillHistoryController extends Controller
             }
 
             // Update bill type if provided
-            if (isset($item['bill_type']) && !empty($item['bill_type'])) {
-                $billHistory->bill_type = $item['bill_type'];
-            }
+            if (!empty($item['bill_type'])) {
 
-            // Update status if bill_recipt not null and date
-            if ($billHistory->bill_receipt) {
+                $billHistory->bill_type = $item['bill_type'];
                 $billHistory->bill_status = 'Paid';
                 $billHistory->bill_date = now();
             }
+
+            // Update status if bill_recipt not null and date
+            // if ($billHistory->bill_receipt) {
+            //     $billHistory->bill_status = 'Paid';
+            //     $billHistory->bill_date = now();
+            // }            
 
             $billHistory->save();
         }
