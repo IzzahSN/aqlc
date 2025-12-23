@@ -219,6 +219,7 @@ Route::prefix('tutor')->name('tutor.')->middleware('role:tutor')->group(function
 
     // Salary
     Route::get('/salary', [BillHistoryController::class, 'tutorViewSalary'])->name('salary.index');
+    Route::get('/salary/receipt/{id}', [BillHistoryController::class, 'tutorSalaryReceipt'])->name('salary.receipt');
     // Profile
     Route::get('/profile', [ProfileController::class, 'showTutorProfile'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'updateTutorProfile'])->name('profile.update');

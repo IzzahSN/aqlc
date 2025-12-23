@@ -60,6 +60,7 @@
                         <th class="px-4 py-3 text-center">Status</th>
                         <th class="px-4 py-3 text-center">Tarikh Terima</th>
                         <th class="px-4 py-3">Jumlah Jam Mengajar</th>
+                        <th class="px-4 py-3 text-center">Resit</th>
                     </tr>
                 </thead>
                 <tbody id="salaryBody">
@@ -89,6 +90,13 @@
                         <td class="px-4 py-3">{{ $billHistory->bill_date ? \Carbon\Carbon::parse($billHistory->bill_date)->format('d/m/Y') : '-' }}</td>
                         <td class="px-4 py-3 flex justify-center">
                             {{ $totalHours[$index] ?? 0 }} jam
+                        </td>
+                        <td class="px-4 py-3 justify-center">
+                            @if ($billHistory->bill_status == 'Paid')
+                                <a href="{{ route('tutor.salary.receipt', $billHistory->bill_id) }}" target="_blank" class="px-3 py-1 text-xs rounded bg-yellow-500 text-white hover:bg-yellow-600">Lihat Resit</a>
+                            @else
+                                -
+                            @endif
                         </td>
                     </tr>
                     @endforeach
