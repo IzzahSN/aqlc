@@ -107,15 +107,17 @@
                                 @endif
                             </td>
                             {{-- bill bukti --}}
-                            <td class="px-4 py-3">
-                                 <input type="hidden" name="billHistories[{{ $index }}][bill_id]" value="{{ $billHistory->bill_id }}" />
+                            <td class="px-4 py-3 ">
+                                <div class="flex items-center gap-2">
+                                    <input type="hidden" name="billHistories[{{ $index }}][bill_id]" value="{{ $billHistory->bill_id }}" />
                                     <input type="file" name="billHistories[{{ $index }}][bill_receipt]"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-auto p-1.5"
                                         @if ($billHistory->bill_status == 'Pending') disabled @endif
                                         />
-                                     @if($billHistory->bill_receipt != null)
+                                        @if($billHistory->bill_receipt != null)
                                         <a href="{{ asset('storage/' . $billHistory->bill_receipt) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">Lihat Bukti</a>
                                     @endif
+                                </div>
                             </td>
                             {{-- bill_status --}}
                             <td class="px-4 py-e">
