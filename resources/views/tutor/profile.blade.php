@@ -32,7 +32,7 @@
                     <div class="relative w-40 h-40">
                         <img src="{{ $tutorProfile->profile 
                         ? asset('storage/'.$tutorProfile->profile)
-                        : 'https://ui-avatars.com/api/?name='.urlencode($tutorProfile->username).'&background=F97316&color=fff' }}" 
+                        : 'https://ui-avatars.com/api/?name='.urlencode($tutorProfile->username).'&background=059669&color=fff' }}" 
                         class="w-40 h-40 rounded-full border-2 border-gray-200 object-cover cursor-pointer" for="profileUpload" alt="Avatar">
                     </div>
                 </div>
