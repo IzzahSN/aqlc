@@ -140,7 +140,7 @@
                                     <a href="{{ route('admin.bill.report.receipt', $billHistory->bill_id) }}"
                                     target="_blank"
                                     class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700">
-                                        Resit
+                                        Lihat
                                     </a>
                                 @else
                                     <span class="text-gray-400 italic">-</span>

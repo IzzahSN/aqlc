@@ -156,7 +156,7 @@
     <tr>
         {{-- nama bill --}}
         <td class="label">Nama Bil</td>
-        <td class="value">{{ $bill->studentBill->student_bill_name }}</td>
+        <td class="value">{{ $bill->studentBill->student_bill_name}} - YURAN PENGAJIAN</td>
     </tr>
     <tr>
         <td class="label">Nama Pelajar</td>
