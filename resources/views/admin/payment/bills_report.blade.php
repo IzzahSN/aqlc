@@ -59,6 +59,7 @@
                             <th class="px-4 py-3 text-center">Tarikh Bayaran</th>
                             <th class="px-4 py-3">Pakej</th>
                             <th class="px-4 py-3 text-center">Bil. Kehadiran</th>
+                            <th class="px-4 py-3 text-center">Resit</th>
                         </tr>
                     </thead>
                     <tbody id="billBody">
@@ -133,6 +134,17 @@
                             <td class="px-4 py-3">
                                 {{-- display total sessions --}}
                                 {{ $attendanceDetails[$index] }} Sesi
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                @if ($billHistory->bill_status === 'Paid')
+                                    <a href="{{ route('admin.bill.report.receipt', $billHistory->bill_id) }}"
+                                    target="_blank"
+                                    class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700">
+                                        Resit
+                                    </a>
+                                @else
+                                    <span class="text-gray-400 italic">-</span>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

@@ -160,6 +160,8 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 
     Route::get('/bill/{id}/report', [BillHistoryController::class, 'indexStudentBill'])->name('bill.report.index');
     Route::put('/bill/{id}/report', [BillHistoryController::class, 'updateStudentBill'])->name('bill.report.update');
+    Route::get('/bill/{id}/receipt', [BillHistoryController::class, 'receipt'])->name('bill.report.receipt');
+
 
     // SALARY
     Route::get('/salary', [SalaryRecordController::class, 'index'])->name('salary.index');
