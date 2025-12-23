@@ -184,7 +184,7 @@
                     @empty
                         <tr>
                             <td colspan="7" class="px-4 py-8 text-center text-gray-500">
-                                Tiada rekod dijumpai. Sila pautkan anak dahulu.
+                                Tiada rekod dijumpai.
                             </td>
                         </tr>
                     @endforelse

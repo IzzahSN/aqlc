@@ -10,6 +10,7 @@ use App\Models\Schedule;
 use App\Models\Student;
 use App\Models\StudentProgress;
 use App\Models\Tutor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -45,8 +46,10 @@ class DashboardController extends Controller
             ->pluck('class_id')
             ->unique();
 
-        // Get all schedules for these classes with related data and student info
+        // Get all schedules for these classes with related data and student info, only papar data bulan semasa dan mestilah selapas tarik admission_date(table students)
         $schedules = Schedule::whereIn('class_id', $classIds)
+            ->whereMonth('date', date('m'))
+            ->whereYear('date', date('Y'))
             ->with([
                 'class.tutor',
                 'class.package',
@@ -60,29 +63,35 @@ class DashboardController extends Controller
         // Create a collection that combines schedule with student information
         $scheduleData = [];
         foreach ($schedules as $schedule) {
-            // Get all students in this class that belong to this guardian
+
             $studentsInClass = $schedule->class->joinClasses()
                 ->whereIn('student_id', $studentIds)
                 ->with('student')
                 ->get();
 
             foreach ($studentsInClass as $joinClass) {
+
+                $student = $joinClass->student;
+
+                // 👉 FILTER: hanya papar schedule selepas / sama dengan admission_date
+                if (
+                    $student->admission_date &&
+                    Carbon::parse($schedule->date)->lt(Carbon::parse($student->admission_date))
+                ) {
+                    continue;
+                }
+
                 $scheduleData[] = (object)[
                     'schedule' => $schedule,
-                    'student' => $joinClass->student,
-                    'class' => $schedule->class,
-                    'tutor' => $schedule->reliefTutor ?? $schedule->class->tutor,
+                    'student'  => $student,
+                    'class'    => $schedule->class,
+                    'tutor'    => $schedule->reliefTutor ?? $schedule->class->tutor,
                 ];
             }
         }
 
         session(['schedules' => $schedules]);
-
-        // show student latest progress from table student_progresses where student_id in studentIds, ambil paling latest berdasarkan date dekat schedule_id
-        // $students = $package->joinPackages()
-        //             ->with(['student.latestProgress.recitationModule'])
-        //             ->get()
-        //             ->pluck('student');
+        // Dapatkan semua pelajar yang dihubungkan kepada guardian ini bersama progress terkini dan modul bacaan
         $students = $guardian->students()
             ->with(['latestProgress.recitationModule'])
             ->get();
