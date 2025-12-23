@@ -84,9 +84,14 @@
                             {{-- if bill_status == pending/paid, pay button disable --}}
                             @if ($billHistory->bill_status == 'Unpaid')
                             <a href="{{ route('guardian.bill.toyyibpay.create', $billHistory->bill_id)}}" class="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600">Bayar</a>
+                            @elseif ($billHistory->bill_status == 'Paid')
+                            {{-- button lihat resit --}}
+                            <a href="{{ route('guardian.bill.receipt', $billHistory->bill_id) }}" target="_blank" class="px-3 py-1 text-xs rounded bg-yellow-500 text-white hover:bg-yellow-600">Lihat Resit</a>
                             @else
                             <button class="px-3 py-1 text-xs rounded bg-gray-300 text-white cursor-not-allowed" disabled>Bayar</button>
+
                             @endif
+                            
                         </td>
                     </tr>
                     @endforeach
