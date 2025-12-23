@@ -106,7 +106,7 @@
                                     </select>                 
                                 @endif
                             </td>
-                            {{-- bill receipt --}}
+                            {{-- bill bukti --}}
                             <td class="px-4 py-3">
                                  <input type="hidden" name="billHistories[{{ $index }}][bill_id]" value="{{ $billHistory->bill_id }}" />
                                     <input type="file" name="billHistories[{{ $index }}][bill_receipt]"

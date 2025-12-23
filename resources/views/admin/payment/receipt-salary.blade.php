@@ -34,7 +34,7 @@
             align-items: center;
             justify-content: center;
             font-size: 10px;
-            color: #999;
+            color: #ffffff;
         }
         .company-info {
             flex: 1;
@@ -157,19 +157,11 @@
     <tr>
         {{-- nama bill --}}
         <td class="label">Nama Bil</td>
-        <td class="value">{{ $bill->studentBill->student_bill_name}} - YURAN PENGAJIAN</td>
+        <td class="value">{{ $bill->salary->salary_name}} - SLIP GAJI</td>
     </tr>
     <tr>
-        <td class="label">Nama Pelajar</td>
-        <td class="value">{{ $bill->student->first_name }} {{ $bill->student->last_name }}</td>
-    </tr>
-    <tr>
-        <td class="label">Nama Pembayar (Penjaga)</td>
-        <td class="value">{{ $bill->guardian->first_name }} {{ $bill->guardian->last_name }}</td>
-    </tr>
-    <tr>
-        <td class="label">Pakej Pengajian</td>
-        <td class="value">{{ $bill->package->package_name }}</td>
+        <td class="label">Nama Pengajar</td>
+        <td class="value">{{ $bill->tutor->first_name }} {{ $bill->tutor->last_name }}</td>
     </tr>
     <tr>
         <td class="label">Tarikh Transaksi</td>

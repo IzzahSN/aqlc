@@ -412,4 +412,19 @@ class BillHistoryController extends Controller
 
         return view('admin.payment.receipt', compact('bill'));
     }
+
+    public function receiptSalary($id)
+    {
+        $bill = BillHistory::with([
+            'tutor',
+            'salary'
+        ])->findOrFail($id);
+
+        // Security: hanya paid boleh view resit
+        if ($bill->bill_status !== 'Paid') {
+            abort(403);
+        }
+
+        return view('admin.payment.receipt-salary', compact('bill'));
+    }
 }

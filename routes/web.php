@@ -173,6 +173,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 
     Route::get('/salary/{id}/report', [BillHistoryController::class, 'indexSalary'])->name('salary.report.index');
     Route::put('/salary/{id}/report', [BillHistoryController::class, 'updateSalary'])->name('salary.report.update');
+    Route::get('/salary/{id}/receipt', [BillHistoryController::class, 'receiptSalary'])->name('salary.report.receipt');
 
     // NOTIFICATOIN
     Route::get('/notification', fn() => view('admin.notification.index'))->name('notification');
