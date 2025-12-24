@@ -15,7 +15,9 @@ class LessonPlanController extends Controller
     public function tutorIndex($id)
     {
         $lessonPlan = LessonPlan::find($id);
-        return view('tutor.lesson_plan', compact('lessonPlan', 'id'));
+        $className = $lessonPlan && $lessonPlan->schedule ? $lessonPlan->schedule->class->class_name : 'N/A';
+        $date = $lessonPlan && $lessonPlan->schedule ? $lessonPlan->schedule->date : 'N/A';
+        return view('tutor.lesson_plan', compact('lessonPlan', 'id', 'className', 'date'));
     }
 
 
@@ -65,7 +67,9 @@ class LessonPlanController extends Controller
     public function index($id)
     {
         $lessonPlan = LessonPlan::find($id);
-        return view('admin.report.lesson_plan', compact('lessonPlan', 'id'));
+        $className = $lessonPlan && $lessonPlan->schedule ? $lessonPlan->schedule->class->class_name : 'N/A';
+        $date = $lessonPlan && $lessonPlan->schedule ? $lessonPlan->schedule->date : 'N/A';
+        return view('admin.report.lesson_plan', compact('lessonPlan', 'id', 'className', 'date'));
     }
 
 

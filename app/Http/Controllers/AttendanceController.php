@@ -18,7 +18,10 @@ class AttendanceController extends Controller
         $attendances = Attendance::with('student')->where('schedule_id', $id)->get();
         //get student yang active
         $students = Student::where('status', 'active')->get();
-        return view('admin.class.attendance', compact('attendances', 'id', 'students'));
+        $schedule = Schedule::find($id);
+        $className = $schedule ? $schedule->class->class_name : 'N/A';
+        $date = $schedule ? $schedule->date : 'N/A';
+        return view('admin.class.attendance', compact('attendances', 'id', 'students', 'className', 'date'));
     }
 
     /**
@@ -122,7 +125,10 @@ class AttendanceController extends Controller
         $attendances = Attendance::with('student')->where('schedule_id', $id)->get();
         //get student yang active
         $students = Student::where('status', 'active')->get();
-        return view('tutor.attendance', compact('attendances', 'id', 'students'));
+        $schedule = Schedule::find($id);
+        $className = $schedule ? $schedule->class->class_name : 'N/A';
+        $date = $schedule ? $schedule->date : 'N/A';
+        return view('tutor.attendance', compact('attendances', 'id', 'students', 'className', 'date'));
     }
 
     public function tutorStore(Request $request, $id)

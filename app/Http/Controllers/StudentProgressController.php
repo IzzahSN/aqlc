@@ -31,8 +31,10 @@ class StudentProgressController extends Controller
 
         //get module hannya status is_complete_series = 0
         $modules = RecitationModule::where('is_complete_series', 0)->get();
+        $className = $currentSchedule->class ? $currentSchedule->class->class_name : 'N/A';
+        $date = $currentSchedule->date;
 
-        return view('admin.report.grade', compact('studentProgresses', 'id', 'modules', 'currentSchedule'));
+        return view('admin.report.grade', compact('studentProgresses', 'id', 'modules', 'currentSchedule', 'className', 'date'));
     }
 
 
@@ -375,8 +377,10 @@ class StudentProgressController extends Controller
 
         //get module hannya status is_complete_series = 0
         $modules = RecitationModule::where('is_complete_series', 0)->get();
+        $className = $currentSchedule->class ? $currentSchedule->class->class_name : 'N/A';
+        $date = $currentSchedule->date;
 
-        return view('tutor.grade', compact('studentProgresses', 'id', 'modules', 'currentSchedule'));
+        return view('tutor.grade', compact('studentProgresses', 'id', 'modules', 'currentSchedule', 'className', 'date'));
     }
 
     /**
