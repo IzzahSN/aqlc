@@ -17,10 +17,61 @@
     <!-- Package Report List -->
     <div class="bg-white p-6 rounded-xl shadow">
         <!-- Header -->
-        <div class="flex items-center justify-between mb-4">
+        {{-- <div class="flex items-center justify-between mb-4">
             <h2 class="text-lg font-semibold">Laporan Pakej: {{ $package->package_name }}</h2>
             <p class="text-sm text-gray-500">Jumlah Pelajar Berdaftar: {{ $students->count() }}</p>
+        </div> --}}
+
+    {{-- maklumat pakej,  $package->package_name, $students->count(), duration_per_session, package_rate--}}
+    <div class="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    
+    <div class="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div class="flex-shrink-0 p-2 bg-rose-50 rounded-lg text-rose-600 mr-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
         </div>
+        <div>
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-1">Pakej</p>
+            <p class="text-sm font-semibold text-gray-800 truncate">{{ $package->package_name }}</p>
+        </div>
+    </div>
+
+    <div class="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div class="flex-shrink-0 p-2 bg-indigo-50 rounded-lg text-indigo-600 mr-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+        </div>
+        <div>
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-1">Bil. Pelajar</p>
+            <p class="text-sm font-semibold text-gray-800">{{ $students->count() }} Orang</p>
+        </div>
+    </div>
+
+    <div class="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div class="flex-shrink-0 p-2 bg-amber-50 rounded-lg text-amber-600 mr-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+        <div>
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-1">Durasi/Sesi</p>
+            <p class="text-sm font-semibold text-gray-800">{{ $package->duration_per_sessions }}</p>
+        </div>
+    </div>
+
+    <div class="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div class="flex-shrink-0 p-2 bg-emerald-50 rounded-lg text-emerald-600 mr-3">
+            <span class="text-xs font-bold">RM</span>
+        </div>
+        <div>
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-1">Kadar Pakej</p>
+            <p class="text-sm font-semibold text-gray-800">{{ number_format($package->package_rate, 2) }}</p>
+        </div>
+    </div>
+
+</div>
 
       <!-- Search + Filter -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
