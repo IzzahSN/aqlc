@@ -246,6 +246,40 @@
                             @else
                                 <span class="text-gray-500 italic">Tiada Sijil</span>
                             @endif
+                        </td>
+                        <td class="px-4 py-3">
+                            {{-- selection guardian yang dah link dengan student id --}}
+                            {{ $achievement->student->guardian ? $achievement->student->guardian->first_name : 'Tiada' }}
+                        </td>
+                        <td class="px-4 py-3">
+                            @if ($achievement->smsLog)
+                                @if ($achievement->smsLog->sms_status === 'Sent')
+                                    <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Dihantar</span>
+                                @elseif ($achievement->smsLog->sms_status === 'Pending')
+                                    <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Sedang Proses</span>
+                                @else
+                                    <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Gagal</span>
+                                @endif
+                            @endif
+                        </td>
+                        {{-- tindakan buat button, kalau status sent disable kan button, kalau pending ade button send sms, kalau failed, resend sms --}}
+                        <td class="px-4 py-3">
+                            @if ($achievement->smsLog)
+                                @if ($achievement->smsLog->sms_status === 'Sent')
+                                    <button disabled class="px-3 py-1 text-xs font-medium text-white bg-gray-400 rounded-md cursor-not-allowed">SMS Dihantar</button>
+                                @elseif ($achievement->smsLog->sms_status === 'Pending')
+                                    <form action="" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1 text-xs font-medium rounded bg-green-500 text-white hover:bg-green-600">Hantar SMS</button>
+                                    </form>
+                                @else
+                                    <form action="" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1 text-xs font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors duration-200">Hantar Semula SMS</button>
+                                    </form>
+                                @endif
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

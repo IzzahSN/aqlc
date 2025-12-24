@@ -30,4 +30,9 @@ class Achievement extends Model
     {
         return $this->hasMany(SmsLog::class, 'achievement_id', 'achievement_id');
     }
+
+    public function smsLog()
+    {
+        return $this->hasOne(SmsLog::class, 'achievement_id', 'achievement_id');
+    }
 }

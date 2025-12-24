@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Achievement;
 use App\Models\RecitationModule;
+use App\Models\SmsLog;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,24 @@ class AchievementController extends Controller
     public function index()
     {
         $achievements = Achievement::with(['student', 'recitationModule'])->latest()->get();
+        $smsLogs = SmsLog::with(['achievement.student'])->latest()->get();
+
+        // === AUTO CREATE SMS LOG JIKA BELUM ADA ===
+        foreach ($achievements as $achievement) {
+
+            if (!$achievement->smsLog) {
+
+                $studentName = $achievement->student->first_name;
+                $achievementTitle = $achievement->title;
+
+                SmsLog::create([
+                    'achievement_id' => $achievement->achievement_id,
+                    'student_id'     => $achievement->student_id,
+                    'message'        => "Tahniah! {$studentName} telah {$achievementTitle} 🎉",
+                    'sms_status'     => 'Pending', // pending | sent | failed
+                ]);
+            }
+        }
 
         // Total Finished Iqra' (count achievements whose module is_complete_series = 1 and level_type = 'Iqra')
         $totalFinishedIqra = Achievement::whereHas('recitationModule', function ($q) {
@@ -62,7 +81,7 @@ class AchievementController extends Controller
         $labelsIqra = $iqraModules->pluck('recitation_name', 'recitation_module_id');
         $labelsQuran = $quranModules->pluck('recitation_name', 'recitation_module_id');
 
-        return view('admin.report.achievement', compact('achievements', 'totalFinishedIqra', 'totalFinishedQuran', 'totalStudents', 'achievementsIqra', 'achievementsQuran', 'labelsIqra', 'labelsQuran'));
+        return view('admin.report.achievement', compact('achievements', 'smsLogs', 'totalFinishedIqra', 'totalFinishedQuran', 'totalStudents', 'achievementsIqra', 'achievementsQuran', 'labelsIqra', 'labelsQuran'));
     }
 
     /**

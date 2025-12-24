@@ -141,7 +141,7 @@
                                 @if ($billHistory->bill_status === 'Paid')
                                     <a href="{{ route('admin.bill.report.receipt', $billHistory->bill_id) }}"
                                     target="_blank"
-                                    class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700">
+                                    class="inline-flex items-center px-3 py-1 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-700">
                                         Lihat
                                     </a>
                                 @else
