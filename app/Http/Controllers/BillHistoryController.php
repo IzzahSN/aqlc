@@ -109,7 +109,13 @@ class BillHistoryController extends Controller
 
             $billHistory->save();
         }
-        return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories', 'id', 'totalHours'));
+
+        $recordName = $salaryRecord->salary_name;
+        $year = $salaryRecord->salary_year;
+        $month = $salaryRecord->salary_month;
+        $salaryRate = $salaryRecord->salary_rate;
+
+        return view('admin.payment.salary_report', compact('salaryRecord', 'billHistories', 'id', 'totalHours', 'recordName', 'year', 'month', 'salaryRate'));
     }
 
     /**
