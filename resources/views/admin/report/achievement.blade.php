@@ -241,11 +241,7 @@
                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($achievement->completion_date)->format('d/m/Y') }}</td>
                         {{-- link to view pdf --}}
                         <td class="px-4 py-3">
-                            @if ($achievement->certificate)
-                                <a href="{{ asset('storage/certificates/' . $achievement->certificate) }}" target="_blank" class="text-green-600 hover:underline">View Certificate</a>
-                            @else
-                                <span class="text-gray-500 italic">Tiada Sijil</span>
-                            @endif
+                            {{-- certificate --}}
                         </td>
                         <td class="px-4 py-3">
                             {{-- selection guardian yang dah link dengan student id --}}

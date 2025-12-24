@@ -12,7 +12,7 @@ class Achievement extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'certificate', 'completion_date', 'student_id', 'recitation_module_id'];
+    protected $fillable = ['title', 'completion_date', 'student_id', 'recitation_module_id'];
     protected $primaryKey = 'achievement_id';
 
     // Relationships

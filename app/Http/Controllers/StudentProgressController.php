@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Achievement;
 use App\Models\RecitationModule;
 use App\Models\Schedule;
+use App\Models\SmsLog;
 use App\Models\StudentProgress;
 use Illuminate\Http\Request;
 
@@ -85,13 +86,22 @@ class StudentProgressController extends Controller
                 ->exists();
 
             if (!$exists) {
-                Achievement::create([
+                $achievement = Achievement::create([
                     'student_id' => $validated['student_id'],
                     'recitation_module_id' => $module->recitation_module_id,
                     'title' => 'Selesai ' . $module->recitation_name,
-                    'certificate' => null,
                     'completion_date' => $schedule ? $schedule->date : now(),
                 ]);
+
+                // create sms log
+                SmsLog::firstOrCreate(
+                    ['achievement_id' => $achievement->achievement_id],
+                    [
+                        'student_id' => $achievement->student_id,
+                        'message' => "Tahniah! {$achievement->student->first_name} telah {$achievement->title} 🎉",
+                        'status' => 'Pending',
+                    ]
+                );
             }
 
             // ✅ 2️⃣ Semak sama ada semua modul dalam level_type ni dah selesai
@@ -118,13 +128,22 @@ class StudentProgressController extends Controller
                         ->exists();
 
                     if (!$hasSeriesAchievement) {
-                        Achievement::create([
+                        $seriesAchievement = Achievement::create([
                             'student_id' => $validated['student_id'],
                             'recitation_module_id' => $seriesModule->recitation_module_id,
                             'title' => $seriesModule->recitation_name,
-                            'certificate' => null,
                             'completion_date' => $schedule ? $schedule->date : now(),
                         ]);
+
+                        // ✅ CREATE SMS LOG JUGA UNTUK SERIES ACHIEVEMENT
+                        SmsLog::firstOrCreate(
+                            ['achievement_id' => $seriesAchievement->achievement_id],
+                            [
+                                'student_id' => $seriesAchievement->student_id,
+                                'message' => "Tahniah! {$seriesAchievement->student->first_name} telah {$seriesAchievement->title} 🎉",
+                                'status' => 'Pending',
+                            ]
+                        );
                     }
                 }
             }
@@ -172,13 +191,22 @@ class StudentProgressController extends Controller
                         ->exists();
 
                     if (!$exists) {
-                        Achievement::create([
+                        $achievement = Achievement::create([
                             'student_id' => $progress->student_id,
                             'recitation_module_id' => $module->recitation_module_id,
                             'title' => 'Selesai ' . $module->recitation_name,
-                            'certificate' => null,
                             'completion_date' => $schedule ? $schedule->date : now(),
                         ]);
+
+                        // create sms log
+                        SmsLog::firstOrCreate(
+                            ['achievement_id' => $achievement->achievement_id],
+                            [
+                                'student_id' => $achievement->student_id,
+                                'message' => "Tahniah! {$achievement->student->first_name} telah {$achievement->title} 🎉",
+                                'status' => 'Pending',
+                            ]
+                        );
                     }
 
                     // === 2️⃣ Check if student finished all modules for this level type ===
@@ -209,13 +237,22 @@ class StudentProgressController extends Controller
                                 ->exists();
 
                             if (!$hasSeriesAchievement) {
-                                Achievement::create([
+                                $seriesAchievement = Achievement::create([
                                     'student_id' => $progress->student_id,
                                     'recitation_module_id' => $seriesModule->recitation_module_id,
                                     'title' => $seriesModule->recitation_name,
-                                    'certificate' => null,
                                     'completion_date' => $schedule ? $schedule->date : now(),
                                 ]);
+
+                                // ✅ CREATE SMS LOG JUGA UNTUK SERIES ACHIEVEMENT
+                                SmsLog::firstOrCreate(
+                                    ['achievement_id' => $seriesAchievement->achievement_id],
+                                    [
+                                        'student_id' => $seriesAchievement->student_id,
+                                        'message' => "Tahniah! {$seriesAchievement->student->first_name} telah {$seriesAchievement->title} 🎉",
+                                        'status' => 'Pending',
+                                    ]
+                                );
                             }
                         }
                     }
@@ -392,13 +429,22 @@ class StudentProgressController extends Controller
                 ->exists();
 
             if (!$exists) {
-                Achievement::create([
+                $achievement = Achievement::create([
                     'student_id' => $validated['student_id'],
                     'recitation_module_id' => $module->recitation_module_id,
                     'title' => 'Selesai ' . $module->recitation_name,
-                    'certificate' => null,
                     'completion_date' => $schedule ? $schedule->date : now(),
                 ]);
+
+                // create sms log
+                SmsLog::firstOrCreate(
+                    ['achievement_id' => $achievement->achievement_id],
+                    [
+                        'student_id' => $achievement->student_id,
+                        'message' => "Tahniah! {$achievement->student->first_name} telah {$achievement->title} 🎉",
+                        'status' => 'Pending',
+                    ]
+                );
             }
 
             // ✅ 2️⃣ Semak sama ada semua modul dalam level_type ni dah selesai
@@ -425,13 +471,22 @@ class StudentProgressController extends Controller
                         ->exists();
 
                     if (!$hasSeriesAchievement) {
-                        Achievement::create([
+                        $seriesAchievement = Achievement::create([
                             'student_id' => $validated['student_id'],
                             'recitation_module_id' => $seriesModule->recitation_module_id,
                             'title' => $seriesModule->recitation_name,
-                            'certificate' => null,
                             'completion_date' => $schedule ? $schedule->date : now(),
                         ]);
+
+                        // ✅ CREATE SMS LOG JUGA UNTUK SERIES ACHIEVEMENT
+                        SmsLog::firstOrCreate(
+                            ['achievement_id' => $seriesAchievement->achievement_id],
+                            [
+                                'student_id' => $seriesAchievement->student_id,
+                                'message' => "Tahniah! {$seriesAchievement->student->first_name} telah {$seriesAchievement->title} 🎉",
+                                'status' => 'Pending',
+                            ]
+                        );
                     }
                 }
             }
@@ -479,13 +534,22 @@ class StudentProgressController extends Controller
                         ->exists();
 
                     if (!$exists) {
-                        Achievement::create([
+                        $achievement = Achievement::create([
                             'student_id' => $progress->student_id,
                             'recitation_module_id' => $module->recitation_module_id,
                             'title' => 'Selesai ' . $module->recitation_name,
-                            'certificate' => null,
                             'completion_date' => $schedule ? $schedule->date : now(),
                         ]);
+
+                        // create sms log
+                        SmsLog::firstOrCreate(
+                            ['achievement_id' => $achievement->achievement_id],
+                            [
+                                'student_id' => $achievement->student_id,
+                                'message' => "Tahniah! {$achievement->student->first_name} telah {$achievement->title} 🎉",
+                                'status' => 'Pending',
+                            ]
+                        );
                     }
 
                     // === 2️⃣ Check if student finished all modules for this level type ===
@@ -516,13 +580,22 @@ class StudentProgressController extends Controller
                                 ->exists();
 
                             if (!$hasSeriesAchievement) {
-                                Achievement::create([
+                                $seriesAchievement = Achievement::create([
                                     'student_id' => $progress->student_id,
                                     'recitation_module_id' => $seriesModule->recitation_module_id,
                                     'title' => $seriesModule->recitation_name,
-                                    'certificate' => null,
                                     'completion_date' => $schedule ? $schedule->date : now(),
                                 ]);
+
+                                // ✅ CREATE SMS LOG JUGA UNTUK SERIES ACHIEVEMENT
+                                SmsLog::firstOrCreate(
+                                    ['achievement_id' => $seriesAchievement->achievement_id],
+                                    [
+                                        'student_id' => $seriesAchievement->student_id,
+                                        'message' => "Tahniah! {$seriesAchievement->student->first_name} telah {$seriesAchievement->title} 🎉",
+                                        'status' => 'Pending',
+                                    ]
+                                );
                             }
                         }
                     }

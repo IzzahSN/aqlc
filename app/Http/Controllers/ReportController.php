@@ -43,6 +43,16 @@ class ReportController extends Controller
             ->orderByDesc('date')
             ->get();
 
-        return view('tutor.report', compact('schedules'));
+        // select semua class yang di assign ->orderBy('day') ->orderBy('start_time')
+        $classes = ClassModel::where('tutor_id', $tutorId)
+            ->orWhereHas('schedules', function ($query) use ($tutorId) {
+                $query->where('relief', $tutorId);
+            })
+            ->with('tutor')
+            ->orderBy('day')
+            ->orderBy('start_time')
+            ->get();
+
+        return view('tutor.report', compact('schedules', 'classes', 'tutor'));
     }
 }
