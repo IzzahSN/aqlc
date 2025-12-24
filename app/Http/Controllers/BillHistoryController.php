@@ -296,7 +296,11 @@ class BillHistoryController extends Controller
             }
         }
 
-        return view('admin.payment.bills_report', compact('studentBillRecord', 'billHistories', 'id', 'attendanceDetails'));
+        $recordName = $studentBillRecord->student_bill_name;
+        $year = $studentBillRecord->student_bill_year;
+        $month = $studentBillRecord->student_bill_month;
+
+        return view('admin.payment.bills_report', compact('studentBillRecord', 'billHistories', 'id', 'attendanceDetails', 'recordName', 'year', 'month'));
     }
 
     public function updateStudentBill(Request $request, $id)
