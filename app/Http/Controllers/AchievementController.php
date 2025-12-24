@@ -84,6 +84,16 @@ class AchievementController extends Controller
         return view('admin.report.achievement', compact('achievements', 'smsLogs', 'totalFinishedIqra', 'totalFinishedQuran', 'totalStudents', 'achievementsIqra', 'achievementsQuran', 'labelsIqra', 'labelsQuran'));
     }
 
+    public function viewCertificate($achievement_id)
+    {
+        $achievement = Achievement::findOrFail($achievement_id);
+        $student = $achievement->student;
+
+
+        // return path admin.report.certificate with achievement data
+        return view('admin.report.certificate', compact('achievement', 'student'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

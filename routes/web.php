@@ -145,6 +145,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 
     // ACHIEVEMENT
     Route::get('/achievement', [AchievementController::class, 'index'])->name('achievement.index');
+    Route::get('/achievement/{achievement_id}/certificate', [AchievementController::class, 'viewCertificate'])->name('achievement.certificate');
 
     // MODULE
     Route::get('/module', [RecitationModuleController::class, 'index'])->name('module.index');

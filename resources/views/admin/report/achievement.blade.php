@@ -242,6 +242,11 @@
                         {{-- link to view pdf --}}
                         <td class="px-4 py-3">
                             {{-- certificate --}}
+                            <a href="{{ route('admin.achievement.certificate', $achievement->achievement_id) }}" 
+                               target="_blank" 
+                               class="text-blue-600 hover:underline">
+                                Lihat Sijil
+                            </a>
                         </td>
                         <td class="px-4 py-3">
                             {{-- selection guardian yang dah link dengan student id --}}
