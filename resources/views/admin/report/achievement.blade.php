@@ -169,6 +169,11 @@
                 <h2 class="text-lg font-semibold">Senarai Pencapaian Pelajar</h2>
                 <p class="text-sm text-gray-500">Urus pencapaian pelajar anda: cari, tapis dan kemaskini.</p>
             </div>
+            {{-- log sms button --}}
+            {{-- <button href="{{ route('admin.report.achievement.smsLog') }}"
+                class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-green-600 shadow-sm hover:bg-green-700 transition-colors duration-200 focus:ring-2 focus:ring-green-400 focus:ring-offset-1">
+                Log SMS
+            </button> --}}
         </div>
 
         <!-- Search + Filter -->
@@ -221,6 +226,9 @@
                         <th class="px-4 py-3">Pencapaian</th>
                         <th class="px-4 py-3">Tarikh Selesai</th>
                         <th class="px-4 py-3">Sijil</th>
+                        <th class="px-4 py-3">Penerima SMS</th>
+                        <th class="px-4 py-3">Status SMS</th>
+                        <th class="px-4 py-3">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody id="achievementBody">
