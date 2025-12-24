@@ -25,4 +25,9 @@ class Achievement extends Model
     {
         return $this->belongsTo(RecitationModule::class, 'recitation_module_id', 'recitation_module_id');
     }
+
+    public function smsLogs()
+    {
+        return $this->hasMany(SmsLog::class, 'achievement_id', 'achievement_id');
+    }
 }

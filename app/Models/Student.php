@@ -85,4 +85,9 @@ class Student extends Model
     {
         return $this->hasMany(Achievement::class, 'student_id', 'student_id');
     }
+
+    public function smsLogs()
+    {
+        return $this->hasMany(SmsLog::class, 'student_id', 'student_id');
+    }
 }

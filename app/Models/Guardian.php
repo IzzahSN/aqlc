@@ -48,4 +48,9 @@ class Guardian extends Model
             ->withPivot('relationship_type')
             ->withTimestamps();
     }
+
+    public function smsLogs()
+    {
+        return $this->hasMany(SmsLog::class, 'guardian_id', 'guardian_id');
+    }
 }
