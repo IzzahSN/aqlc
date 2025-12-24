@@ -111,15 +111,16 @@
                                     @if ($studentProgress->is_main_page === 1)
                                         @php
                                             // Get the student's latest progress before the current schedule date
-                                            $pastProgress = \App\Models\StudentProgress::where('student_id', $studentProgress->student_id)
-                                                ->whereHas('schedule', function($query) use ($currentSchedule) {
-                                                    $query->where('date', '<', $currentSchedule->date);
-                                                })
-                                                ->whereNotNull('recitation_module_id')
-                                                ->whereNotNull('page_number')
-                                                ->with('recitationModule')
-                                                ->orderBy('student_progress_id', 'desc')
-                                                ->first();
+                                            $pastProgress = \App\Models\StudentProgress::select('student_progress.*')
+                                            ->join('schedules', 'student_progress.schedule_id', '=', 'schedules.schedule_id')
+                                            ->where('student_progress.student_id', $studentProgress->student_id)
+                                            ->whereNotNull('student_progress.recitation_module_id')
+                                            ->whereNotNull('student_progress.page_number')
+                                            ->where('schedules.date', '<', $currentSchedule->date)
+                                            ->with('recitationModule')
+                                            ->orderByDesc('schedules.date')
+                                            ->orderByDesc('student_progress.student_progress_id')
+                                            ->first();
                                         @endphp
                                         
                                         @if ($pastProgress && $pastProgress->recitationModule)
