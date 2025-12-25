@@ -51,6 +51,34 @@
 
     <div class="bg-white p-6 rounded-lg shadow-md">
         <form id="packageEditForm" action="{{ route('admin.student.package.update', ['studentId' => $student->student_id,'id' => $joinPackage->package_id]) }}" method="POST">
+            {{-- maklumat student->first_name + last_name, tarik kemasukan --}}
+            <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+    
+                <div class="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+                    <div class="flex-shrink-0 p-2 bg-indigo-50 rounded-lg text-indigo-600 mr-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-1">Nama Pelajar</p>
+                        <p class="text-sm font-semibold text-gray-800 uppercase">{{ $student->first_name }} {{ $student->last_name }}</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+                    <div class="flex-shrink-0 p-2 bg-emerald-50 rounded-lg text-emerald-600 mr-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-1">Tarikh Kemasukan</p>
+                        <p class="text-sm font-semibold text-gray-800">{{ \Carbon\Carbon::parse($student->created_at)->format('d M Y') }}</p>
+                    </div>
+                </div>
+
+            </div>
             @csrf
             @method('PUT')
 
