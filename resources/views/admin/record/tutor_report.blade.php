@@ -16,12 +16,45 @@
 
     <!-- Tutor Report List -->
     <div class="bg-white p-6 rounded-xl shadow">
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-4">
-            <div>
-                <h2 class="text-lg font-semibold">Senarai Laporan</h2>
-                <p class="text-sm text-gray-500">Urus laporan anda: carian, penapis dan kemaskini.</p>
+        {{-- maklumat tutor, username, phone_number, email --}}
+        <div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+    
+            <div class="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+                <div class="flex-shrink-0 p-2 bg-purple-50 rounded-lg text-purple-600 mr-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-1">Nama Tutor</p>
+                    <p class="text-sm font-semibold text-gray-800">{{ $tutor->username }}</p>
+                </div>
             </div>
+
+            <div class="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+                <div class="flex-shrink-0 p-2 bg-blue-50 rounded-lg text-blue-600 mr-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-1">No. Telefon</p>
+                    <p class="text-sm font-semibold text-gray-800">{{ $tutor->phone_number }}</p>
+                </div>
+            </div>
+
+            <div class="flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+                <div class="flex-shrink-0 p-2 bg-orange-50 rounded-lg text-orange-600 mr-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-1">Emel</p>
+                    <p class="text-sm font-semibold text-gray-800 truncate">{{ $tutor->email }}</p>
+                </div>
+            </div>
+
         </div>
 
         <!-- Search and Filters -->
