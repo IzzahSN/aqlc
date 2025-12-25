@@ -102,12 +102,12 @@
                             <th class="px-4 py-3">Bil</th>
                             <th class="px-4 py-3">Tutor</th>
                             <th class="px-4 py-3">Jumlah</th>
+                            <th class="px-4 py-3 text-center">Maklumat Bank</th>
                             <th class="px-4 py-3">Jenis Pembayaran</th>
                             <th class="px-4 py-3">Bukti (Pilihan)</th>
                             <th class="px-4 py-3 text-center">Status</th>
                             <th class="px-4 py-3 text-center">Tarikh Bayaran</th>
                             <th class="px-4 py-3">Jumlah Jam Mengajar</th>
-                            <th class="px-4 py-3 text-center">Maklumat Bank</th>
                             <th class="px-4 py-3 text-center">Resit</th>
                         </tr>
                     </thead>
@@ -118,6 +118,10 @@
                             <td class="px-4 py-3 font-medium text-gray-900">{{ $billHistory->tutor->username }}</td>
                             {{-- show in 2 point --}}
                             <td class="px-4 py-3">RM{{ number_format($billHistory->bill_amount, 2) }}</td>
+                            <td class="px-4 py-3 text-center">
+                                {{-- display bank info --}}
+                                {{ $billHistory->tutor->bank_name }}<br>{{ $billHistory->tutor->acc_number }}
+                            </td>
                             <td class="px-4 py-3">
                                 @if ($billHistory->bill_status == 'Pending')
                                     -
@@ -163,10 +167,6 @@
                             <td class="px-4 py-3">
                                 {{-- display total hours --}}
                                 {{ $totalHours[$index] }} Jam
-                            </td>
-                            <td class="px-4 py-3 text-center">
-                                {{-- display bank info --}}
-                                {{ $billHistory->tutor->bank_name }}<br>{{ $billHistory->tutor->acc_number }}
                             </td>
                             <td class="px-4 py-3 text-center">
                                 @if ($billHistory->bill_status === 'Paid')
