@@ -67,18 +67,19 @@
                     <div class="overflow-hidden relative">
                         <div id="badgeCarousel" class="flex space-x-4" data-count="{{ $achievements->count() }}">
                             @foreach($achievements as $achievement)
-                            <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
+                            <a href="{{ route('admin.achievement.certificate', $achievement->achievement_id) }}"target="_blank"class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center hover:bg-gray-100 hover:shadow-lg transition">
                                 <img src="{{ asset('storage/' . ($achievement->recitationModule->badge ?? 'default.png')) }}"
                                     alt="{{ $achievement->title }}"
                                     class="w-full h-24 object-contain rounded mb-2 mx-auto">
                                 <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
                                 <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
-                            </div>
+                            </a>
                             @endforeach
 
                             {{-- Duplicate for infinite scrolling --}}
                             @if($achievements->count() > 3)
                                 @foreach($achievements as $achievement)
+                                <a href="{{ route('admin.achievement.certificate', $achievement->achievement_id) }}"target="_blank"class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center hover:bg-gray-100 hover:shadow-lg transition">
                                 <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
                                     <img src="{{ asset('storage/' . ($achievement->recitationModule->badge ?? 'default.png')) }}"
                                         alt="{{ $achievement->title }}"
