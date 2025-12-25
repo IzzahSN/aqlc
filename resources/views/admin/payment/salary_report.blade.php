@@ -107,6 +107,7 @@
                             <th class="px-4 py-3 text-center">Status</th>
                             <th class="px-4 py-3 text-center">Tarikh Bayaran</th>
                             <th class="px-4 py-3">Jumlah Jam Mengajar</th>
+                            <th class="px-4 py-3 text-center">Maklumat Bank</th>
                             <th class="px-4 py-3 text-center">Resit</th>
                         </tr>
                     </thead>
@@ -162,6 +163,10 @@
                             <td class="px-4 py-3">
                                 {{-- display total hours --}}
                                 {{ $totalHours[$index] }} Jam
+                            </td>
+                            <td class="px-4 py-3 text-center">
+                                {{-- display bank info --}}
+                                {{ $billHistory->tutor->bank_name }}<br>{{ $billHistory->tutor->acc_number }}
                             </td>
                             <td class="px-4 py-3 text-center">
                                 @if ($billHistory->bill_status === 'Paid')
