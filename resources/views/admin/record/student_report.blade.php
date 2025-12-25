@@ -86,7 +86,7 @@
                                         class="w-full h-24 object-contain rounded mb-2 mx-auto">
                                     <h4 class="text-sm font-medium text-gray-800">{{ $achievement->title }}</h4>
                                     <p class="text-xs text-gray-500">{{ $achievement->completion_date ? \Carbon\Carbon::parse($achievement->completion_date)->format('d F Y') : 'N/A' }}</p>
-                                </div>
+                                </a>
                                 @endforeach
                             @endif
                         </div>

@@ -240,6 +240,8 @@ Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group
     Route::get('/report/{id}', [StudentController::class, 'guardianViewReport'])->name('report.view');
     Route::get('/report/{id}/edit', [StudentController::class, 'guardianEditReport'])->name('report.edit');
     Route::put('/report/{id}', [StudentController::class, 'guardianUpdateReport'])->name('report.update');
+    // view certificate
+    Route::get('/report/achievement/{achievement_id}/certificate', [AchievementController::class, 'guardianViewCertificate'])->name('achievement.certificate');
     // bill
     Route::get('/student-bill', [BillHistoryController::class, 'guardianBillView'])->name('bill.index');
     Route::get('/student-bill/pay/{id}', [ToyyibPayController::class, 'createBill'])->name('bill.toyyibpay.create');

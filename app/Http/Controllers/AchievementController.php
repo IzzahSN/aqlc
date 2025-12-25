@@ -94,51 +94,11 @@ class AchievementController extends Controller
         return view('admin.report.certificate', compact('achievement', 'student'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function guardianViewCertificate($achievement_id)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Achievement $achievement)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Achievement $achievement)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Achievement $achievement)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Achievement $achievement)
-    {
-        //
+        $achievement = Achievement::findOrFail($achievement_id);
+        $student = $achievement->student;
+        // return path guardian.student.certificate with achievement data
+        return view('guardian.certificate', compact('achievement', 'student'));
     }
 }
