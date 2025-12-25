@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Achievement;
 use App\Models\Guardian;
+use App\Models\SmsLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -68,5 +69,12 @@ class SmsLogController extends Controller
 
             return back()->with('error', 'Gagal menghantar SMS.');
         }
+    }
+
+    public function index()
+    {
+        // shoow all sms logs
+        $smsLogs = SmsLog::with(['guardian', 'student'])->orderBy('created_at', 'desc')->get();
+        return view('admin.report.sms_log', compact('smsLogs'));
     }
 }

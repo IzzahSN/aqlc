@@ -170,10 +170,9 @@
                 <p class="text-sm text-gray-500">Urus pencapaian pelajar anda: cari, tapis dan kemaskini.</p>
             </div>
             {{-- log sms button --}}
-            {{-- <button href="{{ route('admin.report.achievement.smsLog') }}"
-                class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-green-600 shadow-sm hover:bg-green-700 transition-colors duration-200 focus:ring-2 focus:ring-green-400 focus:ring-offset-1">
-                Log SMS
-            </button> --}}
+            <a href="{{ route('admin.achievement.sms_logs') }}"
+                class="px-4 py-2 text-sm rounded-md font-semibold text-white bg-yellow-600 shadow-sm hover:bg-yellow-700 transition-colors duration-200 focus:ring-2 focus:ring-yellow-400 focus:ring-offset-1">
+                Log SMS</a>
         </div>
 
         <!-- Search + Filter -->

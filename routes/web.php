@@ -150,6 +150,7 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
 
     // SMS
     Route::post('/achievement/{id}/send-sms', [SmsLogController::class, 'sendSMS'])->name('achievement.sendSMS');
+    Route::get('/achievement/sms-logs', [SmsLogController::class, 'index'])->name('achievement.sms_logs');
 
     // MODULE
     Route::get('/module', [RecitationModuleController::class, 'index'])->name('module.index');
