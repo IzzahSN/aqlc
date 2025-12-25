@@ -16,6 +16,7 @@ use App\Http\Controllers\RecitationModuleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalaryRecordController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SmsLogController;
 use App\Http\Controllers\StudentBillRecordController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentGuardianController;
@@ -147,6 +148,9 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/achievement', [AchievementController::class, 'index'])->name('achievement.index');
     Route::get('/achievement/{achievement_id}/certificate', [AchievementController::class, 'viewCertificate'])->name('achievement.certificate');
 
+    // SMS
+    Route::post('/achievement/{id}/send-sms', [SmsLogController::class, 'sendSMS'])->name('achievement.sendSMS');
+
     // MODULE
     Route::get('/module', [RecitationModuleController::class, 'index'])->name('module.index');
     Route::post('/module', [RecitationModuleController::class, 'store'])->name('module.store');
@@ -175,9 +179,6 @@ Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function
     Route::get('/salary/{id}/report', [BillHistoryController::class, 'indexSalary'])->name('salary.report.index');
     Route::put('/salary/{id}/report', [BillHistoryController::class, 'updateSalary'])->name('salary.report.update');
     Route::get('/salary/{id}/receipt', [BillHistoryController::class, 'receiptSalary'])->name('salary.report.receipt');
-
-    // NOTIFICATOIN
-    Route::get('/notification', fn() => view('admin.notification.index'))->name('notification');
 
     // PROFILE
     Route::get('/profile', [ProfileController::class, 'showAdminProfile'])->name('profile');

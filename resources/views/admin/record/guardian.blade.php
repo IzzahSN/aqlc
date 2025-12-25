@@ -425,7 +425,7 @@
                         <div>
                             <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Jantina</label>
                             <select id="gender" name="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required>
-                                <option value="">Pili Jantina</option>
+                                <option value="">Pilih Jantina</option>
                                 <option value="male">Lelaki</option>
                                 <option value="female">Perempuan</option>
                             </select>

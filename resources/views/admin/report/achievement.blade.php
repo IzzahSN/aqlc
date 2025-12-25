@@ -232,56 +232,68 @@
                     </tr>
                 </thead>
                 <tbody id="achievementBody">
-                    @foreach ($achievements as $achievement)                        
-                    <tr class="border-b">
-                        <td class="px-4 py-3 row-index"></td>
-                        <td class="px-4 py-3 font-medium text-gray-900">{{ $achievement->student->first_name }} {{ $achievement->student->last_name }}</td>
-                        <td class="px-4 py-3">{{ $achievement->title }}</td>
-                        {{-- <td class="px-4 py-3">{{ $achievement->completion_date }}</td> --}}
-                        <td class="px-4 py-3">{{ \Carbon\Carbon::parse($achievement->completion_date)->format('d/m/Y') }}</td>
-                        {{-- link to view pdf --}}
-                        <td class="px-4 py-3">
-                            {{-- certificate --}}
-                            <a href="{{ route('admin.achievement.certificate', $achievement->achievement_id) }}" 
-                               target="_blank" 
-                               class="text-blue-600 hover:underline">
-                                Lihat Sijil
-                            </a>
-                        </td>
-                        <td class="px-4 py-3">
-                            {{-- selection guardian yang dah link dengan student id --}}
-                            {{ $achievement->student->guardian ? $achievement->student->guardian->first_name : 'Tiada' }}
-                        </td>
-                        <td class="px-4 py-3">
-                            @if ($achievement->smsLog)
-                                @if ($achievement->smsLog->sms_status === 'Sent')
-                                    <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Dihantar</span>
-                                @elseif ($achievement->smsLog->sms_status === 'Pending')
-                                    <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Sedang Proses</span>
-                                @else
-                                    <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Gagal</span>
+                    @foreach ($achievements as $achievement)          
+                    <form action="{{ route('admin.achievement.sendSMS', $achievement->achievement_id) }}" method="POST">
+                    @csrf              
+                        <tr class="border-b">
+                            <td class="px-4 py-3 row-index"></td>
+                            <td class="px-4 py-3 font-medium text-gray-900">{{ $achievement->student->first_name }} {{ $achievement->student->last_name }}</td>
+                            <td class="px-4 py-3">{{ $achievement->title }}</td>
+                            {{-- <td class="px-4 py-3">{{ $achievement->completion_date }}</td> --}}
+                            <td class="px-4 py-3">{{ \Carbon\Carbon::parse($achievement->completion_date)->format('d/m/Y') }}</td>
+                            {{-- link to view pdf --}}
+                            <td class="px-4 py-3">
+                                {{-- certificate --}}
+                                <a href="{{ route('admin.achievement.certificate', $achievement->achievement_id) }}" 
+                                target="_blank" 
+                                class="text-blue-600 hover:underline">
+                                    Lihat Sijil
+                                </a>
+                            </td>
+                             <td class="px-4 py-3">
+                                <select name="guardian_id"
+                                    class="w-full p-2.5 text-sm text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-green-500/20 focus:border-green-600"
+                                    {{ $achievement->smsLog?->sms_status === 'Sent' ? 'disabled' : '' }}
+                                    required>
+                                    <option value="">Pilih Penerima SMS</option>
+
+                                    @foreach ($achievement->student->guardians as $guardian)
+                                        <option value="{{ $guardian->guardian_id }}"
+                                            {{ $achievement->smsLog?->guardian_id == $guardian->guardian_id ? 'selected' : '' }}>
+                                            {{ $guardian->first_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td class="px-4 py-3">
+                                @if ($achievement->smsLog)
+                                    @if ($achievement->smsLog->sms_status === 'Sent')
+                                        <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Dihantar</span>
+                                    @elseif ($achievement->smsLog->sms_status === 'Pending')
+                                        <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Sedang Proses</span>
+                                    @else
+                                        <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Gagal</span>
+                                    @endif
                                 @endif
-                            @endif
-                        </td>
-                        {{-- tindakan buat button, kalau status sent disable kan button, kalau pending ade button send sms, kalau failed, resend sms --}}
-                        <td class="px-4 py-3">
-                            @if ($achievement->smsLog)
-                                @if ($achievement->smsLog->sms_status === 'Sent')
-                                    <button disabled class="px-3 py-1 text-xs font-medium text-white bg-gray-400 rounded-md cursor-not-allowed">SMS Dihantar</button>
-                                @elseif ($achievement->smsLog->sms_status === 'Pending')
-                                    <form action="" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit" class="px-3 py-1 text-xs font-medium rounded bg-green-500 text-white hover:bg-green-600">Hantar SMS</button>
-                                    </form>
-                                @else
-                                    <form action="" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit" class="px-3 py-1 text-xs font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors duration-200">Hantar Semula SMS</button>
-                                    </form>
+                            </td>
+                            {{-- Action --}}
+                            <td class="px-4 py-3">
+                                @if ($achievement->smsLog)
+                                    @if ($achievement->smsLog->sms_status === 'Sent')
+                                        <button disabled
+                                            class="px-3 py-1 text-xs bg-gray-400 text-white rounded cursor-not-allowed">
+                                            SMS Dihantar
+                                        </button>
+                                    @else
+                                        <button type="submit"
+                                            class="px-3 py-1 text-xs bg-green-600 text-white rounded hover:bg-green-700">
+                                            {{ $achievement->smsLog->sms_status === 'Failed' ? 'Hantar Semula SMS' : 'Hantar SMS' }}
+                                        </button>
+                                    @endif
                                 @endif
-                            @endif
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </form>
                     @endforeach
                 </tbody>
             </table>
