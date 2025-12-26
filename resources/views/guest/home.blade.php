@@ -37,8 +37,8 @@
     </section>
 
     <!-- Statistics Section -->
-    <section class="relative max-w-7xl mx-auto bg-gray-50 px-4 sm:px-6 md:px-20">
-        <div class="p-6 sm:p-8 bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 rounded-2xl shadow-lg motion-preset-pop motion-duration-1000">
+    <section class="relative bg-gray-50 px-4 sm:px-6 md:px-20">
+        <div class="max-w-7xl mx-auto p-6 sm:p-8 bg-gradient-to-bl from-emerald-700 via-emerald-800 to-emerald-900 rounded-2xl shadow-lg motion-preset-pop motion-duration-1000">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 text-center">
             
             <div class="flex flex-col items-center">
