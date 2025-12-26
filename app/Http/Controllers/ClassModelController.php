@@ -55,7 +55,9 @@ class ClassModelController extends Controller
     public function report($id)
     {
         $class = ClassModel::with(['tutor', 'package', 'schedules.attendances.student.latestProgress'])->findOrFail($id);
-        $schedules = $class->schedules()->withCount('attendances')->get();
+        // $schedules = $class->schedules()->withCount('attendances')->get();
+        // also sort schedule by date descending
+        $schedules = $class->schedules()->withCount('attendances')->orderBy('date', 'desc')->get();
         return view('admin.class.class_report', compact('class', 'schedules'));
     }
 
