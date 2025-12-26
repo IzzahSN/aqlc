@@ -267,9 +267,9 @@
                             <td class="px-4 py-3">
                                 @if ($achievement->smsLog)
                                     @if ($achievement->smsLog->sms_status === 'Sent')
-                                        <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Dihantar</span>
+                                        <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Telah Dihantar</span>
                                     @elseif ($achievement->smsLog->sms_status === 'Pending')
-                                        <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Sedang Proses</span>
+                                        <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Belum Dihantar</span>
                                     @else
                                         <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Gagal</span>
                                     @endif

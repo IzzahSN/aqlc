@@ -42,8 +42,8 @@
                     <select id="filterStatus" 
                             class="appearance-none cursor-pointer w-full p-2.5 pl-10 pr-8 text-sm text-gray-700 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-600 outline-none shadow-sm transition-all">
                         <option value="">Status</option>
-                        <option value="Dihantar">Dihantar</option>
-                        <option value="Sedang Proses">Sedang Proses</option>
+                        <option value="Telah Dihantar">Telah Dihantar</option>
+                        <option value="Belum Dihantar">Belum Dihantar</option>
                         <option value="Gagal">Gagal</option>
                     </select>
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -81,11 +81,11 @@
                         {{-- Sent -> Dihantar, Failed->Gagal, Pending->Sedang Diproses --}}
                         <td class="px-4 py-3 font-medium text-gray-900">
                             @if ($smsLog->sms_status === 'Sent')
-                                <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Dihantar</span>
+                                <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Telah Dihantar</span>
                             @elseif ($smsLog->sms_status === 'Failed')
                                 <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Gagal</span>
                             @elseif ($smsLog->sms_status === 'Pending')
-                                <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Sedang Proses</span>
+                                <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Belum Dihantar</span>
                             @else
                                 {{ $smsLog->sms_status }}
                             @endif
