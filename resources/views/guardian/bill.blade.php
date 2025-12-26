@@ -120,7 +120,7 @@
             const entriesInfo = document.getElementById("entriesInfo");
 
             let currentPage = 1;
-            const rowsPerPage = 5;
+            const rowsPerPage = 10;
 
             function renderTable() {
                 const searchValue = searchInput.value.toLowerCase();
