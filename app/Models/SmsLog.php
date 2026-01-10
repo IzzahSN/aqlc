@@ -18,6 +18,7 @@ class SmsLog extends Model
         'phone_number',
         'message',
         'sms_status',
+        'status_app',
         'sent_at',
     ];
 

@@ -6,16 +6,117 @@
         </div>
 
         <div class="flex items-center gap-3 sm:gap-4">
-            
-            <button class="relative p-2 rounded-full text-gray-500 hover:bg-gray-100 hover:text-green-600 transition-all duration-200 focus:outline-none group">
-                <span class="absolute top-2 right-2.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white transform scale-100 group-hover:scale-110 transition-transform"></span>
-                
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C8.67 6.165 8 7.388 8 8.75V14.158c0 .538-.214 1.055-.595 1.437L6 17h5m4 0v1a2 2 0 11-4 0v-1m4 0H9" />
-                </svg>
-            </button>
 
+            <div class="relative inline-block text-left">
+                <button id="notiBtn"
+                    class="relative p-2 rounded-full text-gray-500 hover:bg-gray-100 hover:text-green-600 transition-all duration-200 focus:outline-none group">
+
+                    @if($unreadCount > 0)
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center ring-2 ring-white">
+                            {{ $unreadCount }}
+                        </span>
+                    @endif
+
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C8.67 6.165 8 7.388 8 8.75V14.158c0 .538-.214 1.055-.595 1.437L6 17h5m4 0v1a2 2 0 11-4 0v-1m4 0H9"/>
+                    </svg>
+                </button>
+
+                <div id="notiDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50">
+                    <div class="p-4 border-b border-gray-50">
+                        <h3 class="text-lg font-bold text-gray-800">Notifikasi</h3>
+                            <div class="flex gap-2 mt-3">
+                                <button id="filterAll" class="px-3 py-1 text-xs font-medium rounded-full filter-btn text-gray-500 hover:bg-gray-100 active">Semua</button>
+                                <button id="filterUnread" class="px-3 py-1 text-xs font-medium rounded-full filter-btn text-gray-500 hover:bg-gray-100">Belum Baca</button>
+                                <button id="filterRead" class="px-3 py-1 text-xs font-medium rounded-full filter-btn text-gray-500 hover:bg-gray-100">Sudah Baca</button>
+                            </div>
+                    </div>
+                    <style>
+                        .filter-btn.active {
+                            background-color: #d1fae5; /* hijau muda */
+                            color: #059669; /* teks hijau */
+                        }
+                    </style>
+
+                    <div class="max-h-[350px] overflow-y-auto">
+                    @forelse($notifications as $noti)
+                            <a href="{{ route('guardian.notification.open', $noti->sms_id) }}"
+                                class="notification-row block p-4 border-b border-gray-50 hover:bg-gray-50 transition-colors
+                                {{ $noti->status_app === 'unread' ? 'bg-blue-50/30 unread' : 'read' }}">
+                                <div class="flex items-start gap-3">
+                                    <div class="mt-1 h-2 w-2 rounded-full
+                                        {{ $noti->status_app === 'unread' ? 'bg-blue-500' : 'bg-transparent' }}">
+                                    </div>
+                                    <div>
+                                        <p class="text-sm {{ $noti->status_app === 'unread' ? 'text-gray-800 font-semibold' : 'text-gray-600' }}">
+                                            {{ $noti->message }}
+                                        </p>
+                                        <p class="text-[11px] text-gray-400 mt-1">
+                                            {{ $noti->created_at->diffForHumans() }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        @empty
+                            <div class="p-4 text-sm text-gray-500 text-center">
+                                Tiada notifikasi
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                const filterAll = document.getElementById('filterAll');
+                const filterUnread = document.getElementById('filterUnread');
+                const filterRead = document.getElementById('filterRead');
+                const notificationRows = document.querySelectorAll('.notification-row');
+                const filterButtons = document.querySelectorAll('.filter-btn');
+
+                // function set active button
+                function setActiveButton(activeBtn) {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    activeBtn.classList.add('active');
+                }
+
+                // klik semua
+                filterAll.addEventListener('click', (e) => {
+                    e.stopPropagation(); // penting supaya dropdown tak tutup
+                    notificationRows.forEach(row => row.style.display = 'block');
+                    setActiveButton(filterAll);
+                });
+
+                // klik belum baca
+                filterUnread.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    notificationRows.forEach(row => {
+                        row.style.display = row.classList.contains('unread') ? 'block' : 'none';
+                    });
+                    setActiveButton(filterUnread);
+                });
+
+                // klik sudah baca
+                filterRead.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    notificationRows.forEach(row => {
+                        row.style.display = row.classList.contains('read') ? 'block' : 'none';
+                    });
+                    setActiveButton(filterRead);
+                });
+
+                // toggle dropdown
+                document.getElementById('notiBtn').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.getElementById('notiDropdown').classList.toggle('hidden');
+                });
+
+                // klik luar dropdown untuk tutup
+                document.addEventListener('click', function() {
+                    document.getElementById('notiDropdown').classList.add('hidden');
+                });
+            </script>
+            
             <div class="h-6 w-px bg-gray-200 hidden sm:block"></div>
 
             <div class="relative">

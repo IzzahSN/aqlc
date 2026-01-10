@@ -10,6 +10,7 @@ use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JoinPackageController;
 use App\Http\Controllers\LessonPlanController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecitationModuleController;
@@ -236,6 +237,9 @@ Route::prefix('guardian')->name('guardian.')->middleware('role:guardian')->group
     // Dashboard
     Route::get('/', [DashboardController::class, 'guardianDashboard'])->name('dashboard');
     Route::post('/children', [StudentGuardianController::class, 'guardianAddChild'])->name('dashboard.addChild');
+    // notifications
+    Route::get('/notification/open/{id}', [NotificationController::class, 'open'])->name('notification.open');
+    Route::get('/notifications', [SmsLogController::class, 'guardianNotifications'])->name('notifications');
 
     // report
     Route::get('/report', [StudentController::class, 'guardianReport'])->name('report.index');

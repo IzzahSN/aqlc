@@ -102,6 +102,7 @@ class StudentProgressController extends Controller
                         'student_id' => $achievement->student_id,
                         'message' => "Tahniah! {$achievement->student->first_name} telah {$achievement->title} 🎉",
                         'status' => 'Pending',
+                        'status_app' => 'unread',
                     ]
                 );
             }
@@ -144,6 +145,7 @@ class StudentProgressController extends Controller
                                 'student_id' => $seriesAchievement->student_id,
                                 'message' => "Tahniah! {$seriesAchievement->student->first_name} telah {$seriesAchievement->title} 🎉",
                                 'status' => 'Pending',
+                                'status_app' => 'unread',
                             ]
                         );
                     }
@@ -207,6 +209,7 @@ class StudentProgressController extends Controller
                                 'student_id' => $achievement->student_id,
                                 'message' => "Tahniah! {$achievement->student->first_name} telah {$achievement->title} 🎉",
                                 'status' => 'Pending',
+                                'status_app' => 'unread',
                             ]
                         );
                     }
@@ -253,6 +256,7 @@ class StudentProgressController extends Controller
                                         'student_id' => $seriesAchievement->student_id,
                                         'message' => "Tahniah! {$seriesAchievement->student->first_name} telah {$seriesAchievement->title} 🎉",
                                         'status' => 'Pending',
+                                        'status_app' => 'unread',
                                     ]
                                 );
                             }
@@ -447,6 +451,7 @@ class StudentProgressController extends Controller
                         'student_id' => $achievement->student_id,
                         'message' => "Tahniah! {$achievement->student->first_name} telah {$achievement->title} 🎉",
                         'status' => 'Pending',
+                        'status_app' => 'unread',
                     ]
                 );
             }
@@ -489,6 +494,7 @@ class StudentProgressController extends Controller
                                 'student_id' => $seriesAchievement->student_id,
                                 'message' => "Tahniah! {$seriesAchievement->student->first_name} telah {$seriesAchievement->title} 🎉",
                                 'status' => 'Pending',
+                                'status_app' => 'unread',
                             ]
                         );
                     }
@@ -552,6 +558,7 @@ class StudentProgressController extends Controller
                                 'student_id' => $achievement->student_id,
                                 'message' => "Tahniah! {$achievement->student->first_name} telah {$achievement->title} 🎉",
                                 'status' => 'Pending',
+                                'status_app' => 'unread',
                             ]
                         );
                     }
@@ -598,6 +605,7 @@ class StudentProgressController extends Controller
                                         'student_id' => $seriesAchievement->student_id,
                                         'message' => "Tahniah! {$seriesAchievement->student->first_name} telah {$seriesAchievement->title} 🎉",
                                         'status' => 'Pending',
+                                        'status_app' => 'unread',
                                     ]
                                 );
                             }

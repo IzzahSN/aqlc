@@ -31,6 +31,7 @@ class AchievementController extends Controller
                     'student_id'     => $achievement->student_id,
                     'message'        => "Tahniah! {$studentName} telah {$achievementTitle} 🎉",
                     'sms_status'     => 'Pending', // pending | sent | failed
+                    'status_app'     => 'unread',
                 ]);
             }
         }
