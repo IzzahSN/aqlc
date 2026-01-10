@@ -306,7 +306,7 @@
 
                 renderTable();
             </script>
-            </div>
+        </div>
 
             <!-- Children Summary Section -->
             <div class="bg-white p-4 rounded-xl shadow flex flex-col lg:col-span-1">
@@ -381,6 +381,25 @@
                     @endforelse
                 </div>
             </div>
-        </div>
+    </div>
+
+    @if(session('show_unpaid_alert'))
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Peringatan Yuran Tertunggak',
+            text: 'Anda mempunyai bil atau yuran pelajar yang masih tertunggak. Sila ke menu Yuran Pengajian untuk membuat pembayaran.',
+            confirmButtonText: 'Ke Yuran Pengajian',
+            showCancelButton: true,
+            cancelButtonText: 'Tutup'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('guardian.bill.index') }}";
+            }
+        });
+    });
+    </script>
+    @endif
 
 </x-guardian-layout>

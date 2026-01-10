@@ -38,6 +38,14 @@ class DashboardController extends Controller
             ->sum('bill_amount');
         session(['unpaid_bills' => $unpaidBills]);
 
+        $hasUnpaidBills = $unpaidBills > 0;
+
+        // popup hanya muncul sekali setiap login
+        if ($hasUnpaidBills && !session()->has('unpaid_alert_shown')) {
+            session()->flash('show_unpaid_alert', true);
+            session()->put('unpaid_alert_shown', true);
+        }
+
         // Get all student IDs associated with this guardian
         $studentIds = $guardian->students()->pluck('students.student_id');
 
@@ -97,7 +105,7 @@ class DashboardController extends Controller
             ->get();
         session(['students' => $students]);
 
-        return view('dashboard.guardian', compact('guardian', 'childrenCount', 'paidBills', 'unpaidBills', 'scheduleData', 'students'));
+        return view('dashboard.guardian', compact('guardian', 'childrenCount', 'paidBills', 'unpaidBills', 'scheduleData', 'students', 'hasUnpaidBills'));
     }
 
     public function tutorDashboard()
