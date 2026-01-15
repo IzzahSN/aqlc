@@ -130,7 +130,9 @@ class StudentController extends Controller
                     ->whereColumn('schedules.schedule_id', 'student_progress.schedule_id')
                     ->limit(1)
             )
+            ->orderByDesc('student_progress.schedule_id')
             ->get();
+
         // get all student achievements
         $achievements = $student->achievements()->with('recitationModule')->get();
         return view('admin.record.student_report', compact('student', 'progressRecords', 'achievements'));
@@ -166,6 +168,7 @@ class StudentController extends Controller
                     ->whereColumn('schedules.schedule_id', 'student_progress.schedule_id')
                     ->limit(1)
             )
+            ->orderByDesc('student_progress.schedule_id')
             ->get();
         $achievements = $student->achievements()->with('recitationModule')->get();
 
