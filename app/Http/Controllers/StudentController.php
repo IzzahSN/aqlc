@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClassModel;
 use App\Models\Guardian;
 use App\Models\Package;
+use App\Models\Schedule;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -122,7 +123,14 @@ class StudentController extends Controller
     {
         $student = Student::with(['guardians', 'packages', 'classes'])->findOrFail($id);
         // get student progress records sort by latest date from schedule table
-        $progressRecords = $student->studentProgresses()->with(['schedule.tutor', 'schedule.class', 'recitationModule'])->orderByDesc('schedule.date')->get();
+        $progressRecords = $student->studentProgresses()
+            ->with(['schedule.tutor', 'schedule.class', 'recitationModule'])
+            ->orderByDesc(
+                Schedule::select('date')
+                    ->whereColumn('schedules.schedule_id', 'student_progress.schedule_id')
+                    ->limit(1)
+            )
+            ->get();
         // get all student achievements
         $achievements = $student->achievements()->with('recitationModule')->get();
         return view('admin.record.student_report', compact('student', 'progressRecords', 'achievements'));
@@ -151,7 +159,14 @@ class StudentController extends Controller
             ->with(['guardians', 'packages', 'classes'])
             ->firstOrFail();
 
-        $progressRecords = $student->studentProgresses()->with(['schedule.tutor', 'schedule.class', 'recitationModule'])->orderByDesc('schedule.date')->get();
+        $progressRecords = $student->studentProgresses()
+            ->with(['schedule.tutor', 'schedule.class', 'recitationModule'])
+            ->orderByDesc(
+                Schedule::select('date')
+                    ->whereColumn('schedules.schedule_id', 'student_progress.schedule_id')
+                    ->limit(1)
+            )
+            ->get();
         $achievements = $student->achievements()->with('recitationModule')->get();
 
         return view('guardian.student_report', compact('student', 'progressRecords', 'achievements'));
