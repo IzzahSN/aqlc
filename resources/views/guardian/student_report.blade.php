@@ -241,7 +241,7 @@
                                     <td class="px-4 py-2">{{ $progress->grade ?? 'N/A' }}</td>
                                     <td class="px-4 py-2">{{ $progress->schedule->class->class_name}}</td>
                                     <td class="px-4 py-2">{{ $progress->schedule->tutor->username}}</td>
-                                    <td class="px-4 py-2">{{ $progress->created_at ? \Carbon\Carbon::parse($progress->created_at)->format('d/m/Y') : 'N/A' }}</td>
+                                    <td class="px-4 py-2">{{ $progress->schedule->date ? \Carbon\Carbon::parse($progress->schedule->date)->format('d/m/Y') : 'N/A' }}</td>
                                     <td class="px-4 py-2">
                                         {{ $progress->remarks ?? '-' }}
                                     </td>

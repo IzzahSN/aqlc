@@ -80,7 +80,6 @@
                             @if($achievements->count() > 3)
                                 @foreach($achievements as $achievement)
                                 <a href="{{ route('admin.achievement.certificate', $achievement->achievement_id) }}"target="_blank"class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center hover:bg-gray-100 hover:shadow-lg transition">
-                                <div class="flex-shrink-0 w-48 bg-gray-50 rounded-lg p-4 shadow-md text-center">
                                     <img src="{{ asset('storage/' . ($achievement->recitationModule->badge ?? 'default.png')) }}"
                                         alt="{{ $achievement->title }}"
                                         class="w-full h-24 object-contain rounded mb-2 mx-auto">
@@ -90,7 +89,7 @@
                                 @endforeach
                             @endif
                         </div>
-                        </div>
+                    </div>
                 @else
                     <p class="text-gray-500">Tiada lencana diperoleh lagi.</p>
                 @endif
@@ -223,7 +222,7 @@
                                     <td class="px-4 py-2">{{ $progress->grade ?? 'N/A' }}</td>
                                     <td class="px-4 py-2">{{ $progress->schedule->class->class_name}}</td>
                                     <td class="px-4 py-2">{{ $progress->schedule->tutor->username}}</td>
-                                    <td class="px-4 py-2">{{ $progress->created_at ? \Carbon\Carbon::parse($progress->created_at)->format('d/m/Y') : 'N/A' }}</td>
+                                    <td class="px-4 py-2">{{ $progress->schedule->date ? \Carbon\Carbon::parse($progress->schedule->date)->format('d/m/Y') : 'N/A' }}</td>
                                     <td class="px-4 py-2">
                                         {{ $progress->remarks ?? '-' }}
                                     </td>

@@ -69,6 +69,7 @@ class Student extends Model
     public function latestProgress()
     {
         return $this->hasOne(StudentProgress::class, 'student_id', 'student_id')
+            ->whereNotNull('recitation_module_id')
             ->latestOfMany('student_progress_id');
     }
 

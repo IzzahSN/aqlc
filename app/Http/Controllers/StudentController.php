@@ -122,7 +122,7 @@ class StudentController extends Controller
     {
         $student = Student::with(['guardians', 'packages', 'classes'])->findOrFail($id);
         // get student progress records sort by latest date from schedule table
-        $progressRecords = $student->studentProgresses()->with(['schedule.tutor', 'schedule.class', 'recitationModule'])->orderByDesc('created_at')->get();
+        $progressRecords = $student->studentProgresses()->with(['schedule.tutor', 'schedule.class', 'recitationModule'])->orderByDesc('schedule_id')->get();
         // get all student achievements
         $achievements = $student->achievements()->with('recitationModule')->get();
         return view('admin.record.student_report', compact('student', 'progressRecords', 'achievements'));
