@@ -130,7 +130,7 @@ class StudentController extends Controller
                     ->whereColumn('schedules.schedule_id', 'student_progress.schedule_id')
                     ->limit(1)
             )
-            ->orderByDesc('student_progress.schedule_id')
+            ->orderByDesc('student_progress_id')
             ->get();
 
         // get all student achievements
@@ -168,7 +168,7 @@ class StudentController extends Controller
                     ->whereColumn('schedules.schedule_id', 'student_progress.schedule_id')
                     ->limit(1)
             )
-            ->orderByDesc('student_progress.schedule_id')
+            ->orderByDesc('student_progress_id')
             ->get();
         $achievements = $student->achievements()->with('recitationModule')->get();
 
