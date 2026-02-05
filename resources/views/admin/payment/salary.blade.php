@@ -82,7 +82,7 @@
             const response = await fetch(`{{ route('admin.salary.report') }}?year=${year}`);
             const result = await response.json();
 
-            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
             const data = {
                 labels: labels,
@@ -99,6 +99,7 @@
             if (salaryChart) {
                 salaryChart.destroy();
             }
+
             salaryChart = new Chart(ctx, {
                 type: 'line',
                 data: data,
@@ -127,9 +128,11 @@
             });
         }
 
-        // Auto-load current year
-        loadSalaryChart(new Date().getFullYear());
-        document.getElementById('yearFilter').addEventListener('change', function() {
+        // ✅ Load based on dropdown value (DB year)
+        const yearSelect = document.getElementById('yearFilter');
+        loadSalaryChart(yearSelect.value);
+
+        yearSelect.addEventListener('change', function () {
             loadSalaryChart(this.value);
         });
     </script>
