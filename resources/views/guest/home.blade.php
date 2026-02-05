@@ -102,13 +102,13 @@
                 <div class="lg:col-span-7">
                     <div class="grid grid-cols-12 gap-2 sm:gap-4 md:gap-6 items-center">
                         <div class="col-span-4 intersect:motion-preset-pop motion-duration-1000">
-                            <img class="rounded-2xl shadow-lg w-full h-auto" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=920&q=80" alt="Teaching">
+                            <img class="rounded-2xl shadow-lg w-full h-auto" src="https://images.unsplash.com/photo-1671609888498-c22bf328037b?q=80&w=1073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Teaching">
                         </div>
                         <div class="col-span-3 intersect:motion-preset-pop motion-duration-1000 motion-delay-200">
-                            <img class="rounded-2xl shadow-lg w-full h-auto" src="https://images.unsplash.com/photo-1605629921711-2f6b00c6bbf4?ixlib=rb-4.0.3&auto=format&fit=crop&w=920&q=80" alt="Learning">
+                            <img class="rounded-2xl shadow-lg w-full h-auto" src="https://images.unsplash.com/photo-1623458696277-a6f4bcd06c2f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGlzbGFtaWMlMjBsZWFybmluZ3xlbnwwfHwwfHx8MA%3D%3D" alt="Learning">
                         </div>
                         <div class="col-span-5 intersect:motion-preset-pop motion-duration-1000 motion-delay-400">
-                            <img class="rounded-2xl shadow-lg w-full h-auto" src="https://images.unsplash.com/photo-1600194992440-50b26e0a0309?ixlib=rb-4.0.3&auto=format&fit=crop&w=920&q=80" alt="Environment">
+                            <img class="rounded-2xl shadow-lg w-full h-auto" src="https://images.unsplash.com/photo-1573483883644-d0b4b55eb25d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Environment">
                         </div>
                     </div>
                 </div>
