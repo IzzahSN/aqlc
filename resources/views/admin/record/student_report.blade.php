@@ -46,11 +46,19 @@
             <!-- Guardian -->
             <div class="pt-4 border-t border-green-700">
                 <h4 class="text-yellow-300 font-medium mb-2">Maklumat Penjaga</h4>
-                @if($student->guardians->isNotEmpty())
+                {{-- @if($student->guardians->isNotEmpty())
                     @php $guardian = $student->guardians->first(); @endphp
                     <p class="flex items-center text-sm gap-2"><i class="fas fa-user-shield"></i> {{ $guardian->first_name }} {{ $guardian->last_name }}</p>
                     <p class="flex items-center text-sm gap-2"><i class="fas fa-phone"></i> {{ $guardian->phone_number ?? 'N/A' }}</p>
-                    <p class="flex items-center text-sm gap-2"><i class="fas fa-envelope"></i> {{ $guardian->pivot->relationship_type ?? 'N/A' }}</p>
+                    <p class="flex items-center text-sm gap-2"><i class="fas fa-envelope"></i> {{ $guardian->pivot->relationship_type ?? 'N/A' }}</p> --}}
+                @if($student->guardians->isNotEmpty())
+                    @foreach($student->guardians as $guardian)
+                        <div class="mb-3 p-3 bg-green-800/30 rounded-lg">
+                            <p class="flex items-center text-sm gap-2"><i class="fas fa-user-shield"></i>{{ $guardian->first_name }} {{ $guardian->last_name }}</p>
+                            <p class="flex items-center text-sm gap-2"><i class="fas fa-phone"></i>{{ $guardian->phone_number ?? 'N/A' }}</p>
+                            <p class="flex items-center text-sm gap-2"><i class="fas fa-envelope"></i>{{ $guardian->pivot->relationship_type  ?? 'N/A' }}</p>
+                        </div>
+                    @endforeach
                 @else
                     <p class="text-sm">Penjaga belum ditetapkan.</p>
                 @endif
