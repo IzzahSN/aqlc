@@ -80,7 +80,7 @@
             const response = await fetch(`{{ route('admin.bill.report') }}?year=${year}`);
             const result = await response.json();
 
-            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
             const data = {
                 labels: labels,
@@ -97,39 +97,26 @@
             if (salaryChart) {
                 salaryChart.destroy();
             }
+
             salaryChart = new Chart(ctx, {
                 type: 'line',
                 data: data,
                 options: {
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            min: 0,
-                            grid: { color: '#e5e7eb' }
-                        },
-                        x: {
-                            grid: { color: '#f3f4f6' }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: true },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return 'RM ' + context.parsed.y.toFixed(2);
-                                }
-                            }
-                        }
+                        y: { beginAtZero: true, min: 0 },
                     }
                 }
             });
         }
 
-        // Auto-load current year
-        loadSalaryChart(new Date().getFullYear());
-        document.getElementById('yearFilter').addEventListener('change', function() {
+        // ✅ Load based on dropdown first value (DB year)
+        const yearSelect = document.getElementById('yearFilter');
+        loadSalaryChart(yearSelect.value);
+
+        yearSelect.addEventListener('change', function () {
             loadSalaryChart(this.value);
         });
+
     </script>
 
     <!-- Bills List -->
