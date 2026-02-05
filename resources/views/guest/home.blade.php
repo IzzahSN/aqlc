@@ -59,9 +59,9 @@
 
             <div class="flex flex-col items-center">
                 <div class="flex justify-center items-center -space-x-4 sm:-space-x-6">
-                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg" src="https://images.unsplash.com/photo-1601935111741-ae98b2b230b0?auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
-                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg -mt-3 md:-mt-4" src="https://images.unsplash.com/photo-1570654639102-bdd95efeca7a?auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Avatar">
-                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg" src="https://images.unsplash.com/photo-1679412330254-90cb240038c5?auto=format&fit=facearea&facepad=2.5&w=320&h=320&q=80" alt="Avatar">
+                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg" src="https://images.unsplash.com/photo-1651685077323-4ea8b122aa8d?q=80&w=770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Avatar">
+                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg -mt-3 md:-mt-4" src="https://images.unsplash.com/photo-1758782213616-7b4cd41eff29?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Avatar">
+                <img class="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-emerald-900 shadow-lg" src="https://images.unsplash.com/photo-1708176767457-24a5557d1b09?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Avatar">
                 </div>
                 <div class="mt-3">
                 <h3 class="text-2xl md:text-3xl font-bold text-white">50+</h3>
